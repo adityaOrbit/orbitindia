@@ -10,31 +10,11 @@ import { cn, withBasePath } from "@/lib/utils";
 import { trackContactClick } from "@/lib/analytics";
 
 const aboutLinks = [
-  {
-    href: "/about-us/",
-    label: "About Orbit Overview",
-    description: "Corporate history, infrastructure & 35-year legacy",
-  },
-  {
-    href: "/orbit-as-a-manufacturer/",
-    label: "Orbit as a Manufacturer",
-    description: "Orlab Instruments Pvt. Ltd. 30,000 sq. ft. manufacturing facility",
-  },
-  {
-    href: "/orbit-as-a-distributor/",
-    label: "Orbit as a Distributor",
-    description: "35+ years distribution legacy & exclusive Parr partnership",
-  },
-  {
-    href: "/principals/",
-    label: "OEM Principals",
-    description: "Parr, NCS, NC Tech, Elite, Sylab & international partners",
-  },
-  {
-    href: "/our-clients/",
-    label: "Our Clients",
-    description: "7,000+ client installations across power, steel, mining & R&D",
-  },
+  { href: "/about-us/", label: "About Us" },
+  { href: "/orbit-as-a-manufacturer/", label: "Orbit as a Manufacturer" },
+  { href: "/orbit-as-a-distributor/", label: "Orbit as a Distributor" },
+  { href: "/principals/", label: "Principals" },
+  { href: "/our-clients/", label: "Our Clients" },
 ];
 
 const mainNav = [
@@ -518,7 +498,7 @@ export function Header() {
                 role="menu"
                 aria-orientation="vertical"
                 className={cn(
-                  "absolute left-0 top-full z-50 w-72 rounded-b-xl border border-slate-200 bg-white py-2 shadow-2xl transition-all duration-150 ease-out",
+                  "absolute left-0 top-full z-50 w-56 rounded-b-xl border border-slate-200 bg-white py-1.5 shadow-xl transition-all duration-150 ease-out",
                   "before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']",
                   aboutOpen
                     ? "opacity-100 visible translate-y-0 pointer-events-auto"
@@ -530,14 +510,9 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setAboutOpen(false)}
-                    className="group flex flex-col px-4 py-2.5 transition hover:bg-slate-50 border-b border-slate-100 last:border-b-0"
+                    className="block px-4 py-2 text-xs font-semibold text-slate-800 transition hover:bg-slate-50 hover:text-[#0056B3]"
                   >
-                    <span className="text-xs font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors">
-                      {item.label}
-                    </span>
-                    <span className="text-[11px] text-slate-500 leading-tight mt-0.5">
-                      {item.description}
-                    </span>
+                    {item.label}
                   </Link>
                 ))}
               </div>
