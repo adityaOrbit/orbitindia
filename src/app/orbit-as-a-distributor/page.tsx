@@ -98,15 +98,14 @@ export default function DistributorPage() {
       <section className="container-x mt-8 py-6">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <span className="eyebrow text-[#c4620a]">Authorized Distribution</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               More Than A Distributor: A Comprehensive Engineering Partner
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-700">
               When Indian laboratories invest in mission-critical analytical instrumentation — such as 
               oxygen bomb calorimeters measuring coal GCV at thermal power stations or high-pressure stirred 
               autoclaves operating at 350 bar in petrochemical pilot plants — they need more than a trading vendor. 
-              They need an <strong className="text-[#002f49]">authorized technical partner</strong> capable of handling the entire lifecycle.
+              They need an <strong className="text-[#0056B3]">authorized technical partner</strong> capable of handling the entire lifecycle.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               Orbit Technologies Pvt. Ltd. acts as an exclusive distribution and service conduit for world-renowned instrumentation manufacturers. With a team of factory-trained application specialists, certified service engineers, and an extensive inventory of local spare parts in Hyderabad, we ensure zero laboratory downtime and strict compliance with international ASTM, ISO, and BIS testing standards.
@@ -163,8 +162,7 @@ export default function DistributorPage() {
       <section className="bg-slate-50 py-16 border-y border-slate-200 mt-12">
         <div className="container-x">
           <div className="max-w-2xl">
-            <span className="eyebrow text-[#c4620a]">Why Choose Orbit Distribution</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Distribution Backed by Comprehensive Technical Infrastructure
             </h2>
             <p className="mt-2 text-sm text-slate-600">
@@ -209,12 +207,12 @@ export default function DistributorPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition hover:border-[#c4620a]/50 hover:shadow-md"
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition hover:border-[#d00000]/50 hover:shadow-md"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#002f49]/5 text-[#c4620a]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0056B3]/5 text-[#d00000]">
                     <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mt-4 font-bold text-base text-[#002f49]">{pillar.title}</h3>
+                  <h3 className="mt-4 font-bold text-base text-[#0056B3]">{pillar.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-slate-600">{pillar.desc}</p>
                 </div>
               );
@@ -227,8 +225,7 @@ export default function DistributorPage() {
       <section className="container-x py-16">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <span className="eyebrow text-[#c4620a]">International Principals</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Premier Global Manufacturers We Proudly Represent
             </h2>
             <p className="mt-2 text-sm text-slate-600 max-w-xl">
@@ -237,7 +234,7 @@ export default function DistributorPage() {
           </div>
           <Link
             href="/principals/"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
           >
             View All Principals Hub <ArrowRight className="h-4 w-4" />
           </Link>
@@ -247,7 +244,7 @@ export default function DistributorPage() {
           {PRINCIPAL_PARTNERS.map((partner) => (
             <div
               key={partner.name}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-lg"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-lg"
             >
               <div className="relative aspect-16/9 w-full overflow-hidden bg-slate-50 p-4 flex items-center justify-center border-b border-slate-100">
                 <Image
@@ -264,10 +261,10 @@ export default function DistributorPage() {
 
               <div className="flex flex-1 flex-col justify-between p-5">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#c4620a]">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
                     {partner.established}
                   </div>
-                  <h3 className="mt-1 font-bold text-base text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                  <h3 className="mt-1 font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                     {partner.name}
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -277,7 +274,7 @@ export default function DistributorPage() {
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${partner.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     Explore Principal Details <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -292,8 +289,7 @@ export default function DistributorPage() {
       <section className="bg-[#f8fafc] py-16 border-t border-slate-200">
         <div className="container-x">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="eyebrow text-[#c4620a]">Direct Footprint</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               14 Branch Locations Serving Every Industrial Corridor
             </h2>
             <p className="mt-2 text-sm text-slate-600">
@@ -305,7 +301,7 @@ export default function DistributorPage() {
             {branchOffices.map((city) => (
               <span
                 key={city}
-                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-[#002f49] shadow-xs hover:border-[#c4620a] transition-colors"
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-[#0056B3] shadow-xs hover:border-[#d00000] transition-colors"
               >
                 📍 {city}
               </span>
@@ -322,13 +318,13 @@ export default function DistributorPage() {
 
       {/* RFQ and Distribution Consultation CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Authorized Distribution
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Ready to Equip Your Laboratory with International Precision?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

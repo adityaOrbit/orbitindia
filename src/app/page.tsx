@@ -1,14 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { HeroCarousel } from "@/components/hero-carousel";
-import { PartnerSection } from "@/components/partner-section";
-import { SupportServiceSection } from "@/components/support-service-section";
-import { InstrumentFinder } from "@/components/instrument-finder";
 import { EventsAndKnowledge } from "@/components/events-and-knowledge";
-import { HomeEnquiryForm } from "@/components/home-enquiry-form";
-import { FaqAccordion } from "@/components/faq-accordion";
+import { HomeClientsSection } from "@/components/home-clients-section";
 import { IndustryIcon } from "@/components/icons";
 import { withBasePath } from "@/lib/utils";
 
@@ -228,25 +224,6 @@ const industrySolutions = [
   },
 ];
 
-const homeFaqs = [
-  {
-    q: "What is a bomb calorimeter used for?",
-    a: "A bomb calorimeter measures the gross calorific value of a sample by burning it in oxygen under constant-volume conditions and measuring the heat released. Laboratories use it to test coal, coke, liquid fuels, biomass, waste, food and feed.",
-  },
-  {
-    q: "Who supplies Parr instruments in India?",
-    a: "Orbit Technologies, based in Hyderabad, is the exclusive distributor of Parr Instrument Company in India for calorimeters, reactors and pressure vessels, with installation and service support.",
-  },
-  {
-    q: "What is proximate analysis, and which instrument is used?",
-    a: "Proximate analysis determines the moisture, ash, volatile matter and fixed carbon content of coal. Orbit's TGA 3000 can perform these measurements automatically in one programmed run.",
-  },
-  {
-    q: "What is ash fusion temperature?",
-    a: "It is the set of temperatures at which ash begins to deform, soften and flow, which helps predict slagging and fouling in boilers. Orbit supplies the IF2000G ash fusion analyzer for this test.",
-  },
-];
-
 export default function HomePage() {
   return (
     <div>
@@ -257,13 +234,9 @@ export default function HomePage() {
         <div className="grid gap-12 lg:grid-cols-[1.25fr_0.9fr] lg:items-center">
           {/* Left Text Column */}
           <div className="max-w-2xl">
-            <span className="inline-block text-xs font-extrabold tracking-[0.16em] uppercase text-[#ff8d0a] bg-[#ff8d0a]/10 px-3.5 py-1.5 rounded-full border border-[#ff8d0a]/20">
-              LABORATORY SOLUTIONS · EXCLUSIVE PARR PARTNER IN INDIA
-            </span>
-
-            <h1 className="mt-4 text-3xl font-black leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.25rem]">
               Scientific &amp; Analytical Instruments for Laboratories and{" "}
-              <span className="text-[#ff8d0a]">Research Labs in India.</span>
+              <span className="text-[#93c5fd]">Research Labs in India.</span>
             </h1>
 
             <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
@@ -271,18 +244,18 @@ export default function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#enquiry"
-                className="btn btn-accent !px-6 !py-3.5 text-sm sm:text-base font-bold shadow-lg shadow-[#ff8d0a]/20"
+              <Link
+                href="/contact-us#quote"
+                className="btn btn-accent !px-6 !py-3.5 text-sm sm:text-base font-bold shadow-lg shadow-[#d00000]/25"
               >
                 Request a Quote
-              </a>
-              <a
-                href="#finder"
-                className="inline-flex items-center gap-2 text-sm font-bold text-white transition hover:text-[#ff8d0a] hover:translate-x-0.5"
+              </Link>
+              <Link
+                href="/instrument-finder/"
+                className="inline-flex items-center gap-2 text-sm font-bold text-white transition hover:text-[#cce1f9] hover:translate-x-0.5"
               >
                 Find the Right Instrument <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -297,7 +270,7 @@ export default function HomePage() {
             <div className="grid grid-cols-2 divide-y divide-slate-200/80 sm:grid-cols-2 md:divide-y-0 md:divide-x lg:grid-cols-4">
               {trustBarItems.map((item) => (
                 <div key={item.title} className="p-4 sm:p-5 flex flex-col justify-center">
-                  <p className="text-base sm:text-lg font-black tracking-tight text-[#002f49]">
+                  <p className="text-base sm:text-lg font-semibold tracking-tight text-[#0056B3]">
                     {item.title}
                   </p>
                   <p className="mt-0.5 text-xs text-slate-500 leading-snug">
@@ -307,11 +280,11 @@ export default function HomePage() {
               ))}
 
               {/* Final Column: Company Profile Link */}
-              <div className="p-4 sm:p-5 flex items-center justify-between bg-[#fffbf5] lg:bg-transparent">
+              <div className="p-4 sm:p-5 flex items-center justify-between bg-[#ebf3fc] lg:bg-transparent">
                 <div>
                   <Link
                     href="/about-us"
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[#c4620a] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[#d00000] hover:underline"
                   >
                     Company profile <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -323,21 +296,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Trust narrative context */}
-      <div className="container-x mt-8 pt-4">
-        <p className="text-center text-xs sm:text-sm text-slate-500 max-w-3xl mx-auto">
-          For more than 35 years, Orbit has supplied and supported scientific instruments for power plants, coal and coke laboratories, steel and cement plants, universities, and research centers across India.
-        </p>
-      </div>
-
       {/* -----------------------------------------------------------------------
           3. ABOUT ORBIT
       ------------------------------------------------------------------------ */}
-      <section className="mt-12 band border-y border-slate-200 py-14">
+      <section className="mt-14 sm:mt-16 band border-y border-slate-200 py-14">
         <div className="container-x grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
           <div>
-            <span className="eyebrow text-[#c4620a]">About Orbit</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
               Indian Manufacturing, Global Representation, Pan-India Support
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-700">
@@ -358,25 +323,25 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-black text-[#c4620a]">35+</p>
+              <p className="text-3xl font-bold text-[#d00000]">35+</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Years of Service
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-black text-[#002f49]">7,000+</p>
+              <p className="text-3xl font-bold text-[#0056B3]">7,000+</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Active Customers
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-black text-[#002f49]">14</p>
+              <p className="text-3xl font-bold text-[#0056B3]">14</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Branch Cities
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-black text-[#c4620a]">30,000</p>
+              <p className="text-3xl font-bold text-[#d00000]">30,000</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Sq. Ft. Facility
               </p>
@@ -390,23 +355,20 @@ export default function HomePage() {
       ------------------------------------------------------------------------ */}
       <section className="bg-white py-14 border-b border-slate-200">
         <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
             <SectionHeading
-              eyebrow="Products and Equipment"
               title="Instruments for Testing, Analysis and Research"
               subtitle="Explore our range of analytical instruments and laboratory equipment. Whether you are measuring calorific value, analyzing elemental composition, preparing samples, or carrying out high-pressure experiments, our team can help you identify the right instrument."
             />
-            <Link href="/products" className="btn btn-accent shrink-0">
-              View All Products <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
 
-          {/* Grid with Images, Title and Button */}
+          {/* Grid with Images, Title and Description */}
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {productCategoryGrid.map((item) => (
-              <div
+              <Link
                 key={item.category}
-                className="surface group flex flex-col justify-between overflow-hidden border border-slate-200 p-0 transition-all duration-300 hover:-translate-y-1 hover:border-[#f6dcc4] hover:shadow-lg"
+                href={item.href}
+                className="surface group flex flex-col justify-between overflow-hidden border border-slate-200 p-0 transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/40 hover:shadow-lg cursor-pointer"
               >
                 {/* Image header */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#f5f5f5] border-b border-slate-100">
@@ -417,34 +379,20 @@ export default function HomePage() {
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover p-2 transition duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#c4620a] shadow-xs">
-                    {item.badge}
-                  </span>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="text-base font-extrabold text-[#002f49] group-hover:text-[#c4620a] transition">
+                    <h3 className="text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition">
                       {item.category}
                     </h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-3">
                       {item.whatYouWillFind}
                     </p>
                   </div>
-
-                  {/* Button */}
-                  <div className="mt-5 border-t border-slate-100 pt-4">
-                    <Link
-                      href={item.href}
-                      className="btn btn-outline w-full justify-between text-xs font-semibold group-hover:border-[#c4620a] group-hover:bg-[#fffbf5] group-hover:text-[#c4620a]"
-                    >
-                      <span>{item.linkText.replace("Explore ", "")}</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
-                    </Link>
-                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
@@ -457,21 +405,11 @@ export default function HomePage() {
       </section>
 
       {/* -----------------------------------------------------------------------
-          5. FIND THE RIGHT INSTRUMENT (Interactive Finder)
-      ------------------------------------------------------------------------ */}
-      <section className="band py-14 border-b border-slate-200">
-        <div className="container-x">
-          <InstrumentFinder />
-        </div>
-      </section>
-
-      {/* -----------------------------------------------------------------------
-          6. INDUSTRY SOLUTIONS
+          5. INDUSTRY SOLUTIONS
       ------------------------------------------------------------------------ */}
       <section id="industries" className="scroll-mt-28 bg-white py-14 border-b border-slate-200">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Industry Solutions"
             title="Laboratory Equipment for Your Industry"
             subtitle="Orbit supplies analytical instruments and laboratory systems for routine quality control, process monitoring, product development and research."
           />
@@ -480,7 +418,7 @@ export default function HomePage() {
             {industrySolutions.map((ind) => (
               <div
                 key={ind.id}
-                className="surface group flex flex-col justify-between overflow-hidden p-0 transition hover:border-[#f6dcc4] hover:shadow-md"
+                className="surface group flex flex-col justify-between overflow-hidden p-0 transition hover:border-[#cce1f9] hover:shadow-md"
               >
                 {/* Photo Header */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
@@ -492,19 +430,16 @@ export default function HomePage() {
                       className="object-cover transition duration-300 group-hover:scale-[1.03]"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-[#002f49] text-white">
-                      <IndustryIcon slug={ind.id} className="h-10 w-10 text-[#ffb347]" />
+                    <div className="flex h-full w-full items-center justify-center bg-[#0056B3] text-white">
+                      <IndustryIcon slug={ind.id} className="h-10 w-10 text-[#93c5fd]" />
                     </div>
                   )}
-                  <span className="absolute bottom-2 left-2 rounded-md bg-[#002f49]/85 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
-                    {ind.title}
-                  </span>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="text-base font-bold text-[#002f49]">{ind.title}</h3>
+                    <h3 className="text-base font-bold text-[#0056B3]">{ind.title}</h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600">
                       {ind.focus}
                     </p>
@@ -521,7 +456,7 @@ export default function HomePage() {
                   <div className="mt-5 border-t border-slate-100 pt-3">
                     <Link
                       href={ind.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                     >
                       {ind.linkText} <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                     </Link>
@@ -534,53 +469,12 @@ export default function HomePage() {
       </section>
 
       {/* -----------------------------------------------------------------------
-          7. INTERNATIONAL TECHNOLOGY. LOCAL EXPERTISE. (Interactive Partner Hub)
-      ------------------------------------------------------------------------ */}
-      <section className="bg-slate-50 py-16 border-b border-slate-200">
-        <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-            <SectionHeading
-              eyebrow="Global OEM Principals"
-              title="Specialist Technology Partners From Around the World"
-              subtitle="Orbit works with established international manufacturers to bring specialist laboratory instruments to customers in India, with local application engineering, installation, training, and certified maintenance."
-            />
-            <Link href="/principals" className="btn btn-accent shrink-0">
-              View All Principals <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <PartnerSection />
-        </div>
-      </section>
-
-      {/* -----------------------------------------------------------------------
-          8. SERVICE AND SUPPORT (Comprehensive Nationwide Support)
-      ------------------------------------------------------------------------ */}
-      <section id="services" className="scroll-mt-28 bg-white py-16 border-b border-slate-200">
-        <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-            <SectionHeading
-              eyebrow="Nationwide Support Network"
-              title="Comprehensive Support Throughout the Equipment Lifecycle"
-              subtitle="Orbit provides annual maintenance, NABL-traceable calibration, 300-bar oxygen vessel hydrotesting, repair, and user training through our 14 branch cities in India."
-            />
-            <Link href="/our-services" className="btn btn-accent shrink-0">
-              Explore Services &amp; AMC <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          <SupportServiceSection />
-        </div>
-      </section>
-
-      {/* -----------------------------------------------------------------------
-          9. NEWS AND KNOWLEDGE HUB
+          7. NEWS AND KNOWLEDGE HUB
       ------------------------------------------------------------------------ */}
       <section className="band py-14 border-b border-slate-200">
         <div className="container-x">
           <div className="mb-8">
             <SectionHeading
-              eyebrow="News & Knowledge Hub"
               title="Events and Technical Resources"
               subtitle="Stay up to date with upcoming exhibitions, trade shows, application notes, and technical testing guides."
             />
@@ -591,36 +485,60 @@ export default function HomePage() {
       </section>
 
       {/* -----------------------------------------------------------------------
-          10. CONTACT AND ENQUIRY
+          8. OUR CLIENTS
       ------------------------------------------------------------------------ */}
-      <section className="bg-white py-14 border-b border-slate-200">
-        <div className="container-x">
-          <div className="mb-8">
-            <SectionHeading
-              eyebrow="Contact & Enquiry"
-              title="Tell Us What You Need to Test"
-              subtitle="Setting up a new laboratory, replacing an instrument or looking for equipment that meets a specific test standard? Tell us about your sample, application and testing requirements, and our team will help you identify a suitable instrument and get a quotation."
-            />
-          </div>
-
-          <HomeEnquiryForm />
-        </div>
-      </section>
+      <HomeClientsSection />
 
       {/* -----------------------------------------------------------------------
-          11. FREQUENTLY ASKED QUESTIONS
+          9. FINAL CALL TO ACTION (Just above footer)
       ------------------------------------------------------------------------ */}
-      <section className="band py-14">
-        <div className="container-x">
-          <SectionHeading
-            align="center"
-            eyebrow="FAQ"
-            title="Frequently Asked Questions"
-            subtitle="Common questions about our testing instruments, Parr representation, proximate analysis, and testing standards."
-          />
+      <section className="container-x my-14 sm:my-20">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#003d80] via-[#0056B3] to-[#001c3d] p-8 sm:p-14 text-white shadow-2xl">
+          {/* Subtle decorative radial accents */}
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-[#d00000]/25 blur-3xl" />
 
-          <div className="mt-8">
-            <FaqAccordion items={homeFaqs} />
+          <div className="relative z-10 mx-auto max-w-3xl text-center">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
+              Ready to Equip or Upgrade Your Laboratory?
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-slate-200 sm:text-base">
+              Speak directly with Orbit’s senior application engineering team to discuss your testing parameters, sample matrices, ASTM / ISO test method compliance, or custom instrument configurations.
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/contact-us"
+                className="btn btn-accent !px-9 !py-4 text-sm sm:text-base font-bold shadow-xl shadow-[#d00000]/25 hover:scale-[1.02] transition-transform inline-flex items-center gap-2"
+              >
+                Contact Our Specialists <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Direct contact strip */}
+            <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs sm:text-sm text-slate-200">
+              <a
+                href="tel:+914067216354"
+                className="inline-flex items-center gap-2.5 hover:text-white transition group"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#d00000] transition">
+                  <Phone className="h-4 w-4 text-white" />
+                </div>
+                <span>Direct Line: <strong className="font-semibold text-white">+91 40 6721 6354</strong></span>
+              </a>
+
+              <div className="hidden sm:inline-block h-4 w-px bg-white/20" />
+
+              <a
+                href="mailto:orbit@orbitindia.com"
+                className="inline-flex items-center gap-2.5 hover:text-white transition group"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#d00000] transition">
+                  <Mail className="h-4 w-4 text-white" />
+                </div>
+                <span>Email: <strong className="font-semibold text-white">orbit@orbitindia.com</strong></span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

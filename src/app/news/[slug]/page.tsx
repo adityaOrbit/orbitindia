@@ -86,11 +86,11 @@ export default async function NewsDetailPage({ params }: PageProps) {
       {/* Breadcrumb row */}
       <div className="border-b border-slate-200 bg-slate-50/80 py-3 text-xs">
         <div className="container-x flex items-center gap-2 text-slate-500">
-          <Link href="/" className="hover:text-[#002f49] transition">
+          <Link href="/" className="hover:text-[#0056B3] transition">
             Home
           </Link>
           <span>/</span>
-          <Link href="/news" className="hover:text-[#002f49] transition">
+          <Link href="/news" className="hover:text-[#0056B3] transition">
             News &amp; Events
           </Link>
           <span>/</span>
@@ -104,7 +104,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
         {/* Back Link */}
         <Link
           href="/news"
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#002f49] transition"
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#0056B3] transition"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to All News &amp; Events
         </Link>
@@ -123,22 +123,22 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
         {/* Bottom Recommendations */}
         <div className="mt-16 border-t border-slate-200 pt-12">
-          <h2 className="text-xl font-black text-[#002f49]">More from Orbit Technologies</h2>
+          <h2 className="text-xl font-semibold text-[#0056B3]">More from Orbit Technologies</h2>
           <div className="mt-6 grid gap-6 md:grid-cols-3">
             {recentNews.slice(0, 2).map((n) => (
               <Link
                 key={n.slug}
                 href={`/news/${n.slug}`}
-                className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 transition hover:border-[#002f49]/40 hover:shadow-md"
+                className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 transition hover:border-[#0056B3]/40 hover:shadow-md"
               >
                 <div>
                   <span className="chip chip-accent text-[10px] font-bold">{n.category}</span>
-                  <h3 className="mt-2 text-sm font-bold text-[#002f49] group-hover:text-[#c4620a] transition line-clamp-2">
+                  <h3 className="mt-2 text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition line-clamp-2">
                     {n.title}
                   </h3>
                   <p className="mt-1.5 text-xs text-slate-600 line-clamp-2">{n.summary}</p>
                 </div>
-                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#002f49]">
+                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#0056B3]">
                   <span>{n.date}</span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -155,14 +155,14 @@ export default async function NewsDetailPage({ params }: PageProps) {
                   <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-800">
                     {e.status === "upcoming" ? "Upcoming Expo" : "Past Expo"}
                   </span>
-                  <h3 className="mt-2 text-sm font-bold text-[#002f49] group-hover:text-[#c4620a] transition">
+                  <h3 className="mt-2 text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition">
                     {e.show}
                   </h3>
                   <p className="mt-1 text-xs text-slate-600 line-clamp-2">{e.summary}</p>
                 </div>
                 <div className="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600">
                   <span className="flex items-center gap-1">
-                    <CalendarDays className="h-3.5 w-3.5 text-[#c4620a]" /> {e.date}
+                    <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {e.date}
                   </span>
                   <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -189,14 +189,14 @@ function NewsView({ article }: { article: NewsArticle }) {
           <div className="flex flex-wrap items-center gap-2">
             <span className="chip chip-accent text-xs font-bold">{article.category}</span>
             <span className="flex items-center gap-1 text-xs text-slate-500">
-              <CalendarDays className="h-3.5 w-3.5 text-[#c4620a]" /> {article.date}
+              <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {article.date}
             </span>
             <span className="flex items-center gap-1 text-xs text-slate-500">
               <Clock className="h-3.5 w-3.5 text-slate-400" /> {article.readTime}
             </span>
           </div>
 
-          <h1 className="mt-3 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl lg:text-4xl">
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
             {article.title}
           </h1>
 
@@ -224,11 +224,11 @@ function NewsView({ article }: { article: NewsArticle }) {
         </div>
 
         {/* Executive Summary Callout */}
-        <div className="rounded-xl border-l-4 border-[#c4620a] bg-[#fdeedd]/60 p-5">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#c4620a]">
+        <div className="rounded-xl border-l-4 border-[#d00000] bg-[#feeceb] p-5">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
             Executive Overview
           </h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-[#002f49] font-medium">
+          <p className="mt-1.5 text-sm leading-relaxed text-[#0056B3] font-medium">
             {article.summary}
           </p>
         </div>
@@ -246,8 +246,8 @@ function NewsView({ article }: { article: NewsArticle }) {
         {article.highlights && article.highlights.length > 0 && (
           <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#c4620a]" />
-              <h3 className="text-base font-bold text-[#002f49]">Key Technical Highlights</h3>
+              <Sparkles className="h-4 w-4 text-[#d00000]" />
+              <h3 className="text-base font-bold text-[#0056B3]">Key Technical Highlights</h3>
             </div>
             <ul className="mt-4 space-y-2.5">
               {article.highlights.map((h, i) => (
@@ -264,8 +264,8 @@ function NewsView({ article }: { article: NewsArticle }) {
         {article.specifications && article.specifications.length > 0 && (
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Layers className="h-4 w-4 text-[#002f49]" />
-              <h3 className="text-base font-bold text-[#002f49]">Technical Specifications</h3>
+              <Layers className="h-4 w-4 text-[#0056B3]" />
+              <h3 className="text-base font-bold text-[#0056B3]">Technical Specifications</h3>
             </div>
             <div className="overflow-hidden rounded-xl border border-slate-200 shadow-xs">
               <table className="w-full text-left text-xs">
@@ -289,8 +289,8 @@ function NewsView({ article }: { article: NewsArticle }) {
         {article.standards && article.standards.length > 0 && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <Award className="h-4 w-4 text-[#c4620a]" />
-              <h3 className="text-base font-bold text-[#002f49]">
+              <Award className="h-4 w-4 text-[#d00000]" />
+              <h3 className="text-base font-bold text-[#0056B3]">
                 Standard Test Methods &amp; Regulatory Compliance
               </h3>
             </div>
@@ -310,13 +310,13 @@ function NewsView({ article }: { article: NewsArticle }) {
         {/* Related Products Section */}
         {article.relatedProducts && article.relatedProducts.length > 0 && (
           <div className="space-y-4 border-t border-slate-200 pt-6">
-            <h3 className="text-base font-bold text-[#002f49]">Related Instruments &amp; Systems</h3>
+            <h3 className="text-base font-bold text-[#0056B3]">Related Instruments &amp; Systems</h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {article.relatedProducts.map((p) => (
                 <Link
                   key={p.name}
                   href={p.href}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#002f49] hover:shadow-sm"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#0056B3] hover:shadow-sm"
                 >
                   <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-slate-50 border border-slate-100">
                     <Image
@@ -332,7 +332,7 @@ function NewsView({ article }: { article: NewsArticle }) {
                         {p.badge}
                       </span>
                     )}
-                    <h4 className="text-xs font-bold text-[#002f49] group-hover:text-[#c4620a] transition truncate">
+                    <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
                       {p.name}
                     </h4>
                     <span className="text-[11px] text-slate-500">{p.category}</span>
@@ -354,7 +354,7 @@ function NewsView({ article }: { article: NewsArticle }) {
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Direct Technical Line
             </h4>
-            <p className="mt-2 text-sm font-black text-[#002f49]">
+            <p className="mt-2 text-sm font-semibold text-[#0056B3]">
               Orbit Hyderabad Central Office
             </p>
             <p className="mt-1 text-xs text-slate-600">
@@ -403,11 +403,11 @@ function EventView({ event }: { event: EventArticle }) {
               </span>
             )}
             <span className="flex items-center gap-1 text-xs font-semibold text-slate-600">
-              <CalendarDays className="h-3.5 w-3.5 text-[#c4620a]" /> {event.date}
+              <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {event.date}
             </span>
           </div>
 
-          <h1 className="mt-3 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl lg:text-4xl">
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
             {event.title}
           </h1>
 
@@ -425,7 +425,7 @@ function EventView({ event }: { event: EventArticle }) {
               Venue &amp; Location
             </span>
             <p className="text-xs font-bold text-slate-800 flex items-start gap-1.5">
-              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c4620a]" />
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#d00000]" />
               <span>{event.venue}</span>
             </p>
           </div>
@@ -434,8 +434,8 @@ function EventView({ event }: { event: EventArticle }) {
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
               Stall &amp; Stand Location
             </span>
-            <p className="text-xs font-bold text-[#002f49] flex items-center gap-1.5">
-              <Building2 className="h-3.5 w-3.5 shrink-0 text-[#c4620a]" />
+            <p className="text-xs font-bold text-[#0056B3] flex items-center gap-1.5">
+              <Building2 className="h-3.5 w-3.5 shrink-0 text-[#d00000]" />
               <span>{event.hall} &bull; {event.booth}</span>
             </p>
           </div>
@@ -446,7 +446,7 @@ function EventView({ event }: { event: EventArticle }) {
                 href={event.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 <Globe className="h-3.5 w-3.5" /> Visit Official Exhibition Portal &nearr;
               </a>
@@ -480,8 +480,8 @@ function EventView({ event }: { event: EventArticle }) {
         {event.highlights && event.highlights.length > 0 && (
           <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#c4620a]" />
-              <h3 className="text-base font-bold text-[#002f49]">
+              <Sparkles className="h-4 w-4 text-[#d00000]" />
+              <h3 className="text-base font-bold text-[#0056B3]">
                 {isUpcoming ? "What You Will Experience at Our Booth" : "Exhibition Focus Areas"}
               </h3>
             </div>
@@ -514,13 +514,13 @@ function EventView({ event }: { event: EventArticle }) {
         {/* Showcased Instruments */}
         {event.showcasedProducts && event.showcasedProducts.length > 0 && (
           <div className="space-y-4 border-t border-slate-200 pt-6">
-            <h3 className="text-base font-bold text-[#002f49]">Showcased Instruments &amp; Demos</h3>
+            <h3 className="text-base font-bold text-[#0056B3]">Showcased Instruments &amp; Demos</h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {event.showcasedProducts.map((p) => (
                 <Link
                   key={p.name}
                   href={p.href}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#002f49] hover:shadow-sm"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#0056B3] hover:shadow-sm"
                 >
                   <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-slate-50 border border-slate-100">
                     <Image
@@ -536,7 +536,7 @@ function EventView({ event }: { event: EventArticle }) {
                         {p.badge}
                       </span>
                     )}
-                    <h4 className="text-xs font-bold text-[#002f49] group-hover:text-[#c4620a] transition truncate">
+                    <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
                       {p.name}
                     </h4>
                     <span className="text-[11px] text-slate-500">{p.category}</span>
@@ -562,7 +562,7 @@ function EventView({ event }: { event: EventArticle }) {
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Orbit Event Coordination
             </h4>
-            <p className="mt-2 text-sm font-bold text-[#002f49]">{event.venue}</p>
+            <p className="mt-2 text-sm font-bold text-[#0056B3]">{event.venue}</p>
             <p className="mt-1 text-xs text-slate-600">{event.location}</p>
             <div className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-600 space-y-1">
               <p>

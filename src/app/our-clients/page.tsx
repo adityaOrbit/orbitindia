@@ -146,11 +146,11 @@ export default function ClientsPage() {
             <div key={groupIdx} className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-5">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#002f49]/5 text-[#c4620a]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0056B3]/5 text-[#d00000]">
                     <Icon className="h-6 w-6" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-black tracking-tight text-[#002f49] sm:text-2xl">
+                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                       {group.sector}
                     </h2>
                     <p className="text-xs text-slate-600 mt-0.5">
@@ -167,10 +167,10 @@ export default function ClientsPage() {
                 {group.clients.map((c, cIdx) => (
                   <div
                     key={cIdx}
-                    className="flex flex-col justify-between rounded-xl border border-slate-100 bg-[#f9fafb] p-4.5 transition hover:border-[#c4620a]/40 hover:bg-white hover:shadow-xs"
+                    className="flex flex-col justify-between rounded-xl border border-slate-100 bg-[#f9fafb] p-4.5 transition hover:border-[#d00000]/40 hover:bg-white hover:shadow-xs"
                   >
                     <div>
-                      <h3 className="font-bold text-sm text-[#002f49]">{c.name}</h3>
+                      <h3 className="font-bold text-sm text-[#0056B3]">{c.name}</h3>
                       {c.location && (
                         <p className="mt-1 text-xs text-slate-500">
                           📍 {c.location}
@@ -179,7 +179,7 @@ export default function ClientsPage() {
                     </div>
                     {c.instruments && (
                       <div className="mt-3 pt-2.5 border-t border-slate-200/60">
-                        <span className="text-[11px] font-semibold text-[#c4620a]">
+                        <span className="text-[11px] font-semibold text-[#d00000]">
                           {c.instruments}
                         </span>
                       </div>
@@ -196,8 +196,7 @@ export default function ClientsPage() {
       <section className="bg-slate-50 py-16 border-y border-slate-200">
         <div className="container-x">
           <div className="max-w-2xl">
-            <span className="eyebrow text-[#c4620a]">Customer Testimonials</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               What India&apos;s Leading Laboratories Say About Orbit
             </h2>
             <p className="mt-2 text-sm text-slate-600">
@@ -234,7 +233,7 @@ export default function ClientsPage() {
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="mt-6 pt-4 border-t border-slate-100">
-                  <p className="text-xs font-bold text-[#002f49]">{t.author}</p>
+                  <p className="text-xs font-bold text-[#0056B3]">{t.author}</p>
                   <p className="text-[11px] text-slate-500 mt-0.5">{t.org}</p>
                 </div>
               </div>
@@ -245,13 +244,13 @@ export default function ClientsPage() {
 
       {/* Client CTA Banner */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Join India&apos;s Leading Labs
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Equip Your Laboratory with the Industry Standard
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

@@ -107,7 +107,7 @@ export default function ServiceComplaintFormPage() {
                 <span className="mt-4 inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
                   Service Ticket Logged Successfully
                 </span>
-                <h2 className="mt-2 text-2xl font-black text-[#002f49]">
+                <h2 className="mt-2 text-2xl font-semibold text-[#0056B3]">
                   Ticket Reference #{ticketResult.ticketNumber}
                 </h2>
                 <p className="mx-auto mt-2 max-w-lg text-sm text-slate-700 leading-relaxed">
@@ -152,7 +152,7 @@ export default function ServiceComplaintFormPage() {
             ) : (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
                 <div className="border-b border-slate-100 pb-5">
-                  <h2 className="text-xl font-bold text-[#002f49]">
+                  <h2 className="text-xl font-bold text-[#0056B3]">
                     Instrument Service Registration
                   </h2>
                   <p className="mt-1 text-xs text-slate-500">
@@ -170,7 +170,7 @@ export default function ServiceComplaintFormPage() {
                 <form onSubmit={handleSubmit} className="mt-6 space-y-6">
                   {/* Customer Information */}
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#c4620a]">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
                       1. Organization &amp; Contact Details
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -186,7 +186,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, contactPerson: e.target.value })
                           }
                           placeholder="e.g. Dr. Rajesh Sharma"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -202,7 +202,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, company: e.target.value })
                           }
                           placeholder="e.g. NTPC Ramagundam / IIT Madras"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -218,7 +218,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, phone: e.target.value })
                           }
                           placeholder="e.g. +91 98765 43210"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -234,7 +234,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, email: e.target.value })
                           }
                           placeholder="e.g. r.sharma@ntpc.co.in"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -250,7 +250,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, city: e.target.value })
                           }
                           placeholder="e.g. Singrauli / Jamnagar"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -263,7 +263,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, nearestBranch: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden bg-white"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
                         >
                           {branchOffices.map((b) => (
                             <option key={b} value={b}>
@@ -277,7 +277,7 @@ export default function ServiceComplaintFormPage() {
 
                   {/* Equipment Information */}
                   <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#c4620a]">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
                       2. Equipment Details
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-3">
@@ -290,7 +290,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, brand: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden bg-white"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
                         >
                           <option value="Parr Instrument Company">Parr Instrument Company</option>
                           <option value="Orlab / Orbit Technologies">Orlab / Orbit Technologies</option>
@@ -316,7 +316,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, instrumentModel: e.target.value })
                           }
                           placeholder="e.g. Parr 6400 / TGA 3000 / CS-8800"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
 
@@ -331,7 +331,7 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, serialNumber: e.target.value })
                           }
                           placeholder="e.g. 6400-10492"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
                         />
                       </div>
                     </div>
@@ -339,7 +339,7 @@ export default function ServiceComplaintFormPage() {
 
                   {/* Service Request Nature */}
                   <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#c4620a]">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
                       3. Service Nature &amp; Fault Description
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -352,7 +352,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, serviceType: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden bg-white"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
                         >
                           <option value="Breakdown / Repair">Breakdown / Emergency Repair</option>
                           <option value="Preventive Maintenance AMC/CMC">Preventive Maintenance (AMC / CMC)</option>
@@ -372,7 +372,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, urgency: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#c4620a] focus:outline-hidden bg-white"
+                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
                         >
                           <option value="Standard">Standard (2 to 3 days)</option>
                           <option value="High Priority">High Priority (Within 24 hours)</option>
@@ -393,7 +393,7 @@ export default function ServiceComplaintFormPage() {
                           setFormData({ ...formData, issueDescription: e.target.value })
                         }
                         placeholder="Please describe symptoms, error messages shown on screen, pressure leaks, or parts needed..."
-                        className="mt-1 w-full rounded-lg border border-slate-300 p-3 text-xs focus:border-[#c4620a] focus:outline-hidden"
+                        className="mt-1 w-full rounded-lg border border-slate-300 p-3 text-xs focus:border-[#d00000] focus:outline-hidden"
                       />
                     </div>
                   </div>
@@ -419,10 +419,10 @@ export default function ServiceComplaintFormPage() {
           <div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-6">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#c4620a]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
                   Direct Service Lines
                 </span>
-                <h3 className="mt-1 font-bold text-base text-[#002f49]">
+                <h3 className="mt-1 font-bold text-base text-[#0056B3]">
                   Central Service Control Desk
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -431,34 +431,34 @@ export default function ServiceComplaintFormPage() {
 
                 <div className="mt-4 space-y-3 text-xs">
                   <div className="flex items-start gap-2.5">
-                    <PhoneCall className="h-4 w-4 text-[#c4620a] shrink-0 mt-0.5" />
+                    <PhoneCall className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-[#002f49]">Toll-Free / Service Hotline:</p>
-                      <a href="tel:+918712613589" className="text-slate-700 hover:text-[#c4620a] font-semibold">
+                      <p className="font-bold text-[#0056B3]">Toll-Free / Service Hotline:</p>
+                      <a href="tel:+918712613589" className="text-slate-700 hover:text-[#d00000] font-semibold">
                         +91 87126 13589
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2.5">
-                    <PhoneCall className="h-4 w-4 text-[#c4620a] shrink-0 mt-0.5" />
+                    <PhoneCall className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-[#002f49]">Alternate Technical Desk:</p>
-                      <a href="tel:+918143885547" className="text-slate-700 hover:text-[#c4620a] font-semibold">
+                      <p className="font-bold text-[#0056B3]">Alternate Technical Desk:</p>
+                      <a href="tel:+918143885547" className="text-slate-700 hover:text-[#d00000] font-semibold">
                         +91 81438 85547
                       </a>
                       {" / "}
-                      <a href="tel:+918143885540" className="text-slate-700 hover:text-[#c4620a] font-semibold">
+                      <a href="tel:+918143885540" className="text-slate-700 hover:text-[#d00000] font-semibold">
                         +91 81438 85540
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2.5">
-                    <Mail className="h-4 w-4 text-[#c4620a] shrink-0 mt-0.5" />
+                    <Mail className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-bold text-[#002f49]">Official Email:</p>
-                      <a href="mailto:servicecare@orbitindia.com" className="text-slate-700 hover:text-[#c4620a]">
+                      <p className="font-bold text-[#0056B3]">Official Email:</p>
+                      <a href="mailto:servicecare@orbitindia.com" className="text-slate-700 hover:text-[#d00000]">
                         servicecare@orbitindia.com
                       </a>
                     </div>
@@ -489,7 +489,7 @@ export default function ServiceComplaintFormPage() {
               <div className="pt-5 border-t border-slate-200">
                 <Link
                   href="/our-services"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                 >
                   Learn more about AMC &amp; Hydrotesting <ArrowRight className="h-3.5 w-3.5" />
                 </Link>

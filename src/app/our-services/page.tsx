@@ -122,10 +122,10 @@ export default function OurServicesPage() {
 
       {/* Emergency Service Dispatch Action Bar */}
       <section className="container-x mt-8">
-        <div className="overflow-hidden rounded-2xl bg-[#001c2c] p-6 text-white shadow-lg sm:p-8">
+        <div className="overflow-hidden rounded-2xl bg-[#001c3d] p-6 text-white shadow-lg sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Rapid Service Dispatch
               </span>
               <h2 className="mt-2 text-xl font-bold sm:text-2xl text-white">
@@ -137,7 +137,7 @@ export default function OurServicesPage() {
               <div className="mt-4 flex flex-wrap gap-4 text-xs">
                 <a
                   href={`tel:${site.phones.service.replace(/[^+\d]/g, "")}`}
-                  className="flex items-center gap-1.5 font-bold text-[#ffb347] hover:underline"
+                  className="flex items-center gap-1.5 font-bold text-[#feeceb] hover:underline"
                 >
                   <PhoneCall className="h-4 w-4" /> Service Hotline: {site.phones.service}
                 </a>
@@ -146,7 +146,7 @@ export default function OurServicesPage() {
                   href="mailto:servicecare@orbitindia.com"
                   className="flex items-center gap-1.5 text-slate-200 hover:text-white"
                 >
-                  <Mail className="h-4 w-4 text-[#ffb347]" /> servicecare@orbitindia.com
+                  <Mail className="h-4 w-4 text-[#feeceb]" /> servicecare@orbitindia.com
                 </a>
               </div>
             </div>
@@ -171,8 +171,7 @@ export default function OurServicesPage() {
       {/* 6 Core Service Offerings */}
       <section className="container-x py-16">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Comprehensive Lifecycle Care</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             Specialized Engineering &amp; Metrology Services
           </h2>
           <p className="mt-2 text-sm text-slate-600">
@@ -186,7 +185,7 @@ export default function OurServicesPage() {
             return (
               <div
                 key={idx}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-lg"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-lg"
               >
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                   <Image
@@ -196,7 +195,7 @@ export default function OurServicesPage() {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, 33vw"
                   />
-                  <span className="absolute top-3 left-3 rounded-md bg-[#002f49]/90 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs backdrop-blur-xs">
+                  <span className="absolute top-3 left-3 rounded-md bg-[#0056B3]/90 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs backdrop-blur-xs">
                     {srv.tag}
                   </span>
                 </div>
@@ -204,10 +203,10 @@ export default function OurServicesPage() {
                 <div className="flex flex-1 flex-col justify-between p-6">
                   <div>
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#002f49]/5 text-[#c4620a]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0056B3]/5 text-[#d00000]">
                         <Icon className="h-4.5 w-4.5" />
                       </div>
-                      <h3 className="font-bold text-base text-[#002f49] group-hover:text-[#c4620a] transition-colors leading-snug">
+                      <h3 className="font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors leading-snug">
                         {srv.title}
                       </h3>
                     </div>
@@ -231,7 +230,7 @@ export default function OurServicesPage() {
                   <div className="mt-6 pt-4 border-t border-slate-100">
                     <Link
                       href="/service-complaint-form"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                     >
                       Book This Service <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
@@ -248,8 +247,7 @@ export default function OurServicesPage() {
         <div className="container-x">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <div>
-              <span className="eyebrow text-[#c4620a]">Mandatory Vessel Safety</span>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
                 Why 300-Bar Hydrostatic Testing Is Critical for Oxygen Bombs
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">
@@ -295,13 +293,13 @@ export default function OurServicesPage() {
 
       {/* Bottom Service Booking Banner */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Official Service Desk
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Ready to Schedule Maintenance or Recalibration?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

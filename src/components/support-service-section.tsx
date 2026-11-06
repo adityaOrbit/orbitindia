@@ -76,13 +76,13 @@ export function SupportServiceSection() {
           return (
             <div
               key={srv.title}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-md"
+              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-md"
             >
               <div>
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#c4620a]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000]">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-4 text-base sm:text-lg font-bold text-[#002f49]">
+                <h3 className="mt-4 text-base sm:text-lg font-semibold text-[#0056B3]">
                   {srv.title}
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600">
@@ -102,7 +102,7 @@ export function SupportServiceSection() {
               <div className="mt-6 pt-3 border-t border-slate-100">
                 <Link
                   href={srv.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                 >
                   Learn more &amp; request service <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
@@ -113,16 +113,16 @@ export function SupportServiceSection() {
       </div>
 
       {/* Action Banner: Service Complaint & Dispatch Desk */}
-      <div className="mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-[#002f49] via-[#003d5f] to-[#001c2c] p-6 text-white shadow-md sm:p-8">
+      <div className="mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-[#00387a] via-[#0056B3] to-[#00274d] p-6 text-white shadow-md sm:p-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
-            <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+            <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
               Nationwide Service Care
             </span>
-            <h3 className="mt-2 text-xl font-bold sm:text-2xl">
+            <h3 className="mt-2 text-xl font-semibold sm:text-2xl">
               Need Prompt Technical Support or Instrument Service?
             </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-300">
+            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-200">
               Our central technical coordination desk in Hyderabad manages preventive maintenance, hydrotesting dispatch, breakdown tickets, and genuine spares across all Indian states.
             </p>
           </div>
@@ -130,15 +130,15 @@ export function SupportServiceSection() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
               href="/service-complaint-form"
-              className="btn bg-[#ff8d0a] text-black font-extrabold hover:bg-[#e07a04] px-5 py-3 text-xs sm:text-sm rounded-xl shadow-lg"
+              className="btn bg-[#d00000] text-white font-semibold hover:bg-[#b00000] px-5 py-3 text-xs sm:text-sm rounded-xl shadow-lg"
             >
               <FileText className="h-4 w-4" /> Book Service / Lodge Complaint
             </Link>
             <a
               href="tel:+914067216354"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-xs sm:text-sm font-bold text-white transition hover:bg-white/20"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-white/20"
             >
-              <PhoneCall className="h-4 w-4 text-[#ffb347]" /> Call Service Desk: {site.phones.office}
+              <PhoneCall className="h-4 w-4 text-[#feeceb]" /> Call Service Desk: {site.phones.office}
             </a>
           </div>
         </div>

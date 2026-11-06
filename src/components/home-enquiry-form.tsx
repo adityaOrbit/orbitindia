@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Send, CheckCircle2, Mail, Phone, MapPin, Shield } from "lucide-react";
 import { trackGenerateLead } from "@/lib/analytics";
 
@@ -37,14 +38,14 @@ export function HomeEnquiryForm() {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-sm">
         <CheckCircle2 className="mx-auto h-14 w-14 text-[#15803d]" />
-        <h3 className="mt-4 text-2xl font-black text-[#002f49]">Enquiry Submitted Successfully</h3>
+        <h3 className="mt-4 text-2xl font-semibold text-[#0056B3]">Enquiry Submitted Successfully</h3>
         <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-slate-600 sm:text-base">
           Thank you, <span className="font-bold text-slate-800">{formData.fullName}</span>. Our technical sales
           and engineering team will review your testing requirements and connect with you promptly.
         </p>
         <p className="mt-3 text-xs text-slate-500">
           Urgent requirement? Call our corporate office directly at{" "}
-          <a href="tel:+914067216354" className="font-semibold text-[#c4620a] hover:underline">
+          <a href="tel:+914067216354" className="font-semibold text-[#d00000] hover:underline">
             +91 40 6721 6354
           </a>
         </p>
@@ -76,15 +77,14 @@ export function HomeEnquiryForm() {
       {/* Left: Head Office Card */}
       <div className="space-y-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
-          <span className="eyebrow text-[#c4620a]">Head Office</span>
-          <h3 className="mt-1 text-xl font-black text-[#002f49]">Orbit Technologies Pvt. Ltd.</h3>
+          <h3 className="text-xl font-semibold text-[#0056B3]">Orbit Technologies Pvt. Ltd.</h3>
           <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
             Corporate Headquarters &amp; Central Testing Facility
           </p>
 
           <div className="mt-6 space-y-4 text-sm text-slate-700">
             <div className="flex items-start gap-3">
-              <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#c4620a]" />
+              <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#d00000]" />
               <address className="not-italic leading-relaxed">
                 B-50, Industrial Estate, Sanath Nagar,<br />
                 Hyderabad – 500018, Telangana, India
@@ -92,20 +92,20 @@ export function HomeEnquiryForm() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Phone className="h-5 w-5 shrink-0 text-[#c4620a]" />
+              <Phone className="h-5 w-5 shrink-0 text-[#d00000]" />
               <a
                 href="tel:+914067216354"
-                className="font-semibold text-[#002f49] hover:text-[#c4620a] transition"
+                className="font-semibold text-[#0056B3] hover:text-[#d00000] transition"
               >
                 +91 40 6721 6354
               </a>
             </div>
 
             <div className="flex items-center gap-3">
-              <Mail className="h-5 w-5 shrink-0 text-[#c4620a]" />
+              <Mail className="h-5 w-5 shrink-0 text-[#d00000]" />
               <a
                 href="mailto:orbit@orbitindia.com"
-                className="font-semibold text-[#c4620a] hover:underline"
+                className="font-semibold text-[#d00000] hover:underline"
               >
                 orbit@orbitindia.com
               </a>
@@ -118,15 +118,15 @@ export function HomeEnquiryForm() {
             </p>
             <ul className="mt-3 space-y-2 text-xs leading-relaxed text-slate-600">
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#c4620a]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d00000]"></span>
                 Application specialist consultation for ASTM / ISO test standards
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#c4620a]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d00000]"></span>
                 Official quotations with comprehensive warranty and installation details
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#c4620a]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#d00000]"></span>
                 Dedicated pan-India service response across 14 branch cities
               </li>
             </ul>
@@ -139,7 +139,7 @@ export function HomeEnquiryForm() {
         onSubmit={handleSubmit}
         className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
       >
-        <h3 className="text-xl font-black text-[#002f49] sm:text-2xl">
+        <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
           Request Instrument Details &amp; Quotation
         </h3>
         <p className="mt-1.5 text-sm text-slate-600">
@@ -150,7 +150,7 @@ export function HomeEnquiryForm() {
           {/* Full Name */}
           <div>
             <label htmlFor="enquiry-name" className="label">
-              Full Name <span className="text-[#c4620a]">*</span>
+              Full Name <span className="text-[#d00000]">*</span>
             </label>
             <input
               id="enquiry-name"
@@ -166,7 +166,7 @@ export function HomeEnquiryForm() {
           {/* Company / Organisation */}
           <div>
             <label htmlFor="enquiry-company" className="label">
-              Company / Organisation <span className="text-[#c4620a]">*</span>
+              Company / Organisation <span className="text-[#d00000]">*</span>
             </label>
             <input
               id="enquiry-company"
@@ -182,7 +182,7 @@ export function HomeEnquiryForm() {
           {/* Business Email */}
           <div>
             <label htmlFor="enquiry-email" className="label">
-              Business Email <span className="text-[#c4620a]">*</span>
+              Business Email <span className="text-[#d00000]">*</span>
             </label>
             <input
               id="enquiry-email"
@@ -198,7 +198,7 @@ export function HomeEnquiryForm() {
           {/* Phone Number */}
           <div>
             <label htmlFor="enquiry-phone" className="label">
-              Phone Number <span className="text-[#c4620a]">*</span>
+              Phone Number <span className="text-[#d00000]">*</span>
             </label>
             <input
               id="enquiry-phone"
@@ -214,7 +214,7 @@ export function HomeEnquiryForm() {
           {/* City */}
           <div>
             <label htmlFor="enquiry-city" className="label">
-              City <span className="text-[#c4620a]">*</span>
+              City <span className="text-[#d00000]">*</span>
             </label>
             <input
               id="enquiry-city"
@@ -245,7 +245,7 @@ export function HomeEnquiryForm() {
           {/* Your Requirements */}
           <div className="sm:col-span-2">
             <label htmlFor="enquiry-requirements" className="label">
-              Your Requirements <span className="text-[#c4620a]">*</span>
+              Your Requirements <span className="text-[#d00000]">*</span>
             </label>
             <textarea
               id="enquiry-requirements"
@@ -267,13 +267,13 @@ export function HomeEnquiryForm() {
             required
             checked={formData.consent}
             onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-            className="mt-1 h-4 w-4 rounded border-slate-300 text-[#c4620a] focus:ring-[#c4620a]"
+            className="mt-1 h-4 w-4 rounded border-slate-300 text-[#0056B3] focus:ring-[#0056B3]"
           />
           <label htmlFor="enquiry-consent" className="text-xs leading-relaxed text-slate-600 cursor-pointer">
             I agree to be contacted by Orbit Technologies regarding my enquiry and have read the{" "}
-            <a href="#privacy" className="text-[#c4620a] underline">
+            <Link href="/privacy-policy/" target="_blank" className="text-[#0056B3] hover:text-[#d00000] underline">
               Privacy Policy
-            </a>
+            </Link>
             .
           </label>
         </div>

@@ -128,8 +128,7 @@ export default function AboutPage() {
       {/* Main Narrative Introduction */}
       <section className="container-x mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
         <div>
-          <span className="eyebrow text-[#c4620a]">Our Purpose</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
             Bringing Instruments, Expertise and People Together
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-700">
@@ -149,7 +148,7 @@ export default function AboutPage() {
         </div>
 
         {/* Quick Highlights Box */}
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#002f49] to-[#001c2c] p-6 sm:p-8 text-white shadow-xl">
+        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#0056B3] to-[#001c3d] p-6 sm:p-8 text-white shadow-xl">
           <div className="flex items-center gap-3">
             <Image
               src={withBasePath("/badge-35.jpg")}
@@ -160,34 +159,34 @@ export default function AboutPage() {
               className="h-12 w-auto rounded-lg shadow-sm"
             />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#ffb347]">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#feeceb]">
                 Established 1995 · Hyderabad
               </p>
-              <h3 className="text-lg font-black text-white">Orbit Technologies</h3>
+              <h3 className="text-lg font-semibold text-white">Orbit Technologies</h3>
             </div>
           </div>
 
           <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-5 text-center">
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-black text-[#ff8d0a]">35+</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-[#d00000]">35+</p>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
                 Years of Service
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-black text-white">7,000+</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-white">7,000+</p>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
                 Customers Served
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-black text-white">14</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-white">14</p>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
                 Branch Cities
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-black text-[#ff8d0a]">30,000</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-[#d00000]">30,000</p>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
                 Sq. Ft. Facility
               </p>
@@ -202,8 +201,7 @@ export default function AboutPage() {
       <section className="band mt-16 border-y border-slate-200 py-16">
         <div className="container-x">
           <div className="max-w-2xl">
-            <span className="eyebrow text-[#c4620a]">Core Philosophy</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
               What We Believe
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -220,10 +218,10 @@ export default function AboutPage() {
                   className="surface group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#f6dcc4] hover:shadow-lg"
                 >
                   <div>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fdeedd] text-[#c4620a] transition group-hover:bg-[#c4620a] group-hover:text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000] transition group-hover:bg-[#d00000] group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-5 text-base font-extrabold text-[#002f49]">
+                    <h3 className="mt-5 text-base font-semibold text-[#0056B3]">
                       {belief.title}
                     </h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -242,8 +240,7 @@ export default function AboutPage() {
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16">
         <div className="max-w-3xl">
-          <span className="eyebrow text-[#c4620a]">Our Leadership &amp; Team</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
             The People Behind the Instruments
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -262,10 +259,10 @@ export default function AboutPage() {
                 <span className="chip chip-accent text-[11px] font-bold uppercase tracking-wider">
                   Orbit Executive Leadership
                 </span>
-                <h3 className="mt-4 text-xl font-black text-[#002f49] sm:text-2xl">
+                <h3 className="mt-4 text-xl font-semibold text-[#0056B3] sm:text-2xl">
                   {leader.name}
                 </h3>
-                <p className="mt-1 text-xs font-semibold text-[#c4620a]">
+                <p className="mt-1 text-xs font-semibold text-[#d00000]">
                   {leader.role}
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-slate-600">
@@ -276,7 +273,7 @@ export default function AboutPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Focus Areas
                 </p>
-                <p className="mt-1 text-xs font-bold text-[#002f49]">
+                <p className="mt-1 text-xs font-bold text-[#0056B3]">
                   {leader.focus}
                 </p>
               </div>
@@ -295,7 +292,7 @@ export default function AboutPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 text-white">
-              <span className="rounded-md bg-[#c4620a] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+              <span className="rounded-md bg-[#d00000] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
                 Our Nationwide Team
               </span>
               <p className="mt-2 text-sm sm:text-lg font-bold leading-tight">
@@ -315,8 +312,7 @@ export default function AboutPage() {
       <section className="band mt-16 border-y border-slate-200 py-16">
         <div className="container-x">
           <div className="max-w-3xl">
-            <span className="eyebrow text-[#c4620a]">Heritage &amp; Growth</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
               Our Story
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-700">
@@ -329,17 +325,17 @@ export default function AboutPage() {
 
           {/* Timeline Milestones */}
           <div className="mt-12">
-            <div className="relative border-l-2 border-[#ff8d0a] pl-6 ml-3 sm:ml-6 space-y-10">
+            <div className="relative border-l-2 border-[#d00000] pl-6 ml-3 sm:ml-6 space-y-10">
               {milestones.map((m) => (
                 <div key={m.year + m.title} className="relative group">
                   {/* Timeline Dot */}
-                  <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#c4620a] text-white ring-4 ring-white shadow-sm">
+                  <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#d00000] text-white ring-4 ring-white shadow-sm">
                     <span className="h-2 w-2 rounded-full bg-white"></span>
                   </span>
 
                   <div className="surface p-6 transition hover:border-[#f6dcc4] hover:shadow-md">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fdeedd] px-3 py-0.5 text-xs font-black text-[#c4620a]">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#feeceb] px-3 py-0.5 text-xs font-semibold text-[#d00000]">
                         <Calendar className="h-3.5 w-3.5" /> {m.year}
                       </span>
                       <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
@@ -347,7 +343,7 @@ export default function AboutPage() {
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-lg font-black text-[#002f49] sm:text-xl">
+                    <h3 className="mt-3 text-lg font-semibold text-[#0056B3] sm:text-xl">
                       {m.title}
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -366,8 +362,7 @@ export default function AboutPage() {
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16">
         <div className="max-w-3xl">
-          <span className="eyebrow text-[#c4620a]">Complete Capabilities</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
             Manufacturing, Global Technology and Local Support
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -377,12 +372,12 @@ export default function AboutPage() {
 
         <div className="mt-10 grid gap-8 lg:grid-cols-3">
           {/* Pillar 1: Indian Manufacturing */}
-          <div className="surface group flex flex-col justify-between p-6 sm:p-8 border-t-4 border-t-[#c4620a]">
+          <div className="surface group flex flex-col justify-between p-6 sm:p-8 border-t-4 border-t-[#d00000]">
             <div>
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#fdeedd] text-[#c4620a]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000]">
                 <Factory className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-black text-[#002f49]">
+              <h3 className="mt-4 text-xl font-semibold text-[#0056B3]">
                 Indian Manufacturing
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -391,19 +386,19 @@ export default function AboutPage() {
 
               <ul className="mt-4 space-y-2 text-xs sm:text-sm text-slate-700 font-medium">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#c4620a]" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d00000]" />
                   Carbon and sulphur analysers
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#c4620a]" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d00000]" />
                   Ash fusion analysers
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#c4620a]" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d00000]" />
                   Thermogravimetric &amp; proximate analysers
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#c4620a]" />
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d00000]" />
                   Pyrolysers
                 </li>
               </ul>
@@ -416,7 +411,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/analytical-instruments/"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 Explore: Manufacturing and Analytical Instruments <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -424,12 +419,12 @@ export default function AboutPage() {
           </div>
 
           {/* Pillar 2: International Technology Partnerships */}
-          <div className="surface group flex flex-col justify-between p-6 sm:p-8 border-t-4 border-t-[#002f49]">
+          <div className="surface group flex flex-col justify-between p-6 sm:p-8 border-t-4 border-t-[#0056B3]">
             <div>
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-[#002f49]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-[#0056B3]">
                 <Globe2 className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-black text-[#002f49]">
+              <h3 className="mt-4 text-xl font-semibold text-[#0056B3]">
                 International Partnerships
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -438,19 +433,19 @@ export default function AboutPage() {
 
               <ul className="mt-4 space-y-2.5 text-xs text-slate-700">
                 <li>
-                  <strong className="text-[#002f49]">Parr Instrument Company, USA:</strong> Calorimeters, reactors and pressure systems (exclusive partner in India).
+                  <strong className="text-[#0056B3]">Parr Instrument Company, USA:</strong> Calorimeters, reactors and pressure systems (exclusive partner in India).
                 </li>
                 <li>
-                  <strong className="text-[#002f49]">NCS Testing Technology, Germany:</strong> Elemental analysers for inorganic materials.
+                  <strong className="text-[#0056B3]">NCS Testing Technology, Germany:</strong> Elemental analysers for inorganic materials.
                 </li>
                 <li>
-                  <strong className="text-[#002f49]">NC Technologies, Italy:</strong> Dynamic flash CHNS/O elemental analysers.
+                  <strong className="text-[#0056B3]">NC Technologies, Italy:</strong> Dynamic flash CHNS/O elemental analysers.
                 </li>
                 <li>
-                  <strong className="text-[#002f49]">Elemental Microanalysis, UK:</strong> Certified reference materials and consumables.
+                  <strong className="text-[#0056B3]">Elemental Microanalysis, UK:</strong> Certified reference materials and consumables.
                 </li>
                 <li>
-                  <strong className="text-[#002f49]">RB Automazione, Italy:</strong> Plastometers and dilatometers for coal &amp; coke testing.
+                  <strong className="text-[#0056B3]">RB Automazione, Italy:</strong> Plastometers and dilatometers for coal &amp; coke testing.
                 </li>
               </ul>
             </div>
@@ -458,7 +453,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/#industries"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002f49] hover:text-[#c4620a] transition hover:underline"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition hover:underline"
               >
                 Explore: Our Principals and Partners <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -471,7 +466,7 @@ export default function AboutPage() {
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
                 <Wrench className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-black text-[#002f49]">
+              <h3 className="mt-4 text-xl font-semibold text-[#0056B3]">
                 Technical Service &amp; Support
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -529,8 +524,7 @@ export default function AboutPage() {
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-2xl">
-              <span className="eyebrow text-[#c4620a]">Industry Coverage</span>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
                 Industries We Serve
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -548,8 +542,8 @@ export default function AboutPage() {
                 key={ind}
                 className="surface flex items-center gap-3 p-4 transition hover:border-[#f6dcc4] hover:shadow-xs"
               >
-                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#c4620a]" />
-                <span className="text-sm font-bold text-[#002f49]">{ind}</span>
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#d00000]" />
+                <span className="text-sm font-bold text-[#0056B3]">{ind}</span>
               </div>
             ))}
           </div>
@@ -561,8 +555,7 @@ export default function AboutPage() {
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16">
         <div className="max-w-3xl">
-          <span className="eyebrow text-[#c4620a]">Proven Capability</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
             Experience You Can Build On
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -572,7 +565,7 @@ export default function AboutPage() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-black text-[#c4620a]">30+ Years</p>
+            <p className="text-3xl font-semibold text-[#d00000]">30+ Years</p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Of Experience
             </p>
@@ -580,7 +573,7 @@ export default function AboutPage() {
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-black text-[#002f49]">7,000+</p>
+            <p className="text-3xl font-semibold text-[#0056B3]">7,000+</p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Customers
             </p>
@@ -588,7 +581,7 @@ export default function AboutPage() {
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-black text-[#002f49]">14</p>
+            <p className="text-3xl font-semibold text-[#0056B3]">14</p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Branch Cities
             </p>
@@ -596,7 +589,7 @@ export default function AboutPage() {
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-black text-[#c4620a]">Hyderabad</p>
+            <p className="text-3xl font-semibold text-[#d00000]">Hyderabad</p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Headquarters
             </p>
@@ -604,7 +597,7 @@ export default function AboutPage() {
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-black text-[#002f49]">Global</p>
+            <p className="text-3xl font-semibold text-[#0056B3]">Global</p>
             <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
               Partnerships
             </p>
@@ -617,10 +610,9 @@ export default function AboutPage() {
           8. LOOKING AHEAD
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16">
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#001c2c] to-[#002f49] p-8 sm:p-12 text-white shadow-xl">
+        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#001c3d] to-[#0056B3] p-8 sm:p-12 text-white shadow-xl">
           <div className="max-w-3xl">
-            <span className="eyebrow text-[#ff8d0a]">Future Vision</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Looking Ahead
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-300">
@@ -639,8 +631,7 @@ export default function AboutPage() {
       <section className="band mt-16 border-y border-slate-200 py-16">
         <div className="container-x">
           <div className="max-w-3xl">
-            <span className="eyebrow text-[#c4620a]">Pan-India Presence</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
               Where to Find Us
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -651,14 +642,13 @@ export default function AboutPage() {
           <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.3fr]">
             {/* Headquarters Card */}
             <div className="surface p-6 sm:p-8">
-              <span className="eyebrow text-[#c4620a]">Corporate Headquarters</span>
-              <h3 className="mt-2 text-xl font-black text-[#002f49]">
+              <h3 className="text-xl font-semibold text-[#0056B3]">
                 Orbit Technologies Pvt. Ltd.
               </h3>
 
               <div className="mt-6 space-y-4 text-sm text-slate-700">
                 <div className="flex items-start gap-3">
-                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#c4620a]" />
+                  <MapPin className="mt-1 h-5 w-5 shrink-0 text-[#d00000]" />
                   <address className="not-italic leading-relaxed">
                     B-50, Industrial Estate, Sanath Nagar,<br />
                     Hyderabad – 500018, Telangana, India
@@ -666,15 +656,15 @@ export default function AboutPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 shrink-0 text-[#c4620a]" />
-                  <a href="tel:+914067216354" className="font-semibold hover:text-[#c4620a] transition">
+                  <Phone className="h-5 w-5 shrink-0 text-[#d00000]" />
+                  <a href="tel:+914067216354" className="font-semibold hover:text-[#d00000] transition">
                     +91 40 6721 6354
                   </a>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 shrink-0 text-[#c4620a]" />
-                  <a href="mailto:orbit@orbitindia.com" className="font-semibold text-[#c4620a] hover:underline">
+                  <Mail className="h-5 w-5 shrink-0 text-[#d00000]" />
+                  <a href="mailto:orbit@orbitindia.com" className="font-semibold text-[#d00000] hover:underline">
                     orbit@orbitindia.com
                   </a>
                 </div>
@@ -690,8 +680,7 @@ export default function AboutPage() {
             {/* Sales and Service Network */}
             <div className="surface p-6 sm:p-8 flex flex-col justify-between">
               <div>
-                <span className="eyebrow text-[#002f49]">Sales &amp; Service Network</span>
-                <h3 className="mt-2 text-xl font-black text-[#002f49]">
+                <h3 className="text-xl font-semibold text-[#0056B3]">
                   14 Branch Cities Across India
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -702,7 +691,7 @@ export default function AboutPage() {
                   {branchOffices.map((b) => (
                     <span
                       key={b}
-                      className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-[#002f49] shadow-2xs hover:border-[#f6dcc4] hover:bg-[#fffbf5]"
+                      className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-bold text-[#0056B3] shadow-2xs hover:border-[#f6dcc4] hover:bg-[#fffbf5]"
                     >
                       {b}
                     </span>
@@ -711,7 +700,7 @@ export default function AboutPage() {
               </div>
 
               <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600">
-                <strong className="text-[#002f49]">Regional coverage:</strong> Delhi NCR, Uttar Pradesh, Maharashtra, Gujarat, West Bengal, Odisha, Chhattisgarh, Jharkhand, Andhra Pradesh, Telangana, Karnataka, and Tamil Nadu.
+                <strong className="text-[#0056B3]">Regional coverage:</strong> Delhi NCR, Uttar Pradesh, Maharashtra, Gujarat, West Bengal, Odisha, Chhattisgarh, Jharkhand, Andhra Pradesh, Telangana, Karnataka, and Tamil Nadu.
               </div>
             </div>
           </div>
@@ -722,8 +711,8 @@ export default function AboutPage() {
           10. FINAL CALL TO ACTION
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16 mb-20">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-[#002539] via-[#002f49] to-[#001c2c] p-8 sm:p-14 text-center text-white shadow-2xl">
-          <h2 className="mx-auto max-w-2xl text-2xl font-black tracking-tight sm:text-4xl">
+        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-[#003d80] via-[#0056B3] to-[#001c3d] p-8 sm:p-14 text-center text-white shadow-2xl">
+          <h2 className="mx-auto max-w-2xl text-2xl font-semibold tracking-tight sm:text-4xl">
             Let’s Talk About Your Laboratory Requirements
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

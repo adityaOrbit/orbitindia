@@ -24,17 +24,17 @@ export function KnowledgeTools() {
           onClick={() => setActiveTool("calorific")}
           className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
             activeTool === "calorific"
-              ? "border-[#c4620a] bg-[#fdeedd]/40 shadow-sm"
+              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
               : "border-slate-200 bg-white hover:border-slate-300"
           }`}
         >
           <div className="flex items-center gap-2">
             <Flame
               className={`h-4 w-4 ${
-                activeTool === "calorific" ? "text-[#c4620a]" : "text-slate-400"
+                activeTool === "calorific" ? "text-[#d00000]" : "text-slate-400"
               }`}
             />
-            <span className="text-xs font-bold text-[#002f49]">GCV &amp; Basis Tool</span>
+            <span className="text-xs font-semibold text-[#0056B3]">GCV &amp; Basis Tool</span>
           </div>
           <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
             Convert kcal/MJ/BTU &amp; ar/ad/db
@@ -46,17 +46,17 @@ export function KnowledgeTools() {
           onClick={() => setActiveTool("calorimeter-w")}
           className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
             activeTool === "calorimeter-w"
-              ? "border-[#c4620a] bg-[#fdeedd]/40 shadow-sm"
+              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
               : "border-slate-200 bg-white hover:border-slate-300"
           }`}
         >
           <div className="flex items-center gap-2">
             <Calculator
               className={`h-4 w-4 ${
-                activeTool === "calorimeter-w" ? "text-[#c4620a]" : "text-slate-400"
+                activeTool === "calorimeter-w" ? "text-[#d00000]" : "text-slate-400"
               }`}
             />
-            <span className="text-xs font-bold text-[#002f49]">W-Factor Calculator</span>
+            <span className="text-xs font-semibold text-[#0056B3]">W-Factor Calculator</span>
           </div>
           <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
             Benzoic Acid heat equivalent
@@ -68,17 +68,17 @@ export function KnowledgeTools() {
           onClick={() => setActiveTool("reactor-sizer")}
           className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
             activeTool === "reactor-sizer"
-              ? "border-[#c4620a] bg-[#fdeedd]/40 shadow-sm"
+              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
               : "border-slate-200 bg-white hover:border-slate-300"
           }`}
         >
           <div className="flex items-center gap-2">
             <Gauge
               className={`h-4 w-4 ${
-                activeTool === "reactor-sizer" ? "text-[#c4620a]" : "text-slate-400"
+                activeTool === "reactor-sizer" ? "text-[#d00000]" : "text-slate-400"
               }`}
             />
-            <span className="text-xs font-bold text-[#002f49]">Autoclave Sizer</span>
+            <span className="text-xs font-semibold text-[#0056B3]">Autoclave Sizer</span>
           </div>
           <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
             Pressure &amp; 75% fill safety check
@@ -90,17 +90,17 @@ export function KnowledgeTools() {
           onClick={() => setActiveTool("ash-slagging")}
           className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
             activeTool === "ash-slagging"
-              ? "border-[#c4620a] bg-[#fdeedd]/40 shadow-sm"
+              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
               : "border-slate-200 bg-white hover:border-slate-300"
           }`}
         >
           <div className="flex items-center gap-2">
             <Sliders
               className={`h-4 w-4 ${
-                activeTool === "ash-slagging" ? "text-[#c4620a]" : "text-slate-400"
+                activeTool === "ash-slagging" ? "text-[#d00000]" : "text-slate-400"
               }`}
             />
-            <span className="text-xs font-bold text-[#002f49]">Slagging Risk Predictor</span>
+            <span className="text-xs font-semibold text-[#0056B3]">Slagging Risk Predictor</span>
           </div>
           <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
             Silica ratio &amp; fouling index
@@ -166,7 +166,7 @@ function CalorificBasisConverter() {
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
         <span className="chip chip-accent text-[11px] font-bold">Standard Formula ASTM D5865 / ISO 1928</span>
-        <h3 className="mt-2 text-xl font-black text-[#002f49]">
+        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
           Coal Calorific Value (GCV/NCV) Unit &amp; Basis Converter
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -186,7 +186,7 @@ function CalorificBasisConverter() {
                 type="number"
                 value={val}
                 onChange={(e) => setVal(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm font-bold text-slate-900 focus:border-[#002f49] focus:outline-hidden"
+                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm font-bold text-slate-900 focus:border-[#0056B3] focus:outline-hidden"
               />
             </div>
             <div>
@@ -213,7 +213,7 @@ function CalorificBasisConverter() {
                 onClick={() => setBasis("ad")}
                 className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
                   basis === "ad"
-                    ? "border-[#002f49] bg-[#002f49] text-white"
+                    ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"
                 }`}
               >
@@ -224,7 +224,7 @@ function CalorificBasisConverter() {
                 onClick={() => setBasis("ar")}
                 className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
                   basis === "ar"
-                    ? "border-[#002f49] bg-[#002f49] text-white"
+                    ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"
                 }`}
               >
@@ -235,7 +235,7 @@ function CalorificBasisConverter() {
                 onClick={() => setBasis("db")}
                 className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
                   basis === "db"
-                    ? "border-[#002f49] bg-[#002f49] text-white"
+                    ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"
                 }`}
               >
@@ -302,18 +302,18 @@ function CalorificBasisConverter() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
               Computed Energy Yields
             </h4>
-            <span className="text-[11px] font-semibold text-[#c4620a]">Real-Time Result</span>
+            <span className="text-[11px] font-semibold text-[#d00000]">Real-Time Result</span>
           </div>
 
           <div className="grid gap-2.5 text-xs">
             {/* GCV As-Received */}
             <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
               <div>
-                <span className="font-bold text-[#002f49]">GCV As-Received (GCV_ar)</span>
+                <span className="font-bold text-[#0056B3]">GCV As-Received (GCV_ar)</span>
                 <p className="text-[10px] text-slate-500">Commercial billing base at plant siding</p>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-[#c4620a]">
+                <span className="text-sm font-bold text-[#d00000]">
                   {Math.round(gcvAr).toLocaleString()} kcal/kg
                 </span>
                 <p className="text-[10px] font-medium text-slate-600">
@@ -325,11 +325,11 @@ function CalorificBasisConverter() {
             {/* GCV Air-Dried */}
             <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
               <div>
-                <span className="font-bold text-[#002f49]">GCV Air-Dried (GCV_ad)</span>
+                <span className="font-bold text-[#0056B3]">GCV Air-Dried (GCV_ad)</span>
                 <p className="text-[10px] text-slate-500">Laboratory test bench reporting basis</p>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-slate-800">
+                <span className="text-sm font-bold text-slate-800">
                   {Math.round(gcvAd).toLocaleString()} kcal/kg
                 </span>
                 <p className="text-[10px] font-medium text-slate-600">
@@ -341,11 +341,11 @@ function CalorificBasisConverter() {
             {/* GCV Dry Basis */}
             <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
               <div>
-                <span className="font-bold text-[#002f49]">GCV Dry Basis (GCV_db)</span>
+                <span className="font-bold text-[#0056B3]">GCV Dry Basis (GCV_db)</span>
                 <p className="text-[10px] text-slate-500">Moisture-free matrix</p>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-slate-800">
+                <span className="text-sm font-bold text-slate-800">
                   {Math.round(gcvDb).toLocaleString()} kcal/kg
                 </span>
                 <p className="text-[10px] font-medium text-slate-600">
@@ -357,24 +357,24 @@ function CalorificBasisConverter() {
             {/* GCV DAF */}
             <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
               <div>
-                <span className="font-bold text-[#002f49]">Dry Ash-Free (GCV_daf)</span>
+                <span className="font-bold text-[#0056B3]">Dry Ash-Free (GCV_daf)</span>
                 <p className="text-[10px] text-slate-500">Pure organic combustible substance</p>
               </div>
               <div className="text-right">
-                <span className="text-sm font-black text-slate-800">
+                <span className="text-sm font-bold text-slate-800">
                   {Math.round(gcvDaf).toLocaleString()} kcal/kg
                 </span>
               </div>
             </div>
 
             {/* NCV / LHV As-Received */}
-            <div className="flex items-center justify-between rounded-lg bg-[#002f49] p-3 text-white shadow-sm">
+            <div className="flex items-center justify-between rounded-lg bg-[#0056B3] p-3 text-white shadow-sm">
               <div>
-                <span className="font-bold text-[#ffb347]">Net Calorific Value (NCV_ar / LHV)</span>
+                <span className="font-bold text-[#feeceb]">Net Calorific Value (NCV_ar / LHV)</span>
                 <p className="text-[10px] text-slate-300">Latent heat of moisture vapor deducted</p>
               </div>
               <div className="text-right">
-                <span className="text-base font-black text-white">
+                <span className="text-base font-bold text-white">
                   {Math.round(ncvArKcal).toLocaleString()} kcal/kg
                 </span>
                 <p className="text-[10px] text-slate-300 font-medium">
@@ -414,7 +414,7 @@ function CalorimeterWCalculator() {
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
         <span className="chip chip-accent text-[11px] font-bold">Standard Calibration: ASTM D5865 / ISO 1928</span>
-        <h3 className="mt-2 text-xl font-black text-[#002f49]">
+        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
           Bomb Calorimeter Water Equivalent ($W$) Calibration Calculator
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -501,11 +501,11 @@ function CalorimeterWCalculator() {
               Calculated Energy Equivalent ($W$)
             </span>
 
-            <div className="rounded-xl bg-[#002f49] p-5 text-white shadow-sm">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#ffb347]">
+            <div className="rounded-xl bg-[#0056B3] p-5 text-white shadow-sm">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#feeceb]">
                 Effective Heat Capacity
               </span>
-              <div className="mt-2 text-3xl font-black">
+              <div className="mt-2 text-3xl font-bold">
                 {wJoules.toFixed(1)} <span className="text-lg font-bold">J / °C</span>
               </div>
               <p className="mt-1 text-xs text-slate-300">
@@ -570,7 +570,7 @@ function ReactorSizerTool() {
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
         <span className="chip chip-accent text-[11px] font-bold">ASME Section VIII Safety Guidelines</span>
-        <h3 className="mt-2 text-xl font-black text-[#002f49]">
+        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
           High-Pressure Reactor Headspace &amp; Safety Sizer
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -658,7 +658,7 @@ function ReactorSizerTool() {
           <div className="rounded-lg bg-white p-3.5 border border-slate-200 space-y-2 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-slate-600">Liquid Fill Ratio:</span>
-              <strong className={isOverfilled ? "text-red-600 font-black text-sm" : "text-emerald-700 font-bold"}>
+              <strong className={isOverfilled ? "text-red-600 font-bold text-sm" : "text-emerald-700 font-bold"}>
                 {fillFraction.toFixed(1)}% (Max safe: 75%)
               </strong>
             </div>
@@ -676,7 +676,7 @@ function ReactorSizerTool() {
             )}
           </div>
 
-          <div className="rounded-xl bg-[#002f49] p-4 text-white space-y-2">
+          <div className="rounded-xl bg-[#0056B3] p-4 text-white space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-xs text-slate-300">Hot Gas Thermal Pressure:</span>
               <span className="font-bold">{hotGasPress.toFixed(1)} bar</span>
@@ -686,8 +686,8 @@ function ReactorSizerTool() {
               <span className="font-bold">~ {vaporPress.toFixed(1)} bar</span>
             </div>
             <div className="border-t border-white/20 pt-2 flex justify-between items-center text-sm">
-              <span className="font-bold text-[#ffb347]">Estimated Total Pressure:</span>
-              <span className="text-lg font-black text-white">
+              <span className="font-bold text-[#feeceb]">Estimated Total Pressure:</span>
+              <span className="text-lg font-bold text-white">
                 ~ {Math.round(estTotalPress)} bar ({Math.round(estTotalPress * 14.5)} psi)
               </span>
             </div>
@@ -739,7 +739,7 @@ function AshSlaggingPredictor() {
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
         <span className="chip chip-accent text-[11px] font-bold">Utility Boiler Chemistry</span>
-        <h3 className="mt-2 text-xl font-black text-[#002f49]">
+        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
           Coal Ash Slagging &amp; Fouling Risk Predictor
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -832,7 +832,7 @@ function AshSlaggingPredictor() {
           {/* Silica Ratio Card */}
           <div className="rounded-xl bg-white p-4 border border-slate-200 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#002f49]">Silica Ratio (SR)</span>
+              <span className="text-xs font-bold text-[#0056B3]">Silica Ratio (SR)</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
                   srRisk === "Low"
@@ -845,7 +845,7 @@ function AshSlaggingPredictor() {
                 {srRisk} Risk
               </span>
             </div>
-            <div className="mt-1 text-2xl font-black text-slate-900">
+            <div className="mt-1 text-2xl font-bold text-slate-900">
               {silicaRatio.toFixed(1)}%
             </div>
             <p className="mt-1 text-[10px] text-slate-500">
@@ -856,7 +856,7 @@ function AshSlaggingPredictor() {
           {/* Slagging Factor Card */}
           <div className="rounded-xl bg-white p-4 border border-slate-200 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#002f49]">Slagging Factor ($R_s$)</span>
+              <span className="text-xs font-bold text-[#0056B3]">Slagging Factor ($R_s$)</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
                   rsRisk === "Low"
@@ -869,7 +869,7 @@ function AshSlaggingPredictor() {
                 {rsRisk} Slagging
               </span>
             </div>
-            <div className="mt-1 text-2xl font-black text-slate-900">
+            <div className="mt-1 text-2xl font-bold text-slate-900">
               {slaggingFactor.toFixed(3)}
             </div>
             <p className="mt-1 text-[10px] text-slate-500">

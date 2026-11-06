@@ -1,12 +1,11 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   Orbit brand kit (from the live orbitindia.com design):
-   - navy #002F49  → primary: headings, dark surfaces, nav, footer
-   - orange #FF8D0A → accent: CTAs, highlights (deepened for text contrast)
-   - red #DA1515 → logo only, kept out of UI chrome
-   - taupe #C3BAAC → warm neutral band
-   Fonts: Poppins (headings) + Roboto (body), as on the live site.
+   Orbit brand kit:
+   - Primary: #0056B3 (Royal Corporate Blue) -> nav bar, headings, structure, footer
+   - Accent: #d00000 (Crimson Red matching Orbit logo) -> primary CTAs, highlights
+   - Neutral: #ffffff (Pure White) & #f8fafc (Light slate surfaces)
+   Fonts: Poppins (headings) + Roboto (body).
 --------------------------------------------------------------------------- */
 
 @theme inline {
@@ -15,19 +14,19 @@
 }
 
 :root {
-  --brand-950: #001421;
-  --brand-900: #001c2c;
-  --brand-800: #002539;
-  --brand-700: #013a58;
-  --brand-500: #002f49;
-  --brand-200: #cfdce4;
-  --brand-100: #eaf1f5;
-  --accent-700: #a35a00;
-  --accent-600: #c4620a;
-  --accent-500: #ff8d0a;
-  --accent-100: #fdeedd;
-  --sand-500: #c3baac;
-  --sand-100: #f6f3ee;
+  --brand-950: #001733;
+  --brand-900: #002244;
+  --brand-800: #003366;
+  --brand-700: #004488;
+  --brand-500: #0056B3;
+  --brand-200: #cce1f9;
+  --brand-100: #ebf3fc;
+  --accent-700: #8a0000;
+  --accent-600: #b00000;
+  --accent-500: #d00000;
+  --accent-100: #feeceb;
+  --sand-500: #cbd5e1;
+  --sand-100: #f8fafc;
   color-scheme: light;
 }
 
@@ -42,7 +41,7 @@ body {
   min-height: 100dvh;
 }
 
-/* Headings ride the display font from the brand kit. */
+/* Headings ride the display font from the brand kit with clean semi-bold / medium weight. */
 h1,
 h2,
 h3,
@@ -50,10 +49,32 @@ h4,
 h5,
 h6 {
   font-family: var(--font-poppins), var(--font-sans);
+  font-weight: 600;
+}
+
+h1.font-black,
+h2.font-black,
+h3.font-black,
+h4.font-black,
+h5.font-black,
+h6.font-black,
+h1.font-extrabold,
+h2.font-extrabold,
+h3.font-extrabold,
+h4.font-extrabold,
+h5.font-extrabold,
+h6.font-extrabold,
+h1.font-bold,
+h2.font-bold,
+h3.font-bold,
+h4.font-bold,
+h5.font-bold,
+h6.font-bold {
+  font-weight: 600;
 }
 
 ::selection {
-  background: rgba(0, 47, 73, 0.22);
+  background: rgba(0, 86, 179, 0.18);
 }
 
 /* ----------------------------- shared atoms ----------------------------- */
@@ -75,52 +96,54 @@ h6 {
   }
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 0.6rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1;
-  padding: 0.7rem 1.15rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-.btn:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-/* Navy = primary surface button */
-.btn-primary {
-  background: linear-gradient(135deg, #00395a, #001c2c);
-  color: #ffffff;
-  box-shadow: 0 6px 18px -8px rgba(0, 47, 73, 0.55);
-}
-.btn-primary:hover {
-  filter: brightness(1.18);
-}
-/* Orange = the live site's CTA */
-.btn-accent {
-  background: linear-gradient(135deg, #ffa426, #ff8d0a 55%, #ef7f00);
-  color: #ffffff;
-  box-shadow: 0 6px 18px -8px rgba(255, 141, 10, 0.65);
-}
-.btn-accent:hover {
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-}
-.btn-outline {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #002f49;
-}
-.btn-outline:hover {
-  border-color: #ff8d0a;
-  color: #a35a00;
-  background: #fffbf5;
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.7rem 1.15rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  /* Royal Blue = primary corporate button */
+  .btn-primary {
+    background: linear-gradient(135deg, #0056B3, #00387a);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -8px rgba(0, 86, 179, 0.45);
+  }
+  .btn-primary:hover {
+    filter: brightness(1.1);
+  }
+  /* Crimson Red (#d00000) = primary action & quote CTA */
+  .btn-accent {
+    background: linear-gradient(135deg, #e50000, #d00000 60%, #b30000);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -8px rgba(208, 0, 0, 0.45);
+  }
+  .btn-accent:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+  .btn-outline {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #0056B3;
+  }
+  .btn-outline:hover {
+    border-color: #0056B3;
+    color: #0056B3;
+    background: #ebf3fc;
+  }
 }
 
 .chip {
@@ -136,9 +159,9 @@ h6 {
   color: #475569;
 }
 .chip-accent {
-  border-color: #f6dcc4;
-  background: #fff3e6;
-  color: #a35a00;
+  border-color: #fecaca;
+  background: #feeceb;
+  color: #d00000;
 }
 
 .input {
@@ -156,8 +179,8 @@ h6 {
   color: #94a3b8;
 }
 .input:focus {
-  border-color: #ff8d0a;
-  box-shadow: 0 0 0 3px rgba(255, 141, 10, 0.2);
+  border-color: #0056B3;
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.18);
 }
 
 .label {
@@ -178,19 +201,19 @@ h6 {
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
 .surface-hover:hover {
-  border-color: #f6dcc4;
-  box-shadow: 0 10px 30px -18px rgba(0, 47, 73, 0.4);
+  border-color: #cce1f9;
+  box-shadow: 0 10px 30px -18px rgba(0, 86, 179, 0.35);
   transform: translateY(-2px);
 }
 
-/* Warm neutral band (taupe from the brand kit, very light) */
+/* Clean neutral band */
 .band {
-  background: var(--sand-100);
+  background: #f8fafc;
 }
 
-/* Dark band = deep navy */
+/* Dark band = deep royal navy */
 .dark-band {
-  background: linear-gradient(160deg, #002539, #001c2c);
+  background: linear-gradient(160deg, #003366, #002244);
 }
 
 .eyebrow {
@@ -238,15 +261,15 @@ h6 {
 /* light hero band (product / category / page headers) */
 .hero-light {
   background:
-    radial-gradient(700px 320px at 88% -20%, rgba(255, 141, 10, 0.08), transparent 60%),
-    radial-gradient(600px 300px at 0% 120%, rgba(0, 47, 73, 0.07), transparent 55%),
-    linear-gradient(180deg, #fdfcfa, #f6f3ee);
+    radial-gradient(700px 320px at 88% -20%, rgba(208, 0, 0, 0.05), transparent 60%),
+    radial-gradient(600px 300px at 0% 120%, rgba(0, 86, 179, 0.06), transparent 55%),
+    linear-gradient(180deg, #ffffff, #f8fafc);
 }
 
 /* left-accent highlight callout used in product headers */
 .callout {
-  border-left: 4px solid #ff8d0a;
-  background: #fdf8f1;
+  border-left: 4px solid #0056B3;
+  background: #ebf3fc;
   border-radius: 0 0.75rem 0.75rem 0;
   padding: 0.8rem 1rem;
 }
@@ -269,14 +292,34 @@ h6 {
   margin-top: 0.2rem;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #002f49;
+  color: #0056B3;
   overflow-wrap: anywhere;
 }
 
-/* deep navy statement band with an orange glow */
+/* deep royal navy statement band */
 .quote-band {
   background:
-    radial-gradient(700px 320px at 85% 0%, rgba(255, 141, 10, 0.28), transparent 60%),
-    radial-gradient(600px 340px at 5% 100%, rgba(1, 58, 88, 0.65), transparent 55%),
-    #001c2c;
+    radial-gradient(700px 320px at 85% 0%, rgba(208, 0, 0, 0.18), transparent 60%),
+    radial-gradient(600px 340px at 5% 100%, rgba(0, 86, 179, 0.65), transparent 55%),
+    #001c3d;
+}
+
+/* continuous infinite marquee ticker */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

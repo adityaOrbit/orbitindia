@@ -74,7 +74,7 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
 
   return (
     <div
-      className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[680px] w-full overflow-hidden bg-[#001421] text-white flex items-center"
+      className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[680px] w-full overflow-hidden bg-[#001733] text-white flex items-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
@@ -106,17 +106,17 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
                     sizes="(max-width: 1024px) 100vw, 60vw"
                   />
                   {/* Subtle lighting highlight */}
-                  <div className="absolute inset-0 bg-radial-[circle_at_70%_50%] from-amber-500/10 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-radial-[circle_at_70%_50%] from-[#0056B3]/25 via-transparent to-transparent pointer-events-none" />
                 </div>
               </div>
 
               {/* Multi-Stop Gradient Masks ensuring left-side text visibility */}
               {/* Desktop: Horizontal left-to-right fade */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#001421] via-[#001421]/95 via-35% md:via-45% to-[#001421]/20 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#001733] via-[#001733]/95 via-35% md:via-45% to-[#001733]/20 pointer-events-none" />
               {/* Mobile: Vertical top-to-bottom fade */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#001421] via-transparent to-[#001421]/60 pointer-events-none sm:hidden" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001733] via-transparent to-[#001733]/60 pointer-events-none sm:hidden" />
               {/* Ambient Bottom blend */}
-              <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#001421] to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#001733] to-transparent pointer-events-none" />
             </div>
           );
         })}
@@ -135,7 +135,7 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
       <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-12 z-30 flex items-center gap-3">
         {/* Active Instrument Badge */}
         <div className="hidden md:flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-xs border border-white/15">
-          <span className="h-2 w-2 rounded-full bg-[#ff8d0a] animate-pulse" />
+          <span className="h-2 w-2 rounded-full bg-[#d00000] animate-pulse" />
           <span className="font-semibold text-white/90">
             {slides[current].model}
           </span>
@@ -166,7 +166,7 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
                 aria-label={`Go to slide ${dotIdx + 1}`}
                 className={`cursor-pointer rounded-full transition-all ${
                   dotIdx === current
-                    ? "w-5 h-2 bg-[#ff8d0a]"
+                    ? "w-5 h-2 bg-[#d00000]"
                     : "w-2 h-2 bg-white/40 hover:bg-white/70"
                 }`}
               />

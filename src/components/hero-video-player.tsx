@@ -139,7 +139,7 @@ export function HeroVideoPlayer() {
             type="button"
             onClick={togglePlay}
             aria-label="Play video demo"
-            className="group absolute inset-0 m-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff8d0a] text-white shadow-2xl transition hover:scale-110 hover:bg-[#ffa426] focus:outline-hidden z-20 cursor-pointer"
+            className="group absolute inset-0 m-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#d00000] text-white shadow-2xl transition hover:scale-110 hover:bg-[#b00000] focus:outline-hidden z-20 cursor-pointer"
           >
             <Play className="h-7 w-7 translate-x-0.5 fill-current" />
           </button>
@@ -151,7 +151,7 @@ export function HeroVideoPlayer() {
             <button
               type="button"
               onClick={togglePlay}
-              className="text-white hover:text-[#ff8d0a] transition"
+              className="text-white hover:text-[#d00000] transition"
               aria-label={isPlaying ? "Pause video" : "Play video"}
             >
               {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 fill-current" />}
@@ -159,7 +159,7 @@ export function HeroVideoPlayer() {
             <button
               type="button"
               onClick={toggleMute}
-              className="text-white hover:text-[#ff8d0a] transition"
+              className="text-white hover:text-[#d00000] transition"
               aria-label={isMuted ? "Unmute video" : "Mute video"}
             >
               {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
@@ -169,7 +169,7 @@ export function HeroVideoPlayer() {
             </span>
           </div>
 
-          <span className="font-mono text-[11px] text-[#ffb347] shrink-0">
+          <span className="font-mono text-[11px] text-[#feeceb] shrink-0">
             {activeVideo.duration}
           </span>
         </div>
@@ -190,11 +190,11 @@ export function HeroVideoPlayer() {
                 onClick={() => handleSelectVideo(idx)}
                 className={`flex flex-col text-left p-2 rounded-lg border text-xs transition cursor-pointer ${
                   isSelected
-                    ? "border-[#ff8d0a] bg-white/10 text-white font-bold"
+                    ? "border-[#d00000] bg-white/10 text-white font-bold"
                     : "border-white/5 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white"
                 }`}
               >
-                <span className="text-[10px] text-[#ffb347] font-semibold truncate">
+                <span className="text-[10px] text-[#feeceb] font-semibold truncate">
                   {idx + 1}. {vid.id.toUpperCase()}
                 </span>
                 <span className="truncate text-[11px] mt-0.5">{vid.title.split(" ")[0]} {vid.title.split(" ")[1]}</span>

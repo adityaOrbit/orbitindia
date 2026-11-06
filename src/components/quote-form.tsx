@@ -24,13 +24,13 @@ export function QuoteForm({
     return (
       <div className="surface p-10 text-center">
         <CheckCircle2 className="mx-auto h-12 w-12 text-[#15803d]" />
-        <h3 className="mt-4 text-lg font-extrabold text-[#002f49]">
+        <h3 className="mt-4 text-lg font-semibold text-[#0056B3]">
           Thank you{name ? `, ${name.split(" ")[0]}` : ""}!
         </h3>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-600">
           Your enquiry has been recorded. Our team will get back to you within one working
           day{product ? ` about ${product}` : ""}. For urgent requirements, call{" "}
-          <a href="tel:+918143885547" className="font-semibold text-[#c4620a] hover:underline">
+          <a href="tel:+918143885547" className="font-semibold text-[#d00000] hover:underline">
             +91 - 81438 85547
           </a>
           .
@@ -56,7 +56,7 @@ export function QuoteForm({
       className="surface p-6 sm:p-8"
     >
       {context && (
-        <p className="mb-5 flex items-center gap-2 rounded-lg border border-[#f6dcc4] bg-[#fdeedd] px-3.5 py-2.5 text-sm font-semibold text-[#c4620a]">
+        <p className="mb-5 flex items-center gap-2 rounded-lg border border-blue-200 bg-[#ebf3fc] px-3.5 py-2.5 text-sm font-semibold text-[#0056B3]">
           <FlaskConical className="h-4 w-4 shrink-0" />
           Enquiry about: <span className="font-bold">{context}</span>
         </p>

@@ -33,7 +33,7 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
         <div className="container-x flex flex-wrap items-center gap-x-1.5 gap-y-1 py-2.5 text-[13px] text-slate-500">
           <Link
             href="/"
-            className="cursor-pointer flex items-center gap-1.5 font-medium text-slate-600 transition-colors hover:text-[#c4620a]"
+            className="cursor-pointer flex items-center gap-1.5 font-medium text-slate-600 transition-colors hover:text-[#0056B3]"
           >
             <Home className="h-3.5 w-3.5" /> Home
           </Link>
@@ -43,7 +43,7 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
               {c.href ? (
                 <Link
                   href={c.href}
-                  className="cursor-pointer font-medium text-[#c4620a] transition-colors hover:text-[#002f49] hover:underline"
+                  className="cursor-pointer font-medium text-[#0056B3] transition-colors hover:text-[#d00000] hover:underline"
                 >
                   {c.label}
                 </Link>

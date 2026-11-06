@@ -766,7 +766,7 @@ function ProductCatalogInner() {
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
           placeholder="Search instruments by name, brand, ASTM/ISO standard, or application…"
-          className="input !pl-11 !pr-10 !py-3 !text-base bg-white border-slate-300 shadow-xs focus:border-[#002f49] focus:ring-[#002f49]/20"
+          className="input !pl-11 !pr-10 !py-3 !text-base bg-white border-slate-300 shadow-xs focus:border-[#0056B3] focus:ring-[#0056B3]/20"
           aria-label="Search instruments"
         />
         {query && (
@@ -797,7 +797,7 @@ function ProductCatalogInner() {
                 id="filter-operation"
                 value={selectedOperation}
                 onChange={(e) => handleOperationChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#002f49] focus:outline-hidden focus:ring-2 focus:ring-[#002f49]/20 cursor-pointer"
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
               >
                 {OPERATION_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -822,7 +822,7 @@ function ProductCatalogInner() {
                 id="filter-category"
                 value={selectedCategory}
                 onChange={(e) => handleCategoryChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#002f49] focus:outline-hidden focus:ring-2 focus:ring-[#002f49]/20 cursor-pointer"
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
               >
                 {CATEGORY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -847,7 +847,7 @@ function ProductCatalogInner() {
                 id="filter-industry"
                 value={selectedIndustry}
                 onChange={(e) => handleIndustryChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#002f49] focus:outline-hidden focus:ring-2 focus:ring-[#002f49]/20 cursor-pointer"
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
               >
                 {INDUSTRY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -872,7 +872,7 @@ function ProductCatalogInner() {
                 id="filter-brand"
                 value={selectedBrand}
                 onChange={(e) => handleBrandChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#002f49] focus:outline-hidden focus:ring-2 focus:ring-[#002f49]/20 cursor-pointer"
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
               >
                 {BRAND_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -909,7 +909,7 @@ function ProductCatalogInner() {
             <button
               type="button"
               onClick={handleResetAll}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#c4620a] hover:text-[#a35a00] hover:underline transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#d00000] hover:text-[#b00000] hover:underline transition cursor-pointer"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               <span>Reset all filters</span>
@@ -922,7 +922,7 @@ function ProductCatalogInner() {
       <div className="mt-6 flex flex-col gap-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-sm font-medium text-slate-600">
-            Showing <span className="font-bold text-[#002f49]">{filteredProducts.length}</span>{" "}
+            Showing <span className="font-bold text-[#0056B3]">{filteredProducts.length}</span>{" "}
             {filteredProducts.length === 1 ? "instrument" : "instruments"}
             {selectedCategory !== "all" && (
               <>
@@ -937,7 +937,7 @@ function ProductCatalogInner() {
               <>
                 {" "}
                 for{" "}
-                <strong className="text-[#c4620a]">
+                <strong className="text-[#d00000]">
                   {INDUSTRY_OPTIONS.find((i) => i.value === selectedIndustry)?.label}
                 </strong>
               </>
@@ -965,7 +965,7 @@ function ProductCatalogInner() {
 
           {hasActiveFilters && (
             <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Sparkles className="h-3.5 w-3.5 text-[#c4620a]" />
+              <Sparkles className="h-3.5 w-3.5 text-[#d00000]" />
               <span>Filters active (AND condition)</span>
             </div>
           )}
@@ -982,7 +982,7 @@ function ProductCatalogInner() {
                 key={cat.value}
                 type="button"
                 onClick={() => handleCategoryChange(cat.value)}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:border-[#002f49] hover:bg-slate-50 hover:text-[#002f49] transition cursor-pointer"
+                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:border-[#0056B3] hover:bg-slate-50 hover:text-[#0056B3] transition cursor-pointer"
               >
                 <span>{cat.label}</span>
                 <span className="rounded-full bg-slate-100 px-1.5 py-0.2 text-[10px] font-bold text-slate-600">
@@ -1014,10 +1014,10 @@ function ProductCatalogInner() {
       ) : (
         /* Empty State */
         <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-[#c4620a]">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#feeceb] text-[#d00000]">
             <SlidersHorizontal className="h-7 w-7" />
           </div>
-          <h3 className="mt-4 text-lg font-bold text-[#002f49]">
+          <h3 className="mt-4 text-lg font-semibold text-[#0056B3]">
             No instruments match this combination
           </h3>
           <p className="mx-auto mt-2 max-w-md text-sm text-slate-600 leading-relaxed">

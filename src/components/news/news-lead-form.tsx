@@ -63,7 +63,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
         <span className="chip chip-accent text-[11px] font-bold">
           {itemType === "event" ? "Exhibition Consultation" : "Official RFQ / Consultation"}
         </span>
-        <h3 className="mt-2 text-base font-bold text-[#002f49]">
+        <h3 className="mt-2 text-base font-semibold text-[#0056B3]">
           {itemType === "event"
             ? `Book a Meeting at Our Stall`
             : `Request Quotation & Tech Specs`}
@@ -88,7 +88,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="Dr. / Mr. / Ms. Scientist Name"
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@organization.com"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
               />
             </div>
           </div>
@@ -141,7 +141,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
               value={organization}
               onChange={(e) => setOrganization(e.target.value)}
               placeholder="e.g. NTPC, Tata Steel, CSIR, IIT, SGS..."
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
             />
           </div>
         </div>
@@ -158,7 +158,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
                 value={preferredDate}
                 onChange={(e) => setPreferredDate(e.target.value)}
                 placeholder="e.g. Day 1 afternoon (2:00 PM)"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Mention sample types, required standards (ASTM/ISO), or desired demo..."
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
             />
           </div>
         </div>

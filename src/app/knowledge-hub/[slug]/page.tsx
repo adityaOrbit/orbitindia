@@ -68,26 +68,26 @@ export default async function KnowledgeArticleDetailPage({
       />
 
       {/* Article Header */}
-      <header className="border-b border-slate-200 bg-[#001c2c] py-14 text-white">
+      <header className="border-b border-slate-200 bg-[#001c3d] py-14 text-white">
         <div className="container-x max-w-4xl">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-md bg-[#c4620a] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
+            <span className="rounded-md bg-[#d00000] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
               {article.category}
             </span>
             <span className="flex items-center gap-1.5 text-xs text-slate-300">
-              <Clock className="h-3.5 w-3.5 text-[#ffb347]" /> {article.readTime}
+              <Clock className="h-3.5 w-3.5 text-[#feeceb]" /> {article.readTime}
             </span>
             <span className="text-slate-500">•</span>
             <span className="flex items-center gap-1.5 text-xs text-slate-300">
-              <Calendar className="h-3.5 w-3.5 text-[#ffb347]" /> {article.date}
+              <Calendar className="h-3.5 w-3.5 text-[#feeceb]" /> {article.date}
             </span>
           </div>
 
-          <h1 className="mt-4 text-2xl font-black tracking-tight sm:text-3xl lg:text-4xl text-white leading-tight">
+          <h1 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl text-white leading-tight">
             {article.title}
           </h1>
 
-          <p className="mt-3 text-base sm:text-lg font-medium text-[#ffb347]">
+          <p className="mt-3 text-base sm:text-lg font-medium text-[#feeceb]">
             {article.subtitle}
           </p>
 
@@ -108,8 +108,8 @@ export default async function KnowledgeArticleDetailPage({
       {/* Article Content Layout */}
       <div className="container-x max-w-4xl py-12">
         {/* Abstract / Summary Callout */}
-        <div className="rounded-2xl border-l-4 border-l-[#c4620a] border border-slate-200 bg-[#f8fafc] p-6 text-sm italic leading-relaxed text-slate-700 shadow-xs">
-          <p className="font-semibold text-xs uppercase tracking-wider text-[#002f49] not-italic mb-1">
+        <div className="rounded-2xl border-l-4 border-l-[#d00000] border border-slate-200 bg-[#f8fafc] p-6 text-sm italic leading-relaxed text-slate-700 shadow-xs">
+          <p className="font-semibold text-xs uppercase tracking-wider text-[#0056B3] not-italic mb-1">
             Executive Summary
           </p>
           {article.summary}
@@ -119,7 +119,7 @@ export default async function KnowledgeArticleDetailPage({
         <div className="mt-10 space-y-10">
           {article.sections.map((sec, idx) => (
             <section key={idx} className="border-b border-slate-100 pb-8 last:border-b-0">
-              <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+              <h2 className="text-xl font-bold tracking-tight text-[#0056B3] sm:text-2xl">
                 {sec.heading}
               </h2>
 
@@ -159,12 +159,12 @@ export default async function KnowledgeArticleDetailPage({
         {/* Author Bylines */}
         <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-5 flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-2.5">
-            <User className="h-4 w-4 text-[#c4620a]" />
-            <span>Authored by: <strong className="text-[#002f49]">{article.author}</strong></span>
+            <User className="h-4 w-4 text-[#d00000]" />
+            <span>Authored by: <strong className="text-[#0056B3]">{article.author}</strong></span>
           </div>
           <Link
             href="/contact-us#quote"
-            className="font-bold text-[#c4620a] hover:underline"
+            className="font-bold text-[#d00000] hover:underline"
           >
             Inquire About This Method →
           </Link>
@@ -176,8 +176,7 @@ export default async function KnowledgeArticleDetailPage({
         <section className="bg-slate-50 py-16 border-t border-slate-200">
           <div className="container-x">
             <div className="max-w-2xl">
-              <span className="eyebrow text-[#c4620a]">Instrument Solutions</span>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
                 Featured Instruments for This Method
               </h2>
               <p className="mt-2 text-sm text-slate-600">
@@ -196,13 +195,13 @@ export default async function KnowledgeArticleDetailPage({
 
       {/* CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Method Validation
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Need Help Implementing {article.standards[0]} in Your Laboratory?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

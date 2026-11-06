@@ -79,17 +79,17 @@ export default async function IndustryDetailPage({
       />
 
       {/* Hero Header */}
-      <section className="relative overflow-hidden bg-[#001c2c] py-16 text-white">
+      <section className="relative overflow-hidden bg-[#001c3d] py-16 text-white">
         <div className="container-x">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <span className="rounded-md bg-[#c4620a] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+              <span className="rounded-md bg-[#d00000] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
                 Industry Solution
               </span>
-              <h1 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl text-white">
+              <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-white">
                 {industry.name}
               </h1>
-              <p className="mt-2 text-lg font-medium text-[#ffb347]">
+              <p className="mt-2 text-lg font-medium text-[#feeceb]">
                 {industry.tagline}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-300">
@@ -137,8 +137,7 @@ export default async function IndustryDetailPage({
       {/* Analytical Challenges & Workflow Solutions */}
       <section className="container-x py-16">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Key Challenges Solved</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             Critical Analytical Demands in {industry.name}
           </h2>
           <p className="mt-2 text-sm text-slate-600">
@@ -152,7 +151,7 @@ export default async function IndustryDetailPage({
               key={idx}
               className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 shadow-xs"
             >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#002f49] text-xs font-bold text-white">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0056B3] text-xs font-bold text-white">
                 {idx + 1}
               </div>
               <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-700">
@@ -167,8 +166,7 @@ export default async function IndustryDetailPage({
       <section className="bg-slate-50 py-16 border-y border-slate-200">
         <div className="container-x">
           <div className="max-w-2xl">
-            <span className="eyebrow text-[#c4620a]">Regulatory Compliance</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Applicable ASTM, ISO &amp; BIS Testing Standards
             </h2>
             <p className="mt-2 text-sm text-slate-600">
@@ -184,9 +182,9 @@ export default async function IndustryDetailPage({
                   className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between hover:bg-slate-50/80 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-[#c4620a] shrink-0" />
+                    <FileText className="h-5 w-5 text-[#d00000] shrink-0" />
                     <div>
-                      <span className="font-mono text-xs font-bold text-[#002f49]">
+                      <span className="font-mono text-xs font-bold text-[#0056B3]">
                         {std.code}
                       </span>
                       <p className="text-xs text-slate-600 mt-0.5">{std.title}</p>
@@ -205,8 +203,7 @@ export default async function IndustryDetailPage({
       {/* Core Applications Breakdown */}
       <section className="container-x py-16">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Applications Breakdown</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             Key Laboratory Workflows
           </h2>
         </div>
@@ -218,13 +215,13 @@ export default async function IndustryDetailPage({
               className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex flex-col justify-between"
             >
               <div>
-                <h3 className="font-bold text-sm text-[#002f49]">{app.name}</h3>
+                <h3 className="font-bold text-sm text-[#0056B3]">{app.name}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-slate-600">
                   {app.desc}
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100">
-                <span className="text-[11px] font-bold text-[#c4620a]">
+                <span className="text-[11px] font-bold text-[#d00000]">
                   Application {idx + 1}
                 </span>
               </div>
@@ -238,8 +235,7 @@ export default async function IndustryDetailPage({
         <div className="container-x">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <span className="eyebrow text-[#c4620a]">Recommended Instrumentation</span>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
                 Featured Instruments for {industry.name}
               </h2>
               <p className="mt-2 text-sm text-slate-600">
@@ -248,7 +244,7 @@ export default async function IndustryDetailPage({
             </div>
             <Link
               href={`/products?industry=${industry.slug}`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
             >
               Filter All Instruments for {industry.name} <ArrowRight className="h-4 w-4" />
             </Link>
@@ -264,13 +260,13 @@ export default async function IndustryDetailPage({
 
       {/* CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Specialized Lab Engineering
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Need a Custom Proposal for Your {industry.name} Facility?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

@@ -49,7 +49,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
         <div>
-          <h3 className="text-xl font-black text-[#002f49] sm:text-2xl">
+          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
             Technical Documentation &amp; Download Center
           </h3>
           <p className="mt-1 text-xs text-slate-600">
@@ -64,7 +64,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             placeholder="Search brochures, manuals, tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 py-1.5 pl-9 pr-3 text-xs text-slate-800 focus:border-[#002f49] focus:outline-hidden"
+            className="w-full rounded-lg border border-slate-300 py-1.5 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden"
           />
         </div>
       </div>
@@ -78,7 +78,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             onClick={() => setSelectedCategory(c)}
             className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
               selectedCategory === c
-                ? "bg-[#002f49] text-white shadow-xs"
+                ? "bg-[#0056B3] text-white shadow-xs"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             }`}
           >
@@ -94,7 +94,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             key={item.id}
             className={`flex flex-col justify-between rounded-2xl border p-5 transition-all duration-200 ${
               item.featured
-                ? "border-[#c4620a]/60 bg-gradient-to-b from-[#fdeedd]/30 to-white shadow-sm ring-1 ring-[#c4620a]/20"
+                ? "border-[#0056B3]/60 bg-gradient-to-b from-[#ebf3fc]/40 to-white shadow-sm ring-1 ring-[#0056B3]/20"
                 : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"
             }`}
           >
@@ -110,7 +110,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
               </div>
 
               <div>
-                <h4 className="text-sm font-bold text-[#002f49] leading-snug line-clamp-2">
+                <h4 className="text-sm font-semibold text-[#0056B3] leading-snug line-clamp-2">
                   {item.title}
                 </h4>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-3">
@@ -154,7 +154,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
       {/* Lab Planning Help Banner */}
       <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <h4 className="text-sm font-bold text-[#002f49]">Need Custom Instrument Schematics or AutoCAD Drawings?</h4>
+          <h4 className="text-sm font-semibold text-[#0056B3]">Need Custom Instrument Schematics or AutoCAD Drawings?</h4>
           <p className="mt-1 text-xs text-slate-600">
             Our engineering team supplies detailed utility hookup diagrams, 3D CAD step files, and gas piping blueprints for new lab projects.
           </p>

@@ -40,8 +40,7 @@ export default function LocationsPage() {
       {/* Directory of All 15 Locations */}
       <section className="container-x py-12 sm:py-14 space-y-10">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Regional Operations</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             Detailed Branch Profiles &amp; Service Coverage
           </h2>
           <p className="mt-2 text-sm text-slate-600">
@@ -55,7 +54,7 @@ export default function LocationsPage() {
               key={loc.slug}
               className={`flex flex-col justify-between rounded-2xl border p-6 sm:p-7 shadow-xs transition hover:shadow-md ${
                 loc.isHeadquarters
-                  ? "border-[#c4620a]/60 bg-gradient-to-br from-amber-50/40 via-white to-white lg:col-span-2"
+                  ? "border-[#d00000]/40 bg-gradient-to-br from-blue-50/40 via-white to-white lg:col-span-2"
                   : "border-slate-200 bg-white"
               }`}
             >
@@ -66,22 +65,22 @@ export default function LocationsPage() {
                     <div
                       className={`flex h-11 w-11 items-center justify-center rounded-xl ${
                         loc.isHeadquarters
-                          ? "bg-[#002f49] text-white"
-                          : "bg-slate-100 text-[#002f49]"
+                          ? "bg-[#0056B3] text-white"
+                          : "bg-slate-100 text-[#0056B3]"
                       }`}
                     >
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold text-[#002f49]">
+                        <h3 className="text-xl font-bold text-[#0056B3]">
                           {loc.city}
                         </h3>
                         <span className="text-xs text-slate-500 font-medium">
                           ({loc.state})
                         </span>
                       </div>
-                      <p className="text-xs font-semibold text-[#c4620a] mt-0.5">
+                      <p className="text-xs font-semibold text-[#d00000] mt-0.5">
                         {loc.tagline}
                       </p>
                     </div>
@@ -89,7 +88,7 @@ export default function LocationsPage() {
 
                   <div className="flex items-center gap-2">
                     {loc.isHeadquarters ? (
-                      <span className="rounded-full bg-[#002f49] px-3 py-1 text-xs font-bold text-white shadow-xs">
+                      <span className="rounded-full bg-[#0056B3] px-3 py-1 text-xs font-bold text-white shadow-xs">
                         ★ Corporate HQ &amp; Central Lab
                       </span>
                     ) : (
@@ -108,22 +107,22 @@ export default function LocationsPage() {
                 {/* Address & Contact */}
                 <div className="mt-5 rounded-xl border border-slate-100 bg-[#f9fafb] p-4 text-xs space-y-2 text-slate-700">
                   <div className="flex items-start gap-2">
-                    <Building2 className="h-4 w-4 text-[#c4620a] shrink-0 mt-0.5" />
+                    <Building2 className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
                     <span><strong>Address:</strong> {loc.address}</span>
                   </div>
                   <div className="flex flex-wrap items-center gap-4 pt-1">
                     <a
                       href={`tel:${loc.phone.replace(/[^+\d]/g, "")}`}
-                      className="flex items-center gap-1.5 font-bold text-[#002f49] hover:text-[#c4620a]"
+                      className="flex items-center gap-1.5 font-bold text-[#0056B3] hover:text-[#d00000]"
                     >
-                      <PhoneCall className="h-3.5 w-3.5 text-[#c4620a]" /> {loc.phone}
+                      <PhoneCall className="h-3.5 w-3.5 text-[#d00000]" /> {loc.phone}
                     </a>
                     <span className="text-slate-300">•</span>
                     <a
                       href={`mailto:${loc.email.split("/")[0].trim()}`}
-                      className="flex items-center gap-1.5 text-slate-600 hover:text-[#002f49]"
+                      className="flex items-center gap-1.5 text-slate-600 hover:text-[#0056B3]"
                     >
-                      <Mail className="h-3.5 w-3.5 text-[#c4620a]" /> {loc.email}
+                      <Mail className="h-3.5 w-3.5 text-[#d00000]" /> {loc.email}
                     </a>
                   </div>
                 </div>
@@ -193,7 +192,7 @@ export default function LocationsPage() {
               <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                 <Link
                   href="/service-complaint-form"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                 >
                   Book Service from {loc.city} Branch <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
@@ -214,10 +213,10 @@ export default function LocationsPage() {
         <div className="container-x">
           <div className="grid gap-8 lg:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#002f49]/5 text-[#c4620a]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0056B3]/5 text-[#d00000]">
                 <Clock className="h-6 w-6" />
               </div>
-              <h3 className="mt-4 font-bold text-base text-[#002f49]">
+              <h3 className="mt-4 font-bold text-base text-[#0056B3]">
                 24–48h Field Deployment
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -226,10 +225,10 @@ export default function LocationsPage() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#002f49]/5 text-[#c4620a]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0056B3]/5 text-[#d00000]">
                 <Wrench className="h-6 w-6" />
               </div>
-              <h3 className="mt-4 font-bold text-base text-[#002f49]">
+              <h3 className="mt-4 font-bold text-base text-[#0056B3]">
                 300-Bar Central Hydrotest Center
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -238,10 +237,10 @@ export default function LocationsPage() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#002f49]/5 text-[#c4620a]">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0056B3]/5 text-[#d00000]">
                 <ShieldCheck className="h-6 w-6" />
               </div>
-              <h3 className="mt-4 font-bold text-base text-[#002f49]">
+              <h3 className="mt-4 font-bold text-base text-[#0056B3]">
                 Central Bonded Spares Warehouse
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -254,13 +253,13 @@ export default function LocationsPage() {
 
       {/* Bottom CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 PAN-India Network
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Need an Engineer at Your Facility?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

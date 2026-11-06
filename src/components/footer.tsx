@@ -18,7 +18,6 @@ const quickLinks = [
   { href: "/our-clients", label: "Our Clients" },
   { href: "/knowledge-hub", label: "Knowledge Hub" },
   { href: "/news", label: "News & Events" },
-  { href: "/locations", label: "PAN-India Locations" },
   { href: "/contact-us", label: "Contact Us" },
 ];
 
@@ -52,7 +51,7 @@ const branchNetwork = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 bg-[#002f49] text-slate-300">
+    <footer className="mt-16 bg-[#001c3d] text-slate-300">
       <div className="container-x py-14">
         {/* Main Grid */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -65,7 +64,7 @@ export function Footer() {
               height={60}
               className="h-12 w-auto"
             />
-            <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#ffb347]">
+            <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#93c5fd]">
               Orbit Technologies Pvt. Ltd.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-300">
@@ -73,13 +72,13 @@ export function Footer() {
             </p>
             <div className="mt-5 space-y-2 text-xs text-slate-300">
               <p className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#ffb347]" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <span>
                   B-50, Industrial Estate, Sanath Nagar, Hyderabad – 500018, Telangana, India
                 </span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-[#ffb347]" />
+                <Phone className="h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <a
                   href="tel:+914067216354"
                   onClick={() =>
@@ -95,7 +94,7 @@ export function Footer() {
                 </a>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-[#ffb347]" />
+                <Mail className="h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <a
                   href="mailto:orbit@orbitindia.com"
                   onClick={() =>
@@ -121,7 +120,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-slate-300 transition hover:text-[#ffb347]"
+                    className="text-slate-300 transition hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -140,7 +139,7 @@ export function Footer() {
                 <li key={cat.label}>
                   <Link
                     href={cat.href}
-                    className="text-slate-300 transition hover:text-[#ffb347]"
+                    className="text-slate-300 transition hover:text-white"
                   >
                     {cat.label}
                   </Link>
@@ -167,14 +166,6 @@ export function Footer() {
                 </span>
               ))}
             </div>
-            <div className="mt-4">
-              <Link
-                href="/locations/"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffb347] hover:underline"
-              >
-                View Detailed Branch Profiles &rarr;
-              </Link>
-            </div>
           </div>
         </div>
 
@@ -182,13 +173,13 @@ export function Footer() {
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row">
           <p>© {new Date().getFullYear()} Orbit Technologies Pvt. Ltd. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
-            <a href="#privacy" className="hover:text-white transition">
+            <Link href="/privacy-policy/" className="hover:text-white transition">
               Privacy Policy
-            </a>
+            </Link>
             <span>|</span>
-            <a href="#terms" className="hover:text-white transition">
-              Terms and Conditions
-            </a>
+            <Link href="/terms-of-use/" className="hover:text-white transition">
+              Terms of Use
+            </Link>
             <span>|</span>
             <a href="#sitemap" className="hover:text-white transition">
               Sitemap

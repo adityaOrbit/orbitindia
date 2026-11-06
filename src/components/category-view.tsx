@@ -105,18 +105,8 @@ export function CategoryView({ category }: { category: Category }) {
         {hasChildren ? (
           /* Subcategory Grid with Authentic Photography */
           <section aria-label={`Subcategories in ${category.name}`}>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#002f49]">
-                Browse Categories ({children.length})
-              </h2>
-              <span className="text-xs text-slate-500 font-medium">
-                Certified Laboratory Instrumentation
-              </span>
-            </div>
-
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {children.map((c) => {
-                const count = productsByCategory(c.path, { deep: true }).length;
                 const subIntro = getCategoryHeroIntro(c);
                 const imgSrc = CATEGORY_IMAGE_MAP[c.path] || "/images/orbit/Bomb-PNG.png";
 
@@ -124,7 +114,7 @@ export function CategoryView({ category }: { category: Category }) {
                   <Link
                     key={c.path}
                     href={`/${c.path}/`}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-lg transition-all duration-300"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-lg transition-all duration-300"
                   >
                     {/* Visual Category Photo Thumbnail */}
                     <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f8fafc] p-4 flex items-center justify-center border-b border-slate-100">
@@ -135,30 +125,16 @@ export function CategoryView({ category }: { category: Category }) {
                         className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      <span className="absolute bottom-2.5 left-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-[10px] font-bold text-[#002f49] shadow-xs ring-1 ring-slate-200">
-                        {count} {count === 1 ? "Model" : "Models"} Available
-                      </span>
                     </div>
 
                     <div className="flex flex-1 flex-col justify-between p-5">
                       <div>
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="font-bold text-base leading-snug text-[#002f49] group-hover:text-[#c4620a] transition-colors">
-                            {c.name}
-                          </h3>
-                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-50 text-[#c4620a] group-hover:bg-[#c4620a] group-hover:text-white transition-colors">
-                            <ArrowRight className="h-4 w-4" />
-                          </div>
-                        </div>
+                        <h3 className="font-semibold text-base leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors">
+                          {c.name}
+                        </h3>
                         <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-600">
                           {subIntro}
                         </p>
-                      </div>
-
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                        <span className="font-bold text-[#c4620a] group-hover:underline inline-flex items-center gap-1">
-                          Explore Models &rarr;
-                        </span>
                       </div>
                     </div>
                   </Link>
@@ -169,15 +145,6 @@ export function CategoryView({ category }: { category: Category }) {
         ) : (
           /* Products Grid (when no subcategories are present) */
           <section aria-label={`Products in ${category.name}`}>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#002f49]">
-                Available Instruments ({allCategoryProducts.length})
-              </h2>
-              <span className="text-xs text-slate-500 font-medium">
-                Parr &middot; Orlab &middot; Sylab &middot; Elite
-              </span>
-            </div>
-
             {allCategoryProducts.length > 0 ? (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {allCategoryProducts.map((p, idx) => (
@@ -192,7 +159,7 @@ export function CategoryView({ category }: { category: Category }) {
               </div>
             ) : (
               <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center sm:p-12 shadow-xs">
-                <h3 className="text-lg font-bold text-[#002f49]">
+                <h3 className="text-lg font-semibold text-[#0056B3]">
                   Specialized Configurations Available for {category.name}
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 max-w-md mx-auto">
@@ -219,8 +186,8 @@ export function CategoryView({ category }: { category: Category }) {
       {/* 4. Quote and Support Banner */}
       <section className="quote-band relative overflow-hidden py-14 text-white mt-12">
         <div className="container-x relative text-center">
-          <Quote className="mx-auto h-8 w-8 text-[#ffb347]" />
-          <p className="mx-auto mt-5 max-w-3xl text-2xl font-black tracking-tight sm:text-3xl">
+          <Quote className="mx-auto h-8 w-8 text-[#ebf3fc]" />
+          <p className="mx-auto mt-5 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl">
             Need Expert Selection Assistance for Your Laboratory?
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

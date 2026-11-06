@@ -148,15 +148,15 @@ export function ProductRfqDrawer({
       {/* Drawer Container */}
       <div className="relative z-10 flex h-full w-full max-w-xl flex-col bg-white shadow-2xl transition-transform duration-300 ease-out animate-in slide-in-from-right">
         {/* Header */}
-        <div className="border-b border-slate-200 bg-[#002f49] px-6 py-5 text-white">
+        <div className="border-b border-slate-200 bg-[#0056B3] px-6 py-5 text-white">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-md bg-[#ffb347]/20 px-2 py-0.5 text-xs font-semibold text-[#ffb347]">
+                <span className="inline-flex items-center rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold text-white">
                   Quick RFQ
                 </span>
                 {skuCode && (
-                  <span className="font-mono text-xs text-slate-300">
+                  <span className="font-mono text-xs text-slate-200">
                     {skuCode}
                   </span>
                 )}
@@ -167,14 +167,14 @@ export function ProductRfqDrawer({
               >
                 Request Quotation
               </h2>
-              <p className="mt-0.5 text-xs text-slate-300 line-clamp-1">
+              <p className="mt-0.5 text-xs text-slate-200 line-clamp-1">
                 {product.name}
               </p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="cursor-pointer rounded-lg p-2 text-slate-300 hover:bg-white/10 hover:text-white transition-colors"
+              className="cursor-pointer rounded-lg p-2 text-slate-200 hover:bg-white/10 hover:text-white transition-colors"
               aria-label="Close quote drawer"
             >
               <X className="h-5 w-5" />
@@ -189,12 +189,12 @@ export function ProductRfqDrawer({
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                 <CheckCircle2 className="h-10 w-10" />
               </div>
-              <h3 className="mt-4 text-2xl font-bold text-[#002f49]">
+              <h3 className="mt-4 text-2xl font-bold text-[#0056B3]">
                 Quote Request Received!
               </h3>
               <p className="mt-2 text-sm text-slate-600">
                 Thank you. Reference ID:{" "}
-                <span className="font-mono font-bold text-[#c4620a]">
+                <span className="font-mono font-bold text-[#d00000]">
                   {rfqNumber}
                 </span>
               </p>
@@ -212,9 +212,9 @@ export function ProductRfqDrawer({
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   <a
                     href={`tel:${salesPhoneClean}`}
-                    className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-[#002f49] hover:bg-slate-100 transition-colors"
+                    className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-[#0056B3] hover:bg-slate-100 transition-colors"
                   >
-                    <Phone className="h-4 w-4 text-[#c4620a]" /> Call Direct
+                    <Phone className="h-4 w-4 text-[#d00000]" /> Call Direct
                   </a>
                   <a
                     href={dynamicWhatsapp || whatsappUrl}
@@ -230,17 +230,17 @@ export function ProductRfqDrawer({
               <button
                 type="button"
                 onClick={handleReset}
-                className="cursor-pointer mt-6 inline-flex items-center justify-center rounded-lg bg-[#002f49] px-6 py-2.5 text-xs font-semibold text-white hover:bg-[#002438] transition-colors"
+                className="cursor-pointer mt-6 inline-flex items-center justify-center rounded-lg bg-[#0056B3] px-6 py-2.5 text-xs font-semibold text-white hover:bg-[#004494] transition-colors"
               >
                 Done
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="rounded-lg bg-amber-50/70 p-3.5 border border-amber-200/80 text-xs text-amber-900 flex items-start gap-2.5">
-                <ShieldCheck className="h-4 w-4 shrink-0 text-[#c4620a] mt-0.5" />
+              <div className="rounded-lg bg-[#ebf3fc] p-3.5 border border-[#cce1f9] text-xs text-[#00387a] flex items-start gap-2.5">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-[#0056B3] mt-0.5" />
                 <div>
-                  <span className="font-semibold text-[#002f49]">Direct OEM Pricing & Support:</span>{" "}
+                  <span className="font-semibold text-[#0056B3]">Direct OEM Pricing & Support:</span>{" "}
                   Includes factory warranty, commissioning in India, user training, and hydrotest certification.
                 </div>
               </div>
@@ -261,7 +261,7 @@ export function ProductRfqDrawer({
                         setFormData({ ...formData, name: e.target.value })
                       }
                       placeholder="Dr. Rajesh Kumar"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     />
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export function ProductRfqDrawer({
                         setFormData({ ...formData, email: e.target.value })
                       }
                       placeholder="r.kumar@lab.org"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     />
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export function ProductRfqDrawer({
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       placeholder="+91 98765 43210"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     />
                   </div>
                 </div>
@@ -324,7 +324,7 @@ export function ProductRfqDrawer({
                         })
                       }
                       placeholder="e.g. NTPC / CSIR / Reliance"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     />
                   </div>
                 </div>
@@ -348,7 +348,7 @@ export function ProductRfqDrawer({
                         })
                       }
                       placeholder="e.g. Coal & Coke, Biofuel, Minerals"
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     />
                   </div>
                 </div>
@@ -364,7 +364,7 @@ export function ProductRfqDrawer({
                       onChange={(e) =>
                         setFormData({ ...formData, timeline: e.target.value })
                       }
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                     >
                       <option value="immediate">Immediate (Ready to order)</option>
                       <option value="1-3 months">1 – 3 months</option>
@@ -389,7 +389,7 @@ export function ProductRfqDrawer({
                       setFormData({ ...formData, notes: e.target.value })
                     }
                     placeholder="Mention any specific standards (ASTM, ISO), sample throughput per day, or laboratory facility constraints..."
-                    className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none focus:ring-1 focus:ring-[#c4620a]"
+                    className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none focus:ring-1 focus:ring-[#0056B3]"
                   />
                 </div>
               </div>
@@ -445,7 +445,7 @@ export function ProductRfqDrawer({
           </span>
           <a
             href={`tel:${salesPhoneClean}`}
-            className="font-semibold text-[#002f49] hover:underline"
+            className="font-semibold text-[#0056B3] hover:underline"
           >
             {site.phones.sales1}
           </a>

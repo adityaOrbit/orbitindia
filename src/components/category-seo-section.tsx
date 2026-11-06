@@ -98,7 +98,7 @@ export function CategorySeoSection({
       <div className="container-x">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <h2 className="text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl lg:text-4xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
             {seoData.overviewTitle}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
@@ -111,17 +111,17 @@ export function CategorySeoSection({
           {/* Working Principles */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#002f49]/10 text-[#002f49]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3]">
                 <Layers className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#002f49]">
+              <h3 className="text-lg font-semibold text-[#0056B3]">
                 Measurement Principles & Technology
               </h3>
             </div>
             <ul className="mt-6 space-y-3.5 text-sm leading-relaxed text-slate-600">
               {seoData.principles.map((pr, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#c4620a]" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#d00000]" />
                   <span>{pr}</span>
                 </li>
               ))}
@@ -131,10 +131,10 @@ export function CategorySeoSection({
           {/* Test Standards & Methods */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#c4620a]/10 text-[#c4620a]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#feeceb] text-[#d00000]">
                 <FileText className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#002f49]">
+              <h3 className="text-lg font-semibold text-[#0056B3]">
                 International Standards & Regulatory Compliance
               </h3>
             </div>
@@ -145,14 +145,14 @@ export function CategorySeoSection({
                   className="rounded-lg border border-slate-100 bg-slate-50/70 p-3.5"
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-xs font-bold text-[#c4620a]">
+                    <span className="font-mono text-xs font-bold text-[#d00000]">
                       {std.code}
                     </span>
                     <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700 uppercase">
                       Compliance
                     </span>
                   </div>
-                  <h4 className="mt-1 text-sm font-semibold text-[#002f49]">
+                  <h4 className="mt-1 text-sm font-semibold text-[#0056B3]">
                     {std.title}
                   </h4>
                   <p className="mt-1 text-xs leading-relaxed text-slate-500">
@@ -166,17 +166,17 @@ export function CategorySeoSection({
           {/* Applications */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#002f49]/10 text-[#002f49]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3]">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#002f49]">
+              <h3 className="text-lg font-semibold text-[#0056B3]">
                 Core Industrial Applications
               </h3>
             </div>
             <div className="mt-6 divide-y divide-slate-100">
               {seoData.applications.map((app, idx) => (
                 <div key={idx} className="py-3.5 first:pt-0 last:pb-0">
-                  <h4 className="text-sm font-bold text-[#002f49]">
+                  <h4 className="text-sm font-semibold text-[#0056B3]">
                     {app.industry}
                   </h4>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -190,19 +190,19 @@ export function CategorySeoSection({
           {/* Selection Guide */}
           <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#c4620a]/10 text-[#c4620a]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#feeceb] text-[#d00000]">
                 <Wrench className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-[#002f49]">
+              <h3 className="text-lg font-semibold text-[#0056B3]">
                 Laboratory Selection Checklist
               </h3>
             </div>
             <div className="mt-6 space-y-3.5">
               {seoData.selectionCriteria.map((crit, idx) => (
                 <div key={idx} className="flex items-start gap-3 text-sm">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#c4620a]" />
+                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#d00000]" />
                   <div>
-                    <span className="font-semibold text-[#002f49]">
+                    <span className="font-semibold text-[#0056B3]">
                       {crit.factor}:{" "}
                     </span>
                     <span className="text-slate-600">{crit.description}</span>
@@ -214,10 +214,10 @@ export function CategorySeoSection({
         </div>
 
         {/* Orbit Infrastructure Banner */}
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-[#002f49] p-8 text-white shadow-md sm:p-10">
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-[#0056B3] p-8 text-white shadow-md sm:p-10">
           <div className="grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
-              <h3 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+              <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
                 Why Laboratories Across India Partner with Orbit Technologies
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-200 sm:text-base">
@@ -229,22 +229,22 @@ export function CategorySeoSection({
                 calibration, and lifetime spares.
               </p>
             </div>
-            <div className="flex flex-col justify-center rounded-xl bg-white/5 p-6 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#ffb347]">
+            <div className="flex flex-col justify-center rounded-xl bg-white/10 p-6 backdrop-blur-xs">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#feeceb]">
                 <MapPin className="h-4 w-4" /> Pan-India Support Network
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300">
+              <p className="mt-2 text-xs leading-relaxed text-slate-200">
                 14 Dedicated Sales &amp; Service Branch Locations:
               </p>
-              <p className="mt-1 font-mono text-[11px] leading-relaxed text-slate-300">
+              <p className="mt-1 font-mono text-[11px] leading-relaxed text-slate-200">
                 Hyderabad · Delhi · Mumbai · Kolkata · Chennai · Bangalore · Pune ·
                 Nagpur · Lucknow · Baroda · Bhubaneswar · Bilaspur · Raipur · Ranchi
               </p>
-              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs text-slate-300">Direct Sales Desk:</span>
+              <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between">
+                <span className="text-xs text-slate-200">Direct Sales Desk:</span>
                 <a
                   href={`tel:${site.phones.sales1.replace(/[^+\d]/g, "")}`}
-                  className="text-xs font-bold text-[#ffb347] hover:underline"
+                  className="text-xs font-bold text-white hover:text-[#feeceb] hover:underline"
                 >
                   {site.phones.sales1}
                 </a>
@@ -257,7 +257,7 @@ export function CategorySeoSection({
         {allFaqs.length > 0 && (
           <div className="mt-14">
             <div className="text-center max-w-2xl mx-auto">
-              <h3 className="text-2xl font-black text-[#002f49] sm:text-3xl">
+              <h3 className="text-2xl font-semibold text-[#0056B3] sm:text-3xl">
                 Common Technical Questions: {category.name}
               </h3>
               <p className="mt-2 text-sm text-slate-600">
@@ -277,13 +277,13 @@ export function CategorySeoSection({
                     <button
                       type="button"
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between gap-4 p-5 text-left font-bold text-[#002f49] hover:bg-slate-50"
+                      className="flex w-full items-center justify-between gap-4 p-5 text-left font-semibold text-[#0056B3] hover:bg-slate-50"
                       aria-expanded={isOpen}
                     >
                       <span className="text-sm sm:text-base">{faq.q}</span>
                       <ChevronDown
                         className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-[#c4620a]" : ""
+                          isOpen ? "rotate-180 text-[#d00000]" : ""
                         }`}
                       />
                     </button>

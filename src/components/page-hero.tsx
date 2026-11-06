@@ -9,7 +9,7 @@ export function PageHero({
   return (
     <section className="hero-light border-b border-slate-200">
       <div className="container-x py-12 sm:py-14">
-        <h1 className="max-w-3xl text-3xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+        <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
           {title}
         </h1>
         {subtitle && (

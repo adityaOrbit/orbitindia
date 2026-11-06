@@ -43,7 +43,7 @@ export function Carousel({
         type="button"
         aria-label={`Scroll ${label} backwards`}
         onClick={() => scrollBy(-1)}
-        className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-[#002f49] shadow-md transition hover:border-[#c4620a] hover:text-[#c4620a] sm:flex"
+        className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-[#0056B3] shadow-md transition hover:border-[#d00000] hover:text-[#d00000] sm:flex"
       >
         <ChevronLeft className="h-5 w-5" />
       </button>
@@ -51,7 +51,7 @@ export function Carousel({
         type="button"
         aria-label={`Scroll ${label} forwards`}
         onClick={() => scrollBy(1)}
-        className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-[#002f49] shadow-md transition hover:border-[#c4620a] hover:text-[#c4620a] sm:flex"
+        className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-[#0056B3] shadow-md transition hover:border-[#d00000] hover:text-[#d00000] sm:flex"
       >
         <ChevronRight className="h-5 w-5" />
       </button>

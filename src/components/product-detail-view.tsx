@@ -10,7 +10,6 @@ import {
   Layers,
   Sparkles,
   BookOpen,
-  Award,
   ArrowRight,
   Sliders,
   Info,
@@ -260,21 +259,19 @@ export function ProductDetailView({
     ? product.description.replace(/\[…\]/g, "").trim()
     : product.tagline;
 
-  const tabs: { key: TabKey; label: string; icon: React.ReactNode; count?: number }[] = [
+  const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
     { key: "description", label: "Description", icon: <BookOpen className="h-4 w-4" /> },
     {
       key: "specifications",
       label: "Specifications",
       icon: <Sliders className="h-4 w-4" />,
-      count: rawSpecs.length,
     },
     { key: "applications", label: "Applications & Standards", icon: <Layers className="h-4 w-4" /> },
     { key: "advantages", label: "Key Advantages", icon: <Sparkles className="h-4 w-4" /> },
     {
       key: "brochures",
-      label: "Brochures & Resources",
+      label: "Downloads",
       icon: <FileDown className="h-4 w-4" />,
-      count: DEFAULT_BROCHURES.length,
     },
   ];
 
@@ -298,21 +295,21 @@ export function ProductDetailView({
           {/* RIGHT: Product Overview & 2x3 Chips Matrix */}
           <div className="flex flex-col">
             {/* H1 Title */}
-            <h1 className="text-3xl font-black tracking-tight text-[#002f49] sm:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
               {product.name}
             </h1>
 
             {/* Product SKU */}
             <div className="mt-2 flex items-center gap-2 text-xs text-slate-500 font-medium">
               <span>PRODUCT CODE:</span>
-              <span className="font-mono font-bold text-[#002f49] bg-slate-100 px-2 py-0.5 rounded">
+              <span className="font-mono font-bold text-[#0056B3] bg-slate-100 px-2 py-0.5 rounded">
                 {skuCode}
               </span>
             </div>
 
             {/* Highlighted Tagline Bar */}
-            <div className="mt-4 border-l-4 border-[#ff8d0a] bg-amber-50/40 rounded-r-lg pl-3.5 py-1.5 pr-2">
-              <p className="text-sm font-semibold text-[#002f49] sm:text-base">
+            <div className="mt-4 border-l-4 border-[#0056B3] bg-[#ebf3fc] rounded-r-lg pl-3.5 py-1.5 pr-2">
+              <p className="text-sm font-semibold text-[#00387a] sm:text-base">
                 {product.tagline}
               </p>
             </div>
@@ -331,7 +328,7 @@ export function ProductDetailView({
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Section
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#002f49] line-clamp-1">
+                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
                   {category?.name || "Analytical Lab"}
                 </span>
               </div>
@@ -341,7 +338,7 @@ export function ProductDetailView({
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Precision Rating
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#002f49] line-clamp-1">
+                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
                   {precisionSpec}
                 </span>
               </div>
@@ -361,7 +358,7 @@ export function ProductDetailView({
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Origin
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#002f49]">
+                <span className="mt-1 block text-xs font-bold text-[#0056B3]">
                   {product.origin || "India / USA"}
                 </span>
               </div>
@@ -371,7 +368,7 @@ export function ProductDetailView({
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Methodology
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#002f49] line-clamp-1">
+                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
                   {jacketOrTypeSpec}
                 </span>
               </div>
@@ -381,7 +378,7 @@ export function ProductDetailView({
                 <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Throughput / Cycles
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#002f49] line-clamp-1">
+                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
                   {throughputSpec}
                 </span>
               </div>
@@ -392,24 +389,11 @@ export function ProductDetailView({
               <button
                 type="button"
                 onClick={() => setIsRfqOpen(true)}
-                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-[#c4620a] px-8 py-3.5 text-sm sm:text-base font-extrabold text-white shadow-md shadow-orange-950/15 hover:bg-[#a35008] hover:shadow-lg active:scale-[0.99] transition-all"
+                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-[#d00000] px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-md shadow-red-950/15 hover:bg-[#b00000] hover:shadow-lg active:scale-[0.99] transition-all"
               >
                 <span>Request a Quote</span>
                 <ArrowRight className="h-5 w-5" />
               </button>
-            </div>
-
-            {/* Partner Guarantee Notice */}
-            <div className="mt-5 rounded-xl border border-slate-200/90 bg-[#fbfcfd] p-3 text-xs text-slate-500 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Award className="h-4 w-4 text-[#c4620a]" />
-                <span>
-                  <strong className="text-[#002f49]">Orbit Technologies</strong> — Parr Instrument Company #1 Global Dealer
-                </span>
-              </div>
-              <span className="text-[11px] text-emerald-600 font-semibold hidden sm:inline">
-                In Stock & Configured in India
-              </span>
             </div>
           </div>
         </div>
@@ -434,27 +418,16 @@ export function ProductDetailView({
                       role="tab"
                       aria-selected={isActive}
                       onClick={() => handleTabClick(tab.key)}
-                      className={`cursor-pointer inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3.5 text-xs sm:text-sm font-bold transition-all ${
+                      className={`cursor-pointer inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3.5 text-xs sm:text-sm font-semibold transition-all ${
                         isActive
-                          ? "border-[#c4620a] text-[#002f49] bg-white -mb-px shadow-2xs"
-                          : "border-transparent text-slate-500 hover:border-slate-300 hover:text-[#002f49] hover:bg-slate-100/60"
+                          ? "border-[#d00000] text-[#0056B3] bg-white -mb-px shadow-2xs"
+                          : "border-transparent text-slate-500 hover:border-slate-300 hover:text-[#0056B3] hover:bg-slate-100/60"
                       }`}
                     >
-                      <span className={isActive ? "text-[#c4620a]" : "text-slate-400"}>
+                      <span className={isActive ? "text-[#d00000]" : "text-slate-400"}>
                         {tab.icon}
                       </span>
                       <span>{tab.label}</span>
-                      {tab.count !== undefined && (
-                        <span
-                          className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                            isActive
-                              ? "bg-amber-100 text-[#c4620a]"
-                              : "bg-slate-200/80 text-slate-600"
-                          }`}
-                        >
-                          {tab.count}
-                        </span>
-                      )}
                     </button>
                   );
                 })}
@@ -467,7 +440,7 @@ export function ProductDetailView({
               {activeTab === "description" && (
                 <div id="section-description" className="space-y-8">
                   <div>
-                    <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                       Instrument Overview & Operating Principle
                     </h2>
                     <p className="mt-3 text-base leading-relaxed text-slate-700">
@@ -477,8 +450,8 @@ export function ProductDetailView({
 
                   {/* Operating Principles Callout Box */}
                   <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-6">
-                    <h3 className="text-base font-bold text-[#002f49] flex items-center gap-2">
-                      <Info className="h-5 w-5 text-[#c4620a]" /> Scientific Architecture & Measurement Physics
+                    <h3 className="text-base font-semibold text-[#0056B3] flex items-center gap-2">
+                      <Info className="h-5 w-5 text-[#d00000]" /> Scientific Architecture & Measurement Physics
                     </h3>
                     <div className="mt-4 grid gap-6 sm:grid-cols-2">
                       <div className="space-y-2 text-sm text-slate-600">
@@ -519,7 +492,7 @@ export function ProductDetailView({
                   {/* Applications list in Description */}
                   {product.applications && product.applications.length > 0 && (
                     <div>
-                      <h3 className="text-base font-bold text-[#002f49]">
+                      <h3 className="text-base font-semibold text-[#0056B3]">
                         Target Laboratory Applications
                       </h3>
                       <div className="mt-3 flex flex-wrap gap-2">
@@ -542,7 +515,7 @@ export function ProductDetailView({
                 <div id="section-specifications" className="space-y-6">
                   <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
-                      <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+                      <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                         Technical Specifications
                       </h2>
                       <p className="mt-1 text-xs text-slate-500">
@@ -556,7 +529,7 @@ export function ProductDetailView({
                         value={specSearch}
                         onChange={(e) => setSpecSearch(e.target.value)}
                         placeholder="Search parameters..."
-                        className="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-xs focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-xs focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -598,7 +571,7 @@ export function ProductDetailView({
                     <button
                       type="button"
                       onClick={() => setIsRfqOpen(true)}
-                      className="cursor-pointer font-bold text-[#c4620a] hover:underline"
+                      className="cursor-pointer font-bold text-[#d00000] hover:underline"
                     >
                       Request Custom Engineering Tolerance Report &rarr;
                     </button>
@@ -610,7 +583,7 @@ export function ProductDetailView({
               {activeTab === "applications" && (
                 <div id="section-applications" className="space-y-8">
                   <div>
-                    <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                       Compliance & International Standard Methods
                     </h2>
                     <p className="mt-1 text-xs text-slate-500">
@@ -632,7 +605,7 @@ export function ProductDetailView({
                       <tbody className="divide-y divide-slate-100">
                         {DEFAULT_STANDARDS.map((std, idx) => (
                           <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
-                            <td className="px-5 py-3.5 font-bold text-[#002f49]">
+                            <td className="px-5 py-3.5 font-bold text-[#0056B3]">
                               {std.standard}
                             </td>
                             <td className="px-5 py-3.5 text-xs text-slate-600">
@@ -655,7 +628,7 @@ export function ProductDetailView({
 
                   {/* Sample Matrices Grid */}
                   <div>
-                    <h3 className="text-base font-bold text-[#002f49]">
+                    <h3 className="text-base font-semibold text-[#0056B3]">
                       Validated Sample Matrices & Materials
                     </h3>
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -681,7 +654,7 @@ export function ProductDetailView({
                           key={idx}
                           className="rounded-xl border border-slate-200 bg-slate-50/60 p-4"
                         >
-                          <h4 className="font-bold text-xs text-[#002f49]">{m.name}</h4>
+                          <h4 className="font-bold text-xs text-[#0056B3]">{m.name}</h4>
                           <p className="mt-1 text-[11px] text-slate-500 leading-relaxed">{m.desc}</p>
                         </div>
                       ))}
@@ -694,7 +667,7 @@ export function ProductDetailView({
               {activeTab === "advantages" && (
                 <div id="section-advantages" className="space-y-6">
                   <div>
-                    <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                       Engineering Advantages & Key Features
                     </h2>
                     <p className="mt-1 text-xs text-slate-500">
@@ -707,13 +680,13 @@ export function ProductDetailView({
                       {product.features.map((feat, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-[#fffdfa] p-4"
+                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4"
                         >
-                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ffb347]/30 text-[#c4620a]">
+                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
                             <Check className="h-4 w-4" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-bold text-[#002f49]">
+                            <h4 className="text-sm font-semibold text-[#0056B3]">
                               {feat}
                             </h4>
                             <p className="mt-1 text-xs text-slate-600">
@@ -735,13 +708,13 @@ export function ProductDetailView({
                       ].map((f, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-[#fffdfa] p-4"
+                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4"
                         >
-                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ffb347]/30 text-[#c4620a]">
+                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
                             <Check className="h-4 w-4" />
                           </div>
                           <div>
-                            <h4 className="text-sm font-bold text-[#002f49]">{f}</h4>
+                            <h4 className="text-sm font-semibold text-[#0056B3]">{f}</h4>
                             <p className="mt-1 text-xs text-slate-600">
                               Delivers research-grade precision and continuous production reliability for Indian industrial testing labs.
                             </p>
@@ -752,10 +725,10 @@ export function ProductDetailView({
                   )}
 
                   {/* Service Commitment Banner */}
-                  <div className="mt-8 rounded-xl bg-[#002f49] p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="mt-8 rounded-xl bg-[#0056B3] p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
-                      <h3 className="text-base font-bold">Orbit Technologies After-Sales Assurance</h3>
-                      <p className="mt-1 text-xs text-slate-300">
+                      <h3 className="text-base font-semibold">Orbit Technologies After-Sales Assurance</h3>
+                      <p className="mt-1 text-xs text-slate-200">
                         Installation, user training, hydrotesting, and genuine Parr spare parts stocked locally in Hyderabad.
                       </p>
                     </div>
@@ -774,7 +747,7 @@ export function ProductDetailView({
               {activeTab === "brochures" && (
                 <div id="section-brochures" className="space-y-6">
                   <div>
-                    <h2 className="text-xl font-bold tracking-tight text-[#002f49] sm:text-2xl">
+                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                       Technical Documentation & Downloads
                     </h2>
                     <p className="mt-1 text-xs text-slate-500">
@@ -797,7 +770,7 @@ export function ProductDetailView({
                               {b.size}
                             </span>
                           </div>
-                          <h3 className="mt-2 text-sm font-bold text-[#002f49]">
+                          <h3 className="mt-2 text-sm font-semibold text-[#0056B3]">
                             {b.title}
                           </h3>
                           <p className="mt-1 text-xs text-slate-600 leading-relaxed">
@@ -819,27 +792,13 @@ export function ProductDetailView({
                               });
                               setIsRfqOpen(true);
                             }}
-                            className="cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                            className="cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                           >
                             <FileDown className="h-4 w-4" /> Download PDF
                           </button>
                         </div>
                       </div>
                     ))}
-                  </div>
-
-                  <div className="rounded-xl border border-dashed border-slate-300 p-6 text-center">
-                    <h4 className="text-sm font-bold text-[#002f49]">Need Custom Architecture or CAD Drawings?</h4>
-                    <p className="mt-1 text-xs text-slate-500 max-w-md mx-auto">
-                      Contact our applications engineering division for 2D/3D facility layout drawings, utility schematics, and ventilation calculations.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setIsRfqOpen(true)}
-                      className="cursor-pointer mt-3 inline-flex items-center gap-1 text-xs font-bold text-[#002f49] hover:text-[#c4620a]"
-                    >
-                      Contact Applications Engineering &rarr;
-                    </button>
                   </div>
                 </div>
               )}
@@ -854,7 +813,7 @@ export function ProductDetailView({
       <section id="quote-section" className="border-t border-slate-200 bg-[#f8fafc] py-14 scroll-mt-20">
         <div className="container-x max-w-4xl">
           <div className="text-center">
-            <h2 className="text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Request a quote for the {product.name}
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
@@ -868,12 +827,12 @@ export function ProductDetailView({
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
                   <CheckCircle2 className="h-8 w-8" />
                 </div>
-                <h3 className="mt-3 text-xl font-bold text-[#002f49]">
+                <h3 className="mt-3 text-xl font-semibold text-[#0056B3]">
                   Quotation Request Received!
                 </h3>
                 <p className="mt-2 text-xs sm:text-sm text-slate-600">
                   Reference ID:{" "}
-                  <span className="font-mono font-bold text-[#c4620a]">
+                  <span className="font-mono font-bold text-[#d00000]">
                     {inPageQuoteId}
                   </span>
                 </p>
@@ -883,15 +842,15 @@ export function ProductDetailView({
                 <button
                   type="button"
                   onClick={() => setInPageSubmitted(false)}
-                  className="cursor-pointer mt-5 inline-flex items-center justify-center rounded-lg bg-[#002f49] px-5 py-2 text-xs font-semibold text-white hover:bg-[#002438]"
+                  className="cursor-pointer mt-5 inline-flex items-center justify-center rounded-lg bg-[#0056B3] px-5 py-2 text-xs font-semibold text-white hover:bg-[#003d80]"
                 >
                   Submit Another Inquiry
                 </button>
               </div>
             ) : (
               <form onSubmit={handleInPageSubmit} className="space-y-4">
-                <div className="rounded-lg bg-amber-50/70 p-3 border border-amber-200/80 text-xs text-amber-900 flex items-center justify-between">
-                  <span className="font-semibold text-[#002f49]">Enquiring about: {product.name} (Code: {skuCode})</span>
+                <div className="rounded-lg bg-[#ebf3fc] p-3 border border-blue-200/80 text-xs text-[#00387a] flex items-center justify-between">
+                  <span className="font-semibold text-[#0056B3]">Enquiring about: {product.name} (Code: {skuCode})</span>
                   <span className="text-[11px] text-emerald-700 font-bold hidden sm:inline">Direct OEM Support</span>
                 </div>
 
@@ -908,7 +867,7 @@ export function ProductDetailView({
                         value={inPageForm.name}
                         onChange={(e) => setInPageForm({ ...inPageForm, name: e.target.value })}
                         placeholder="Dr. Rajesh Kumar"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -925,7 +884,7 @@ export function ProductDetailView({
                         value={inPageForm.company}
                         onChange={(e) => setInPageForm({ ...inPageForm, company: e.target.value })}
                         placeholder="e.g. NTPC / CSIR / Reliance Industries"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -944,7 +903,7 @@ export function ProductDetailView({
                         value={inPageForm.email}
                         onChange={(e) => setInPageForm({ ...inPageForm, email: e.target.value })}
                         placeholder="r.kumar@organization.com"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -961,7 +920,7 @@ export function ProductDetailView({
                         value={inPageForm.phone}
                         onChange={(e) => setInPageForm({ ...inPageForm, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -979,7 +938,7 @@ export function ProductDetailView({
                         value={inPageForm.sampleType}
                         onChange={(e) => setInPageForm({ ...inPageForm, sampleType: e.target.value })}
                         placeholder="e.g. Coal & Coke, Heavy Fuel Oil, Biomass"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -993,7 +952,7 @@ export function ProductDetailView({
                       <select
                         value={inPageForm.timeline}
                         onChange={(e) => setInPageForm({ ...inPageForm, timeline: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                       >
                         <option value="immediate">Immediate (Ready to procure)</option>
                         <option value="1-3 months">1 – 3 months</option>
@@ -1015,7 +974,7 @@ export function ProductDetailView({
                       value={inPageForm.requirement}
                       onChange={(e) => setInPageForm({ ...inPageForm, requirement: e.target.value })}
                       placeholder="Tell us about your testing throughput, specific standards (ASTM/ISO), or laboratory bench space..."
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#c4620a] focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1046,7 +1005,7 @@ export function ProductDetailView({
           <p className="mx-auto max-w-3xl text-lg font-bold sm:text-2xl sm:leading-relaxed">
             &ldquo;Every {category?.name || "Instrument"} we supply arrives with Orbit&rsquo;s own factory-trained engineers — selection, installation, training, and after-sales service, anywhere in India.&rdquo;
           </p>
-          <p className="mt-3 text-xs font-bold uppercase tracking-[0.15em] text-[#ffb347]">
+          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-[#ebf3fc]">
             Orbit Technologies · 35 Years · 7,000+ Customers Across India
           </p>
         </div>
@@ -1060,7 +1019,7 @@ export function ProductDetailView({
           <div className="container-x">
             <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+                <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
                   Related Laboratory Instruments
                 </h2>
               </div>
@@ -1089,7 +1048,7 @@ export function ProductDetailView({
       <section id="faq-section" className="border-t border-slate-200 bg-[#fbfcfd] py-16 lg:py-20 scroll-mt-20">
         <div className="container-x max-w-3xl">
           <div className="text-center">
-            <h2 className="text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl lg:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
               Frequently Asked Questions
             </h2>
             <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 max-w-xl mx-auto">
@@ -1105,13 +1064,13 @@ export function ProductDetailView({
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="cursor-pointer flex w-full items-center justify-between gap-4 text-left font-bold text-[#002f49] hover:text-[#c4620a] transition-colors"
+                    className="cursor-pointer flex w-full items-center justify-between gap-4 text-left font-semibold text-[#0056B3] hover:text-[#d00000] transition-colors"
                     aria-expanded={isOpen}
                   >
                     <span className="text-sm sm:text-base pr-2">{faq.q}</span>
                     <div
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors ${
-                        isOpen ? "bg-amber-100 text-[#c4620a]" : "bg-slate-100 text-slate-500"
+                        isOpen ? "bg-[#feeceb] text-[#d00000]" : "bg-slate-100 text-slate-500"
                       }`}
                     >
                       <ChevronDown
@@ -1132,9 +1091,9 @@ export function ProductDetailView({
           </div>
 
           {/* Direct Support Assistance Callout */}
-          <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50/70 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="mt-8 rounded-2xl border border-blue-200 bg-[#ebf3fc] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-sm font-bold text-[#002f49]">
+              <h3 className="text-sm font-semibold text-[#0056B3]">
                 Have a specific testing sample or standard not covered here?
               </h3>
               <p className="text-xs text-slate-600 mt-1">
@@ -1144,7 +1103,7 @@ export function ProductDetailView({
             <button
               type="button"
               onClick={() => setIsRfqOpen(true)}
-              className="cursor-pointer inline-flex items-center justify-center gap-2 rounded-xl bg-[#c4620a] px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-[#a35008] transition-all shrink-0"
+              className="cursor-pointer inline-flex items-center justify-center gap-2 rounded-xl bg-[#d00000] px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#b00000] transition-all shrink-0"
             >
               <span>Ask An Instrument Specialist</span>
               <ArrowRight className="h-4 w-4" />

@@ -101,24 +101,24 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
     <div className="space-y-12">
       {/* Featured Headline Hero Banner */}
       {headlineNews && (
-        <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-[#001c2c] via-[#002f49] to-[#004166] text-white shadow-xl">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(196,98,10,0.22),transparent_65%)]" />
+        <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-[#001c3d] via-[#00387a] to-[#0056B3] text-white shadow-xl">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(208,0,0,0.18),transparent_65%)]" />
           
           <div className="relative grid items-center gap-8 p-6 md:p-10 lg:grid-cols-12 lg:p-12">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#c4620a] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d00000] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
                   <Flame className="h-3.5 w-3.5" /> Featured Launch
                 </span>
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200 backdrop-blur-xs">
                   {headlineNews.category}
                 </span>
                 <span className="flex items-center gap-1 text-xs text-slate-300">
-                  <Clock className="h-3.5 w-3.5 text-[#ffb347]" /> {headlineNews.readTime}
+                  <Clock className="h-3.5 w-3.5 text-[#feeceb]" /> {headlineNews.readTime}
                 </span>
               </div>
 
-              <h2 className="text-2xl font-black tracking-tight sm:text-3xl lg:text-4xl text-white">
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl text-white">
                 {headlineNews.title}
               </h2>
 
@@ -129,7 +129,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               <div className="grid gap-2 pt-2 sm:grid-cols-2">
                 {headlineNews.highlights.slice(0, 4).map((h, i) => (
                   <div key={i} className="flex items-start gap-2 text-xs text-slate-200">
-                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#ffb347]" />
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#feeceb]" />
                     <span>{h}</span>
                   </div>
                 ))}
@@ -181,7 +181,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               onClick={() => setActiveTab("all")}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "all"
-                  ? "bg-[#002f49] text-white shadow-sm"
+                  ? "bg-[#0056B3] text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
@@ -200,11 +200,11 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               onClick={() => setActiveTab("news")}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "news"
-                  ? "bg-[#002f49] text-white shadow-sm"
+                  ? "bg-[#0056B3] text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
-              <Sparkles className="h-3.5 w-3.5 text-[#c4620a]" />
+              <Sparkles className="h-3.5 w-3.5 text-[#d00000]" />
               <span>News & Launches</span>
               <span
                 className={`rounded-full px-2 py-0.5 text-[10px] ${
@@ -220,7 +220,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               onClick={() => setActiveTab("upcoming")}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "upcoming"
-                  ? "bg-[#002f49] text-white shadow-sm"
+                  ? "bg-[#0056B3] text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
@@ -242,7 +242,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               onClick={() => setActiveTab("past")}
               className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "past"
-                  ? "bg-[#002f49] text-white shadow-sm"
+                  ? "bg-[#0056B3] text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
@@ -266,7 +266,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               placeholder="Search news, events, models..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-9 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#002f49] focus:outline-hidden focus:ring-1 focus:ring-[#002f49]"
+              className="w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-9 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
             />
             {searchQuery && (
               <button
@@ -295,7 +295,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                   onClick={() => setSelectedCategory(cat)}
                   className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
                     isActive
-                      ? "bg-[#c4620a] text-white shadow-xs"
+                      ? "bg-[#d00000] text-white shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
@@ -313,7 +313,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <h2 className="text-xl font-extrabold tracking-tight text-[#002f49] sm:text-2xl">
+              <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                 Upcoming Trade Shows &amp; Exhibitions
               </h2>
             </div>
@@ -336,17 +336,17 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                       Upcoming Event
                     </span>
                     <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                      <CalendarDays className="h-3.5 w-3.5 text-[#c4620a]" />
+                      <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" />
                       {event.date}
                     </span>
                   </div>
 
-                  <h3 className="mt-4 text-xl font-black tracking-tight text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                     <Link href={`/news/${event.slug}`}>{event.show}</Link>
                   </h3>
 
                   <p className="mt-1.5 text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 shrink-0 text-[#c4620a]" />
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-[#d00000]" />
                     {event.location}
                   </p>
 
@@ -374,7 +374,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
                   <Link
                     href={`/news/${event.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#002f49] group-hover:text-[#c4620a] transition"
+                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0056B3] group-hover:text-[#d00000] transition"
                   >
                     View Details &amp; Book Stall Meeting <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -400,7 +400,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
       {(activeTab === "all" || activeTab === "news") && filteredNews.length > 0 && (
         <section className="space-y-6">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h2 className="text-xl font-extrabold tracking-tight text-[#002f49] sm:text-2xl">
+            <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
               Latest News &amp; Technical Announcements
             </h2>
             <span className="text-xs font-bold text-slate-500">
@@ -412,7 +412,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
             {filteredNews.map((article) => (
               <article
                 key={article.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition hover:border-[#002f49]/30 hover:shadow-md"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition hover:border-[#0056B3]/30 hover:shadow-md"
               >
                 <div>
                   {/* Thumbnail */}
@@ -439,7 +439,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                       </span>
                     </div>
 
-                    <h3 className="mt-2 text-base font-bold leading-snug text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                    <h3 className="mt-2 text-base font-bold leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                       <Link href={`/news/${article.slug}`}>{article.title}</Link>
                     </h3>
 
@@ -465,7 +465,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                   <div className="mt-3 flex items-center justify-between">
                     <Link
                       href={`/news/${article.slug}`}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#002f49] group-hover:text-[#c4620a] transition"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
                     >
                       Read Full Article <ArrowRight className="h-3.5 w-3.5 ml-0.5 transition-transform group-hover:translate-x-1" />
                     </Link>
@@ -483,7 +483,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
             <div className="flex items-center gap-2">
               <Building2 className="h-5 w-5 text-slate-600" />
-              <h2 className="text-xl font-extrabold tracking-tight text-[#002f49] sm:text-2xl">
+              <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
                 Finished &amp; Past Exhibitions
               </h2>
             </div>
@@ -506,7 +506,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                     <span className="text-xs font-semibold text-slate-500">{event.date}</span>
                   </div>
 
-                  <h3 className="mt-3 text-base font-bold text-[#002f49] group-hover:text-[#c4620a] transition">
+                  <h3 className="mt-3 text-base font-bold text-[#0056B3] group-hover:text-[#d00000] transition">
                     <Link href={`/news/${event.slug}`}>{event.show}</Link>
                   </h3>
 
@@ -540,7 +540,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                 <div className="mt-4 border-t border-slate-100 pt-3">
                   <Link
                     href={`/news/${event.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#002f49] group-hover:text-[#c4620a] transition"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
                   >
                     View Exhibition Recap <ArrowRight className="h-3.5 w-3.5 ml-0.5 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -571,11 +571,11 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
       )}
 
       {/* Newsletter / Catalog Request Banner */}
-      <section className="relative overflow-hidden rounded-2xl bg-[#fdeedd] p-8 md:p-10 border border-[#fbd3b6]">
+      <section className="relative overflow-hidden rounded-2xl bg-[#ebf3fc] p-8 md:p-10 border border-blue-200">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="max-w-xl">
             <span className="chip chip-accent text-xs font-bold">Stay Informed</span>
-            <h3 className="mt-2 text-xl font-black text-[#002f49] sm:text-2xl">
+            <h3 className="mt-2 text-xl font-semibold text-[#0056B3] sm:text-2xl">
               Require Technical Product Bulletins or Application Notes?
             </h3>
             <p className="mt-2 text-xs md:text-sm leading-relaxed text-slate-700">

@@ -32,8 +32,7 @@ export default function PrincipalsHubPage() {
       {/* Principals Grid */}
       <section className="container-x py-12 sm:py-14">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Authorized Portfolio</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             World-Class Instrumentation Innovators
           </h2>
           <p className="mt-2 text-sm text-slate-600">
@@ -45,7 +44,7 @@ export default function PrincipalsHubPage() {
           {PRINCIPALS.map((principal) => (
             <div
               key={principal.slug}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-xl"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
             >
               <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-50 p-6 flex items-center justify-center border-b border-slate-100">
                 <Image
@@ -58,17 +57,17 @@ export default function PrincipalsHubPage() {
                 <span className="absolute top-3 right-3 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold text-slate-700 shadow-xs border border-slate-200">
                   {principal.flag} {principal.country}
                 </span>
-                <span className="absolute bottom-3 left-3 rounded-md bg-[#002f49]/80 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-xs">
+                <span className="absolute bottom-3 left-3 rounded-md bg-[#0056B3]/80 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-xs">
                   Est. {principal.founded}
                 </span>
               </div>
 
               <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#c4620a]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
                     {principal.partnershipYears}
                   </span>
-                  <h3 className="mt-1 font-bold text-lg text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                  <h3 className="mt-1 font-bold text-lg text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                     {principal.name}
                   </h3>
                   <p className="mt-1 text-xs font-medium text-slate-500">
@@ -96,7 +95,7 @@ export default function PrincipalsHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${principal.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     View Products &amp; History <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -115,8 +114,7 @@ export default function PrincipalsHubPage() {
         <div className="container-x">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <div>
-              <span className="eyebrow text-[#c4620a]">Direct Factory Relationship</span>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
                 Zero Middlemen. Direct Factory Backing for Indian Laboratories.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">
@@ -147,7 +145,7 @@ export default function PrincipalsHubPage() {
                 },
               ].map((item, idx) => (
                 <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-                  <h4 className="font-bold text-sm text-[#002f49]">{item.title}</h4>
+                  <h4 className="font-bold text-sm text-[#0056B3]">{item.title}</h4>
                   <p className="mt-1 text-xs text-slate-600 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
@@ -158,13 +156,13 @@ export default function PrincipalsHubPage() {
 
       {/* RFQ Consultation CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Procurement Assistance
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Need a Detailed Technical Proposal from Our Principals?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

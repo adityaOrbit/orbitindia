@@ -78,11 +78,11 @@ export function KnowledgeHubMaster({
               onClick={() => setActiveTab("blogs")}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "blogs"
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              <BookOpen className="h-3.5 w-3.5 text-[#ff8d0a]" />
+              <BookOpen className="h-3.5 w-3.5 text-[#d00000]" />
               <span>Learning Hub (Blogs)</span>
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[10px] ${
@@ -98,7 +98,7 @@ export function KnowledgeHubMaster({
               onClick={() => setActiveTab("sops")}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "sops"
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
@@ -118,7 +118,7 @@ export function KnowledgeHubMaster({
               onClick={() => setActiveTab("usecases")}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "usecases"
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
@@ -140,7 +140,7 @@ export function KnowledgeHubMaster({
               onClick={() => setActiveTab("tools")}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "tools"
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
@@ -160,11 +160,11 @@ export function KnowledgeHubMaster({
               onClick={() => setActiveTab("downloads")}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "downloads"
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              <Download className="h-3.5 w-3.5 text-[#c4620a]" />
+              <Download className="h-3.5 w-3.5 text-[#d00000]" />
               <span>Download Center</span>
               <span
                 className={`rounded-full px-1.5 py-0.5 text-[10px] ${
@@ -186,7 +186,7 @@ export function KnowledgeHubMaster({
               placeholder="Search knowledge hub..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 py-1.5 pl-8 pr-7 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#002f49] focus:outline-hidden"
+              className="w-full rounded-xl border border-slate-300 py-1.5 pl-8 pr-7 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden"
             />
             {searchQuery && (
               <button
@@ -209,7 +209,7 @@ export function KnowledgeHubMaster({
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
             <div>
               <span className="chip chip-accent text-[11px] font-bold">Peer-Reviewed Science</span>
-              <h3 className="mt-1 text-2xl font-black text-[#002f49] sm:text-3xl">
+              <h3 className="mt-1 text-2xl font-semibold text-[#0056B3] sm:text-3xl">
                 Learning Hub — Technical Blogs &amp; Application Whitepapers
               </h3>
               <p className="mt-1 text-xs text-slate-600">
@@ -226,7 +226,7 @@ export function KnowledgeHubMaster({
                   onClick={() => setSelectedArticleCategory(c)}
                   className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
                     selectedArticleCategory === c
-                      ? "bg-[#c4620a] text-white shadow-xs"
+                      ? "bg-[#d00000] text-white shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   }`}
                 >
@@ -241,7 +241,7 @@ export function KnowledgeHubMaster({
             {filteredArticles.map((art) => (
               <article
                 key={art.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-xl"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-xl"
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-500">
@@ -253,11 +253,11 @@ export function KnowledgeHubMaster({
                     </span>
                   </div>
 
-                  <h4 className="mt-4 text-base font-bold text-[#002f49] group-hover:text-[#c4620a] transition leading-snug">
+                  <h4 className="mt-4 text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition leading-snug">
                     <Link href={`/knowledge-hub/${art.slug}/`}>{art.title}</Link>
                   </h4>
 
-                  <p className="mt-1.5 text-xs font-semibold text-[#c4620a]">{art.subtitle}</p>
+                  <p className="mt-1.5 text-xs font-semibold text-[#d00000]">{art.subtitle}</p>
 
                   <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-3">
                     {art.summary}
@@ -283,7 +283,7 @@ export function KnowledgeHubMaster({
                 <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/knowledge-hub/${art.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] group-hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
                   >
                     Read Full Article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -322,13 +322,13 @@ export function KnowledgeHubMaster({
       {activeTab === "downloads" && <DownloadCenterView downloads={downloads} />}
 
       {/* Bottom Consultation Banner */}
-      <section className="relative overflow-hidden rounded-2xl bg-[#002f49] p-8 md:p-10 text-white shadow-xl">
+      <section className="relative overflow-hidden rounded-2xl bg-[#0056B3] p-8 md:p-10 text-white shadow-xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="max-w-xl">
-            <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+            <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
               Method Development &amp; Training
             </span>
-            <h3 className="mt-2 text-xl font-black sm:text-2xl">
+            <h3 className="mt-2 text-xl font-semibold sm:text-2xl">
               Require an On-Site SOP Workshop or Custom Test Protocol?
             </h3>
             <p className="mt-2 text-xs md:text-sm text-slate-300 leading-relaxed">

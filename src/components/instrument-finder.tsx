@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, PhoneCall, Sparkles, SlidersHorizontal, ArrowRight } from "lucide-react";
+import { Search, PhoneCall, SlidersHorizontal, ArrowRight } from "lucide-react";
+import { site } from "@/data/site";
 
 type CategoryOption = {
   label: string;
@@ -125,12 +127,11 @@ export function InstrumentFinder() {
   return (
     <div id="finder" className="scroll-mt-28 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#fdeedd] text-[#c4620a]">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf3fc] text-[#0056B3]">
           <SlidersHorizontal className="h-5 w-5" />
         </span>
         <div>
-          <span className="eyebrow text-[#c4620a]">Interactive Finder</span>
-          <h3 className="text-xl font-black text-[#002f49] sm:text-2xl">
+          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
             Start With What You Need to Test
           </h3>
         </div>
@@ -195,10 +196,10 @@ export function InstrumentFinder() {
         {/* Selected parameters hint */}
         {(selectedCategory !== "all" || selectedIndustry !== "all") && (
           <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
-            <Sparkles className="h-3.5 w-3.5 text-[#c4620a]" />
+            <SlidersHorizontal className="h-3.5 w-3.5 text-[#0056B3]" />
             <span>
               Target filter:{" "}
-              <strong className="text-[#002f49]">
+              <strong className="text-[#0056B3]">
                 {selectedCategory !== "all"
                   ? CATEGORIES.find((c) => c.value === selectedCategory)?.label
                   : "All Products"}
@@ -207,7 +208,7 @@ export function InstrumentFinder() {
                 <>
                   {" "}
                   · Industry:{" "}
-                  <strong className="text-[#c4620a]">
+                  <strong className="text-[#d00000]">
                     {INDUSTRIES.find((i) => i.value === selectedIndustry)?.label}
                   </strong>
                 </>
@@ -218,9 +219,9 @@ export function InstrumentFinder() {
       </form>
 
       {/* Advisory block & secondary CTA */}
-      <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-[#f6dcc4] bg-[#fffbf5] p-5 sm:flex-row sm:items-center">
+      <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-blue-100 bg-[#ebf3fc] p-5 sm:flex-row sm:items-center">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-[#002f49]">
+          <p className="text-sm font-semibold text-[#0056B3]">
             Need help selecting an instrument?
           </p>
           <p className="mt-1 text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -230,17 +231,17 @@ export function InstrumentFinder() {
         </div>
         <div className="flex shrink-0 items-center gap-3">
           <a
-            href="tel:+914067216354"
+            href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
             className="btn btn-outline border-slate-300 text-xs sm:text-sm"
           >
-            <PhoneCall className="h-4 w-4 text-[#c4620a]" /> Request a Call
+            <PhoneCall className="h-4 w-4 text-[#d00000]" /> Request a Call
           </a>
-          <a
-            href="#enquiry"
+          <Link
+            href="/contact-us#quote"
             className="btn btn-primary text-xs sm:text-sm"
           >
             Tell Us What You Need <ArrowRight className="h-3.5 w-3.5" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

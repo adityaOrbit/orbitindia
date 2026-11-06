@@ -162,9 +162,9 @@ export function PartnerSection() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id as PartnerCategory)}
-              className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-xs font-bold transition-all ${
+              className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-xs font-semibold transition-all ${
                 isActive
-                  ? "bg-[#002f49] text-white shadow-xs"
+                  ? "bg-[#0056B3] text-white shadow-xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
@@ -179,7 +179,7 @@ export function PartnerSection() {
         {filtered.map((partner) => (
           <div
             key={partner.id}
-            className="group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-lg"
+            className="group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-lg"
           >
             <div>
               {/* Top Row: Logo & Country */}
@@ -201,10 +201,10 @@ export function PartnerSection() {
 
               {/* Title & Badge */}
               <div className="mt-3.5">
-                <span className="inline-block rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-extrabold text-[#c4620a] uppercase tracking-wider">
+                <span className="inline-block rounded-md bg-[#feeceb] px-2 py-0.5 text-[10px] font-bold text-[#d00000] uppercase tracking-wider">
                   {partner.badge}
                 </span>
-                <h3 className="mt-1 text-base font-bold text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                <h3 className="mt-1 text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                   {partner.name}
                 </h3>
                 <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-3">
@@ -234,7 +234,7 @@ export function PartnerSection() {
               )}
               <Link
                 href={partner.href}
-                className="inline-flex items-center gap-1 text-xs font-bold text-[#c4620a] group-hover:translate-x-0.5 transition-transform ml-auto"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#d00000] group-hover:translate-x-0.5 transition-transform ml-auto"
               >
                 <span>Explore</span>
                 <ArrowRight className="h-3.5 w-3.5" />

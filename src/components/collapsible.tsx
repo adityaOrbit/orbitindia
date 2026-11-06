@@ -47,7 +47,7 @@ export function Collapsible({
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-[#c4620a] transition hover:text-[#a35a00]"
+        className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] transition hover:text-[#b00000]"
       >
         {open ? readLess : readMore}
         <ChevronDown

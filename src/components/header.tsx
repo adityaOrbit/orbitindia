@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, Phone, Mail, ArrowRight, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Mail, ArrowRight, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { site } from "@/data/site";
 import { authenticMegaMenu } from "@/data/categories";
 import { cn, withBasePath } from "@/lib/utils";
@@ -132,64 +132,95 @@ export function Header() {
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="hidden bg-[#001c2c] text-slate-300 md:block">
-        <div className="container-x flex items-center justify-between py-1.5 text-xs">
-          <div className="flex items-center gap-5">
-            <a
-              href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
-              onClick={() =>
-                trackContactClick({
-                  type: "phone",
-                  value: site.phones.office,
-                  context: "header_top_bar",
-                })
-              }
-              className="flex items-center gap-1.5 transition hover:text-white"
-            >
-              <Phone className="h-3.5 w-3.5 text-[#ffb347]" /> {site.phones.office}
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              onClick={() =>
-                trackContactClick({
-                  type: "email",
-                  value: site.email,
-                  context: "header_top_bar",
-                })
-              }
-              className="flex items-center gap-1.5 transition hover:text-white"
-            >
-              <Mail className="h-3.5 w-3.5 text-[#ffb347]" /> {site.email}
-            </a>
-          </div>
-          <p className="text-slate-400">Mon–Fri 9:30 AM – 5:30 PM · Sat 9:30 AM – 1:00 PM</p>
-        </div>
-      </div>
-
-      {/* Logo Row: Only the official logo image */}
+      {/* Logo & Contact Action Row */}
       <div className="border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="container-x flex h-20 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center">
+        <div className="container-x flex h-16 sm:h-20 items-center justify-between gap-3 py-1">
+          {/* Logo */}
+          <Link href="/" className="flex items-center py-1">
             <Image
               src={withBasePath("/logo-orbit.png")}
               alt="Orbit Technologies"
-              width={140}
-              height={50}
-              className="h-12 w-auto"
+              width={240}
+              height={90}
+              className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain"
               priority
             />
           </Link>
 
-          <div className="flex items-center gap-3">
-            <Link href="/contact-us#quote" className="btn btn-accent hidden sm:inline-flex">
+          {/* Right Actions: Phone, Email & Request a Quote (Desktop md+) */}
+          <div className="flex items-center gap-2.5 sm:gap-4 lg:gap-6">
+            <div className="hidden md:flex flex-col justify-center gap-1.5">
+              {/* Phone */}
+              <a
+                href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
+                onClick={() =>
+                  trackContactClick({
+                    type: "phone",
+                    value: site.phones.office,
+                    context: "header_action_row",
+                  })
+                }
+                className="group flex items-center gap-2 transition"
+              >
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ebf3fc] text-[#0056B3] transition group-hover:bg-[#feeceb] group-hover:text-[#d00000]">
+                  <Phone className="h-3 w-3" />
+                </div>
+                <span className="text-xs font-bold text-[#0056B3] transition group-hover:text-[#d00000] whitespace-nowrap">
+                  {site.phones.office}
+                </span>
+              </a>
+
+              {/* Email */}
+              <a
+                href={`mailto:${site.email}`}
+                onClick={() =>
+                  trackContactClick({
+                    type: "email",
+                    value: site.email,
+                    context: "header_action_row",
+                  })
+                }
+                className="group flex items-center gap-2 transition"
+              >
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ebf3fc] text-[#0056B3] transition group-hover:bg-[#feeceb] group-hover:text-[#d00000]">
+                  <Mail className="h-3 w-3" />
+                </div>
+                <span className="text-xs font-bold text-[#0056B3] transition group-hover:text-[#d00000] whitespace-nowrap">
+                  {site.email}
+                </span>
+              </a>
+            </div>
+
+            {/* Request a Quote CTA (Desktop md+) */}
+            <Link
+              href="/contact-us#quote"
+              className="btn btn-accent hidden md:inline-flex shadow-sm hover:shadow text-xs lg:text-sm"
+            >
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
+
+            {/* Quick Call Button on Mobile */}
+            <a
+              href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
+              aria-label="Call Orbit Technologies"
+              onClick={() =>
+                trackContactClick({
+                  type: "phone",
+                  value: site.phones.office,
+                  context: "mobile_header",
+                })
+              }
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3] hover:bg-[#feeceb] hover:text-[#d00000] md:hidden transition-colors"
+            >
+              <Phone className="h-4 w-4" />
+            </a>
+
+            {/* Mobile Hamburger Menu Button */}
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
-              className="rounded-md border border-slate-200 p-2 text-[#002f49] transition hover:bg-slate-100 sm:hidden cursor-pointer"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0056B3] hover:bg-slate-100 md:hidden cursor-pointer transition-colors"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -197,135 +228,221 @@ export function Header() {
         </div>
 
         {/* Mobile Menu Drawer */}
-        <div className={cn("border-b border-slate-200 bg-white sm:hidden", open ? "block" : "hidden")}>
-          <nav className="container-x flex flex-col py-2">
+        <div
+          className={cn(
+            "border-b border-slate-200 bg-white md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto shadow-2xl transition-all duration-200 ease-in-out",
+            open ? "block" : "hidden"
+          )}
+        >
+          <nav className="container-x flex flex-col py-3 space-y-1">
             <Link
               href="/"
               onClick={() => setOpen(false)}
-              className="rounded-md px-2 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              className="flex items-center rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 hover:text-[#0056B3]"
             >
               Home
             </Link>
 
             {/* Mobile Products Accordion */}
-            <button
-              type="button"
-              onClick={() => setMobileProducts((v) => !v)}
-              className="flex items-center justify-between rounded-md px-2 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 cursor-pointer"
-            >
-              <span>Products (8 Divisions)</span>
-              <ChevronDown className={cn("h-4 w-4 transition-transform", mobileProducts && "rotate-180")} />
-            </button>
-            {mobileProducts && (
-              <div className="mb-2 ml-2 border-l-2 border-[#b91c1c] pl-3 py-2 space-y-3">
-                <Link
-                  href="/products/"
-                  onClick={() => setOpen(false)}
-                  className="block text-xs font-bold text-[#b91c1c] uppercase tracking-wide hover:underline"
-                >
-                  Browse All 178+ Instruments &rarr;
-                </Link>
-                {authenticMegaMenu.map((tab) => {
-                  const isExpanded = mobileActiveTab === tab.id;
-                  return (
-                    <div key={tab.id} className="border-b border-slate-100 pb-2 last:border-b-0">
-                      <div className="flex items-center justify-between">
-                        <Link
-                          href={`/${tab.path}/`}
-                          onClick={() => setOpen(false)}
-                          className="block text-xs font-bold text-[#002f49] hover:text-[#b91c1c]"
-                        >
-                          {tab.title}
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => setMobileActiveTab(isExpanded ? null : tab.id)}
-                          className="p-1 text-slate-400 hover:text-slate-700"
-                          aria-label={`Toggle ${tab.title}`}
-                        >
-                          <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isExpanded && "rotate-180")} />
-                        </button>
+            <div className="rounded-lg bg-slate-50/70 border border-slate-100 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setMobileProducts((v) => !v)}
+                className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-semibold text-slate-800 hover:text-[#0056B3] transition cursor-pointer"
+              >
+                <span>Products</span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-slate-500 transition-transform duration-200",
+                    mobileProducts && "rotate-180"
+                  )}
+                />
+              </button>
+
+              {mobileProducts && (
+                <div className="px-3 pb-3 pt-1 space-y-2 border-t border-slate-100 bg-white">
+                  {/* Standout Instrument Finder Link (Mobile) */}
+                  <Link
+                    href="/instrument-finder/"
+                    onClick={() => setOpen(false)}
+                    className="group flex items-center justify-between rounded-md border border-slate-200 bg-[#f8fafc] p-2.5 shadow-xs transition hover:border-[#0056B3]"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#ebf3fc] text-[#0056B3]">
+                        <SlidersHorizontal className="h-3.5 w-3.5" />
                       </div>
-                      {isExpanded && (
-                        <div className="mt-2 ml-2 border-l border-slate-200 pl-2 space-y-2">
-                          {tab.columns.flat().map((sec) => (
-                            <div key={sec.title} className="space-y-1">
-                              <Link
-                                href={`/${sec.path}/`}
-                                onClick={() => setOpen(false)}
-                                className="text-xs font-bold text-[#b91c1c] block"
-                              >
-                                {sec.title}
-                              </Link>
-                              {sec.items.length > 0 && (
-                                <ul className="ml-1 space-y-0.5">
-                                  {sec.items.map((item) => (
-                                    <li key={item.label}>
-                                      <Link
-                                        href={`/${item.path}/`}
-                                        onClick={() => setOpen(false)}
-                                        className="text-[11px] text-slate-600 hover:text-[#b91c1c] block py-0.5"
-                                      >
-                                        {item.label}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                      <div>
+                        <p className="text-xs font-bold text-[#0056B3]">
+                          Instrument Finder
+                        </p>
+                        <p className="text-[10px] text-slate-500 leading-tight">
+                          Filter by test method or standard
+                        </p>
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                    <ArrowRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#0056B3]" />
+                  </Link>
+
+                  {/* Divisions List */}
+                  <div className="space-y-1.5 pt-1">
+                    {authenticMegaMenu.map((tab) => {
+                      const isExpanded = mobileActiveTab === tab.id;
+                      return (
+                        <div
+                          key={tab.id}
+                          className="rounded-md border border-slate-100 bg-slate-50/50"
+                        >
+                          <div className="flex items-center justify-between px-2.5 py-1.5">
+                            <Link
+                              href={`/${tab.path}/`}
+                              onClick={() => setOpen(false)}
+                              className="text-xs font-bold text-[#0056B3] hover:text-[#d00000]"
+                            >
+                              {tab.title}
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setMobileActiveTab(isExpanded ? null : tab.id)
+                              }
+                              className="p-1 text-slate-400 hover:text-slate-700"
+                              aria-label={`Toggle ${tab.title}`}
+                            >
+                              <ChevronDown
+                                className={cn(
+                                  "h-3.5 w-3.5 transition-transform duration-200",
+                                  isExpanded && "rotate-180"
+                                )}
+                              />
+                            </button>
+                          </div>
+                          {isExpanded && (
+                            <div className="border-t border-slate-100 bg-white px-2.5 py-2 space-y-2">
+                              {tab.columns.flat().map((sec) => (
+                                <div key={sec.title} className="space-y-1">
+                                  <Link
+                                    href={`/${sec.path}/`}
+                                    onClick={() => setOpen(false)}
+                                    className="text-xs font-bold text-[#d00000] block"
+                                  >
+                                    {sec.title}
+                                  </Link>
+                                  {sec.items.length > 0 && (
+                                    <ul className="ml-1 space-y-1">
+                                      {sec.items.map((item) => (
+                                        <li key={item.label}>
+                                          <Link
+                                            href={`/${item.path}/`}
+                                            onClick={() => setOpen(false)}
+                                            className="text-[11px] text-slate-600 hover:text-[#0056B3] block py-0.5"
+                                          >
+                                            {item.label}
+                                          </Link>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Mobile About Us Accordion */}
-            <button
-              type="button"
-              onClick={() => setMobileAbout((v) => !v)}
-              className="flex items-center justify-between rounded-md px-2 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 cursor-pointer"
-            >
-              <span>About Us</span>
-              <ChevronDown className={cn("h-4 w-4 transition-transform", mobileAbout && "rotate-180")} />
-            </button>
-            {mobileAbout && (
-              <div className="mb-2 ml-2 border-l-2 border-[#002f49] pl-3 py-1 space-y-1">
-                {aboutLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-[#c4620a]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className="rounded-lg bg-slate-50/70 border border-slate-100 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setMobileAbout((v) => !v)}
+                className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-semibold text-slate-800 hover:text-[#0056B3] transition cursor-pointer"
+              >
+                <span>About Us</span>
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 text-slate-500 transition-transform duration-200",
+                    mobileAbout && "rotate-180"
+                  )}
+                />
+              </button>
+              {mobileAbout && (
+                <div className="border-t border-slate-100 bg-white px-3 py-1.5 space-y-1">
+                  {aboutLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0056B3]"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
+            {/* Standard Nav Items */}
             {mainNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-2 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+                className="flex items-center rounded-lg px-3 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 hover:text-[#0056B3]"
               >
                 {item.label}
               </Link>
             ))}
 
-            <Link href="/contact-us#quote" onClick={() => setOpen(false)} className="btn btn-accent my-2">
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </Link>
+            {/* Request a Quote Button - Full Width */}
+            <div className="pt-2">
+              <Link
+                href="/contact-us#quote"
+                onClick={() => setOpen(false)}
+                className="btn btn-accent w-full justify-center text-sm font-bold shadow-md"
+              >
+                Request a Quote <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Contact Quick Action Bar: Call & Email */}
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+              <a
+                href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
+                onClick={() =>
+                  trackContactClick({
+                    type: "phone",
+                    value: site.phones.office,
+                    context: "mobile_menu",
+                  })
+                }
+                className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2 py-2 text-xs font-semibold text-slate-700 hover:border-[#0056B3] hover:text-[#0056B3] transition"
+              >
+                <Phone className="h-3.5 w-3.5 text-[#0056B3]" /> Call Us
+              </a>
+              <a
+                href={`mailto:${site.email}`}
+                onClick={() =>
+                  trackContactClick({
+                    type: "email",
+                    value: site.email,
+                    context: "mobile_menu",
+                  })
+                }
+                className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2 py-2 text-xs font-semibold text-slate-700 hover:border-[#0056B3] hover:text-[#0056B3] transition"
+              >
+                <Mail className="h-3.5 w-3.5 text-[#0056B3]" /> Email Us
+              </a>
+            </div>
           </nav>
         </div>
       </div>
 
-      {/* Navy Navigation Bar (Desktop sm:) */}
-      <div className="relative hidden bg-[#002f49] sm:block">
+      {/* Royal Blue Navigation Bar (Desktop md:) */}
+      <div className="relative hidden bg-[#0056B3] md:block">
         <div className="container-x flex items-center justify-between">
           <nav className="flex items-center gap-1">
             <Link
@@ -334,7 +451,7 @@ export function Header() {
                 closeMegaMenuImmediately();
                 closeAboutMenuImmediately();
               }}
-              className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#ffb347]"
+              className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#cce1f9]"
             >
               Home
             </Link>
@@ -354,15 +471,15 @@ export function Header() {
                 className={cn(
                   "flex items-center gap-1.5 px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] transition rounded-t-sm cursor-pointer select-none",
                   productsOpen
-                    ? "bg-white text-[#002f49]"
-                    : "text-white hover:text-[#ffb347]"
+                    ? "bg-white text-[#0056B3]"
+                    : "text-white hover:text-[#cce1f9]"
                 )}
               >
                 <span>Products</span>
                 <ChevronDown
                   className={cn(
                     "h-3.5 w-3.5 transition-transform",
-                    productsOpen && "rotate-180 text-[#b91c1c]"
+                    productsOpen && "rotate-180 text-[#d00000]"
                   )}
                 />
               </Link>
@@ -383,15 +500,15 @@ export function Header() {
                 className={cn(
                   "flex items-center gap-1.5 px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] transition rounded-t-sm cursor-pointer select-none",
                   aboutOpen
-                    ? "bg-white text-[#002f49]"
-                    : "text-white hover:text-[#ffb347]"
+                    ? "bg-white text-[#0056B3]"
+                    : "text-white hover:text-[#cce1f9]"
                 )}
               >
                 <span>About Us</span>
                 <ChevronDown
                   className={cn(
                     "h-3.5 w-3.5 transition-transform",
-                    aboutOpen && "rotate-180 text-[#c4620a]"
+                    aboutOpen && "rotate-180 text-[#d00000]"
                   )}
                 />
               </Link>
@@ -415,7 +532,7 @@ export function Header() {
                     onClick={() => setAboutOpen(false)}
                     className="group flex flex-col px-4 py-2.5 transition hover:bg-slate-50 border-b border-slate-100 last:border-b-0"
                   >
-                    <span className="text-xs font-bold text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                    <span className="text-xs font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                       {item.label}
                     </span>
                     <span className="text-[11px] text-slate-500 leading-tight mt-0.5">
@@ -434,7 +551,7 @@ export function Header() {
                   closeMegaMenuImmediately();
                   closeAboutMenuImmediately();
                 }}
-                className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#ffb347]"
+                className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#cce1f9]"
               >
                 {item.label}
               </Link>
@@ -462,7 +579,7 @@ export function Header() {
               {/* Split Layout: Left Tabs Column + Right Content Area */}
               <div className="flex min-h-[440px]">
                 {/* Left Column: 8 Divisions Tabs */}
-                <div className="w-80 shrink-0 border-r border-slate-200 bg-[#efebe4]/80">
+                <div className="w-80 shrink-0 border-r border-slate-200 bg-[#f8fafc] flex flex-col justify-between">
                   <ul className="flex flex-col py-1">
                     {authenticMegaMenu.map((tab) => {
                       const isActive = tab.id === activeTab.id;
@@ -473,17 +590,17 @@ export function Header() {
                             onMouseEnter={() => setActiveTabId(tab.id)}
                             onClick={() => setProductsOpen(false)}
                             className={cn(
-                              "flex items-center justify-between px-4 py-3.5 text-xs font-semibold transition-all border-b border-slate-200/70",
+                              "flex items-center justify-between px-4 py-3 text-xs font-semibold transition-all border-b border-slate-200/70",
                               isActive
-                                ? "bg-[#002f49] text-white font-bold border-r-[5px] border-r-[#b91c1c] shadow-xs"
-                                : "text-slate-800 hover:bg-[#e4ded5]"
+                                ? "bg-[#0056B3] text-white font-bold border-r-[5px] border-r-[#d00000] shadow-xs"
+                                : "text-slate-800 hover:bg-[#ebf3fc]"
                             )}
                           >
                             <span className="leading-snug">{tab.title}</span>
                             <ArrowRight
                               className={cn(
                                 "h-3.5 w-3.5 shrink-0 transition-opacity",
-                                isActive ? "opacity-100 text-[#ffb347]" : "opacity-0"
+                                isActive ? "opacity-100 text-white" : "opacity-0"
                               )}
                             />
                           </Link>
@@ -491,6 +608,30 @@ export function Header() {
                       );
                     })}
                   </ul>
+
+                  {/* Standout Instrument Finder Link (Below CRM's & SRM's Category) */}
+                  <div className="p-3 border-t border-slate-200 bg-slate-50">
+                    <Link
+                      href="/instrument-finder/"
+                      onClick={() => setProductsOpen(false)}
+                      className="group flex items-center justify-between rounded-lg border border-slate-200 border-l-[3px] border-l-[#d00000] bg-white p-3 shadow-xs transition-all hover:border-[#0056B3] hover:shadow-sm"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#ebf3fc] text-[#0056B3] transition-colors group-hover:bg-[#feeceb] group-hover:text-[#d00000]">
+                          <SlidersHorizontal className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-bold text-[#0056B3] transition-colors group-hover:text-[#d00000]">
+                            Instrument Finder
+                          </p>
+                          <p className="text-[11px] text-slate-500 leading-tight">
+                            Filter by test method or standard
+                          </p>
+                        </div>
+                      </div>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-[#0056B3]" />
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Right Panel: Clean Subcategory Columns for Active Tab (No preview images, No explore button) */}
@@ -498,7 +639,7 @@ export function Header() {
                   <div>
                     {/* Active Tab Title */}
                     <div className="border-b border-slate-100 pb-3 mb-6">
-                      <h2 className="text-base font-black text-[#002f49] tracking-tight">
+                      <h2 className="text-base font-semibold text-[#0056B3] tracking-tight">
                         {activeTab.title}
                       </h2>
                     </div>
@@ -511,7 +652,7 @@ export function Header() {
                               <Link
                                 href={`/${sec.path}/`}
                                 onClick={() => setProductsOpen(false)}
-                                className="block font-bold text-sm text-[#b91c1c] hover:underline mb-2 transition-colors"
+                                className="block font-bold text-sm text-[#d00000] hover:underline mb-2 transition-colors"
                               >
                                 {sec.title}
                               </Link>
@@ -522,7 +663,7 @@ export function Header() {
                                       <Link
                                         href={`/${item.path}/`}
                                         onClick={() => setProductsOpen(false)}
-                                        className="text-xs text-slate-700 hover:text-[#b91c1c] hover:underline block py-0.5 leading-snug transition-colors"
+                                        className="text-xs text-slate-700 hover:text-[#d00000] hover:underline block py-0.5 leading-snug transition-colors"
                                       >
                                         {item.label}
                                       </Link>
@@ -534,7 +675,7 @@ export function Header() {
                                 <Link
                                   href={`/${sec.viewAllPath}/`}
                                   onClick={() => setProductsOpen(false)}
-                                  className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#b91c1c] hover:underline uppercase tracking-wide"
+                                  className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#d00000] hover:underline uppercase tracking-wide"
                                 >
                                   VIEW ALL &gt;
                                 </Link>
@@ -545,33 +686,6 @@ export function Header() {
                       ))}
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Bottom Assurance Bar */}
-              <div className="flex flex-wrap items-center justify-between border-t border-slate-200 bg-[#f8fafc] px-7 py-3 text-xs">
-                <div className="flex items-center gap-4 text-slate-600">
-                  <span className="font-bold text-[#002f49]">Orbit Technologies</span>
-                  <span className="text-slate-300">·</span>
-                  <span>35+ Years in India</span>
-                  <span className="text-slate-300">·</span>
-                  <span className="font-semibold text-emerald-700">ISO 9001:2015 Certified</span>
-                </div>
-                <div className="flex items-center gap-4 font-bold">
-                  <Link
-                    href="/products/"
-                    onClick={() => setProductsOpen(false)}
-                    className="flex items-center gap-1.5 text-xs text-[#002f49] hover:text-[#b91c1c]"
-                  >
-                    Browse All 178+ Instruments <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                  <Link
-                    href="/contact-us#quote"
-                    onClick={() => setProductsOpen(false)}
-                    className="rounded-lg bg-[#b91c1c] px-3.5 py-1.5 text-xs text-white hover:bg-[#991b1b] transition-colors shadow-xs"
-                  >
-                    Request a Quote
-                  </Link>
                 </div>
               </div>
             </div>

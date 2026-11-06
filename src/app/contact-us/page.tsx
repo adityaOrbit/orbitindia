@@ -24,8 +24,8 @@ export default function ContactPage() {
         <div className="space-y-4">
           <div className="surface p-6">
             <div className="flex items-center gap-2.5">
-              <MapPin className="h-5 w-5 text-[#c4620a]" />
-              <h2 className="font-bold text-[#002f49]">Corporate office</h2>
+              <MapPin className="h-5 w-5 text-[#d00000]" />
+              <h2 className="font-bold text-[#0056B3]">Corporate office</h2>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               {site.address.line1},<br />
@@ -36,35 +36,35 @@ export default function ContactPage() {
 
           <div className="surface p-6">
             <div className="flex items-center gap-2.5">
-              <Phone className="h-5 w-5 text-[#c4620a]" />
-              <h2 className="font-bold text-[#002f49]">Phone</h2>
+              <Phone className="h-5 w-5 text-[#d00000]" />
+              <h2 className="font-bold text-[#0056B3]">Phone</h2>
             </div>
             <dl className="mt-3 space-y-2 text-sm">
               <div className="flex justify-between gap-4">
                 <dt className="text-slate-500">Call us</dt>
-                <dd className="font-semibold text-[#002f49]">{site.phones.office}</dd>
+                <dd className="font-semibold text-[#0056B3]">{site.phones.office}</dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-slate-500">Sales</dt>
-                <dd className="font-semibold text-[#002f49]">
+                <dd className="font-semibold text-[#0056B3]">
                   {site.phones.sales1} · {site.phones.sales2}
                 </dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-slate-500">Service</dt>
-                <dd className="font-semibold text-[#002f49]">{site.phones.service}</dd>
+                <dd className="font-semibold text-[#0056B3]">{site.phones.service}</dd>
               </div>
             </dl>
           </div>
 
           <div className="surface p-6">
             <div className="flex items-center gap-2.5">
-              <Mail className="h-5 w-5 text-[#c4620a]" />
-              <h2 className="font-bold text-[#002f49]">Email</h2>
+              <Mail className="h-5 w-5 text-[#d00000]" />
+              <h2 className="font-bold text-[#0056B3]">Email</h2>
             </div>
             <a
               href={`mailto:${site.email}`}
-              className="mt-3 block text-sm font-semibold text-[#c4620a] hover:underline"
+              className="mt-3 block text-sm font-semibold text-[#d00000] hover:underline"
             >
               {site.email}
             </a>
@@ -72,21 +72,21 @@ export default function ContactPage() {
 
           <div className="surface p-6">
             <div className="flex items-center gap-2.5">
-              <Clock className="h-5 w-5 text-[#c4620a]" />
-              <h2 className="font-bold text-[#002f49]">Working hours</h2>
+              <Clock className="h-5 w-5 text-[#d00000]" />
+              <h2 className="font-bold text-[#0056B3]">Working hours</h2>
             </div>
             <dl className="mt-3 space-y-2 text-sm">
               {site.hours.map((h) => (
                 <div key={h.days} className="flex justify-between gap-4">
                   <dt className="text-slate-500">{h.days}</dt>
-                  <dd className="font-semibold text-[#002f49]">{h.time}</dd>
+                  <dd className="font-semibold text-[#0056B3]">{h.time}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           <div className="surface p-6">
-            <h2 className="font-bold text-[#002f49]">Branch offices</h2>
+            <h2 className="font-bold text-[#0056B3]">Branch offices</h2>
             <p className="mt-1.5 text-sm text-slate-600">
               Pan-India sales &amp; service network:
             </p>
@@ -102,7 +102,7 @@ export default function ContactPage() {
 
         {/* quote form */}
         <div id="quote" className="scroll-mt-28">
-          <h2 className="text-xl font-extrabold tracking-tight text-[#002f49] sm:text-2xl">
+          <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
             Request a quote
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">

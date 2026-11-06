@@ -31,8 +31,7 @@ export default function IndustriesHubPage() {
       {/* Industries Grid */}
       <section className="container-x py-12 sm:py-14">
         <div className="max-w-2xl">
-          <span className="eyebrow text-[#c4620a]">Sector Expertise</span>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
             Choose Your Industry Sector
           </h2>
           <p className="mt-2 text-sm text-slate-600">
@@ -44,7 +43,7 @@ export default function IndustriesHubPage() {
           {industries.map((ind) => (
             <div
               key={ind.slug}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-xl"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
             >
               <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                 <Image
@@ -62,7 +61,7 @@ export default function IndustriesHubPage() {
 
               <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                  <h3 className="font-bold text-lg text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                  <h3 className="font-bold text-lg text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                     {ind.name}
                   </h3>
                   <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -89,13 +88,13 @@ export default function IndustriesHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/industries/${ind.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     Explore Sector Solutions <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href={`/products?industry=${ind.slug}`}
-                    className="text-[11px] font-semibold text-slate-400 hover:text-[#002f49]"
+                    className="text-[11px] font-semibold text-slate-400 hover:text-[#0056B3]"
                   >
                     Filter Products
                   </Link>
@@ -108,13 +107,13 @@ export default function IndustriesHubPage() {
 
       {/* Turnkey Integration CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Custom Laboratory Supply
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Need a Complete Turnkey Lab Package for Your Plant?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

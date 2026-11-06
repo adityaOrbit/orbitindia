@@ -3,10 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  CheckCircle2,
   Share2,
   Copy,
-  Mail,
   MessageCircle,
   Maximize2,
   Check,
@@ -27,7 +25,11 @@ export function ProductGallery({ product }: ProductGalleryProps) {
   const [copied, setCopied] = useState<boolean>(false);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
 
-  const images = PRODUCT_IMAGE_MAP[product.slug] || [];
+  const rawImages = PRODUCT_IMAGE_MAP[product.slug] || [];
+  const realImages = rawImages.filter(
+    (img) => !/parr-1\.png|elite(-1)?\.png|sylab-[a-z0-9]+\.png|orlab-[a-z0-9]+\.png/i.test(img)
+  );
+  const images = realImages.length > 0 ? realImages : rawImages;
   const hasImages = images.length > 0;
   const totalImages = hasImages ? images.length : 1;
 
@@ -55,37 +57,17 @@ export function ProductGallery({ product }: ProductGalleryProps) {
   };
 
   const shareTitle = `${product.name} | Orbit Technologies`;
-  const shareBody = `Check out this instrument from Orbit Technologies: ${product.name}`;
 
   return (
     <div className="flex flex-col">
       {/* Main Viewport Card */}
       <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-[#f8fafc] shadow-xs">
-        {/* Top Status Tags */}
-        <div className="absolute left-3.5 top-3.5 z-10 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600/95 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-xs">
-            <CheckCircle2 className="h-3.5 w-3.5" />
-            {product.brand?.includes("Parr")
-              ? "Official Parr Exclusive Partner"
-              : product.brand?.includes("Sylab")
-              ? "Sylab Manufacturing Group"
-              : product.brand?.includes("Elite")
-              ? "Elite High-Temp Partner"
-              : "Certified Laboratory Instrument"}
-          </span>
-          {product.origin && (
-            <span className="inline-flex items-center rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-semibold text-[#002f49] shadow-xs ring-1 ring-slate-200">
-              Origin: {product.origin}
-            </span>
-          )}
-        </div>
-
         {/* Maximize / Lightbox Toggle */}
         {hasImages && (
           <button
             type="button"
             onClick={() => setLightboxOpen(true)}
-            className="cursor-pointer absolute right-3.5 top-3.5 z-10 rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#002f49] transition-all"
+            className="cursor-pointer absolute right-3.5 top-3.5 z-10 rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
             title="Open high-resolution lightbox"
             aria-label="Expand image view"
           >
@@ -98,7 +80,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handlePrev}
-            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#002f49] transition-all"
+            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
             aria-label="Previous image"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -110,7 +92,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handleNext}
-            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#002f49] transition-all"
+            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
             aria-label="Next image"
           >
             <ChevronRight className="h-5 w-5" />
@@ -143,19 +125,6 @@ export function ProductGallery({ product }: ProductGalleryProps) {
               />
             </div>
           )}
-
-          {/* Counter Badge */}
-          {totalImages > 1 && (
-            <div className="pointer-events-none absolute bottom-3 right-3.5 rounded-md bg-slate-900/80 px-2 py-0.5 text-[10px] font-bold text-white">
-              {activeThumb + 1} / {totalImages}
-            </div>
-          )}
-
-          <div className="pointer-events-none absolute bottom-3 left-3.5 rounded-md bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow-xs ring-1 ring-slate-200">
-            {totalImages > 1
-              ? `Instrument Photograph (${activeThumb + 1} of ${totalImages})`
-              : "Authentic Instrument Photograph"}
-          </div>
         </div>
       </div>
 
@@ -174,7 +143,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
                 }}
                 className={`cursor-pointer relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border bg-white p-1 transition-all ${
                   isActive
-                    ? "border-[#c4620a] ring-2 ring-[#c4620a]/40 shadow-sm"
+                    ? "border-[#d00000] ring-2 ring-[#d00000]/40 shadow-sm"
                     : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
                 }`}
                 title={`View photo ${idx + 1}`}
@@ -197,7 +166,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
       {/* Social Share & Direct Contact Bar */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 text-xs">
         <div className="flex items-center gap-2 text-slate-600 font-semibold">
-          <Share2 className="h-3.5 w-3.5 text-[#c4620a]" />
+          <Share2 className="h-3.5 w-3.5 text-[#d00000]" />
           <span>Share specification:</span>
         </div>
         <div className="flex items-center gap-2">
@@ -211,16 +180,6 @@ export function ProductGallery({ product }: ProductGalleryProps) {
             className="flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-1 font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors"
           >
             <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
-          </a>
-
-          {/* Email Share */}
-          <a
-            href={`mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(
-              `${shareBody}\n\nView online: ${typeof window !== "undefined" ? window.location.href : ""}`
-            )}`}
-            className="flex items-center gap-1 rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-slate-200 hover:bg-slate-100 transition-colors"
-          >
-            <Mail className="h-3.5 w-3.5 text-slate-500" /> Email
           </a>
 
           {/* Copy Link */}

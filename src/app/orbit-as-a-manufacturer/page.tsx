@@ -31,12 +31,11 @@ export default function ManufacturerPage() {
       <section className="container-x mt-8 py-6">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <span className="eyebrow text-[#c4620a]">Our Heritage</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Precision Engineering Meets Field Practicality
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-700">
-              Our journey into manufacturing started in 1998 with group company <strong className="text-[#002f49]">Orlab Instruments Pvt. Ltd.</strong>, an ISO Certified &amp; MSME Registered Manufacturer and Project Integrator of diversified products in the field of Testing kits for Water &amp; Soil, Water &amp; Wastewater related Lab &amp; Field Instruments, and specialized analytical systems.
+              Our journey into manufacturing started in 1998 with group company <strong className="text-[#0056B3]">Orlab Instruments Pvt. Ltd.</strong>, an ISO Certified &amp; MSME Registered Manufacturer and Project Integrator of diversified products in the field of Testing kits for Water &amp; Soil, Water &amp; Wastewater related Lab &amp; Field Instruments, and specialized analytical systems.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               Over the last two decades, Orlab has grown to become one of India&apos;s leading manufacturers of soil testing laboratories, mobile soil testing vans, water testing kits, and laboratory analytical instruments including Thermogravimetric Analyzers (TGA 3000), Ash Fusion Analyzers (OFCU), and custom pressure vessels.
@@ -72,8 +71,7 @@ export default function ManufacturerPage() {
       <section className="bg-slate-50 py-16 border-y border-slate-200 mt-12">
         <div className="container-x">
           <div className="max-w-2xl">
-            <span className="eyebrow text-[#c4620a]">Product Portfolio</span>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-[#002f49] sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
               Key Manufactured Instruments
             </h2>
             <p className="mt-2 text-sm text-slate-600">
@@ -122,7 +120,7 @@ export default function ManufacturerPage() {
             ].map((prod) => (
               <div
                 key={prod.title}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#c4620a]/60 hover:shadow-lg"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-lg"
               >
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f9fafb] p-4 flex items-center justify-center border-b border-slate-100">
                   <Image
@@ -135,7 +133,7 @@ export default function ManufacturerPage() {
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="font-bold text-base text-[#002f49] group-hover:text-[#c4620a] transition-colors">
+                    <h3 className="font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                       {prod.title}
                     </h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600">
@@ -145,7 +143,7 @@ export default function ManufacturerPage() {
                   <div className="mt-5 pt-3 border-t border-slate-100">
                     <Link
                       href={prod.link}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c4620a] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                     >
                       View Specifications <ArrowRight className="h-3.5 w-3.5" />
                     </Link>
@@ -159,13 +157,13 @@ export default function ManufacturerPage() {
 
       {/* Turnkey Integration CTA */}
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#002f49] p-8 text-white sm:p-12">
+        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#ff8d0a] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
+              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
                 Custom Engineering
               </span>
-              <h3 className="mt-2 text-2xl font-black sm:text-3xl">
+              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
                 Have a Custom Manufacturing Requirement?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

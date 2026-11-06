@@ -7,7 +7,6 @@ export function SectionHeading({
   dark = false,
   className,
 }: {
-  eyebrow?: string;
   title: string;
   subtitle?: string;
   align?: "left" | "center";
@@ -25,8 +24,8 @@ export function SectionHeading({
     >
       <h2
         className={cn(
-          "text-2xl font-extrabold tracking-tight sm:text-3xl",
-          dark ? "text-white" : "text-[#002f49]",
+          "text-2xl font-semibold tracking-tight sm:text-3xl",
+          dark ? "text-white" : "text-[#0056B3]",
         )}
       >
         {title}
