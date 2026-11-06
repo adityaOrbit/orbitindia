@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Orbit brand kit (from the live orbitindia.com design):
+   - navy #002F49  → primary: headings, dark surfaces, nav, footer
+   - orange #FF8D0A → accent: CTAs, highlights (deepened for text contrast)
+   - red #DA1515 → logo only, kept out of UI chrome
+   - taupe #C3BAAC → warm neutral band
+   Fonts: Poppins (headings) + Roboto (body), as on the live site.
+--------------------------------------------------------------------------- */
+
+@theme inline {
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, "Segoe UI", Roboto,
+    "Noto Sans", "Noto Sans Devanagari", sans-serif;
+}
+
+:root {
+  --brand-950: #001421;
+  --brand-900: #001c2c;
+  --brand-800: #002539;
+  --brand-700: #013a58;
+  --brand-500: #002f49;
+  --brand-200: #cfdce4;
+  --brand-100: #eaf1f5;
+  --accent-700: #a35a00;
+  --accent-600: #c4620a;
+  --accent-500: #ff8d0a;
+  --accent-100: #fdeedd;
+  --sand-500: #c3baac;
+  --sand-100: #f6f3ee;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: #1e293b;
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+}
+
+/* Headings ride the display font from the brand kit. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins), var(--font-sans);
+}
+
+::selection {
+  background: rgba(0, 47, 73, 0.22);
+}
+
+/* ----------------------------- shared atoms ----------------------------- */
+
+.container-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container-x {
+    padding-inline: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .container-x {
+    padding-inline: 2rem;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.7rem 1.15rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* Navy = primary surface button */
+.btn-primary {
+  background: linear-gradient(135deg, #00395a, #001c2c);
+  color: #ffffff;
+  box-shadow: 0 6px 18px -8px rgba(0, 47, 73, 0.55);
+}
+.btn-primary:hover {
+  filter: brightness(1.18);
+}
+/* Orange = the live site's CTA */
+.btn-accent {
+  background: linear-gradient(135deg, #ffa426, #ff8d0a 55%, #ef7f00);
+  color: #ffffff;
+  box-shadow: 0 6px 18px -8px rgba(255, 141, 10, 0.65);
+}
+.btn-accent:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #002f49;
+}
+.btn-outline:hover {
+  border-color: #ff8d0a;
+  color: #a35a00;
+  background: #fffbf5;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+}
+.chip-accent {
+  border-color: #f6dcc4;
+  background: #fff3e6;
+  color: #a35a00;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input::placeholder {
+  color: #94a3b8;
+}
+.input:focus {
+  border-color: #ff8d0a;
+  box-shadow: 0 0 0 3px rgba(255, 141, 10, 0.2);
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.surface {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.surface-hover {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.surface-hover:hover {
+  border-color: #f6dcc4;
+  box-shadow: 0 10px 30px -18px rgba(0, 47, 73, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Warm neutral band (taupe from the brand kit, very light) */
+.band {
+  background: var(--sand-100);
+}
+
+/* Dark band = deep navy */
+.dark-band {
+  background: linear-gradient(160deg, #002539, #001c2c);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-600);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* subtle entrance for hero content */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in 0.55s ease both;
+}
+.rise-in-1 {
+  animation-delay: 0.08s;
+}
+.rise-in-2 {
+  animation-delay: 0.18s;
+}
+.rise-in-3 {
+  animation-delay: 0.28s;
+}
+
+/* ---------------------- reference-style page sections ---------------------- */
+
+/* light hero band (product / category / page headers) */
+.hero-light {
+  background:
+    radial-gradient(700px 320px at 88% -20%, rgba(255, 141, 10, 0.08), transparent 60%),
+    radial-gradient(600px 300px at 0% 120%, rgba(0, 47, 73, 0.07), transparent 55%),
+    linear-gradient(180deg, #fdfcfa, #f6f3ee);
+}
+
+/* left-accent highlight callout used in product headers */
+.callout {
+  border-left: 4px solid #ff8d0a;
+  background: #fdf8f1;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 0.8rem 1rem;
+}
+
+/* boxed spec cell (label above value) */
+.spec-cell {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.7rem 0.85rem;
+}
+.spec-cell dt {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.spec-cell dd {
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #002f49;
+  overflow-wrap: anywhere;
+}
+
+/* deep navy statement band with an orange glow */
+.quote-band {
+  background:
+    radial-gradient(700px 320px at 85% 0%, rgba(255, 141, 10, 0.28), transparent 60%),
+    radial-gradient(600px 340px at 5% 100%, rgba(1, 58, 88, 0.65), transparent 55%),
+    #001c2c;
+}
