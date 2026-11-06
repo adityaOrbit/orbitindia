@@ -17,6 +17,8 @@ import {
   Layers,
 } from "lucide-react";
 import { withBasePath } from "@/lib/utils";
+import { JsonLd } from "@/components/json-ld";
+import { getNewsOrEventSchema } from "@/lib/schema";
 import {
   getNewsOrEventBySlug,
   getAllNewsAndEventSlugs,
@@ -83,6 +85,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
   return (
     <div className="pb-20">
+      <JsonLd data={getNewsOrEventSchema(item)} />
       {/* Breadcrumb row */}
       <div className="border-b border-slate-200 bg-slate-50/80 py-3 text-xs">
         <div className="container-x flex items-center gap-2 text-slate-500">

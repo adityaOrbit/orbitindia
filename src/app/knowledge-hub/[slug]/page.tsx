@@ -10,9 +10,11 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { KNOWLEDGE_ARTICLES } from "@/data/knowledge-hub";
 import { products, type Product } from "@/data/products";
+import { getKnowledgeArticleSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
 
@@ -59,9 +61,9 @@ export default async function KnowledgeArticleDetailPage({
 
   return (
     <div className="bg-white">
+      <JsonLd data={getKnowledgeArticleSchema(article)} />
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Knowledge Hub", href: "/knowledge-hub/" },
           { label: article.title },
         ]}

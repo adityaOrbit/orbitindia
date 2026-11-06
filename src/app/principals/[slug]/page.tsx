@@ -11,9 +11,11 @@ import {
   Layers,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { PRINCIPALS } from "@/data/principals";
 import { products, type Product } from "@/data/products";
+import { getPrincipalSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
 
@@ -59,9 +61,16 @@ export default async function PrincipalDetailPage({
 
   return (
     <div className="bg-white">
+      <JsonLd
+        data={getPrincipalSchema(
+          principal.name,
+          principal.tagline,
+          principal.slug,
+          principal.logo
+        )}
+      />
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Orbit as a Distributor", href: "/orbit-as-a-distributor/" },
           { label: "OEM Principals", href: "/principals/" },
           { label: principal.name },

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { type Crumb } from "@/components/breadcrumb";
+import { JsonLd } from "@/components/json-ld";
 import { ProductDetailView } from "@/components/product-detail-view";
+import { getProductSchema } from "@/lib/schema";
 import { ancestorsOf, getCategoryByPath } from "@/data/categories";
 import {
   getProduct,
@@ -69,13 +71,18 @@ export default async function ProductPage({
     : [];
   const related = [...inCategory, ...inPillar].slice(0, 4);
 
+  const sku = productCode(product);
+
   return (
-    <ProductDetailView
-      product={product}
-      category={cat}
-      skuCode={productCode(product)}
-      crumbs={crumbsFor(slug)}
-      relatedProducts={related}
-    />
+    <>
+      <JsonLd data={getProductSchema(product, cat, sku)} />
+      <ProductDetailView
+        product={product}
+        category={cat}
+        skuCode={sku}
+        crumbs={crumbsFor(slug)}
+        relatedProducts={related}
+      />
+    </>
   );
 }

@@ -4,8 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import {
   Share2,
-  Copy,
-  MessageCircle,
   Maximize2,
   Check,
   ChevronLeft,
@@ -56,24 +54,45 @@ export function ProductGallery({ product }: ProductGalleryProps) {
     }
   };
 
-  const shareTitle = `${product.name} | Orbit Technologies`;
-
   return (
     <div className="flex flex-col">
       {/* Main Viewport Card */}
       <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-[#f8fafc] shadow-xs">
-        {/* Maximize / Lightbox Toggle */}
-        {hasImages && (
+        {/* Top-Right Action Controls: Share Link & Lightbox Toggle */}
+        <div className="absolute right-3.5 top-3.5 z-10 flex items-center gap-1.5">
+          {/* Sharable Link Icon Only */}
           <button
             type="button"
-            onClick={() => setLightboxOpen(true)}
-            className="cursor-pointer absolute right-3.5 top-3.5 z-10 rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
-            title="Open high-resolution lightbox"
-            aria-label="Expand image view"
+            onClick={handleCopyLink}
+            className="cursor-pointer relative rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
+            title={copied ? "Link copied!" : "Copy sharable link"}
+            aria-label="Copy link to clipboard"
           >
-            <Maximize2 className="h-4 w-4" />
+            {copied ? (
+              <Check className="h-4 w-4 text-emerald-600" />
+            ) : (
+              <Share2 className="h-4 w-4" />
+            )}
+            {copied && (
+              <span className="absolute -bottom-8 right-0 rounded-md bg-slate-900 px-2 py-0.5 text-[10px] font-medium text-white shadow-md whitespace-nowrap">
+                Link copied!
+              </span>
+            )}
           </button>
-        )}
+
+          {/* Maximize / Lightbox Toggle */}
+          {hasImages && (
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              className="cursor-pointer rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
+              title="Open high-resolution lightbox"
+              aria-label="Expand image view"
+            >
+              <Maximize2 className="h-4 w-4" />
+            </button>
+          )}
+        </div>
 
         {/* Navigation Arrow Left (if multiple images) */}
         {totalImages > 1 && (
@@ -162,44 +181,6 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           })}
         </div>
       )}
-
-      {/* Social Share & Direct Contact Bar */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 text-xs">
-        <div className="flex items-center gap-2 text-slate-600 font-semibold">
-          <Share2 className="h-3.5 w-3.5 text-[#d00000]" />
-          <span>Share specification:</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {/* WhatsApp Share */}
-          <a
-            href={`https://wa.me/?text=${encodeURIComponent(
-              `${shareTitle}\n${typeof window !== "undefined" ? window.location.href : ""}`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 rounded-lg bg-emerald-50 px-2.5 py-1 font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors"
-          >
-            <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
-          </a>
-
-          {/* Copy Link */}
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="cursor-pointer flex items-center gap-1 rounded-lg bg-white px-2.5 py-1 font-semibold text-slate-700 border border-slate-200 hover:bg-slate-100 transition-colors"
-          >
-            {copied ? (
-              <>
-                <Check className="h-3.5 w-3.5 text-emerald-600" /> Copied!
-              </>
-            ) : (
-              <>
-                <Copy className="h-3.5 w-3.5 text-slate-500" /> Copy Link
-              </>
-            )}
-          </button>
-        </div>
-      </div>
 
       {/* Lightbox Modal */}
       {lightboxOpen && currentImage && (

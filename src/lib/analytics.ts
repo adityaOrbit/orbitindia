@@ -9,6 +9,7 @@ declare global {
 
 /**
  * Safe wrapper around window.dataLayer.push
+ * Ensures window.dataLayer exists and avoids prototype poisoning or hydration issues.
  */
 export function pushToDataLayer(payload: Record<string, unknown>) {
   if (typeof window === "undefined") return;
@@ -37,6 +38,7 @@ export function formatGa4Item(
     item_list_name: options?.itemListName,
     item_list_id: options?.itemListId,
     price: 0,
+    quantity: 1,
   };
 }
 
@@ -55,6 +57,7 @@ export function trackViewItemList(params: {
   window.dataLayer.push({
     event: "view_item_list",
     ecommerce: {
+      currency: "INR",
       item_list_id: params.itemListId,
       item_list_name: params.itemListName,
       items: params.products.slice(0, 30).map((p, idx) =>
@@ -83,6 +86,7 @@ export function trackSelectItem(params: {
   window.dataLayer.push({
     event: "select_item",
     ecommerce: {
+      currency: "INR",
       item_list_id: params.itemListId || "general_list",
       item_list_name: params.itemListName || "Product List",
       items: [
@@ -106,6 +110,8 @@ export function trackViewItem(product: Product, categoryName?: string) {
   window.dataLayer.push({
     event: "view_item",
     ecommerce: {
+      currency: "INR",
+      value: 0,
       items: [
         formatGa4Item(product, {
           categoryName,
@@ -116,7 +122,7 @@ export function trackViewItem(product: Product, categoryName?: string) {
 }
 
 /**
- * 4. generate_lead - Form submission (Quote, Enquiry, Service)
+ * 4. generate_lead - Form submission (Quote, Enquiry, Service, Newsletter)
  */
 export function trackGenerateLead(params: {
   formId: string;
@@ -124,9 +130,13 @@ export function trackGenerateLead(params: {
   productOrApplication?: string;
   company?: string;
   city?: string;
+  currency?: string;
+  value?: number;
 }) {
   pushToDataLayer({
     event: "generate_lead",
+    currency: params.currency || "INR",
+    value: params.value ?? 0,
     form_id: params.formId,
     form_name: params.formName,
     product_application: params.productOrApplication || "Not specified",
@@ -148,7 +158,7 @@ export function trackContactClick(params: {
     contact_type: params.type,
     contact_value: params.value,
     contact_context: params.context || "global",
-    page_location: typeof window !== "undefined" ? window.location.pathname : "",
+    page_location: typeof window !== "undefined" ? window.location.href : "",
   });
 }
 
@@ -166,6 +176,8 @@ export function trackFileDownload(params: {
     file_name: params.fileName,
     file_url: params.fileUrl,
     file_extension: extension,
+    link_url: params.fileUrl,
+    link_text: params.fileName,
     product_name: params.productName || "General Brochure",
   });
 }

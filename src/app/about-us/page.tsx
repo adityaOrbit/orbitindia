@@ -17,6 +17,8 @@ import {
   Wrench,
 } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import { JsonLd } from "@/components/json-ld";
+import { getAboutPageSchema } from "@/lib/schema";
 import { branchOffices } from "@/data/site";
 import { withBasePath } from "@/lib/utils";
 
@@ -116,6 +118,7 @@ const industriesList = [
 export default function AboutPage() {
   return (
     <div>
+      <JsonLd data={getAboutPageSchema()} />
       {/* -----------------------------------------------------------------------
           1. HERO
       ------------------------------------------------------------------------ */}

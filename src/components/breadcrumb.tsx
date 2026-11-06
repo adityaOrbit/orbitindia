@@ -19,7 +19,11 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
       "@type": "ListItem",
       position: i + 1,
       name: c.label,
-      item: c.href || undefined,
+      item: c.href
+        ? c.href.startsWith("http")
+          ? c.href
+          : `https://orbitindia.com${c.href.startsWith("/") ? "" : "/"}${c.href}`
+        : undefined,
     })),
   };
 

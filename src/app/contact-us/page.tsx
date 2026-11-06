@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { QuoteForm } from "@/components/quote-form";
+import { JsonLd } from "@/components/json-ld";
+import { getContactPageSchema } from "@/lib/schema";
 import { site, branchOffices } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div>
+      <JsonLd data={getContactPageSchema()} />
       <PageHero
         eyebrow="Get in touch"
         title="Contact us"

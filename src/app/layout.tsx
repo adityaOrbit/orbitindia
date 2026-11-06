@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
+import { getSiteSchema } from "@/lib/schema";
 import { withBasePath } from "@/lib/utils";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
@@ -49,6 +51,14 @@ export default function RootLayout({
       className={`${poppins.variable} ${roboto.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
+        {/* Global Schema.org Structured Data */}
+        <JsonLd data={getSiteSchema()} />
+
+        {/* Global dataLayer initialization */}
+        <Script id="datalayer-init" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];`}
+        </Script>
+
         {gtmId && (
           <noscript>
             <iframe

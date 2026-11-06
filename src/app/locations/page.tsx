@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PageHero } from "@/components/page-hero";
+import { JsonLd } from "@/components/json-ld";
+import { getLocationsPageSchema } from "@/lib/schema";
 import { BRANCH_LOCATIONS } from "@/data/locations";
 
 export const metadata: Metadata = {
@@ -24,9 +26,9 @@ export const metadata: Metadata = {
 export default function LocationsPage() {
   return (
     <div className="bg-white">
+      <JsonLd data={getLocationsPageSchema()} />
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Our Locations" },
         ]}
       />

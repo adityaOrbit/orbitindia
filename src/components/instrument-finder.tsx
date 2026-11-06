@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, PhoneCall, SlidersHorizontal, ArrowRight } from "lucide-react";
 import { site } from "@/data/site";
+import { trackCatalogFilter } from "@/lib/analytics";
 
 type CategoryOption = {
   label: string;
@@ -112,6 +113,13 @@ export function InstrumentFinder() {
 
   const handleFind = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (selectedCategory && selectedCategory !== "all") {
+      trackCatalogFilter("finder_category", selectedCategory);
+    }
+    if (selectedIndustry && selectedIndustry !== "all") {
+      trackCatalogFilter("finder_industry", selectedIndustry);
+    }
 
     const params = new URLSearchParams();
     if (selectedCategory && selectedCategory !== "all") {

@@ -20,6 +20,7 @@ import {
   FlaskConical,
   Clock,
   FileText,
+  MessageCircle,
 } from "lucide-react";
 import { ProductGallery } from "@/components/product-gallery";
 import { ProductRfqDrawer } from "@/components/product-rfq-drawer";
@@ -36,6 +37,7 @@ import {
   trackViewItem,
   trackFileDownload,
   trackGenerateLead,
+  trackContactClick,
 } from "@/lib/analytics";
 import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
@@ -380,8 +382,8 @@ export function ProductDetailView({
               </div>
             </div>
 
-            {/* Primary Action CTA (Single 'Request a Quote' button per user specification) */}
-            <div className="mt-8">
+            {/* Primary Action CTA (Request a Quote + WhatsApp) */}
+            <div className="mt-8 flex flex-wrap items-center gap-3.5">
               <button
                 type="button"
                 onClick={() => setIsRfqOpen(true)}
@@ -390,6 +392,25 @@ export function ProductDetailView({
                 <span>Request a Quote</span>
                 <ArrowRight className="h-5 w-5" />
               </button>
+
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(
+                  `Inquiry about ${product.name} | Orbit Technologies\n${typeof window !== "undefined" ? window.location.href : ""}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackContactClick({
+                    type: "whatsapp",
+                    value: "product_page",
+                    context: "product_cta",
+                  })
+                }
+                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 px-6 py-3.5 text-sm sm:text-base font-semibold text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 shadow-xs transition-all"
+              >
+                <MessageCircle className="h-5 w-5 text-emerald-600" />
+                <span>WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>

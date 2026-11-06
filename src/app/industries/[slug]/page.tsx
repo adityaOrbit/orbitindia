@@ -4,9 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, FileText } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { industries } from "@/data/industries";
 import { products, type Product } from "@/data/products";
+import { getIndustryPageSchema } from "@/lib/schema";
 
 export const dynamicParams = false;
 
@@ -70,9 +72,15 @@ export default async function IndustryDetailPage({
 
   return (
     <div className="bg-white">
+      <JsonLd
+        data={getIndustryPageSchema(
+          industry.name,
+          industry.blurb,
+          matchedProducts.map((p) => p.slug)
+        )}
+      />
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Industries", href: "/industries/" },
           { label: industry.name },
         ]}

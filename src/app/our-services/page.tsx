@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PageHero } from "@/components/page-hero";
+import { JsonLd } from "@/components/json-ld";
+import { getServicesPageSchema } from "@/lib/schema";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -107,9 +109,9 @@ const SERVICES_LIST = [
 export default function OurServicesPage() {
   return (
     <div className="bg-white">
+      <JsonLd data={getServicesPageSchema()} />
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Our Services" },
         ]}
       />

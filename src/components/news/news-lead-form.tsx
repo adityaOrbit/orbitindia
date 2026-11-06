@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2, Phone, Mail, Building, User, Calendar, MessageSquare } from "lucide-react";
+import { trackGenerateLead } from "@/lib/analytics";
 import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
 interface NewsLeadFormProps {
@@ -41,6 +42,12 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
       });
       setRefId(referenceId);
       setSubmitted(true);
+      trackGenerateLead({
+        formId: itemType === "event" ? "event_stall_meeting" : "news_inquiry",
+        formName: itemType === "event" ? "Event Stall Meeting Request" : "News Technical Inquiry",
+        productOrApplication: itemTitle,
+        company: organization,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : FORM_FALLBACK_MESSAGE);
     } finally {
