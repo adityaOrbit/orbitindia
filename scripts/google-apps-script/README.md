@@ -2,8 +2,10 @@
 
 All six website forms (home enquiry, contact/quote, product enquiry, product
 quote drawer, service complaint, news & events) post to one Google Apps Script
-web app. It adds a row to a tab named after the form and emails
-`NOTIFY_EMAIL` (set at the top of `form-handler.gs`).
+web app. It adds a row to a tab named after the form. Email alerts are off
+(`NOTIFY_EMAIL` is empty): orbitindia.com's DMARC policy rejects mail the
+script sends as seo@orbitindia.com. Use the sheet's Tools → Notification
+settings if alerts are wanted.
 
 ## Current setup
 

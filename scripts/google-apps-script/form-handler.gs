@@ -8,7 +8,11 @@
  */
 
 // Who gets an email for every submission. Separate several with commas.
-const NOTIFY_EMAIL = "seo@orbitindia.com";
+// Left empty: mail sent by this script "from" seo@orbitindia.com is rejected
+// by orbitindia.com's DMARC policy (p=reject), so alerts bounce. Use the
+// sheet's Tools → Notification settings instead, or set an address on a
+// domain that accepts it.
+const NOTIFY_EMAIL = "";
 
 // ID of the Google Sheet that stores submissions (the long part of its URL
 // between /d/ and /edit). Leave empty if this script is bound to the sheet
