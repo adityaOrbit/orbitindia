@@ -35,7 +35,9 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_GTM_ID: ${{ vars.NEXT_PUBLIC_GTM_ID || '' }}
-          NEXT_PUBLIC_FORMS_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORMS_ENDPOINT || '' }}
+          # Google Apps Script web app "Orbit Website Forms" (owner: seo@orbitindia.com).
+          # A repository variable of the same name overrides it.
+          NEXT_PUBLIC_FORMS_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORMS_ENDPOINT || 'https://script.google.com/macros/s/AKfycby0dcU28M0wL58rnO81WVbWFSgGmYOGPPsoBGAXEZniCxCSj5nLGwTpD0LJL5Iwy6J-/exec' }}
       - name: Add Pages marker
         run: touch ./out/.nojekyll
       - name: Upload Pages artifact

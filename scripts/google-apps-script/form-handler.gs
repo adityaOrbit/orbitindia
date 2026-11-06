@@ -10,6 +10,15 @@
 // Who gets an email for every submission. Separate several with commas.
 const NOTIFY_EMAIL = "seo@orbitindia.com";
 
+// ID of the Google Sheet that stores submissions (the long part of its URL
+// between /d/ and /edit). Leave empty if this script is bound to the sheet
+// via Extensions → Apps Script.
+const SHEET_ID = "19kREOF5wmB_wTe4wGAiboMx06DX0MuYd0vIVTuniEfw";
+
+function sheetFile_() {
+  return SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+}
+
 const FORM_TYPES = [
   "Home Enquiry",
   "Contact Quote",
@@ -64,7 +73,7 @@ function doGet() {
 }
 
 function appendRow_(formType, row) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = sheetFile_();
   const sheet = ss.getSheetByName(formType) || ss.insertSheet(formType);
 
   let headers = sheet.getLastColumn() > 0
@@ -95,7 +104,7 @@ function notify_(formType, row) {
     NOTIFY_EMAIL,
     "[Website] " + formType + " — " + (row["Name"] || row["Contact Person"] || "New submission") +
       " (" + row["Reference ID"] + ")",
-    lines.join("\n") + "\n\nSheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
+    lines.join("\n") + "\n\nSheet: " + sheetFile_().getUrl(),
     options
   );
 }

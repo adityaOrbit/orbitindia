@@ -5,7 +5,16 @@ quote drawer, service complaint, news & events) post to one Google Apps Script
 web app. It adds a row to a tab named after the form and emails
 `NOTIFY_EMAIL` (set at the top of `form-handler.gs`).
 
-## One-time setup
+## Current setup
+
+- Sheet: **Orbit Website Enquiries** (owner `seo@orbitindia.com`),
+  https://docs.google.com/spreadsheets/d/19kREOF5wmB_wTe4wGAiboMx06DX0MuYd0vIVTuniEfw/edit
+- Script: standalone Apps Script project **Orbit Website Forms** in the same
+  account, writing to the sheet above via `SHEET_ID`.
+- Web app URL: set as the default `NEXT_PUBLIC_FORMS_ENDPOINT` in
+  `.github/workflows/deploy.yml`.
+
+## Setting it up from scratch
 
 1. Create a Google Sheet, e.g. **Orbit Website Enquiries**, signed in with the
    Google account that should own the data.
