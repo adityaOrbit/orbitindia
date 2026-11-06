@@ -13,6 +13,7 @@ import { Breadcrumb } from "@/components/breadcrumb";
 import { PageHero } from "@/components/page-hero";
 import { branchOffices } from "@/data/site";
 import { trackGenerateLead } from "@/lib/analytics";
+import { submitForm } from "@/lib/submit-form";
 
 export default function ServiceComplaintFormPage() {
   const [formData, setFormData] = useState({
@@ -45,22 +46,28 @@ export default function ServiceComplaintFormPage() {
     setErrorMessage(null);
 
     try {
-      const res = await fetch("/api/service", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const { referenceId } = await submitForm("Service Complaint", {
+        "Contact Person": formData.contactPerson,
+        Company: formData.company,
+        Phone: formData.phone,
+        Email: formData.email,
+        City: formData.city,
+        "Nearest Branch": formData.nearestBranch,
+        Brand: formData.brand,
+        "Instrument Model": formData.instrumentModel,
+        "Serial Number": formData.serialNumber,
+        "Service Type": formData.serviceType,
+        Urgency: formData.urgency,
+        "Issue Description": formData.issueDescription,
       });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to submit service ticket.");
-      }
 
       setTicketResult({
         success: true,
-        ticketNumber: data.ticketNumber,
-        whatsappUrl: data.whatsappUrl,
-        message: data.message,
+        ticketNumber: referenceId,
+        whatsappUrl: `https://wa.me/918143885547?text=${encodeURIComponent(
+          `Hello Orbit Service Desk, I have lodged Service Ticket #${referenceId} for model ${formData.instrumentModel || "(not specified)"} (Serial: ${formData.serialNumber || "not specified"}).`
+        )}`,
+        message: "Service request registered successfully with Orbit Service Care.",
       });
       trackGenerateLead({
         formId: "service_complaint_form",

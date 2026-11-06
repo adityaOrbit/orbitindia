@@ -35,6 +35,7 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_GTM_ID: ${{ vars.NEXT_PUBLIC_GTM_ID || '' }}
+          NEXT_PUBLIC_FORMS_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORMS_ENDPOINT || '' }}
       - name: Add Pages marker
         run: touch ./out/.nojekyll
       - name: Upload Pages artifact

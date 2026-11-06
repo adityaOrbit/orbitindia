@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Send, CheckCircle2, Mail, Phone, MapPin, Shield } from "lucide-react";
 import { trackGenerateLead } from "@/lib/analytics";
+import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
 export function HomeEnquiryForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -18,12 +19,33 @@ export function HomeEnquiryForm() {
     consent: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.consent) {
       alert("Please accept the consent terms to proceed.");
       return;
     }
+    setSubmitting(true);
+    setError(null);
+    try {
+      await submitForm("Home Enquiry", {
+        Name: formData.fullName,
+        Company: formData.company,
+        Email: formData.email,
+        Phone: formData.phone,
+        City: formData.city,
+        "Product / Application": formData.productOrApplication,
+        Requirements: formData.requirements,
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : FORM_FALLBACK_MESSAGE);
+      setSubmitting(false);
+      return;
+    }
+    setSubmitting(false);
     trackGenerateLead({
       formId: "home_enquiry_form",
       formName: "Home Page Enquiry Form",
@@ -278,10 +300,16 @@ export function HomeEnquiryForm() {
           </label>
         </div>
 
+        {error && (
+          <p role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+            {error}
+          </p>
+        )}
+
         {/* Submit CTA */}
         <div className="mt-6 flex items-center justify-between gap-4">
-          <button type="submit" className="btn btn-accent w-full sm:w-auto">
-            <Send className="h-4 w-4" /> Send Enquiry
+          <button type="submit" disabled={submitting} className="btn btn-accent w-full sm:w-auto disabled:opacity-60">
+            <Send className="h-4 w-4" /> {submitting ? "Sending…" : "Send Enquiry"}
           </button>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-slate-500">
             <Shield className="h-3.5 w-3.5 text-emerald-600" />

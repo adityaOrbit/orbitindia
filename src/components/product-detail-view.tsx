@@ -37,6 +37,7 @@ import {
   trackFileDownload,
   trackGenerateLead,
 } from "@/lib/analytics";
+import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
 interface ProductDetailViewProps {
   product: Product;
@@ -93,6 +94,7 @@ export function ProductDetailView({
   const [inPageSubmitting, setInPageSubmitting] = useState(false);
   const [inPageSubmitted, setInPageSubmitted] = useState(false);
   const [inPageQuoteId, setInPageQuoteId] = useState("");
+  const [inPageError, setInPageError] = useState<string | null>(null);
   const [inPageForm, setInPageForm] = useState({
     name: "",
     email: "",
@@ -106,36 +108,30 @@ export function ProductDetailView({
   const handleInPageSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setInPageSubmitting(true);
+    setInPageError(null);
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...inPageForm,
-          productSlug: product.slug,
-          productName: product.name,
-        }),
+      const { referenceId } = await submitForm("Product Enquiry", {
+        Product: product.name,
+        "Product URL Slug": product.slug,
+        Name: inPageForm.name,
+        Email: inPageForm.email,
+        Phone: inPageForm.phone,
+        Company: inPageForm.company,
+        "Sample Type": inPageForm.sampleType,
+        Timeline: inPageForm.timeline,
+        Requirement: inPageForm.requirement,
       });
-      const data = await res.json();
-      if (res.ok) {
-        setInPageQuoteId(data.referenceId);
-        setInPageSubmitted(true);
-      } else {
-        const quoteId = `OT-RFQ-${Math.floor(100000 + Math.random() * 900000)}`;
-        setInPageQuoteId(quoteId);
-        setInPageSubmitted(true);
-      }
-    } catch {
-      const quoteId = `OT-RFQ-${Math.floor(100000 + Math.random() * 900000)}`;
-      setInPageQuoteId(quoteId);
+      setInPageQuoteId(referenceId);
       setInPageSubmitted(true);
-    } finally {
       trackGenerateLead({
         formId: "product_detail_rfq",
         formName: "Product Detail In-page RFQ",
         productOrApplication: product.name,
         company: inPageForm.company,
       });
+    } catch (err) {
+      setInPageError(err instanceof Error ? err.message : FORM_FALLBACK_MESSAGE);
+    } finally {
       setInPageSubmitting(false);
     }
   };
@@ -978,6 +974,12 @@ export function ProductDetailView({
                     />
                   </div>
                 </div>
+
+                {inPageError && (
+                  <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                    {inPageError}
+                  </p>
+                )}
 
                 <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <p className="text-[11px] text-slate-500">

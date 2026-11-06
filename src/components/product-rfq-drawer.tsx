@@ -18,6 +18,7 @@ import {
 import { site } from "@/data/site";
 import type { Product } from "@/data/products";
 import { trackGenerateLead } from "@/lib/analytics";
+import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
 interface ProductRfqDrawerProps {
   product: Product;
@@ -36,7 +37,7 @@ export function ProductRfqDrawer({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [rfqNumber, setRfqNumber] = useState("");
-  const [dynamicWhatsapp, setDynamicWhatsapp] = useState("");
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -71,37 +72,30 @@ export function ProductRfqDrawer({
     e.preventDefault();
     setIsSubmitting(true);
 
+    setSubmitError(null);
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          productSlug: product.slug,
-          productName: product.name,
-        }),
+      const { referenceId } = await submitForm("Product Quote Drawer", {
+        Product: product.name,
+        "Catalogue Code": skuCode || product.slug,
+        Name: formData.name,
+        Email: formData.email,
+        Phone: formData.phone,
+        Company: formData.organization,
+        "Sample / Application": formData.applicationType,
+        Timeline: formData.timeline,
+        Notes: formData.notes,
       });
-      const data = await res.json();
-      if (res.ok) {
-        setRfqNumber(data.referenceId);
-        if (data.whatsappUrl) setDynamicWhatsapp(data.whatsappUrl);
-        setIsSubmitted(true);
-      } else {
-        const generatedId = `ORB-RFQ-${Math.floor(100000 + Math.random() * 900000)}`;
-        setRfqNumber(generatedId);
-        setIsSubmitted(true);
-      }
-    } catch {
-      const generatedId = `ORB-RFQ-${Math.floor(100000 + Math.random() * 900000)}`;
-      setRfqNumber(generatedId);
+      setRfqNumber(referenceId);
       setIsSubmitted(true);
-    } finally {
       trackGenerateLead({
         formId: "rfq_drawer",
         formName: "Product RFQ Drawer Form",
         productOrApplication: product.name,
         company: formData.organization,
       });
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : FORM_FALLBACK_MESSAGE);
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -122,7 +116,7 @@ export function ProductRfqDrawer({
   };
 
   const salesPhoneClean = site.phones.sales1.replace(/[^+\d]/g, "");
-  const whatsappUrl = `https://wa.me/914027123456?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/${salesPhoneClean.replace("+", "")}?text=${encodeURIComponent(
     `Hello Orbit Technologies team, I would like to request an official quotation for ${product.name} (Code: ${skuCode || product.slug}).`
   )}`;
 
@@ -217,7 +211,7 @@ export function ProductRfqDrawer({
                     <Phone className="h-4 w-4 text-[#d00000]" /> Call Direct
                   </a>
                   <a
-                    href={dynamicWhatsapp || whatsappUrl}
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noreferrer noopener"
                     className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors"
@@ -393,6 +387,12 @@ export function ProductRfqDrawer({
                   />
                 </div>
               </div>
+
+              {submitError && (
+                <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+                  {submitError}
+                </p>
+              )}
 
               {/* Submit Button */}
               <div className="pt-2">

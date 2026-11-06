@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle2, FlaskConical, Send } from "lucide-react";
 import { categories, pillars } from "@/data/categories";
 import { trackGenerateLead } from "@/lib/analytics";
+import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
 export function QuoteForm({
   context,
@@ -17,6 +18,8 @@ export function QuoteForm({
   const [sent, setSent] = useState(false);
   const [name, setName] = useState("");
   const [product, setProduct] = useState(initialCategory ?? "");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const rootSections = categories.filter((c) => c.parent === null);
 
@@ -44,8 +47,29 @@ export function QuoteForm({
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
+        const form = e.currentTarget;
+        const val = (id: string) =>
+          (form.querySelector<HTMLInputElement | HTMLTextAreaElement>(`#${id}`)?.value ?? "").trim();
+        setSubmitting(true);
+        setError(null);
+        try {
+          await submitForm("Contact Quote", {
+            Name: name,
+            Company: val("qf-company"),
+            Email: val("qf-email"),
+            Phone: val("qf-phone"),
+            "Enquiry About": context,
+            "Product of Interest": product,
+            Requirement: val("qf-message"),
+          });
+        } catch (err) {
+          setError(err instanceof Error ? err.message : FORM_FALLBACK_MESSAGE);
+          setSubmitting(false);
+          return;
+        }
+        setSubmitting(false);
         trackGenerateLead({
           formId: "quote_form",
           formName: "Quote / General Contact Form",
@@ -133,8 +157,13 @@ export function QuoteForm({
           />
         </div>
       </div>
-      <button type="submit" className="btn btn-accent mt-6 w-full sm:w-auto">
-        Send enquiry <Send className="h-4 w-4" />
+      {error && (
+        <p role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+          {error}
+        </p>
+      )}
+      <button type="submit" disabled={submitting} className="btn btn-accent mt-6 w-full sm:w-auto disabled:opacity-60">
+        {submitting ? "Sending…" : "Send enquiry"} <Send className="h-4 w-4" />
       </button>
       <p className="mt-3 text-xs text-slate-500">
         We reply within one working day. Your details are used only to answer your enquiry.
