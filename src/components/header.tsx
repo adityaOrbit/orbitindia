@@ -179,22 +179,6 @@ export function Header() {
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
 
-            {/* Quick Call Button on Mobile */}
-            <a
-              href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
-              aria-label="Call Orbit Technologies"
-              onClick={() =>
-                trackContactClick({
-                  type: "phone",
-                  value: site.phones.office,
-                  context: "mobile_header",
-                })
-              }
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3] hover:bg-[#feeceb] hover:text-[#d00000] md:hidden transition-colors"
-            >
-              <Phone className="h-4 w-4" />
-            </a>
-
             {/* Mobile Hamburger Menu Button */}
             <button
               type="button"
