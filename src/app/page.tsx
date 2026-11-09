@@ -398,7 +398,7 @@ export default function HomePage() {
 
           <div className="mt-10 text-center">
             <Link href="/products" className="btn btn-primary !px-6 !py-3">
-              Browse Complete Analytical &amp; Laboratory Catalogue <ArrowRight className="h-4 w-4" />
+              View Full Catalogue <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
