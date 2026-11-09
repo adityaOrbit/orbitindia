@@ -102,11 +102,9 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
                     alt={slide.title}
                     fill
                     priority={idx === 0}
-                    className="object-cover sm:object-contain object-center lg:object-right transition-transform duration-7000 ease-out scale-105"
+                    className="object-cover sm:object-contain object-center lg:object-right"
                     sizes="(max-width: 1024px) 100vw, 60vw"
                   />
-                  {/* Subtle lighting highlight */}
-                  <div className="absolute inset-0 bg-radial-[circle_at_70%_50%] from-[#0056B3]/25 via-transparent to-transparent pointer-events-none" />
                 </div>
               </div>
 
@@ -134,8 +132,8 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
       {/* ------------------------------------------------------------- */}
       <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-12 z-30 flex items-center gap-3">
         {/* Active Instrument Badge */}
-        <div className="hidden md:flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md px-3.5 py-1.5 text-xs border border-white/15">
-          <span className="h-2 w-2 rounded-full bg-[#d00000] animate-pulse" />
+        <div className="hidden md:flex items-center gap-2 rounded-full bg-[#001733]/90 px-3.5 py-1.5 text-xs border border-white/20">
+          <span className="h-2 w-2 rounded-full bg-[#d00000]" />
           <span className="font-semibold text-white/90">
             {slides[current].model}
           </span>
@@ -146,7 +144,7 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
         </div>
 
         {/* Carousel Prev/Next Buttons */}
-        <div className="flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur-md p-1 border border-white/10">
+        <div className="flex items-center gap-1.5 rounded-full bg-[#001733]/90 p-1 border border-white/20">
           <button
             type="button"
             onClick={prevSlide}

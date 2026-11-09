@@ -41,7 +41,7 @@ export function ProductCard({
     <Link
       href={`/products/${product.slug}/`}
       onClick={handleClick}
-      className="group flex flex-col rounded-xl border border-slate-200/90 bg-white shadow-xs transition duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md overflow-hidden cursor-pointer"
+      className="group flex flex-col rounded-xl border border-slate-200 bg-white shadow-xs transition-colors hover:border-[#0056B3]/60 overflow-hidden cursor-pointer"
     >
       <div className="relative aspect-4/3 w-full border-b border-slate-100 bg-[#f9fafb] p-3 flex items-center justify-center overflow-hidden">
         {mappedImage ? (
@@ -50,7 +50,7 @@ export function ProductCard({
               src={mappedImage}
               alt={product.name}
               fill
-              className="object-contain transition duration-300 group-hover:scale-105"
+              className="object-contain"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
             />
           </div>
@@ -58,7 +58,7 @@ export function ProductCard({
           <InstrumentArt
             seed={product.slug}
             view={0}
-            className="w-full transition duration-300 group-hover:scale-[1.02]"
+            className="w-full"
           />
         )}
       </div>

@@ -100,8 +100,8 @@ export function HomeEnquiryForm() {
       <div className="space-y-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
           <h3 className="text-xl font-semibold text-[#0056B3]">Orbit Technologies Pvt. Ltd.</h3>
-          <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Corporate Headquarters &amp; Central Testing Facility
+          <p className="mt-1 text-xs font-medium text-slate-500">
+            Corporate headquarters and central testing facility
           </p>
 
           <div className="mt-6 space-y-4 text-sm text-slate-700">
@@ -135,7 +135,7 @@ export function HomeEnquiryForm() {
           </div>
 
           <div className="mt-6 border-t border-slate-100 pt-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-xs font-medium text-slate-500">
               Why submit an enquiry with Orbit?
             </p>
             <ul className="mt-3 space-y-2 text-xs leading-relaxed text-slate-600">

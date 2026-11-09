@@ -8,7 +8,6 @@ import {
   X,
   SlidersHorizontal,
   RotateCcw,
-  Sparkles,
   ChevronDown,
 } from "lucide-react";
 import { products, type Product } from "@/data/products";
@@ -666,28 +665,6 @@ function ProductCatalogInner() {
     });
   }, [selectedCategory, selectedIndustry, selectedOperation, selectedBrand, query, filteredProducts]);
 
-  // Compute category distribution for the filtered results so users can see matching categories
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, { label: string; count: number; value: string }> = {
-      analytical: { label: "Analytical Instruments", count: 0, value: "analytical" },
-      reactors: { label: "Reactors & Pressure", count: 0, value: "reactors" },
-      "sample-prep": { label: "Sample Preparation", count: 0, value: "sample-prep" },
-      furnaces: { label: "Furnaces & Heating", count: 0, value: "furnaces" },
-      "gas-generators": { label: "Gas Generators", count: 0, value: "gas-generators" },
-      balances: { label: "Balances & Weighing", count: 0, value: "balances" },
-      crms: { label: "CRMs & Labware", count: 0, value: "crms" },
-    };
-
-    for (const p of filteredProducts) {
-      const pillar = getProductPillar(p);
-      if (counts[pillar]) {
-        counts[pillar].count++;
-      }
-    }
-
-    return Object.values(counts).filter((c) => c.count > 0);
-  }, [filteredProducts]);
-
   // Compute active filter chips
   const activeChips = useMemo(() => {
     const chips: { key: string; label: string; onRemove: () => void }[] = [];
@@ -918,83 +895,7 @@ function ProductCatalogInner() {
         )}
       </div>
 
-      {/* 4. Results Bar & Matching Categories */}
-      <div className="mt-6 flex flex-col gap-3">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-sm font-medium text-slate-600">
-            Showing <span className="font-bold text-[#0056B3]">{filteredProducts.length}</span>{" "}
-            {filteredProducts.length === 1 ? "instrument" : "instruments"}
-            {selectedCategory !== "all" && (
-              <>
-                {" "}
-                in{" "}
-                <strong className="text-slate-900">
-                  {CATEGORY_OPTIONS.find((c) => c.value === selectedCategory)?.label}
-                </strong>
-              </>
-            )}
-            {selectedIndustry !== "all" && (
-              <>
-                {" "}
-                for{" "}
-                <strong className="text-[#d00000]">
-                  {INDUSTRY_OPTIONS.find((i) => i.value === selectedIndustry)?.label}
-                </strong>
-              </>
-            )}
-            {selectedOperation !== "all" && (
-              <>
-                {" "}
-                under{" "}
-                <strong className="text-slate-900">
-                  {OPERATION_OPTIONS.find((o) => o.value === selectedOperation)?.label}
-                </strong>
-              </>
-            )}
-            {selectedBrand !== "all" && (
-              <>
-                {" "}
-                from{" "}
-                <strong className="text-slate-900">
-                  {BRAND_OPTIONS.find((b) => b.value === selectedBrand)?.label}
-                </strong>
-              </>
-            )}
-            {query.trim() && <> matching &ldquo;{query.trim()}&rdquo;</>}
-          </div>
-
-          {hasActiveFilters && (
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Sparkles className="h-3.5 w-3.5 text-[#d00000]" />
-              <span>Filters active (AND condition)</span>
-            </div>
-          )}
-        </div>
-
-        {/* Dynamic Category Quick-Pills: Displays matching product groups and lets user quickly focus */}
-        {categoryCounts.length > 1 && selectedCategory === "all" && (
-          <div className="flex flex-wrap items-center gap-1.5 pt-1">
-            <span className="text-xs font-semibold text-slate-400 mr-1">
-              Matching categories:
-            </span>
-            {categoryCounts.map((cat) => (
-              <button
-                key={cat.value}
-                type="button"
-                onClick={() => handleCategoryChange(cat.value)}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:border-[#0056B3] hover:bg-slate-50 hover:text-[#0056B3] transition cursor-pointer"
-              >
-                <span>{cat.label}</span>
-                <span className="rounded-full bg-slate-100 px-1.5 py-0.2 text-[10px] font-bold text-slate-600">
-                  {cat.count}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* 5. 4-Column Product Grid (Anton Paar Style) */}
+      {/* 4. 4-Column Product Grid (Anton Paar Style) */}
       {filteredProducts.length > 0 ? (
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredProducts.map((p, idx) => (

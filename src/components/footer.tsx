@@ -11,7 +11,7 @@ const quickLinks = [
   { href: "/products", label: "All Products" },
   { href: "/orbit-as-a-manufacturer", label: "Manufacturing (Orlab)" },
   { href: "/orbit-as-a-distributor", label: "Distribution Heritage" },
-  { href: "/principals", label: "OEM Principals" },
+  { href: "/principals", label: "Principals" },
   { href: "/industries", label: "Industry Solutions" },
   { href: "/our-services", label: "Services & Hydrotesting" },
   { href: "/service-complaint-form", label: "Service Complaint Form" },
@@ -64,7 +64,7 @@ export function Footer() {
               height={60}
               className="h-12 w-auto"
             />
-            <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#93c5fd]">
+            <p className="mt-2 text-xs font-semibold text-[#93c5fd]">
               Orbit Technologies Pvt. Ltd.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-300">

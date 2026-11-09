@@ -162,7 +162,7 @@ export default function AboutPage() {
               className="h-12 w-auto rounded-lg shadow-sm"
             />
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#feeceb]">
+              <p className="text-xs font-medium text-slate-300">
                 Established 1995 · Hyderabad
               </p>
               <h3 className="text-lg font-semibold text-white">Orbit Technologies</h3>
@@ -171,27 +171,27 @@ export default function AboutPage() {
 
           <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-5 text-center">
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-semibold text-[#d00000]">35+</p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
-                Years of Service
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#d00000]">35+</p>
+              <p className="mt-1 text-[11px] font-medium text-slate-300">
+                Years of service
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-semibold text-white">7,000+</p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
-                Customers Served
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-white">7,000+</p>
+              <p className="mt-1 text-[11px] font-medium text-slate-300">
+                Customers served
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-semibold text-white">14</p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
-                Branch Cities
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-white">14</p>
+              <p className="mt-1 text-[11px] font-medium text-slate-300">
+                Branch cities
               </p>
             </div>
             <div className="rounded-xl bg-white/5 p-3.5 border border-white/10">
-              <p className="text-2xl sm:text-3xl font-semibold text-[#d00000]">30,000</p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-slate-300">
-                Sq. Ft. Facility
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#d00000]">30,000</p>
+              <p className="mt-1 text-[11px] font-medium text-slate-300">
+                Sq. ft. facility
               </p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={belief.title}
-                  className="surface group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#f6dcc4] hover:shadow-lg"
+                  className="surface group flex flex-col justify-between p-6 transition-colors hover:border-[#0056B3]/40"
                 >
                   <div>
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000] transition group-hover:bg-[#d00000] group-hover:text-white">
@@ -259,7 +259,7 @@ export default function AboutPage() {
               className="surface group relative flex flex-col justify-between p-6 sm:p-8 transition-all hover:border-[#f6dcc4] hover:shadow-md"
             >
               <div>
-                <span className="chip chip-accent text-[11px] font-bold uppercase tracking-wider">
+                <span className="chip chip-accent text-[11px] font-medium">
                   Orbit Executive Leadership
                 </span>
                 <h3 className="mt-4 text-xl font-semibold text-[#0056B3] sm:text-2xl">
@@ -273,10 +273,10 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="mt-6 border-t border-slate-100 pt-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                  Focus Areas
+                <p className="text-xs font-medium text-slate-400">
+                  Focus areas
                 </p>
-                <p className="mt-1 text-xs font-bold text-[#0056B3]">
+                <p className="mt-1 text-xs font-semibold text-[#0056B3]">
                   {leader.focus}
                 </p>
               </div>
@@ -285,7 +285,7 @@ export default function AboutPage() {
         </div>
 
         {/* Team Banner with Genuine Photo */}
-        <div className="mt-10 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           <div className="relative aspect-[21/9] w-full overflow-hidden bg-slate-100">
             <Image
               src={withBasePath("/images/inner-banner.jpg")}
@@ -295,7 +295,7 @@ export default function AboutPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 text-white">
-              <span className="rounded-md bg-[#d00000] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+              <span className="rounded-md bg-[#d00000] px-2.5 py-1 text-[11px] font-medium text-white">
                 Our Nationwide Team
               </span>
               <p className="mt-2 text-sm sm:text-lg font-bold leading-tight">
@@ -341,7 +341,7 @@ export default function AboutPage() {
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-[#feeceb] px-3 py-0.5 text-xs font-semibold text-[#d00000]">
                         <Calendar className="h-3.5 w-3.5" /> {m.year}
                       </span>
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                      <span className="text-[11px] font-medium text-slate-400">
                         {m.badge}
                       </span>
                     </div>
@@ -568,32 +568,32 @@ export default function AboutPage() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-semibold text-[#d00000]">30+ Years</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Of Experience
+            <p className="text-3xl font-semibold tabular-nums text-[#d00000]">35+</p>
+            <p className="mt-1 text-xs font-medium text-slate-500">
+              Years of experience
             </p>
             <p className="mt-2 text-xs text-slate-600">Established in 1995</p>
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-semibold text-[#0056B3]">7,000+</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Customers
+            <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">7,000+</p>
+            <p className="mt-1 text-xs font-medium text-slate-500">
+              Active customers
             </p>
             <p className="mt-2 text-xs text-slate-600">Across Indian industries</p>
           </div>
 
           <div className="surface p-5 text-center">
-            <p className="text-3xl font-semibold text-[#0056B3]">14</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Branch Cities
+            <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">14</p>
+            <p className="mt-1 text-xs font-medium text-slate-500">
+              Branch cities
             </p>
             <p className="mt-2 text-xs text-slate-600">Pan-India sales &amp; service</p>
           </div>
 
           <div className="surface p-5 text-center">
             <p className="text-3xl font-semibold text-[#d00000]">Hyderabad</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="mt-1 text-xs font-medium text-slate-500">
               Headquarters
             </p>
             <p className="mt-2 text-xs text-slate-600">30,000 sq. ft. facility</p>
@@ -601,7 +601,7 @@ export default function AboutPage() {
 
           <div className="surface p-5 text-center">
             <p className="text-3xl font-semibold text-[#0056B3]">Global</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <p className="mt-1 text-xs font-medium text-slate-500">
               Partnerships
             </p>
             <p className="mt-2 text-xs text-slate-600">USA, Germany, UK &amp; Italy</p>

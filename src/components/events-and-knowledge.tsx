@@ -177,9 +177,9 @@ export function EventsAndKnowledge() {
                     src={withBasePath(currentEvent.image)}
                     alt={`${currentEvent.name} banner`}
                     fill
-                    className="object-cover transition duration-300 hover:scale-[1.02]"
+                    className="object-cover"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-[#0056B3]/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+                  <span className="absolute left-3 top-3 rounded-md bg-[#0056B3] px-2.5 py-1 text-[11px] font-medium text-white">
                     Upcoming Exhibition
                   </span>
                 </div>
@@ -273,7 +273,7 @@ export function EventsAndKnowledge() {
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`inline-block rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                      className={`inline-block rounded-md px-2 py-0.5 text-[10px] font-medium ${
                         art.tag === "Technical Article"
                           ? "bg-sky-50 text-sky-800 border border-sky-200"
                           : "bg-[#feeceb] text-[#d00000] border border-red-200"
@@ -300,7 +300,7 @@ export function EventsAndKnowledge() {
                       src={withBasePath(art.image)}
                       alt={art.title}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -312,8 +312,8 @@ export function EventsAndKnowledge() {
 
       {/* Article Detail Modal */}
       {activeArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 sm:p-8 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 sm:p-8 shadow-xl">
             <button
               type="button"
               onClick={() => setActiveArticle(null)}
@@ -323,7 +323,7 @@ export function EventsAndKnowledge() {
               <X className="h-5 w-5" />
             </button>
 
-            <span className="chip chip-accent text-xs font-bold uppercase tracking-wider">
+            <span className="chip chip-accent text-xs font-medium">
               {activeArticle.tag}
             </span>
             <h3 className="mt-3 text-xl font-semibold text-[#0056B3] sm:text-2xl">
@@ -372,7 +372,7 @@ export function EventsAndKnowledge() {
       {/* Exhibition Detail Modal */}
       {activeExhibition && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-2xl bg-white p-6 sm:p-8 shadow-2xl">
+          <div className="relative max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-xl bg-white p-6 sm:p-8 shadow-xl">
             <button
               type="button"
               onClick={() => setActiveExhibition(null)}
@@ -382,7 +382,7 @@ export function EventsAndKnowledge() {
               <X className="h-5 w-5" />
             </button>
 
-            <span className="chip chip-accent text-xs font-bold uppercase tracking-wider">
+            <span className="chip chip-accent text-xs font-medium">
               Exhibition Details
             </span>
             <h3 className="mt-3 text-xl font-semibold text-[#0056B3] sm:text-2xl">

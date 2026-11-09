@@ -246,13 +246,13 @@ export default function HomePage() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/contact-us#quote"
-                className="btn btn-accent !px-6 !py-3.5 text-sm sm:text-base font-bold shadow-lg shadow-[#d00000]/25"
+                className="btn btn-accent !px-6 !py-3.5 text-sm sm:text-base font-semibold shadow-sm"
               >
                 Request a Quote
               </Link>
               <Link
                 href="/instrument-finder/"
-                className="inline-flex items-center gap-2 text-sm font-bold text-white transition hover:text-[#cce1f9] hover:translate-x-0.5"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#cce1f9]"
               >
                 Find the Right Instrument <ArrowRight className="h-4 w-4" />
               </Link>
@@ -262,15 +262,15 @@ export default function HomePage() {
       </HeroCarousel>
 
       {/* -----------------------------------------------------------------------
-          2. TRUST AND CREDIBILITY (Moved as floating bar as in screenshot)
+          2. TRUST AND CREDIBILITY STRIP
       ------------------------------------------------------------------------ */}
-      <section className="relative z-20 -mt-10 sm:-mt-12">
+      <section className="relative z-20 -mt-8 sm:-mt-10">
         <div className="container-x">
-          <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xl">
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md">
             <div className="grid grid-cols-2 divide-y divide-slate-200/80 sm:grid-cols-2 md:divide-y-0 md:divide-x lg:grid-cols-4">
               {trustBarItems.map((item) => (
                 <div key={item.title} className="p-4 sm:p-5 flex flex-col justify-center">
-                  <p className="text-base sm:text-lg font-semibold tracking-tight text-[#0056B3]">
+                  <p className="text-base sm:text-lg font-semibold tracking-tight text-[#0056B3] tabular-nums">
                     {item.title}
                   </p>
                   <p className="mt-0.5 text-xs text-slate-500 leading-snug">
@@ -284,11 +284,11 @@ export default function HomePage() {
                 <div>
                   <Link
                     href="/about-us"
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[#d00000] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] hover:underline"
                   >
                     Company profile <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <p className="text-[11px] text-slate-400 mt-0.5">35 years Orbit story</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">35 years Orbit story</p>
                 </div>
               </div>
             </div>
@@ -323,27 +323,27 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-bold text-[#d00000]">35+</p>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Years of Service
+              <p className="text-3xl font-semibold tabular-nums text-[#d00000]">35+</p>
+              <p className="mt-1 text-xs font-medium text-slate-600">
+                Years of service
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-bold text-[#0056B3]">7,000+</p>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Active Customers
+              <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">7,000+</p>
+              <p className="mt-1 text-xs font-medium text-slate-600">
+                Active installations
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-bold text-[#0056B3]">14</p>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Branch Cities
+              <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">14</p>
+              <p className="mt-1 text-xs font-medium text-slate-600">
+                Branch cities
               </p>
             </div>
             <div className="surface p-5 text-center">
-              <p className="text-3xl font-bold text-[#d00000]">30,000</p>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Sq. Ft. Facility
+              <p className="text-3xl font-semibold tabular-nums text-[#d00000]">30,000</p>
+              <p className="mt-1 text-xs font-medium text-slate-600">
+                Sq. ft. facility
               </p>
             </div>
           </div>
@@ -368,7 +368,7 @@ export default function HomePage() {
               <Link
                 key={item.category}
                 href={item.href}
-                className="surface group flex flex-col justify-between overflow-hidden border border-slate-200 p-0 transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/40 hover:shadow-lg cursor-pointer"
+                className="group flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-0 transition-colors hover:border-[#0056B3]/60 cursor-pointer"
               >
                 {/* Image header */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#f5f5f5] border-b border-slate-100">
@@ -377,14 +377,14 @@ export default function HomePage() {
                     alt={item.category}
                     fill
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover p-2 transition duration-500 group-hover:scale-105"
+                    className="object-cover p-2"
                   />
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition">
+                    <h3 className="text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                       {item.category}
                     </h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-3">
@@ -418,7 +418,7 @@ export default function HomePage() {
             {industrySolutions.map((ind) => (
               <div
                 key={ind.id}
-                className="surface group flex flex-col justify-between overflow-hidden p-0 transition hover:border-[#cce1f9] hover:shadow-md"
+                className="group flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-0 transition-colors hover:border-[#0056B3]/60"
               >
                 {/* Photo Header */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
@@ -427,7 +427,7 @@ export default function HomePage() {
                       src={withBasePath(industryPhotos[ind.id])}
                       alt={`${ind.title} solutions`}
                       fill
-                      className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-[#0056B3] text-white">
@@ -439,7 +439,7 @@ export default function HomePage() {
                 {/* Content */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="text-base font-bold text-[#0056B3]">{ind.title}</h3>
+                    <h3 className="text-base font-semibold text-[#0056B3]">{ind.title}</h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600">
                       {ind.focus}
                     </p>
@@ -456,9 +456,9 @@ export default function HomePage() {
                   <div className="mt-5 border-t border-slate-100 pt-3">
                     <Link
                       href={ind.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#d00000] hover:underline"
                     >
-                      {ind.linkText} <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                      {ind.linkText} <ArrowRight className="h-3.5 w-3.5 transition" />
                     </Link>
                   </div>
                 </div>
@@ -492,31 +492,27 @@ export default function HomePage() {
       {/* -----------------------------------------------------------------------
           9. FINAL CALL TO ACTION (Just above footer)
       ------------------------------------------------------------------------ */}
-      <section className="container-x my-14 sm:my-20">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#003d80] via-[#0056B3] to-[#001c3d] p-8 sm:p-14 text-white shadow-2xl">
-          {/* Subtle decorative radial accents */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-[#d00000]/25 blur-3xl" />
-
-          <div className="relative z-10 mx-auto max-w-3xl text-center">
+      <section className="container-x my-14 sm:my-18">
+        <div className="rounded-xl border border-slate-700/40 bg-[#001c3d] p-8 sm:p-12 text-white">
+          <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
               Ready to Equip or Upgrade Your Laboratory?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate-200 sm:text-base">
+            <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
               Speak directly with Orbit’s senior application engineering team to discuss your testing parameters, sample matrices, ASTM / ISO test method compliance, or custom instrument configurations.
             </p>
 
             <div className="mt-8 flex justify-center">
               <Link
                 href="/contact-us"
-                className="btn btn-accent !px-9 !py-4 text-sm sm:text-base font-bold shadow-xl shadow-[#d00000]/25 hover:scale-[1.02] transition-transform inline-flex items-center gap-2"
+                className="btn btn-accent !px-8 !py-3.5 text-sm sm:text-base font-semibold shadow-sm inline-flex items-center gap-2"
               >
                 Contact Our Specialists <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
             {/* Direct contact strip */}
-            <div className="mt-10 pt-8 border-t border-white/15 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs sm:text-sm text-slate-200">
+            <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs sm:text-sm text-slate-300">
               <a
                 href="tel:+914067216354"
                 className="inline-flex items-center gap-2.5 hover:text-white transition group"
@@ -524,7 +520,7 @@ export default function HomePage() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#d00000] transition">
                   <Phone className="h-4 w-4 text-white" />
                 </div>
-                <span>Direct Line: <strong className="font-semibold text-white">+91 40 6721 6354</strong></span>
+                <span>Direct line: <strong className="font-semibold text-white tabular-nums">+91 40 6721 6354</strong></span>
               </a>
 
               <div className="hidden sm:inline-block h-4 w-px bg-white/20" />

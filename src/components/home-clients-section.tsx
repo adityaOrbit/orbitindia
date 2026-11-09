@@ -3,6 +3,16 @@ import { SectionHeading } from "@/components/section-heading";
 import { withBasePath } from "@/lib/utils";
 
 const clientLogos = [
+  { src: "/images/orbit/bharatpetroleum.jpg", alt: "Bharat Petroleum" },
+  { src: "/images/orbit/shreecement.jpg", alt: "Shree Cement" },
+  { src: "/images/orbit/ambujacement.jpg", alt: "Ambuja Cement" },
+  { src: "/images/orbit/CentralAgriculture.jpg", alt: "Central Agriculture University" },
+  { src: "/images/orbit/GFL.jpg", alt: "Gujarat Fluorochemicals" },
+  { src: "/images/orbit/HBL.jpg", alt: "HBL Power Systems" },
+  { src: "/images/orbit/kesoram.jpg", alt: "Kesoram Industries" },
+  { src: "/images/orbit/mangalamcement.jpg", alt: "Mangalam Cement" },
+  { src: "/images/orbit/mpl.jpg", alt: "Maithon Power Limited" },
+  { src: "/images/orbit/ministry.jpg", alt: "Ministry of Defence" },
   { src: "/images/orbit/client1.jpg", alt: "Client Partner 1" },
   { src: "/images/orbit/client2.jpg", alt: "Client Partner 2" },
   { src: "/images/orbit/client3.jpg", alt: "Client Partner 3" },
@@ -19,10 +29,6 @@ const clientLogos = [
   { src: "/images/orbit/client14.jpg", alt: "Client Partner 14" },
   { src: "/images/orbit/client15.jpg", alt: "Client Partner 15" },
   { src: "/images/orbit/client16.jpg", alt: "Client Partner 16" },
-  { src: "/images/orbit/client17.jpg", alt: "Client Partner 17" },
-  { src: "/images/orbit/client18.jpg", alt: "Client Partner 18" },
-  { src: "/images/orbit/client19.jpg", alt: "Client Partner 19" },
-  { src: "/images/orbit/client20.jpg", alt: "Client Partner 20" },
 ];
 
 export function HomeClientsSection() {
@@ -51,17 +57,15 @@ export function HomeClientsSection() {
           {marqueeLogos.map((logo, idx) => (
             <div
               key={idx}
-              className="w-40 sm:w-48 h-20 sm:h-24 shrink-0 flex items-center justify-center rounded-2xl border border-slate-200/90 bg-white p-3.5 shadow-xs hover:border-[#0056B3]/50 hover:shadow-md transition-all duration-200"
+              className="w-40 sm:w-48 h-20 sm:h-24 shrink-0 flex items-center justify-center rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs hover:border-[#0056B3]/40 transition-colors"
             >
-              <div className="relative h-full w-full">
-                <Image
-                  src={withBasePath(logo.src)}
-                  alt={logo.alt}
-                  fill
-                  className="object-contain p-1"
-                  sizes="(max-width: 640px) 160px, 192px"
-                />
-              </div>
+              <Image
+                src={withBasePath(logo.src)}
+                alt={logo.alt}
+                width={160}
+                height={70}
+                className="max-h-12 w-auto max-w-[85%] object-contain"
+              />
             </div>
           ))}
         </div>

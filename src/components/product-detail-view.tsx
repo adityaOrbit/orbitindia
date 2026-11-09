@@ -318,65 +318,65 @@ export function ProductDetailView({
             </p>
 
             {/* --------------------------------------------------------- */}
-            {/* MEDIGEAR 2x3 SPECIFICATION CHIP MATRIX                    */}
+            {/* SPECIFICATION CHIP MATRIX                                 */}
             {/* --------------------------------------------------------- */}
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {/* Chip 1: Category / Section */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="block text-[11px] font-medium text-slate-500">
                   Section
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
+                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
                   {category?.name || "Analytical Lab"}
                 </span>
               </div>
 
               {/* Chip 2: Precision / Accuracy */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Precision Rating
+                <span className="block text-[11px] font-medium text-slate-500">
+                  Precision rating
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
+                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
                   {precisionSpec}
                 </span>
               </div>
 
               {/* Chip 3: Condition / Compliance */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="block text-[11px] font-medium text-slate-500">
                   Compliance
                 </span>
-                <span className="mt-1 block text-xs font-bold text-emerald-700">
+                <span className="mt-1 block text-xs font-semibold text-emerald-700">
                   ASTM / ISO / CE
                 </span>
               </div>
 
               {/* Chip 4: Origin */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="block text-[11px] font-medium text-slate-500">
                   Origin
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#0056B3]">
+                <span className="mt-1 block text-xs font-semibold text-[#0056B3]">
                   {product.origin || "India / USA"}
                 </span>
               </div>
 
               {/* Chip 5: Measurement Architecture */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="block text-[11px] font-medium text-slate-500">
                   Methodology
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
+                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
                   {jacketOrTypeSpec}
                 </span>
               </div>
 
               {/* Chip 6: Throughput / Service */}
               <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  Throughput / Cycles
+                <span className="block text-[11px] font-medium text-slate-500">
+                  Throughput / cycles
                 </span>
-                <span className="mt-1 block text-xs font-bold text-[#0056B3] line-clamp-1">
+                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
                   {throughputSpec}
                 </span>
               </div>
@@ -387,7 +387,7 @@ export function ProductDetailView({
               <button
                 type="button"
                 onClick={() => setIsRfqOpen(true)}
-                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-[#d00000] px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-md shadow-red-950/15 hover:bg-[#b00000] hover:shadow-lg active:scale-[0.99] transition-all"
+                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-[#d00000] px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-[#b00000] transition-colors"
               >
                 <span>Request a Quote</span>
                 <ArrowRight className="h-5 w-5" />
@@ -554,7 +554,7 @@ export function ProductDetailView({
                   {filteredSpecs.length > 0 ? (
                     <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
                       <table className="w-full text-left text-sm">
-                        <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                        <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-600">
                           <tr>
                             <th className="w-2/5 px-5 py-3">Technical Parameter</th>
                             <th className="px-5 py-3">Engineering Rating / Tolerance</th>
@@ -611,7 +611,7 @@ export function ProductDetailView({
                   {/* Standards Table */}
                   <div className="overflow-hidden rounded-xl border border-slate-200">
                     <table className="w-full text-left text-sm">
-                      <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-600">
                         <tr>
                           <th className="px-5 py-3">Standard Reference</th>
                           <th className="px-5 py-3">Governing Body</th>
@@ -1028,8 +1028,8 @@ export function ProductDetailView({
           <p className="mx-auto max-w-3xl text-lg font-bold sm:text-2xl sm:leading-relaxed">
             &ldquo;Every {category?.name || "Instrument"} we supply arrives with Orbit&rsquo;s own factory-trained engineers — selection, installation, training, and after-sales service, anywhere in India.&rdquo;
           </p>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-[#ebf3fc]">
-            Orbit Technologies · 35 Years · 7,000+ Customers Across India
+          <p className="mt-3 text-xs font-medium text-slate-300">
+            Orbit Technologies · 35 years · 7,000+ customer installations across India
           </p>
         </div>
       </section>
