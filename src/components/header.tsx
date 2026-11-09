@@ -122,7 +122,7 @@ export function Header() {
               alt="Orbit Technologies"
               width={240}
               height={90}
-              className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain"
+              className="h-12 sm:h-14 md:h-14 lg:h-16 w-auto object-contain"
               priority
             />
           </Link>

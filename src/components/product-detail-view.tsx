@@ -25,6 +25,7 @@ import {
 import { ProductGallery } from "@/components/product-gallery";
 import { ProductRfqDrawer } from "@/components/product-rfq-drawer";
 import { ProductCard } from "@/components/product-card";
+import { Carousel } from "@/components/carousel";
 import { Breadcrumb, type Crumb } from "@/components/breadcrumb";
 import {
   DEFAULT_BROCHURES,
@@ -56,6 +57,91 @@ type TabKey =
   | "advantages"
   | "brochures";
 
+type SectionKey = Exclude<TabKey, "description">;
+
+const SECTION_KEYS: SectionKey[] = ["specifications", "applications", "advantages", "brochures"];
+
+const ARCHITECTURE_POINTS = [
+  {
+    title: "1. Precise Thermal Equilibration",
+    body: "The jacket enclosure is thermally regulated to eliminate ambient room temperature variations. High-resolution thermistors capture micro-degree changes across the sample combustion cycle with instantaneous data acquisition.",
+  },
+  {
+    title: "2. Certified Combustion Vessel Integrity",
+    body: "Constructed from proprietary high-strength corrosion-resistant alloys capable of withstanding working pressures up to 300 bar. Automated firing protocols ensure complete oxidation without sample splattering.",
+  },
+  {
+    title: "3. Microprocessor Algorithmic Correction",
+    body: "Real-time numerical integration compensates for fuse ignition heat, acid formation, and thermal leakage, calculating Gross Calorific Value (GCV) strictly compliant with ASTM D5865 and ISO 1928 formulas.",
+  },
+  {
+    title: "4. Automated Workflow & Vessel Handling",
+    body: "Automated oxygen filling and water bucket management reduce operator hands-on time from 15 minutes down to under 1 minute per test, minimizing human error and maximizing laboratory throughput.",
+  },
+];
+
+const SAMPLE_MATRICES = [
+  { name: "Coal, Lignite & Coke", desc: "Power generation, steel coking plants, mining quality labs" },
+  { name: "Petroleum & Heavy Oils", desc: "Refinery feedstocks, diesel fuels, marine bunker oils, kerosene" },
+  { name: "Solid Biofuels & Pellets", desc: "Wood pellets, agricultural residues, bagasse, briquettes" },
+  { name: "Waste-Derived Fuels (RDF/SRF)", desc: "Cement kiln co-processing, municipal solid waste recovery" },
+];
+
+const FALLBACK_ADVANTAGES = [
+  "Automated ignition, water fill, and vessel handling",
+  "True isoperibol jacket with 0.0001 °C thermal stability",
+  "Direct LIMS integration via USB, Ethernet, and RS-232",
+  "Parr-certified combustion bomb with 300 bar rating",
+  "Compact laboratory bench footprint under 60 cm width",
+  "Full compliance with ASTM D5865, ISO 1928, and BIS standards",
+];
+
+function MobileAccordion({
+  id,
+  title,
+  icon,
+  open,
+  onToggle,
+  children,
+}: {
+  id: SectionKey;
+  title: string;
+  icon: React.ReactNode;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      id={`m-${id}`}
+      className={`scroll-mt-24 overflow-hidden rounded-xl border bg-white transition-colors ${
+        open ? "border-[#0056B3]/40" : "border-slate-200"
+      }`}
+    >
+      <h3>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={`m-panel-${id}`}
+          onClick={onToggle}
+          className="cursor-pointer flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left"
+        >
+          <span className="flex items-center gap-2.5 text-sm font-semibold text-[#0056B3]">
+            <span className={open ? "text-[#d00000]" : "text-slate-400"}>{icon}</span>
+            {title}
+          </span>
+          <ChevronDown
+            className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? "rotate-180" : ""}`}
+          />
+        </button>
+      </h3>
+      <div id={`m-panel-${id}`} hidden={!open} className="border-t border-slate-100 px-4 pb-4 pt-3">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function ProductDetailView({
   product,
   category,
@@ -67,22 +153,43 @@ export function ProductDetailView({
   const [isRfqOpen, setIsRfqOpen] = useState(false);
   const [specSearch, setSpecSearch] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  // Mobile layout: one accordion open at a time, Specifications by default
+  const [openSection, setOpenSection] = useState<SectionKey | null>("specifications");
+  const [descExpanded, setDescExpanded] = useState(false);
 
-  // Sync with URL hash if user clicks an anchor or changes hash
+  const scrollToMobileSection = (key: SectionKey) => {
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`m-${key}`);
+      // offsetParent is null when the mobile layout is hidden (desktop)
+      if (el && el.offsetParent !== null && el.getBoundingClientRect().top < 80) {
+        el.scrollIntoView({ block: "start" });
+      }
+    });
+  };
+
+  const toggleSection = (key: SectionKey) => {
+    const next = openSection === key ? null : key;
+    setOpenSection(next);
+    if (next) scrollToMobileSection(next);
+  };
+
+  // Sync with URL hash (e.g. #specifications) on load and when it changes
   useEffect(() => {
     const syncHash = () => {
       const hash = window.location.hash.replace("#", "");
-      if (
-        hash === "description" ||
-        hash === "specifications" ||
-        hash === "applications" ||
-        hash === "advantages" ||
-        hash === "brochures"
-      ) {
+      if (hash === "description" || SECTION_KEYS.includes(hash as SectionKey)) {
         setActiveTab(hash as TabKey);
+      }
+      if (SECTION_KEYS.includes(hash as SectionKey)) {
+        setOpenSection(hash as SectionKey);
+        requestAnimationFrame(() => {
+          const el = document.getElementById(`m-${hash}`);
+          if (el && el.offsetParent !== null) el.scrollIntoView({ block: "start" });
+        });
       }
     };
 
+    syncHash();
     window.addEventListener("hashchange", syncHash);
     return () => window.removeEventListener("hashchange", syncHash);
   }, []);
@@ -286,7 +393,7 @@ export function ProductDetailView({
       {/* 1. HERO SECTION (Medigear & SciMed style split layout)         */}
       {/* ------------------------------------------------------------- */}
       <section className="container-x py-8 lg:py-12">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1.25fr] lg:gap-14">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.25fr)] lg:gap-14">
           {/* LEFT: Product Gallery */}
           <ProductGallery product={product} />
 
@@ -421,8 +528,172 @@ export function ProductDetailView({
       {/* ------------------------------------------------------------- */}
       <section id="technical-tabs" className="border-t border-slate-200 bg-[#f8fafc] py-10 lg:py-14 scroll-mt-24">
         <div className="container-x">
-          {/* Unified Medigear-Style Technical Card */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xs">
+          {/* MOBILE: description first, then one-at-a-time accordions */}
+          <div className="md:hidden">
+            <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs">
+              <h2 className="text-lg font-semibold tracking-tight text-[#0056B3]">Description</h2>
+              <p
+                className={`mt-2 text-sm leading-relaxed text-slate-700 ${descExpanded ? "" : "line-clamp-4"}`}
+              >
+                {cleanDescription}
+              </p>
+              <div hidden={!descExpanded} className="mt-5 space-y-5">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-[#0056B3]">
+                    <Info className="h-4 w-4 shrink-0 text-[#d00000]" /> Scientific Architecture & Measurement Physics
+                  </h3>
+                  <div className="mt-3 space-y-3">
+                    {ARCHITECTURE_POINTS.map((pt) => (
+                      <div key={pt.title}>
+                        <h4 className="text-sm font-semibold text-slate-800">{pt.title}</h4>
+                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{pt.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {product.applications && product.applications.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0056B3]">Target Laboratory Applications</h3>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {product.applications.map((app) => (
+                        <span
+                          key={app}
+                          className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700"
+                        >
+                          {app}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                aria-expanded={descExpanded}
+                onClick={() => setDescExpanded((v) => !v)}
+                className="cursor-pointer mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#0056B3]"
+              >
+                {descExpanded ? "Read less" : "Read more"}
+                <ChevronDown className={`h-4 w-4 transition-transform ${descExpanded ? "rotate-180" : ""}`} />
+              </button>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              <MobileAccordion
+                id="specifications"
+                title="Specifications"
+                icon={<Sliders className="h-4 w-4" />}
+                open={openSection === "specifications"}
+                onToggle={() => toggleSection("specifications")}
+              >
+                <dl className="divide-y divide-slate-100">
+                  {rawSpecs.map(([param, val], idx) => (
+                    <div key={idx} className="py-2.5">
+                      <dt className="text-xs font-medium text-slate-500">{param}</dt>
+                      <dd className="mt-0.5 text-sm text-slate-800">{val}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="mt-3 border-t border-slate-100 pt-3 text-xs text-slate-500">
+                  Specifications subject to continuous development. Certified test reports provided with each dispatch.
+                </p>
+              </MobileAccordion>
+
+              <MobileAccordion
+                id="applications"
+                title="Applications & Standards"
+                icon={<Layers className="h-4 w-4" />}
+                open={openSection === "applications"}
+                onToggle={() => toggleSection("applications")}
+              >
+                <h4 className="text-xs font-semibold text-slate-500">Compliance & standard methods</h4>
+                <div className="mt-2 space-y-2">
+                  {DEFAULT_STANDARDS.map((std, idx) => (
+                    <div key={idx} className="rounded-lg border border-slate-200 p-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="text-sm font-bold text-[#0056B3]">{std.standard}</span>
+                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">
+                          <CheckCircle2 className="h-3 w-3" /> Certified
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs font-semibold text-slate-700">{std.title}</p>
+                      <p className="text-[11px] text-slate-500">
+                        {std.organization} · {std.applicableRange}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <h4 className="mt-4 text-xs font-semibold text-slate-500">Validated sample matrices</h4>
+                <div className="mt-2 space-y-2">
+                  {SAMPLE_MATRICES.map((m) => (
+                    <div key={m.name} className="rounded-lg bg-slate-50 p-3">
+                      <p className="text-xs font-bold text-[#0056B3]">{m.name}</p>
+                      <p className="mt-0.5 text-[11px] leading-relaxed text-slate-500">{m.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </MobileAccordion>
+
+              <MobileAccordion
+                id="advantages"
+                title="Key Advantages"
+                icon={<Sparkles className="h-4 w-4" />}
+                open={openSection === "advantages"}
+                onToggle={() => toggleSection("advantages")}
+              >
+                <ul className="space-y-2.5">
+                  {(product.features && product.features.length > 0 ? product.features : FALLBACK_ADVANTAGES).map(
+                    (feat, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
+                          <Check className="h-3.5 w-3.5" />
+                        </span>
+                        {feat}
+                      </li>
+                    )
+                  )}
+                </ul>
+              </MobileAccordion>
+
+              <MobileAccordion
+                id="brochures"
+                title="Downloads"
+                icon={<FileDown className="h-4 w-4" />}
+                open={openSection === "brochures"}
+                onToggle={() => toggleSection("brochures")}
+              >
+                <div className="space-y-2">
+                  {DEFAULT_BROCHURES.map((b, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        trackFileDownload({
+                          fileName: b.title,
+                          fileUrl: `${b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
+                          productName: product.name,
+                        });
+                        setIsRfqOpen(true);
+                      }}
+                      className="cursor-pointer flex w-full items-center gap-3 rounded-lg border border-slate-200 p-3 text-left"
+                    >
+                      <FileText className="h-5 w-5 shrink-0 text-[#d00000]" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-semibold text-[#0056B3]">{b.title}</span>
+                        <span className="block text-[11px] text-slate-500">
+                          {b.type} · {b.size}
+                        </span>
+                      </span>
+                      <FileDown className="h-4 w-4 shrink-0 text-slate-400" />
+                    </button>
+                  ))}
+                </div>
+              </MobileAccordion>
+            </div>
+          </div>
+
+          {/* TABLET / DESKTOP: Unified Medigear-Style Technical Card */}
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xs">
             {/* Tab Navigation Strip along the top of the card */}
             <div className="border-b border-slate-200 bg-slate-50/80 px-2 sm:px-6">
               <div className="flex overflow-x-auto scrollbar-none gap-1 sm:gap-2">
@@ -471,38 +742,12 @@ export function ProductDetailView({
                       <Info className="h-5 w-5 text-[#d00000]" /> Scientific Architecture & Measurement Physics
                     </h3>
                     <div className="mt-4 grid gap-6 sm:grid-cols-2">
-                      <div className="space-y-2 text-sm text-slate-600">
-                        <h4 className="font-semibold text-slate-800">
-                          1. Precise Thermal Equilibration
-                        </h4>
-                        <p className="text-xs leading-relaxed">
-                          The jacket enclosure is thermally regulated to eliminate ambient room temperature variations. High-resolution thermistors capture micro-degree changes across the sample combustion cycle with instantaneous data acquisition.
-                        </p>
-                      </div>
-                      <div className="space-y-2 text-sm text-slate-600">
-                        <h4 className="font-semibold text-slate-800">
-                          2. Certified Combustion Vessel Integrity
-                        </h4>
-                        <p className="text-xs leading-relaxed">
-                          Constructed from proprietary high-strength corrosion-resistant alloys capable of withstanding working pressures up to 300 bar. Automated firing protocols ensure complete oxidation without sample splattering.
-                        </p>
-                      </div>
-                      <div className="space-y-2 text-sm text-slate-600">
-                        <h4 className="font-semibold text-slate-800">
-                          3. Microprocessor Algorithmic Correction
-                        </h4>
-                        <p className="text-xs leading-relaxed">
-                          Real-time numerical integration compensates for fuse ignition heat, acid formation, and thermal leakage, calculating Gross Calorific Value (GCV) strictly compliant with ASTM D5865 and ISO 1928 formulas.
-                        </p>
-                      </div>
-                      <div className="space-y-2 text-sm text-slate-600">
-                        <h4 className="font-semibold text-slate-800">
-                          4. Automated Workflow & Vessel Handling
-                        </h4>
-                        <p className="text-xs leading-relaxed">
-                          Automated oxygen filling and water bucket management reduce operator hands-on time from 15 minutes down to under 1 minute per test, minimizing human error and maximizing laboratory throughput.
-                        </p>
-                      </div>
+                      {ARCHITECTURE_POINTS.map((pt) => (
+                        <div key={pt.title} className="space-y-2 text-sm text-slate-600">
+                          <h4 className="font-semibold text-slate-800">{pt.title}</h4>
+                          <p className="text-xs leading-relaxed">{pt.body}</p>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -649,24 +894,7 @@ export function ProductDetailView({
                       Validated Sample Matrices & Materials
                     </h3>
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                      {[
-                        {
-                          name: "Coal, Lignite & Coke",
-                          desc: "Power generation, steel coking plants, mining quality labs",
-                        },
-                        {
-                          name: "Petroleum & Heavy Oils",
-                          desc: "Refinery feedstocks, diesel fuels, marine bunker oils, kerosene",
-                        },
-                        {
-                          name: "Solid Biofuels & Pellets",
-                          desc: "Wood pellets, agricultural residues, bagasse, briquettes",
-                        },
-                        {
-                          name: "Waste-Derived Fuels (RDF/SRF)",
-                          desc: "Cement kiln co-processing, municipal solid waste recovery",
-                        },
-                      ].map((m, idx) => (
+                      {SAMPLE_MATRICES.map((m, idx) => (
                         <div
                           key={idx}
                           className="rounded-xl border border-slate-200 bg-slate-50/60 p-4"
@@ -715,14 +943,7 @@ export function ProductDetailView({
                     </div>
                   ) : (
                     <div className="grid gap-4 sm:grid-cols-2">
-                      {[
-                        "Automated ignition, water fill, and vessel handling",
-                        "True isoperibol jacket with 0.0001 °C thermal stability",
-                        "Direct LIMS integration via USB, Ethernet, and RS-232",
-                        "Parr-certified combustion bomb with 300 bar rating",
-                        "Compact laboratory bench footprint under 60 cm width",
-                        "Full compliance with ASTM D5865, ISO 1928, and BIS standards",
-                      ].map((f, idx) => (
+                      {FALLBACK_ADVANTAGES.map((f, idx) => (
                         <div
                           key={idx}
                           className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4"
@@ -1050,17 +1271,22 @@ export function ProductDetailView({
                 View All Products <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Carousel label="Related laboratory instruments">
               {relatedProducts.map((p, idx) => (
-                <ProductCard
+                <div
                   key={p.slug}
-                  product={p}
-                  itemListId="related_products"
-                  itemListName={`Related to ${product.name}`}
-                  index={idx}
-                />
+                  className="w-[44%] shrink-0 snap-start sm:w-[30%] lg:w-[18.5%]"
+                >
+                  <ProductCard
+                    product={p}
+                    itemListId="related_products"
+                    itemListName={`Related to ${product.name}`}
+                    index={idx}
+                    compact
+                  />
+                </div>
               ))}
-            </div>
+            </Carousel>
           </div>
         </section>
       )}

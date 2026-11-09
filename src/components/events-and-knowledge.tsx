@@ -238,9 +238,6 @@ export function EventsAndKnowledge() {
           <Link href="/news" className="btn btn-outline text-xs sm:text-sm">
             View All News and Events <ArrowRight className="h-4 w-4" />
           </Link>
-          <span className="text-xs text-slate-500 font-medium">
-            Showing {currentSlide + 1} of {upcomingEvents.length}
-          </span>
         </div>
       </div>
 

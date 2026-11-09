@@ -510,7 +510,13 @@ function matchesQuery(p: Product, query: string): boolean {
   return terms.every((term) => text.includes(term));
 }
 
-function ProductCatalogInner() {
+function ProductCatalogInner({
+  filtersOpen,
+  setFiltersOpen,
+}: {
+  filtersOpen: boolean;
+  setFiltersOpen: (open: boolean) => void;
+}) {
   const searchParams = useSearchParams();
 
   // Read initial parameters from URL
@@ -733,10 +739,134 @@ function ProductCatalogInner() {
 
   const hasActiveFilters = activeChips.length > 0;
 
+  const renderFilterFields = (idPrefix: string, layout: string) => (
+    <div className={layout}>
+      {/* Dropdown 1: Type of Operation */}
+      <div>
+        <label
+          htmlFor={`${idPrefix}filter-operation`}
+          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+        >
+          Type of operation
+        </label>
+        <div className="relative">
+          <select
+            id={`${idPrefix}filter-operation`}
+            value={selectedOperation}
+            onChange={(e) => handleOperationChange(e.target.value)}
+            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+          >
+            {OPERATION_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        </div>
+      </div>
+
+      {/* Dropdown 2: Product Group / Category */}
+      <div>
+        <label
+          htmlFor={`${idPrefix}filter-category`}
+          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+        >
+          Product Group
+        </label>
+        <div className="relative">
+          <select
+            id={`${idPrefix}filter-category`}
+            value={selectedCategory}
+            onChange={(e) => handleCategoryChange(e.target.value)}
+            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+          >
+            {CATEGORY_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        </div>
+      </div>
+
+      {/* Dropdown 3: Industry */}
+      <div>
+        <label
+          htmlFor={`${idPrefix}filter-industry`}
+          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+        >
+          Industry
+        </label>
+        <div className="relative">
+          <select
+            id={`${idPrefix}filter-industry`}
+            value={selectedIndustry}
+            onChange={(e) => handleIndustryChange(e.target.value)}
+            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+          >
+            {INDUSTRY_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        </div>
+      </div>
+
+      {/* Dropdown 4: Standards & Brand */}
+      <div>
+        <label
+          htmlFor={`${idPrefix}filter-brand`}
+          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+        >
+          Standards &amp; Brand
+        </label>
+        <div className="relative">
+          <select
+            id={`${idPrefix}filter-brand`}
+            value={selectedBrand}
+            onChange={(e) => handleBrandChange(e.target.value)}
+            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+          >
+            {BRAND_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        </div>
+      </div>
+    </div>
+  );
+
+  // Mobile filter sheet: lock page scroll and close on Escape while open
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFiltersOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [filtersOpen, setFiltersOpen]);
+
+  const activeFilterCount = [selectedOperation, selectedCategory, selectedIndustry, selectedBrand].filter(
+    (v) => v !== "all"
+  ).length;
+
+
   return (
     <div className="w-full">
       {/* 1. Keyword Search Bar */}
-      <div className="relative mb-5">
+      <div className="relative mb-3 md:mb-5">
         <Search className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
         <input
           type="search"
@@ -758,111 +888,102 @@ function ProductCatalogInner() {
         )}
       </div>
 
-      {/* 2. Competitor-Style Horizontal 4-Dropdown Filter Bar (Anton Paar Style) */}
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Dropdown 1: Type of Operation */}
-          <div>
-            <label
-              htmlFor="filter-operation"
-              className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
-            >
-              Type of operation
-            </label>
-            <div className="relative">
-              <select
-                id="filter-operation"
-                value={selectedOperation}
-                onChange={(e) => handleOperationChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
-              >
-                {OPERATION_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            </div>
-          </div>
-
-          {/* Dropdown 2: Product Group / Category */}
-          <div>
-            <label
-              htmlFor="filter-category"
-              className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
-            >
-              Product Group
-            </label>
-            <div className="relative">
-              <select
-                id="filter-category"
-                value={selectedCategory}
-                onChange={(e) => handleCategoryChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
-              >
-                {CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            </div>
-          </div>
-
-          {/* Dropdown 3: Industry */}
-          <div>
-            <label
-              htmlFor="filter-industry"
-              className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
-            >
-              Industry
-            </label>
-            <div className="relative">
-              <select
-                id="filter-industry"
-                value={selectedIndustry}
-                onChange={(e) => handleIndustryChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
-              >
-                {INDUSTRY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            </div>
-          </div>
-
-          {/* Dropdown 4: Standards & Brand */}
-          <div>
-            <label
-              htmlFor="filter-brand"
-              className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
-            >
-              Standards &amp; Brand
-            </label>
-            <div className="relative">
-              <select
-                id="filter-brand"
-                value={selectedBrand}
-                onChange={(e) => handleBrandChange(e.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
-              >
-                {BRAND_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            </div>
-          </div>
+      {/* 2a. MOBILE: e-commerce style Filters button that opens a bottom sheet */}
+      <div className="md:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={filtersOpen}
+            className="cursor-pointer inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 shadow-xs transition hover:border-[#0056B3]"
+          >
+            <SlidersHorizontal className="h-4 w-4 text-[#0056B3]" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#0056B3] px-1.5 text-[11px] font-bold text-white">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+          <span className="text-xs font-medium text-slate-500">
+            {filteredProducts.length} {filteredProducts.length === 1 ? "instrument" : "instruments"}
+          </span>
         </div>
+        {hasActiveFilters && (
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {activeChips.map((chip) => (
+              <button
+                key={chip.key}
+                type="button"
+                onClick={chip.onRemove}
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-800 cursor-pointer"
+                title={`Remove ${chip.label}`}
+              >
+                <span>{chip.label}</span>
+                <X className="h-3.5 w-3.5 text-slate-400" />
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={handleResetAll}
+              className="cursor-pointer text-xs font-semibold text-[#d00000] hover:underline"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
 
-        {/* 3. Active Filters ("Your choice: ...") and "Reset all filters" */}
+        {filtersOpen && (
+          <div className="fixed inset-0 z-[70] flex flex-col justify-end" role="dialog" aria-modal="true" aria-label="Filter instruments">
+            <button
+              type="button"
+              aria-label="Close filters"
+              onClick={() => setFiltersOpen(false)}
+              className="absolute inset-0 bg-slate-900/50"
+            />
+            <div className="relative flex max-h-[85vh] flex-col rounded-t-2xl bg-white shadow-xl">
+              <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+                <h2 className="flex items-center gap-2 text-base font-semibold text-[#0056B3]">
+                  <SlidersHorizontal className="h-4 w-4" /> Filters
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen(false)}
+                  aria-label="Close filters"
+                  className="cursor-pointer rounded-full p-1.5 text-slate-500 hover:bg-slate-100"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="overflow-y-auto px-5 py-4">
+                {renderFilterFields("m-", "grid grid-cols-1 gap-4")}
+              </div>
+              <div className="flex items-center gap-3 border-t border-slate-200 px-5 py-4">
+                <button
+                  type="button"
+                  onClick={handleResetAll}
+                  className="cursor-pointer flex-1 rounded-lg border border-slate-300 py-2.5 text-sm font-semibold text-slate-700"
+                >
+                  Clear all
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen(false)}
+                  className="cursor-pointer flex-[2] rounded-lg bg-[#0056B3] py-2.5 text-sm font-semibold text-white"
+                >
+                  Show {filteredProducts.length} {filteredProducts.length === 1 ? "result" : "results"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 2b. TABLET / DESKTOP: Horizontal 4-Dropdown Filter Bar (Anton Paar Style) */}
+      <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
+        {renderFilterFields("", "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4")}
+
         {hasActiveFilters && (
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3.5">
             <div className="flex flex-wrap items-center gap-2">
@@ -897,7 +1018,7 @@ function ProductCatalogInner() {
 
       {/* 4. 4-Column Product Grid (Anton Paar Style) */}
       {filteredProducts.length > 0 ? (
-        <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
           {filteredProducts.map((p, idx) => (
             <ProductCard
               key={p.slug}
@@ -945,7 +1066,16 @@ function ProductCatalogInner() {
 
 function ProductCatalogContent() {
   const searchParams = useSearchParams();
-  return <ProductCatalogInner key={searchParams.toString()} />;
+  // Held here (outside the keyed inner component) so the mobile filter sheet
+  // stays open when a filter change updates the URL and remounts the inner tree.
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  return (
+    <ProductCatalogInner
+      key={searchParams.toString()}
+      filtersOpen={filtersOpen}
+      setFiltersOpen={setFiltersOpen}
+    />
+  );
 }
 
 export function ProductCatalog() {

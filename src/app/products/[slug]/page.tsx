@@ -69,7 +69,7 @@ export default async function ProductPage({
           !inCategory.some((x) => x.slug === p.slug),
       )
     : [];
-  const related = [...inCategory, ...inPillar].slice(0, 4);
+  const related = [...inCategory, ...inPillar].slice(0, 8);
 
   const sku = productCode(product);
 

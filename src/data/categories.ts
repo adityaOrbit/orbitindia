@@ -1514,6 +1514,6 @@ export function ancestorsOf(path: string): Category[] {
     cur = cur.slice(0, cur.lastIndexOf("/"));
     chain.unshift(cur);
   }
-  if (getCategoryByPath(cur)) chain.unshift(cur);
+  if (chain[0] !== cur && getCategoryByPath(cur)) chain.unshift(cur);
   return chain.map((p) => getCategoryByPath(p)).filter((c): c is Category => c !== null);
 }

@@ -105,7 +105,7 @@ export function CategoryView({ category }: { category: Category }) {
         {hasChildren ? (
           /* Subcategory Grid with Authentic Photography */
           <section aria-label={`Subcategories in ${category.name}`}>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
               {children.map((c) => {
                 const subIntro = getCategoryHeroIntro(c);
                 const imgSrc = CATEGORY_IMAGE_MAP[c.path] || "/images/orbit/Bomb-PNG.png";
@@ -117,22 +117,22 @@ export function CategoryView({ category }: { category: Category }) {
                     className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-lg transition-all duration-300"
                   >
                     {/* Visual Category Photo Thumbnail */}
-                    <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f8fafc] p-4 flex items-center justify-center border-b border-slate-100">
+                    <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f8fafc] p-2 sm:p-4 flex items-center justify-center border-b border-slate-100">
                       <Image
                         src={imgSrc}
                         alt={c.name}
                         fill
-                        className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-contain p-1 sm:p-2 transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 50vw, 33vw"
                       />
                     </div>
 
-                    <div className="flex flex-1 flex-col justify-between p-5">
+                    <div className="flex flex-1 flex-col justify-between p-3 sm:p-5">
                       <div>
-                        <h3 className="font-semibold text-base leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors">
+                        <h3 className="font-semibold text-sm sm:text-base leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors">
                           {c.name}
                         </h3>
-                        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-600">
+                        <p className="mt-1.5 sm:mt-2 line-clamp-2 text-[11px] sm:text-xs leading-relaxed text-slate-600">
                           {subIntro}
                         </p>
                       </div>
@@ -146,7 +146,7 @@ export function CategoryView({ category }: { category: Category }) {
           /* Products Grid (when no subcategories are present) */
           <section aria-label={`Products in ${category.name}`}>
             {allCategoryProducts.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
                 {allCategoryProducts.map((p, idx) => (
                   <ProductCard
                     key={p.slug}
