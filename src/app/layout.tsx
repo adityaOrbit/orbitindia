@@ -38,6 +38,13 @@ export const metadata: Metadata = {
   icons: {
     icon: withBasePath("/icon.svg"),
   },
+  // Site-wide noindex: keeps every page out of search results.
+  // Remove this block when the site is ready to be indexed.
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
 };
 
 export default function RootLayout({
