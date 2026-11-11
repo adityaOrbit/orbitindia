@@ -184,7 +184,7 @@ export function Header() {
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0056B3] hover:bg-slate-100 md:hidden cursor-pointer transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-[#0056B3] hover:bg-slate-100 lg:hidden cursor-pointer transition-colors"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -194,7 +194,7 @@ export function Header() {
         {/* Mobile Menu Drawer */}
         <div
           className={cn(
-            "border-b border-slate-200 bg-white md:hidden max-h-[calc(100vh-4rem)] overflow-y-auto shadow-2xl transition-all duration-200 ease-in-out",
+            "border-b border-slate-200 bg-white lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto shadow-2xl transition-all duration-200 ease-in-out",
             open ? "block" : "hidden"
           )}
         >
@@ -364,8 +364,8 @@ export function Header() {
         </div>
       </div>
 
-      {/* Royal Blue Navigation Bar (Desktop md:) */}
-      <div className="relative hidden bg-[#0056B3] md:block">
+      {/* Royal Blue Navigation Bar (Desktop lg:) */}
+      <div className="relative hidden bg-[#0056B3] lg:block">
         <div className="container-x flex items-center justify-between">
           <nav className="flex items-center gap-1">
             <Link

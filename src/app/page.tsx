@@ -299,53 +299,57 @@ export default function HomePage() {
       {/* -----------------------------------------------------------------------
           3. ABOUT ORBIT
       ------------------------------------------------------------------------ */}
-      <section className="mt-14 sm:mt-16 band border-y border-slate-200 py-14">
-        <div className="container-x grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
+      <section className="mt-14 sm:mt-16 band border-y border-slate-200 py-10 sm:py-14">
+        {/* Order: text → stats → buttons on phones/tablets; on desktop the buttons sit under the text and stats span the right column */}
+        <div className="container-x grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:gap-x-10 lg:gap-y-6">
+          <div className="max-w-3xl lg:self-end">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
               Indian Manufacturing, Global Representation, Pan-India Support
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-700">
+            <p className="mt-4 text-[15px] sm:text-base leading-relaxed text-slate-700">
               Orbit Technologies Pvt. Ltd., based in Hyderabad, manufactures, distributes and services scientific instruments across India. We combine Indian manufacturing, international partnerships and local technical support.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
               From our centrally located headquarters in Hyderabad, we support over 7,000 laboratories across power, mining, steel, cement, petroleum, chemicals, food, and academic research institutions with rapid spares availability and skilled application engineers.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Link href="/about-us" className="btn btn-accent">
-                Read the Orbit Story <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link href="/about-us#distributor" className="btn btn-outline">
-                Our Global Partners
-              </Link>
-            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="surface p-5 text-center">
-              <p className="text-3xl font-semibold tabular-nums text-[#d00000]">35+</p>
+          {/* Stats: 2x2 on phones, one row of 4 on tablets, 2x2 beside the text on desktop */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center">
+            <div className="surface px-3 py-4 sm:p-5 text-center">
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#d00000]">35+</p>
               <p className="mt-1 text-xs font-medium text-slate-600">
                 Years of service
               </p>
             </div>
-            <div className="surface p-5 text-center">
-              <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">7,000+</p>
+            <div className="surface px-3 py-4 sm:p-5 text-center">
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#0056B3]">7,000+</p>
               <p className="mt-1 text-xs font-medium text-slate-600">
                 Active installations
               </p>
             </div>
-            <div className="surface p-5 text-center">
-              <p className="text-3xl font-semibold tabular-nums text-[#0056B3]">14</p>
+            <div className="surface px-3 py-4 sm:p-5 text-center">
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#0056B3]">14</p>
               <p className="mt-1 text-xs font-medium text-slate-600">
                 Branch cities
               </p>
             </div>
-            <div className="surface p-5 text-center">
-              <p className="text-3xl font-semibold tabular-nums text-[#d00000]">30,000</p>
+            <div className="surface px-3 py-4 sm:p-5 text-center">
+              <p className="text-2xl sm:text-3xl font-semibold tabular-nums text-[#d00000]">30,000</p>
               <p className="mt-1 text-xs font-medium text-slate-600">
                 Sq. ft. facility
               </p>
             </div>
+          </div>
+
+          {/* Buttons: full width on phones, inline from tablet up */}
+          <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-4 lg:col-start-1 lg:row-start-2 lg:self-start">
+            <Link href="/about-us" className="btn btn-accent w-full justify-center sm:w-auto">
+              Read the Orbit Story <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/about-us#distributor" className="btn btn-outline w-full justify-center sm:w-auto">
+              Our Global Partners
+            </Link>
           </div>
         </div>
       </section>
@@ -512,10 +516,11 @@ export default function HomePage() {
             </div>
 
             {/* Direct contact strip */}
-            <div className="mt-10 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs sm:text-sm text-slate-300">
+            {/* Phones: stacked & centred. sm+: one row side by side (text steps down at sm so both fit) */}
+            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5 md:gap-8 text-sm sm:text-xs md:text-sm text-slate-300">
               <a
                 href="tel:+914067216354"
-                className="inline-flex items-center gap-2.5 hover:text-white transition group"
+                className="inline-flex items-center gap-2.5 whitespace-nowrap hover:text-white transition group"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#d00000] transition">
                   <Phone className="h-4 w-4 text-white" />
@@ -523,11 +528,11 @@ export default function HomePage() {
                 <span>Direct line: <strong className="font-semibold text-white tabular-nums">+91 40 6721 6354</strong></span>
               </a>
 
-              <div className="hidden sm:inline-block h-4 w-px bg-white/20" />
+              <div className="hidden sm:block h-4 w-px shrink-0 bg-white/20" />
 
               <a
                 href="mailto:orbit@orbitindia.com"
-                className="inline-flex items-center gap-2.5 hover:text-white transition group"
+                className="inline-flex items-center gap-2.5 whitespace-nowrap hover:text-white transition group"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 group-hover:bg-[#d00000] transition">
                   <Mail className="h-4 w-4 text-white" />

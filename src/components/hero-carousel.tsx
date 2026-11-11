@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface HeroSlide {
   title: string;
@@ -55,28 +54,19 @@ interface HeroCarouselProps {
 
 export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarouselProps) {
   const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
-  const nextSlide = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % slides.length);
-  }, [slides.length]);
-
-  const prevSlide = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, [slides.length]);
-
-  // Auto-play timer (5.5 seconds)
+  // Auto-rotate the background image every 1.5 seconds (no manual controls).
   useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(nextSlide, 5500);
+    if (slides.length < 2) return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 1500);
     return () => clearInterval(timer);
-  }, [nextSlide, isPaused]);
+  }, [slides.length]);
 
   return (
     <div
       className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[680px] w-full overflow-hidden bg-[#001733] text-white flex items-center"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       role="region"
       aria-label="Scientific Instruments Showcase Carousel"
     >
@@ -90,7 +80,7 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
             <div
               key={slide.model + idx}
               aria-hidden={!isActive}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
               }`}
             >
@@ -127,60 +117,6 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
         {children}
       </div>
 
-      {/* ------------------------------------------------------------- */}
-      {/* SLIDE INDICATORS & CONTROLS (Floating at bottom-right)        */}
-      {/* ------------------------------------------------------------- */}
-      <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-12 z-30 flex items-center gap-3">
-        {/* Active Instrument Badge */}
-        <div className="hidden md:flex items-center gap-2 rounded-full bg-[#001733]/90 px-3.5 py-1.5 text-xs border border-white/20">
-          <span className="h-2 w-2 rounded-full bg-[#d00000]" />
-          <span className="font-semibold text-white/90">
-            {slides[current].model}
-          </span>
-          <span className="text-white/40">·</span>
-          <span className="text-slate-300 text-[11px]">
-            {slides[current].badge}
-          </span>
-        </div>
-
-        {/* Carousel Prev/Next Buttons */}
-        <div className="flex items-center gap-1.5 rounded-full bg-[#001733]/90 p-1 border border-white/20">
-          <button
-            type="button"
-            onClick={prevSlide}
-            aria-label="Previous slide"
-            className="cursor-pointer rounded-full p-2 text-white/80 transition hover:bg-white/20 hover:text-white"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-
-          {/* Dots */}
-          <div className="flex items-center gap-1 px-1">
-            {slides.map((_, dotIdx) => (
-              <button
-                key={dotIdx}
-                type="button"
-                onClick={() => setCurrent(dotIdx)}
-                aria-label={`Go to slide ${dotIdx + 1}`}
-                className={`cursor-pointer rounded-full transition-all ${
-                  dotIdx === current
-                    ? "w-5 h-2 bg-[#d00000]"
-                    : "w-2 h-2 bg-white/40 hover:bg-white/70"
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={nextSlide}
-            aria-label="Next slide"
-            className="cursor-pointer rounded-full p-2 text-white/80 transition hover:bg-white/20 hover:text-white"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

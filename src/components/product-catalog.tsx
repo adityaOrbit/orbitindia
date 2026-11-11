@@ -906,9 +906,6 @@ function ProductCatalogInner({
               </span>
             )}
           </button>
-          <span className="text-xs font-medium text-slate-500">
-            {filteredProducts.length} {filteredProducts.length === 1 ? "instrument" : "instruments"}
-          </span>
         </div>
         {hasActiveFilters && (
           <div className="mt-3 flex flex-wrap items-center gap-2">

@@ -69,11 +69,6 @@ export function ProductCard({
         <h3 className={`${compact ? "text-xs sm:text-sm line-clamp-2" : "text-sm sm:text-base"} font-semibold leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors`}>
           {product.name}
         </h3>
-        {!compact && (
-          <p className="mt-1.5 line-clamp-2 flex-1 text-[11px] sm:text-sm leading-relaxed text-slate-600">
-            {product.tagline}
-          </p>
-        )}
       </div>
     </Link>
   );
