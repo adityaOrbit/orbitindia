@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export interface HeroSlide {
   title: string;
@@ -71,9 +72,10 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
       aria-label="Scientific Instruments Showcase Carousel"
     >
       {/* ------------------------------------------------------------- */}
-      {/* BACKGROUND SLIDES: Image right-focused, gradient left-focused */}
+      {/* BACKGROUND SLIDES (phones & tablets only; desktop uses the     */}
+      {/* product panel below on a plain navy background)               */}
       {/* ------------------------------------------------------------- */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 lg:hidden">
         {slides.map((slide, idx) => {
           const isActive = idx === current;
           return (
@@ -113,8 +115,36 @@ export function HeroCarousel({ slides = DEFAULT_SLIDES, children }: HeroCarousel
       {/* ------------------------------------------------------------- */}
       {/* FOREGROUND CONTENT (Left-aligned text & interactive CTA)     */}
       {/* ------------------------------------------------------------- */}
-      <div className="container-x relative z-20 py-16 sm:py-20 lg:py-24">
-        {children}
+      <div className="container-x relative z-20 py-16 sm:py-20 lg:grid lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-14 lg:py-24">
+        <div>{children}</div>
+
+        {/* DESKTOP PRODUCT PANEL: whole instrument on white, crossfading */}
+        <Link
+          href={slides[current].href}
+          className="group relative hidden lg:flex flex-col rounded-2xl bg-white p-6 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.55)]"
+          aria-label={`${slides[current].model}: view range`}
+        >
+          <div className="relative aspect-[5/4] w-full">
+            {slides.map((slide, idx) => (
+              <div
+                key={slide.model + idx}
+                aria-hidden={idx !== current}
+                className={`absolute inset-0 transition-opacity duration-300 ease-in-out ${
+                  idx === current ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  priority={idx === 0}
+                  className="object-contain"
+                  sizes="(min-width: 1024px) 480px, 1px"
+                />
+              </div>
+            ))}
+          </div>
+        </Link>
       </div>
 
     </div>

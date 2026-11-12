@@ -321,10 +321,7 @@ export default function DistributorPage() {
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Authorized Distribution
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Ready to Equip Your Laboratory with International Precision?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">
@@ -339,7 +336,7 @@ export default function DistributorPage() {
                 href="/products"
                 className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20"
               >
-                Browse All 178 Instruments
+                Browse All Instruments
               </Link>
             </div>
           </div>

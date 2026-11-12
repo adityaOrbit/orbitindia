@@ -94,15 +94,15 @@ export function Footer() {
     <footer className="mt-16 bg-[#001c3d] text-slate-300">
       <div className="container-x py-14">
         {/* Main Grid */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           {/* Col 1: Brand & Description */}
-          <div>
+          <div className="col-span-2 text-center md:col-span-1 md:text-left">
             <Image
               src={withBasePath("/logo-white.png")}
               alt="Orbit Technologies"
               width={150}
               height={60}
-              className="h-12 w-auto"
+              className="mx-auto h-12 w-auto md:mx-0"
             />
             <p className="mt-2 text-xs font-semibold text-[#93c5fd]">
               Orbit Technologies Pvt. Ltd.
@@ -111,13 +111,13 @@ export function Footer() {
               Scientific and analytical instruments for laboratories and research.
             </p>
             <div className="mt-5 space-y-2 text-xs text-slate-300">
-              <p className="flex items-start gap-2">
+              <p className="flex items-start justify-center gap-2 md:justify-start">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <span>
                   B-50, Industrial Estate, Sanath Nagar, Hyderabad – 500018, Telangana, India
                 </span>
               </p>
-              <p className="flex items-center gap-2">
+              <p className="flex items-center justify-center gap-2 md:justify-start">
                 <Phone className="h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <a
                   href="tel:+914067216354"
@@ -133,7 +133,7 @@ export function Footer() {
                   +91 40 6721 6354
                 </a>
               </p>
-              <p className="flex items-center gap-2">
+              <p className="flex items-center justify-center gap-2 md:justify-start">
                 <Mail className="h-4 w-4 shrink-0 text-[#93c5fd]" />
                 <a
                   href="mailto:orbit@orbitindia.com"
@@ -189,7 +189,7 @@ export function Footer() {
           </div>
 
           {/* Col 4: Branch Network */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h3 className="text-sm font-bold uppercase tracking-wider text-white">
               Branch Network
             </h3>

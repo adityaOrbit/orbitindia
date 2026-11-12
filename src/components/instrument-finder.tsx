@@ -242,7 +242,7 @@ export function InstrumentFinder() {
             href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
             className="btn btn-outline border-slate-300 text-xs sm:text-sm"
           >
-            <PhoneCall className="h-4 w-4 text-[#d00000]" /> Request a Call
+            <PhoneCall className="h-4 w-4 text-[#d00000]" /> Call Us
           </a>
           <Link
             href="/contact-us#quote"

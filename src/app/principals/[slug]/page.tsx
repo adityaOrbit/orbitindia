@@ -83,9 +83,6 @@ export default async function PrincipalDetailPage({
           <div className="grid gap-8 lg:grid-cols-3 lg:items-center">
             <div className="lg:col-span-2">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-md bg-[#d00000] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
-                  Authorized Indian Partner
-                </span>
                 <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-medium text-slate-300">
                   {principal.flag} {principal.country}
                 </span>
@@ -247,10 +244,7 @@ export default async function PrincipalDetailPage({
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Authorized Support
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Need Support, Spares, or Calibration for {principal.name}?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

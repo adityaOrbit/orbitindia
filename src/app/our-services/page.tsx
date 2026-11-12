@@ -127,10 +127,7 @@ export default function OurServicesPage() {
         <div className="overflow-hidden rounded-2xl bg-[#001c3d] p-6 text-white shadow-lg sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Rapid Service Dispatch
-              </span>
-              <h2 className="mt-2 text-xl font-bold sm:text-2xl text-white">
+              <h2 className="text-xl font-bold sm:text-2xl text-white">
                 Equipment Down or Urgent Service Required?
               </h2>
               <p className="mt-1 text-xs text-slate-300 max-w-xl">
@@ -298,10 +295,7 @@ export default function OurServicesPage() {
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Official Service Desk
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Ready to Schedule Maintenance or Recalibration?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

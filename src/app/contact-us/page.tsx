@@ -116,6 +116,19 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Location map (Orbit Technologies Pvt Ltd Google listing) */}
+      <section className="container-x mt-12" aria-label="Office location map">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+          <iframe
+            title="Orbit Technologies Pvt Ltd on Google Maps"
+            src="https://maps.google.com/maps?q=Orbit%20Technologies%20Pvt%20Ltd%2C%20B-50%2C%20Industrial%20Estate%2C%20Sanath%20Nagar%2C%20Hyderabad%2C%20Telangana%20500018&t=m&z=16&output=embed&iwloc=near"
+            className="block h-[320px] w-full sm:h-[420px]"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
     </div>
   );
 }

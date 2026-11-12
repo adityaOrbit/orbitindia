@@ -231,10 +231,10 @@ export default function HomePage() {
           1. HERO (Dynamic Background Carousel with Left Gradient)
       ------------------------------------------------------------------------ */}
       <HeroCarousel slides={heroCarouselSlides}>
-        <div className="grid gap-12 lg:grid-cols-[1.25fr_0.9fr] lg:items-center">
-          {/* Left Text Column */}
+        <div>
+          {/* Left Text Column (desktop product panel is rendered by HeroCarousel) */}
           <div className="max-w-2xl">
-            <h1 className="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-5xl lg:text-[2.6rem] xl:text-[3.25rem]">
               Scientific &amp; Analytical Instruments for Laboratories and{" "}
               <span className="text-[#93c5fd]">Research Labs in India.</span>
             </h1>
@@ -497,12 +497,12 @@ export default function HomePage() {
           9. FINAL CALL TO ACTION (Just above footer)
       ------------------------------------------------------------------------ */}
       <section className="container-x my-14 sm:my-18">
-        <div className="rounded-xl border border-slate-700/40 bg-[#001c3d] p-8 sm:p-12 text-white">
+        <div className="rounded-xl bg-[#0056B3] p-8 sm:p-12 text-white">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-4xl">
               Ready to Equip or Upgrade Your Laboratory?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
+            <p className="mt-4 text-sm leading-relaxed text-blue-100 sm:text-base">
               Speak directly with Orbit’s senior application engineering team to discuss your testing parameters, sample matrices, ASTM / ISO test method compliance, or custom instrument configurations.
             </p>
 
@@ -517,7 +517,7 @@ export default function HomePage() {
 
             {/* Direct contact strip */}
             {/* Phones: stacked & centred. sm+: one row side by side (text steps down at sm so both fit) */}
-            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5 md:gap-8 text-sm sm:text-xs md:text-sm text-slate-300">
+            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/20 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5 md:gap-8 text-sm sm:text-xs md:text-sm text-blue-100">
               <a
                 href="tel:+914067216354"
                 className="inline-flex items-center gap-2.5 whitespace-nowrap hover:text-white transition group"

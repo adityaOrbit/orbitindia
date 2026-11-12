@@ -43,7 +43,7 @@ export default function IndustriesHubPage() {
           {industries.map((ind) => (
             <div
               key={ind.slug}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
             >
               <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                 <Image
@@ -88,13 +88,13 @@ export default function IndustriesHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/industries/${ind.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline after:absolute after:inset-0 after:content-['']"
                   >
                     Explore Sector Solutions <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href={`/products?industry=${ind.slug}`}
-                    className="text-[11px] font-semibold text-slate-400 hover:text-[#0056B3]"
+                    className="relative z-10 text-[11px] font-semibold text-slate-400 hover:text-[#0056B3]"
                   >
                     Filter Products
                   </Link>
@@ -110,10 +110,7 @@ export default function IndustriesHubPage() {
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Custom Laboratory Supply
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Need a Complete Turnkey Lab Package for Your Plant?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">
@@ -128,7 +125,7 @@ export default function IndustriesHubPage() {
                 href="/products"
                 className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20"
               >
-                Browse All 178 Instruments
+                Browse All Instruments
               </Link>
             </div>
           </div>

@@ -32,7 +32,8 @@ type KnowledgeArticle = {
   tag: "Technical Article" | "Guide" | "Application Note";
   title: string;
   summary: string;
-  details: string;
+  /** Knowledge Hub article slug (/knowledge-hub/<slug>/). */
+  slug: string;
   date: string;
   image: string;
 };
@@ -81,8 +82,7 @@ const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     title: "Understanding GCV in Coal Testing",
     summary:
       "Gross Calorific Value (GCV) determination, bomb calorimetry standards (ASTM D5865, ISO 1928), and moisture corrections in commercial coal analysis.",
-    details:
-      "Gross Calorific Value (GCV), also termed higher heating value (HHV), represents the absolute heat of combustion when all water generated is condensed to liquid state. In thermal power stations and coal trading, accurate GCV calculation directly governs station heat rate calculations and billing penalties. Isoperibol oxygen bomb calorimeters (such as the Parr 6400 and 7400) maintain jacket temperatures with micro-Kelvin precision, complying with ASTM D5865 and IS 1350 protocols without manual thermometric calculations.",
+    slug: "bomb-calorimetry-gcv",
     date: "October 2026",
     image: "/images/orbit/7200-Precision-Isoperibol-Calorimeter.jpg",
   },
@@ -92,8 +92,7 @@ const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     title: "Proximate Analysis of Coal",
     summary:
       "Automated determination of moisture, volatile matter, ash and fixed carbon in coal and coke samples using modern thermogravimetric analysers.",
-    details:
-      "Proximate analysis separates coal into four key constituents: moisture, volatile matter, ash, and fixed carbon by difference. Traditional muffle furnace procedures require multiple manual transfers and weighings across many hours. Orbit's TGA 3000 automates up to 19 samples per carousel, executing sequential heating ramps in nitrogen and oxygen environments to eliminate operator transfer errors and deliver automated reports conforming to ASTM D7582.",
+    slug: "proximate-analysis-of-coal",
     date: "September 2026",
     image: "/images/orbit/tga-3000.jpg",
   },
@@ -103,8 +102,7 @@ const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     title: "How to Choose a Bomb Calorimeter",
     summary:
       "A practical comparison of automatic, removable bomb and isoperibol calorimeters for testing laboratories.",
-    details:
-      "Selecting the appropriate calorimeter hinges on test throughput, operator skill, and sample volatility. Removable-bomb systems (Parr 6200/7200) allow washing and multi-bomb cycling ideal for high-precision research or high-chlorine fuels. Fully automated systems (Parr 6400/7400) automatically charge oxygen and wash the bomb vessel internally between determinations, maximizing daily output for central testing laboratories handling 50+ determinations per shift.",
+    slug: "parr-7400-vs-6400-calorimeter-comparison",
     date: "August 2026",
     image: "/images/orbit/6400-Fully-Automatic-Isope.jpg",
   },
@@ -114,8 +112,7 @@ const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     title: "Understanding Ash Fusion Temperature",
     summary:
       "Assessing ash softening, hemispherical and fluid temperatures to predict boiler slagging and fouling.",
-    details:
-      "Ash Fusion Temperature (AFT) testing records the behavioral transformation of coal ash cones under reducing or oxidizing furnace atmospheres up to 1600°C. Deformation Temperature (IT), Softening Temperature (ST), Hemispherical Temperature (HT), and Fluid Temperature (FT) inform boiler engineers whether ash will coat boiler water-walls or drop cleanly into slag pits, safeguarding boiler availability in coal-fired power plants.",
+    slug: "ash-fusibility-determination",
     date: "July 2026",
     image: "/images/orbit/high-temperature-chamber-furnaces.jpg",
   },
@@ -123,7 +120,6 @@ const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
 
 export function EventsAndKnowledge() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeArticle, setActiveArticle] = useState<KnowledgeArticle | null>(null);
   const [activeExhibition, setActiveExhibition] = useState<Exhibition | null>(null);
 
   // Automatically filter out past events and keep upcoming ones first
@@ -261,12 +257,24 @@ export function EventsAndKnowledge() {
 
           <div className="mt-6 space-y-3">
             {KNOWLEDGE_ARTICLES.map((art) => (
-              <div
+              <Link
                 key={art.id}
-                onClick={() => setActiveArticle(art)}
-                className="group flex items-center justify-between gap-3 sm:gap-4 rounded-xl border border-slate-200 bg-[#fbfcfd] p-3 sm:p-3.5 transition hover:border-[#0056B3]/40 hover:bg-white hover:shadow-xs cursor-pointer"
+                href={`/knowledge-hub/${art.slug}/`}
+                className="group flex items-center gap-3 sm:gap-4 rounded-xl border border-slate-200 bg-[#fbfcfd] p-3 sm:p-3.5 transition hover:border-[#0056B3]/40 hover:bg-white hover:shadow-xs"
               >
-                {/* Left: Tag, Date, Title, Short Description */}
+                {/* Left: Thumbnail Image */}
+                {art.image && (
+                  <div className="relative h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-white">
+                    <Image
+                      src={withBasePath(art.image)}
+                      alt={art.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Right: Tag, Title, Short Description */}
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center gap-2">
                     <span
@@ -278,7 +286,6 @@ export function EventsAndKnowledge() {
                     >
                       {art.tag}
                     </span>
-                    <span className="text-[11px] text-slate-400">{art.date}</span>
                   </div>
 
                   <h4 className="text-xs sm:text-sm font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors leading-snug">
@@ -289,82 +296,11 @@ export function EventsAndKnowledge() {
                     {art.summary}
                   </p>
                 </div>
-
-                {/* Right: Thumbnail Image */}
-                {art.image && (
-                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
-                    <Image
-                      src={withBasePath(art.image)}
-                      alt={art.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Article Detail Modal */}
-      {activeArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="relative max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-6 sm:p-8 shadow-xl">
-            <button
-              type="button"
-              onClick={() => setActiveArticle(null)}
-              aria-label="Close modal"
-              className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <span className="chip chip-accent text-xs font-medium">
-              {activeArticle.tag}
-            </span>
-            <h3 className="mt-3 text-xl font-semibold text-[#0056B3] sm:text-2xl">
-              {activeArticle.title}
-            </h3>
-            <p className="mt-2 text-xs font-medium text-slate-500">
-              Published by Orbit Technical Application Team · {activeArticle.date}
-            </p>
-
-            {activeArticle.image && (
-              <div className="relative mt-4 aspect-[16/8] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
-                <Image
-                  src={withBasePath(activeArticle.image)}
-                  alt={activeArticle.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-
-            <div className="mt-4 border-t border-slate-100 pt-4 text-sm leading-relaxed text-slate-700 space-y-3">
-              <p className="font-semibold text-slate-900">{activeArticle.summary}</p>
-              <p className="text-slate-600">{activeArticle.details}</p>
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5">
-              <Link
-                href="/contact-us#quote"
-                onClick={() => setActiveArticle(null)}
-                className="btn btn-accent text-xs"
-              >
-                Discuss with Application Engineer
-              </Link>
-              <button
-                type="button"
-                onClick={() => setActiveArticle(null)}
-                className="btn btn-outline text-xs"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Exhibition Detail Modal */}
       {activeExhibition && (

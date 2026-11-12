@@ -91,10 +91,7 @@ export default async function IndustryDetailPage({
         <div className="container-x">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <span className="rounded-md bg-[#d00000] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                Industry Solution
-              </span>
-              <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-white">
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-white">
                 {industry.name}
               </h1>
               <p className="mt-2 text-lg font-medium text-[#feeceb]">
@@ -271,10 +268,7 @@ export default async function IndustryDetailPage({
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Specialized Lab Engineering
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Need a Custom Proposal for Your {industry.name} Facility?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">

@@ -12,7 +12,6 @@ import {
   Sparkles,
   CheckCircle2,
   SlidersHorizontal,
-  Flame,
   Check,
   Building2,
   X,
@@ -107,9 +106,6 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
           <div className="relative grid items-center gap-8 p-6 md:p-10 lg:grid-cols-12 lg:p-12">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d00000] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
-                  <Flame className="h-3.5 w-3.5" /> Featured Launch
-                </span>
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200 backdrop-blur-xs">
                   {headlineNews.category}
                 </span>

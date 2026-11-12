@@ -116,10 +116,7 @@ export function SupportServiceSection() {
       <div className="mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-[#00387a] via-[#0056B3] to-[#00274d] p-6 text-white shadow-md sm:p-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
-            <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-              Nationwide Service Care
-            </span>
-            <h3 className="mt-2 text-xl font-semibold sm:text-2xl">
+            <h3 className="text-xl font-semibold sm:text-2xl">
               Need Prompt Technical Support or Instrument Service?
             </h3>
             <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-200">

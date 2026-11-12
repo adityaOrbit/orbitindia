@@ -17,6 +17,15 @@ const aboutLinks = [
   { href: "/our-clients/", label: "Our Clients" },
 ];
 
+/** Mobile/tablet menu: flat product category links (no nested sub-menus). */
+const mobileProductLinks = [
+  { href: "/analytical-instruments/", label: "Analytical Instruments" },
+  { href: "/reactors/", label: "Parr Reactors" },
+  { href: "/milling-pulverising/", label: "Sample Preparation Equipment" },
+  { href: "/furnace-heating-systems/", label: "Furnace & Heating Systems" },
+  { href: "/crms-srms-laboratory-accessories/", label: "CRM’s, SRM’s & Laboratory Accessories" },
+];
+
 const mainNav = [
   { href: "/industries/", label: "Industries" },
   { href: "/our-services/", label: "Services" },
@@ -32,7 +41,6 @@ export function Header() {
 
   const [mobileProducts, setMobileProducts] = useState(false);
   const [mobileAbout, setMobileAbout] = useState(false);
-  const [mobileActiveTab, setMobileActiveTab] = useState<string | null>("analytical-instruments");
   const [activeTabId, setActiveTabId] = useState<string>("analytical-instruments");
 
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -224,74 +232,17 @@ export function Header() {
               </button>
 
               {mobileProducts && (
-                <div className="px-3 pb-3 pt-1 space-y-2 border-t border-slate-100 bg-white">
-                  {/* Divisions List */}
-                  <div className="space-y-1.5 pt-1">
-                    {authenticMegaMenu.map((tab) => {
-                      const isExpanded = mobileActiveTab === tab.id;
-                      return (
-                        <div
-                          key={tab.id}
-                          className="rounded-md border border-slate-100 bg-slate-50/50"
-                        >
-                          <div className="flex items-center justify-between px-2.5 py-1.5">
-                            <Link
-                              href={`/${tab.path}/`}
-                              onClick={() => setOpen(false)}
-                              className="text-xs font-bold text-[#0056B3] hover:text-[#d00000]"
-                            >
-                              {tab.title}
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                setMobileActiveTab(isExpanded ? null : tab.id)
-                              }
-                              className="p-1 text-slate-400 hover:text-slate-700"
-                              aria-label={`Toggle ${tab.title}`}
-                            >
-                              <ChevronDown
-                                className={cn(
-                                  "h-3.5 w-3.5 transition-transform duration-200",
-                                  isExpanded && "rotate-180"
-                                )}
-                              />
-                            </button>
-                          </div>
-                          {isExpanded && (
-                            <div className="border-t border-slate-100 bg-white px-2.5 py-2 space-y-2">
-                              {tab.columns.flat().map((sec) => (
-                                <div key={sec.title} className="space-y-1">
-                                  <Link
-                                    href={`/${sec.path}/`}
-                                    onClick={() => setOpen(false)}
-                                    className="text-xs font-bold text-[#d00000] block"
-                                  >
-                                    {sec.title}
-                                  </Link>
-                                  {sec.items.length > 0 && (
-                                    <ul className="ml-1 space-y-1">
-                                      {sec.items.map((item) => (
-                                        <li key={item.label}>
-                                          <Link
-                                            href={`/${item.path}/`}
-                                            onClick={() => setOpen(false)}
-                                            className="text-[11px] text-slate-600 hover:text-[#0056B3] block py-0.5"
-                                          >
-                                            {item.label}
-                                          </Link>
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="border-t border-slate-100 bg-white px-3 py-1.5 space-y-1">
+                  {mobileProductLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="block rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0056B3]"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

@@ -325,10 +325,7 @@ export function KnowledgeHubMaster({
       <section className="relative overflow-hidden rounded-2xl bg-[#0056B3] p-8 md:p-10 text-white shadow-xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="max-w-xl">
-            <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-              Method Development &amp; Training
-            </span>
-            <h3 className="mt-2 text-xl font-semibold sm:text-2xl">
+            <h3 className="text-xl font-semibold sm:text-2xl">
               Require an On-Site SOP Workshop or Custom Test Protocol?
             </h3>
             <p className="mt-2 text-xs md:text-sm text-slate-300 leading-relaxed">

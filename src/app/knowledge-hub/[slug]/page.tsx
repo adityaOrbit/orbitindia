@@ -73,9 +73,6 @@ export default async function KnowledgeArticleDetailPage({
       <header className="border-b border-slate-200 bg-[#001c3d] py-14 text-white">
         <div className="container-x max-w-4xl">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-md bg-[#d00000] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
-              {article.category}
-            </span>
             <span className="flex items-center gap-1.5 text-xs text-slate-300">
               <Clock className="h-3.5 w-3.5 text-[#feeceb]" /> {article.readTime}
             </span>
@@ -200,10 +197,7 @@ export default async function KnowledgeArticleDetailPage({
         <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-2xl">
-              <span className="inline-block rounded-md bg-[#d00000] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-black">
-                Method Validation
-              </span>
-              <h3 className="mt-2 text-2xl font-semibold sm:text-3xl">
+              <h3 className="text-2xl font-semibold sm:text-3xl">
                 Need Help Implementing {article.standards[0]} in Your Laboratory?
               </h3>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">
