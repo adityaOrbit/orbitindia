@@ -1,5 +1,4 @@
 import { site, branchOffices } from "@/data/site";
-import { BRANCH_LOCATIONS } from "@/data/locations";
 import { PRODUCT_IMAGE_MAP } from "@/data/product-media";
 import type { Product } from "@/data/products";
 import type { Category } from "@/data/categories";
@@ -410,36 +409,3 @@ export function getPrincipalSchema(name: string, tagline: string, slug: string, 
   };
 }
 
-/**
- * 11. Locations Page Schema (CollectionPage + ItemList of LocalBusiness branches)
- */
-export function getLocationsPageSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Orbit Technologies PAN-India Branch Network",
-    description:
-      "15 direct sales and service locations across India providing 24-48 hour on-site laboratory support.",
-    mainEntity: {
-      "@type": "ItemList",
-      numberOfItems: BRANCH_LOCATIONS.length,
-      itemListElement: BRANCH_LOCATIONS.map((loc, idx) => ({
-        "@type": "ListItem",
-        position: idx + 1,
-        item: {
-          "@type": "LocalBusiness",
-          name: `Orbit Technologies Pvt. Ltd. - ${loc.city} Office`,
-          telephone: loc.phone,
-          email: loc.email,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: loc.address,
-            addressLocality: loc.city,
-            addressRegion: loc.state,
-            addressCountry: "IN",
-          },
-        },
-      })),
-    },
-  };
-}

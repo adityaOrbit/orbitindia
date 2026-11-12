@@ -577,8 +577,8 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
             <Link href="/contact-us" className="btn btn-accent text-xs md:text-sm font-bold shadow-md">
               Schedule Demonstration <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/locations" className="btn btn-outline text-xs md:text-sm font-semibold">
-              Find Nearest Branch
+            <Link href="/contact-us/" className="btn btn-outline text-xs md:text-sm font-semibold">
+              Our Branch Offices
             </Link>
           </div>
         </div>
