@@ -23,14 +23,11 @@ export const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
   "ash-fusion-analyzer-ht-if2000g-hdbm": [
     "/images/orbit/IF2000G.jpg",
     "/images/orbit/Catalogue-29.jpg",
-    "/images/orbit/WhatsApp-Image-2023-06-15-at-11.47.12.jpeg",
-    "/images/orbit/CSbox.jpg"
+    "/images/orbit/WhatsApp-Image-2023-06-15-at-11.47.12.jpeg"
   ],
   "ash-fusion-analyzer-if2000g-hdc": [
     "/images/orbit/IF2000G.jpg",
-    "/images/orbit/ash-fusion-IF2000g-HDC-Catalogue.jpg",
-    "/images/orbit/Combustion-Master-CS.png",
-    "/images/orbit/CSbox.jpg"
+    "/images/orbit/ash-fusion-IF2000g-HDC-Catalogue.jpg"
   ],
   "1341-plain-jacket-calorimeter": [
     "/images/orbit/parr-1.png",
@@ -1061,14 +1058,12 @@ export const PRODUCT_IMAGE_MAP: Record<string, string[]> = {
   ],
   "tga-1500-thermogravimetric-analyzer": [
     "/images/orbit/TGA1500.png",
-    "/images/orbit/Tga-1500-Catalogue.jpg",
-    "/images/orbit/Combustion-Master-CS-Analyzer-For-Inorganic.png",
-    "/images/orbit/CSbox.jpg"
+    "/images/orbit/Tga-1500-Catalogue.jpg"
   ],
   "tga-3000-thermogravimetric-analyzer": [
-    "/images/orbit/tga-3000-thermogravimetric-analyzer-pdf.jpg",
-    "/images/orbit/Combustion-Master-CS-Analyzer-For-Inorganic.png",
-    "/images/orbit/CSbox.jpg"
+    "/images/orbit/TGA-images-450-x-515-px.jpg",
+    "/images/orbit/tga-3000.jpg",
+    "/images/orbit/tga-3000-thermogravimetric-analyzer-pdf.jpg"
   ],
   "tube-furnace-single-zone-1200c-to-1850-c": [
     "/images/orbit/Tube.jpg",

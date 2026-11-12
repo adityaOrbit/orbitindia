@@ -123,7 +123,7 @@ export function KnowledgeTools() {
 // TOOL 1: CALORIFIC VALUE & BASIS CONVERTER
 // ==========================================
 
-function CalorificBasisConverter() {
+export function CalorificBasisConverter() {
   const [val, setVal] = useState<number>(5500);
   const [unit, setUnit] = useState<"kcal" | "mj" | "btu">("kcal");
   const [basis, setBasis] = useState<"ad" | "ar" | "db">("ad");
@@ -165,8 +165,7 @@ function CalorificBasisConverter() {
   return (
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
-        <span className="chip chip-accent text-[11px] font-bold">Standard Formula ASTM D5865 / ISO 1928</span>
-        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
+        <h3 className="text-xl font-semibold text-[#0056B3]">
           Coal Calorific Value (GCV/NCV) Unit &amp; Basis Converter
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -393,7 +392,7 @@ function CalorificBasisConverter() {
 // TOOL 2: BOMB CALORIMETER W-FACTOR CALCULATOR
 // ==========================================
 
-function CalorimeterWCalculator() {
+export function CalorimeterWCalculator() {
   const [h, setH] = useState<number>(26454); // J/g Benzoic acid
   const [mass, setMass] = useState<number>(1.0028); // g
   const [deltaT, setDeltaT] = useState<number>(2.4582); // °C
@@ -413,8 +412,7 @@ function CalorimeterWCalculator() {
   return (
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
-        <span className="chip chip-accent text-[11px] font-bold">Standard Calibration: ASTM D5865 / ISO 1928</span>
-        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
+        <h3 className="text-xl font-semibold text-[#0056B3]">
           Bomb Calorimeter Water Equivalent ($W$) Calibration Calculator
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -543,7 +541,7 @@ function CalorimeterWCalculator() {
 // TOOL 3: AUTOCLAVE SIZER & SAFETY CHECK
 // ==========================================
 
-function ReactorSizerTool() {
+export function ReactorSizerTool() {
   const [totalVol, setTotalVol] = useState<number>(1000); // mL
   const [liqVol, setLiqVol] = useState<number>(600); // mL
   const [tempC, setTempC] = useState<number>(220); // °C
@@ -569,8 +567,7 @@ function ReactorSizerTool() {
   return (
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
-        <span className="chip chip-accent text-[11px] font-bold">ASME Section VIII Safety Guidelines</span>
-        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
+        <h3 className="text-xl font-semibold text-[#0056B3]">
           High-Pressure Reactor Headspace &amp; Safety Sizer
         </h3>
         <p className="mt-1 text-xs text-slate-600">
@@ -702,7 +699,7 @@ function ReactorSizerTool() {
 // TOOL 4: ASH SLAGGING & FOULING RISK
 // ==========================================
 
-function AshSlaggingPredictor() {
+export function AshSlaggingPredictor() {
   const [sio2, setSio2] = useState<number>(56.0);
   const [al2o3, setAl2o3] = useState<number>(25.0);
   const [fe2o3, setFe2o3] = useState<number>(6.5);
@@ -738,8 +735,7 @@ function AshSlaggingPredictor() {
   return (
     <div className="space-y-6">
       <div className="border-b border-slate-100 pb-4">
-        <span className="chip chip-accent text-[11px] font-bold">Utility Boiler Chemistry</span>
-        <h3 className="mt-2 text-xl font-semibold text-[#0056B3]">
+        <h3 className="text-xl font-semibold text-[#0056B3]">
           Coal Ash Slagging &amp; Fouling Risk Predictor
         </h3>
         <p className="mt-1 text-xs text-slate-600">

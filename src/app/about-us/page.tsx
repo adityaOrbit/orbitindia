@@ -212,7 +212,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {coreBeliefs.map((belief) => {
               const Icon = belief.icon;
               return (
@@ -220,16 +220,18 @@ export default function AboutPage() {
                   key={belief.title}
                   className="surface group flex flex-col justify-between p-6 transition-colors hover:border-[#0056B3]/40"
                 >
-                  <div>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000] transition group-hover:bg-[#d00000] group-hover:text-white">
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000] transition group-hover:bg-[#d00000] group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <h3 className="mt-5 text-base font-semibold text-[#0056B3]">
-                      {belief.title}
-                    </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                      {belief.body}
-                    </p>
+                    <div className="min-w-0">
+                      <h3 className="text-base font-semibold text-[#0056B3]">
+                        {belief.title}
+                      </h3>
+                      <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                        {belief.body}
+                      </p>
+                    </div>
                   </div>
                 </div>
               );
@@ -259,10 +261,7 @@ export default function AboutPage() {
               className="surface group relative flex flex-col justify-between p-6 sm:p-8 transition-all hover:border-[#f6dcc4] hover:shadow-md"
             >
               <div>
-                <span className="chip chip-accent text-[11px] font-medium">
-                  Orbit Executive Leadership
-                </span>
-                <h3 className="mt-4 text-xl font-semibold text-[#0056B3] sm:text-2xl">
+                <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
                   {leader.name}
                 </h3>
                 <p className="mt-1 text-xs font-semibold text-[#d00000]">
@@ -270,14 +269,6 @@ export default function AboutPage() {
                 </p>
                 <p className="mt-4 text-sm leading-relaxed text-slate-600">
                   {leader.bio}
-                </p>
-              </div>
-              <div className="mt-6 border-t border-slate-100 pt-4">
-                <p className="text-xs font-medium text-slate-400">
-                  Focus areas
-                </p>
-                <p className="mt-1 text-xs font-semibold text-[#0056B3]">
-                  {leader.focus}
                 </p>
               </div>
             </div>
@@ -295,10 +286,7 @@ export default function AboutPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 text-white">
-              <span className="rounded-md bg-[#d00000] px-2.5 py-1 text-[11px] font-medium text-white">
-                Our Nationwide Team
-              </span>
-              <p className="mt-2 text-sm sm:text-lg font-bold leading-tight">
+              <p className="text-sm sm:text-lg font-bold leading-tight">
                 From application guidance and product selection to installation and after-sales service, our teams work across functions to support laboratories throughout India.
               </p>
               <p className="mt-1 text-xs text-slate-300">
@@ -414,7 +402,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/analytical-instruments/"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 Explore: Manufacturing and Analytical Instruments <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -456,7 +444,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/#industries"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition hover:underline"
+                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition hover:underline"
               >
                 Explore: Our Principals and Partners <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -511,7 +499,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/#services"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline"
+                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline"
               >
                 Explore: Services and Support <ArrowRight className="h-3.5 w-3.5" />
               </Link>

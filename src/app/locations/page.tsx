@@ -14,6 +14,7 @@ import {
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PageHero } from "@/components/page-hero";
 import { JsonLd } from "@/components/json-ld";
+import { MobileCollapse } from "@/components/mobile-collapse";
 import { getLocationsPageSchema } from "@/lib/schema";
 import { BRANCH_LOCATIONS } from "@/data/locations";
 
@@ -101,106 +102,109 @@ export default function LocationsPage() {
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-700">
-                  {loc.description}
-                </p>
-
                 {/* Address & Contact */}
-                <div className="mt-5 rounded-xl border border-slate-100 bg-[#f9fafb] p-4 text-xs space-y-2 text-slate-700">
+                <div className="mt-4 rounded-xl border border-slate-100 bg-[#f9fafb] p-4 text-xs space-y-2 text-slate-700">
                   <div className="flex items-start gap-2">
                     <Building2 className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
                     <span><strong>Address:</strong> {loc.address}</span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-4 pt-1">
+                  <div className="flex flex-col gap-1 pt-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                     <a
                       href={`tel:${loc.phone.replace(/[^+\d]/g, "")}`}
-                      className="flex items-center gap-1.5 font-bold text-[#0056B3] hover:text-[#d00000]"
+                      className="flex min-h-[44px] items-center gap-1.5 font-bold text-[#0056B3] hover:text-[#d00000] sm:min-h-0"
                     >
                       <PhoneCall className="h-3.5 w-3.5 text-[#d00000]" /> {loc.phone}
                     </a>
-                    <span className="text-slate-300">•</span>
+                    <span className="hidden text-slate-300 sm:inline">•</span>
                     <a
                       href={`mailto:${loc.email.split("/")[0].trim()}`}
-                      className="flex items-center gap-1.5 text-slate-600 hover:text-[#0056B3]"
+                      className="flex min-h-[44px] items-center gap-1.5 break-all text-slate-600 hover:text-[#0056B3] sm:min-h-0"
                     >
                       <Mail className="h-3.5 w-3.5 text-[#d00000]" /> {loc.email}
                     </a>
                   </div>
                 </div>
 
-                {/* Territory & Sectors */}
-                <div className="mt-5 grid gap-4 sm:grid-cols-2 text-xs">
-                  <div>
-                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-                      Territory Covered:
-                    </h4>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {loc.territoryCovered.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-                      Key Client Sectors:
-                    </h4>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {loc.keySectors.map((s) => (
-                        <span
-                          key={s}
-                          className="rounded-md bg-amber-50 border border-amber-200/60 px-2 py-0.5 text-[11px] font-medium text-amber-900"
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Major Local Clients */}
-                <div className="mt-5 pt-4 border-t border-slate-100">
-                  <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-                    Notable Installations &amp; Clients Served:
-                  </h4>
-                  <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                    {loc.majorClientsServed.join(" · ")}
+                {/* Details: collapsed on phones */}
+                <MobileCollapse label="View branch details">
+                  {/* Description */}
+                  <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-700">
+                    {loc.description}
                   </p>
-                </div>
 
-                {/* Service Capabilities */}
-                <div className="mt-4 pt-3 border-t border-slate-100">
-                  <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
-                    Resident Engineering Capabilities:
-                  </h4>
-                  <ul className="mt-2 space-y-1.5">
-                    {loc.serviceCapabilities.map((cap, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{cap}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  {/* Territory & Sectors */}
+                  <div className="mt-5 grid gap-4 sm:grid-cols-2 text-xs">
+                    <div>
+                      <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                        Territory Covered:
+                      </h4>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {loc.territoryCovered.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                        Key Client Sectors:
+                      </h4>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {loc.keySectors.map((s) => (
+                          <span
+                            key={s}
+                            className="rounded-md bg-amber-50 border border-amber-200/60 px-2 py-0.5 text-[11px] font-medium text-amber-900"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Major Local Clients */}
+                  <div className="mt-5 pt-4 border-t border-slate-100">
+                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                      Notable Installations &amp; Clients Served:
+                    </h4>
+                    <p className="mt-1 text-xs text-slate-600 leading-relaxed">
+                      {loc.majorClientsServed.join(" · ")}
+                    </p>
+                  </div>
+
+                  {/* Service Capabilities */}
+                  <div className="mt-4 pt-3 border-t border-slate-100">
+                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                      Resident Engineering Capabilities:
+                    </h4>
+                    <ul className="mt-2 space-y-1.5">
+                      {loc.serviceCapabilities.map((cap, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{cap}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </MobileCollapse>
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-3">
                 <Link
                   href="/service-complaint-form"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                  className="inline-flex min-h-[44px] items-center justify-center gap-1.5 text-sm font-bold text-[#d00000] hover:underline sm:min-h-0 sm:justify-start sm:text-xs"
                 >
                   Book Service from {loc.city} Branch <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   href="/contact-us#quote"
-                  className="btn btn-outline text-xs px-3 py-1.5"
+                  className="btn btn-outline min-h-[44px] justify-center text-sm sm:min-h-0 sm:px-3 sm:py-1.5 sm:text-xs"
                 >
                   Request Regional Quote
                 </Link>

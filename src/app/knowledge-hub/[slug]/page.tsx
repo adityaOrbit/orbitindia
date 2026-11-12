@@ -3,9 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ArrowRight,
-  Clock,
-  Calendar,
-  User,
   Lightbulb,
   CheckCircle2,
 } from "lucide-react";
@@ -69,68 +66,80 @@ export default async function KnowledgeArticleDetailPage({
         ]}
       />
 
-      {/* Article Header */}
-      <header className="border-b border-slate-200 bg-[#001c3d] py-14 text-white">
-        <div className="container-x max-w-4xl">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="flex items-center gap-1.5 text-xs text-slate-300">
-              <Clock className="h-3.5 w-3.5 text-[#feeceb]" /> {article.readTime}
-            </span>
-            <span className="text-slate-500">•</span>
-            <span className="flex items-center gap-1.5 text-xs text-slate-300">
-              <Calendar className="h-3.5 w-3.5 text-[#feeceb]" /> {article.date}
-            </span>
-          </div>
-
-          <h1 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl text-white leading-tight">
+      {/* Article Header: light and short so the content starts on the first phone screen */}
+      <header className="border-b border-slate-200 bg-white pt-8 pb-6 sm:pt-12 sm:pb-8">
+        <div className="container-x max-w-3xl">
+          <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight text-[#0056B3] sm:text-4xl lg:text-[2.6rem]">
             {article.title}
           </h1>
 
-          <p className="mt-3 text-base sm:text-lg font-medium text-[#feeceb]">
+          <p className="mt-3 text-lg leading-snug text-slate-600 sm:text-xl">
             {article.subtitle}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-white/10 pt-4">
-            <span className="text-xs font-semibold text-slate-400">Governing Standards:</span>
-            {article.standards.map((std) => (
-              <span
-                key={std}
-                className="rounded-md bg-white/10 px-2.5 py-0.5 font-mono text-xs font-medium text-slate-200"
-              >
-                {std}
-              </span>
-            ))}
-          </div>
+          {/* Byline */}
+          <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+            <span className="font-semibold text-slate-700">{article.author}</span>
+            <span aria-hidden="true">·</span>
+            <span>Updated {article.date}</span>
+            <span aria-hidden="true">·</span>
+            <span>{article.readTime}</span>
+          </p>
+
+          {/* Jump links */}
+          {article.sections.length > 1 && (
+            <nav aria-label="On this page" className="mt-5 border-t border-slate-100 pt-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">On this page</p>
+              <ul className="mt-1 flex flex-wrap gap-x-4 text-sm">
+                {article.sections.map((sec, idx) => (
+                  <li key={idx}>
+                    <a
+                      href={`#section-${idx + 1}`}
+                      className="inline-flex min-h-[40px] items-center font-medium text-[#0056B3] underline-offset-4 hover:text-[#d00000] hover:underline"
+                    >
+                      {sec.heading.replace(/^\d+\.\s*/, "")}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </div>
       </header>
 
       {/* Article Content Layout */}
-      <div className="container-x max-w-4xl py-12">
-        {/* Abstract / Summary Callout */}
-        <div className="rounded-2xl border-l-4 border-l-[#d00000] border border-slate-200 bg-[#f8fafc] p-6 text-sm italic leading-relaxed text-slate-700 shadow-xs">
-          <p className="font-semibold text-xs uppercase tracking-wider text-[#0056B3] not-italic mb-1">
-            Executive Summary
+      <div className="container-x max-w-3xl py-8 sm:py-12">
+        {/* Key takeaways */}
+        <div className="rounded-2xl border-l-4 border-l-[#d00000] border border-slate-200 bg-[#f8fafc] p-5 sm:p-6">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#0056B3]">
+            Key takeaways
           </p>
-          {article.summary}
+          <p className="text-[17px] leading-[1.6] text-slate-700">{article.summary}</p>
+          {article.standards.length > 0 && (
+            <p className="mt-4 border-t border-slate-200 pt-3 text-sm text-slate-600">
+              <span className="font-semibold text-slate-700">Standards referenced: </span>
+              {article.standards.join(" · ")}
+            </p>
+          )}
         </div>
 
         {/* Detailed Sections */}
         <div className="mt-10 space-y-10">
           {article.sections.map((sec, idx) => (
-            <section key={idx} className="border-b border-slate-100 pb-8 last:border-b-0">
+            <section key={idx} id={`section-${idx + 1}`} className="scroll-mt-28 border-b border-slate-100 pb-8 last:border-b-0">
               <h2 className="text-xl font-bold tracking-tight text-[#0056B3] sm:text-2xl">
                 {sec.heading}
               </h2>
 
-              <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-700 whitespace-pre-line">
+              <p className="mt-4 whitespace-pre-line text-[17px] leading-[1.65] text-slate-700">
                 {sec.content}
               </p>
 
               {sec.bulletPoints && (
                 <ul className="mt-4 space-y-2.5 pl-2">
                   {sec.bulletPoints.map((pt, pIdx) => (
-                    <li key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <li key={pIdx} className="flex items-start gap-2.5 text-base leading-relaxed text-slate-700">
+                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -144,7 +153,7 @@ export default async function KnowledgeArticleDetailPage({
               )}
 
               {sec.tip && (
-                <div className="mt-5 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-xs text-amber-900">
+                <div className="mt-5 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-sm leading-relaxed text-amber-900">
                   <Lightbulb className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
                   <div>
                     <strong className="font-bold">Application Engineer Note:</strong> {sec.tip}
@@ -155,12 +164,9 @@ export default async function KnowledgeArticleDetailPage({
           ))}
         </div>
 
-        {/* Author Bylines */}
-        <div className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-5 flex items-center justify-between text-xs text-slate-600">
-          <div className="flex items-center gap-2.5">
-            <User className="h-4 w-4 text-[#d00000]" />
-            <span>Authored by: <strong className="text-[#0056B3]">{article.author}</strong></span>
-          </div>
+        {/* Inquiry prompt */}
+        <div className="mt-10 flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+          <span>Questions about this method? Our application team can help.</span>
           <Link
             href="/contact-us#quote"
             className="font-bold text-[#d00000] hover:underline"

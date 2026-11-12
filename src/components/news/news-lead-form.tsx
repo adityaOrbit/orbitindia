@@ -78,10 +78,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
   return (
     <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm">
       <div className="border-b border-slate-200 pb-3">
-        <span className="chip chip-accent text-[11px] font-bold">
-          {itemType === "event" ? "Exhibition Consultation" : "Official RFQ / Consultation"}
-        </span>
-        <h3 className="mt-2 text-base font-semibold text-[#0056B3]">
+        <h3 className="text-base font-semibold text-[#0056B3]">
           {itemType === "event"
             ? `Book a Meeting at Our Stall`
             : `Request Quotation & Tech Specs`}

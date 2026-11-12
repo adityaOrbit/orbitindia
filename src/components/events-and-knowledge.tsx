@@ -175,9 +175,6 @@ export function EventsAndKnowledge() {
                     fill
                     className="object-cover"
                   />
-                  <span className="absolute left-3 top-3 rounded-md bg-[#0056B3] px-2.5 py-1 text-[11px] font-medium text-white">
-                    Upcoming Exhibition
-                  </span>
                 </div>
               )}
 
@@ -208,17 +205,17 @@ export function EventsAndKnowledge() {
                   <button
                     type="button"
                     onClick={() => setActiveExhibition(currentEvent)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     View details <ArrowRight className="h-3.5 w-3.5" />
                   </button>
-                  <div className="flex gap-1.5">
+                  <div className="flex gap-4 sm:gap-1.5">
                     {upcomingEvents.map((ev, idx) => (
                       <button
                         key={ev.id}
                         onClick={() => setCurrentSlide(idx)}
                         aria-label={`Go to slide ${idx + 1}`}
-                        className={`h-2 rounded-full transition-all ${
+                        className={`relative h-2 rounded-full transition-all after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] sm:after:hidden ${
                           currentSlide === idx ? "w-6 bg-[#d00000]" : "w-2 bg-slate-300"
                         }`}
                       />
@@ -237,18 +234,18 @@ export function EventsAndKnowledge() {
         </div>
       </div>
 
-      {/* RIGHT COLUMN: Latest from the Knowledge Hub */}
+      {/* RIGHT COLUMN: Latest from the Orbit */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 flex flex-col justify-between h-full">
         <div>
           <div className="flex items-center justify-between gap-4">
             <div>
               <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-                Latest from the Knowledge Hub
+                Latest from the Orbit
               </h3>
             </div>
             <Link
               href="/knowledge-hub/"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition-colors"
+              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition-colors"
             >
               <span>View All</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -315,9 +312,6 @@ export function EventsAndKnowledge() {
               <X className="h-5 w-5" />
             </button>
 
-            <span className="chip chip-accent text-xs font-medium">
-              Exhibition Details
-            </span>
             <h3 className="mt-3 text-xl font-semibold text-[#0056B3] sm:text-2xl">
               {activeExhibition.name}
             </h3>

@@ -186,7 +186,7 @@ export function KnowledgeHubMaster({
               placeholder="Search knowledge hub..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 py-1.5 pl-8 pr-7 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden"
+              className="w-full rounded-xl border border-slate-300 py-3 pl-8 pr-7 text-base font-medium sm:py-1.5 sm:text-xs text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden"
             />
             {searchQuery && (
               <button
@@ -208,8 +208,7 @@ export function KnowledgeHubMaster({
         <section className="space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
             <div>
-              <span className="chip chip-accent text-[11px] font-bold">Peer-Reviewed Science</span>
-              <h3 className="mt-1 text-2xl font-semibold text-[#0056B3] sm:text-3xl">
+              <h3 className="text-2xl font-semibold text-[#0056B3] sm:text-3xl">
                 Learning Hub — Technical Blogs &amp; Application Whitepapers
               </h3>
               <p className="mt-1 text-xs text-slate-600">
@@ -224,7 +223,7 @@ export function KnowledgeHubMaster({
                   key={c}
                   type="button"
                   onClick={() => setSelectedArticleCategory(c)}
-                  className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+                  className={`min-h-[44px] sm:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
                     selectedArticleCategory === c
                       ? "bg-[#d00000] text-white shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -245,9 +244,6 @@ export function KnowledgeHubMaster({
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-500">
-                    <span className="chip chip-accent text-[10px] font-bold">
-                      {art.category}
-                    </span>
                     <span className="flex items-center gap-1 text-[11px]">
                       <Clock className="h-3 w-3 text-slate-400" /> {art.readTime}
                     </span>
@@ -283,7 +279,7 @@ export function KnowledgeHubMaster({
                 <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/knowledge-hub/${art.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
                   >
                     Read Full Article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </Link>

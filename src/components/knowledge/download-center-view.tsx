@@ -76,7 +76,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             key={c}
             type="button"
             onClick={() => setSelectedCategory(c)}
-            className={`rounded-full px-3 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+            className={`min-h-[44px] sm:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
               selectedCategory === c
                 ? "bg-[#0056B3] text-white shadow-xs"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -103,9 +103,6 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
                 <span className="flex items-center gap-1 font-mono text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">
                   <FileText className="h-3 w-3" />
                   {item.format} · {item.fileSize}
-                </span>
-                <span className="chip chip-accent text-[10px] py-0 px-2 font-bold">
-                  {item.category}
                 </span>
               </div>
 

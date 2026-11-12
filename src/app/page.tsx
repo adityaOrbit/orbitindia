@@ -252,7 +252,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/instrument-finder/"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#cce1f9]"
+                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#cce1f9]"
               >
                 Find the Right Instrument <ArrowRight className="h-4 w-4" />
               </Link>
@@ -284,7 +284,7 @@ export default function HomePage() {
                 <div>
                   <Link
                     href="/about-us"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] hover:underline"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] hover:underline"
                   >
                     Company profile <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -420,9 +420,10 @@ export default function HomePage() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {industrySolutions.map((ind) => (
-              <div
+              <Link
                 key={ind.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-0 transition-colors hover:border-[#0056B3]/60"
+                href={ind.href}
+                className="group flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white p-0 transition-colors hover:border-[#0056B3]/60 hover:shadow-md"
               >
                 {/* Photo Header */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
@@ -443,7 +444,7 @@ export default function HomePage() {
                 {/* Content */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="text-base font-semibold text-[#0056B3]">{ind.title}</h3>
+                    <h3 className="text-base font-semibold text-[#0056B3] transition-colors group-hover:text-[#d00000]">{ind.title}</h3>
                     <p className="mt-2 text-xs leading-relaxed text-slate-600">
                       {ind.focus}
                     </p>
@@ -457,16 +458,8 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="mt-5 border-t border-slate-100 pt-3">
-                    <Link
-                      href={ind.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#d00000] hover:underline"
-                    >
-                      {ind.linkText} <ArrowRight className="h-3.5 w-3.5 transition" />
-                    </Link>
-                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

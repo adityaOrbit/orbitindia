@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { MobileActionBar } from "@/components/mobile-action-bar";
 import { JsonLd } from "@/components/json-ld";
 import { getSiteSchema } from "@/lib/schema";
 import { withBasePath } from "@/lib/utils";
@@ -90,6 +91,9 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* Phone-only sticky Call / Get a Quote bar (space reserved below the footer) */}
+        <MobileActionBar />
+        <div aria-hidden="true" className="h-[calc(4rem+env(safe-area-inset-bottom))] md:hidden" />
       </body>
     </html>
   );

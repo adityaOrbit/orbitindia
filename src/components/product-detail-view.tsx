@@ -502,7 +502,8 @@ export function ProductDetailView({
 
               <a
                 href={`https://wa.me/?text=${encodeURIComponent(
-                  `Inquiry about ${product.name} | Orbit Technologies\n${typeof window !== "undefined" ? window.location.href : ""}`
+                  // Same URL on server and client (avoids a hydration mismatch); matches SITE_URL in lib/schema.ts
+                  `Inquiry about ${product.name} | Orbit Technologies\nhttps://orbitindia.com/products/${product.slug}/`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -571,7 +572,7 @@ export function ProductDetailView({
                 type="button"
                 aria-expanded={descExpanded}
                 onClick={() => setDescExpanded((v) => !v)}
-                className="cursor-pointer mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#0056B3]"
+                className="min-h-[44px] sm:min-h-0 cursor-pointer mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#0056B3]"
               >
                 {descExpanded ? "Read less" : "Read more"}
                 <ChevronDown className={`h-4 w-4 transition-transform ${descExpanded ? "rotate-180" : ""}`} />
@@ -1030,7 +1031,7 @@ export function ProductDetailView({
                               });
                               setIsRfqOpen(true);
                             }}
-                            className="cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                            className="min-h-[44px] sm:min-h-0 cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                           >
                             <FileDown className="h-4 w-4" /> Download PDF
                           </button>

@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { JsonLd } from "@/components/json-ld";
-import { ProductCard } from "@/components/product-card";
+import { ProductGrid } from "@/components/product-grid";
 import { PRINCIPALS } from "@/data/principals";
 import { products, type Product } from "@/data/products";
 import { getPrincipalSchema } from "@/lib/schema";
@@ -210,18 +210,19 @@ export default async function PrincipalDetailPage({
             </div>
             <Link
               href="/products"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
             >
               Browse Full Catalog <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
           {brandProducts.length > 0 ? (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {brandProducts.map((prod) => (
-                <ProductCard key={prod.slug} product={prod} />
-              ))}
-            </div>
+            <ProductGrid
+              products={brandProducts}
+              className="mt-8 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+              itemListId={`principal_${principal.slug}`}
+              itemListName={`${principal.name} Products`}
+            />
           ) : (
             <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-12 text-center">
               <Layers className="h-10 w-10 text-slate-400 mx-auto" />

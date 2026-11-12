@@ -7,8 +7,6 @@ import {
   ShieldAlert,
   ShieldCheck,
   CheckCircle2,
-  PhoneCall,
-  Mail,
   FileCheck,
   Award,
   Zap,
@@ -122,51 +120,6 @@ export default function OurServicesPage() {
         subtitle="Orbit Technologies delivers rapid technical assistance, factory-certified preventive maintenance, 300-bar oxygen vessel hydrostatic proof-testing, and certified calibration across India."
       />
 
-      {/* Emergency Service Dispatch Action Bar */}
-      <section className="container-x mt-8">
-        <div className="overflow-hidden rounded-2xl bg-[#001c3d] p-6 text-white shadow-lg sm:p-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 className="text-xl font-bold sm:text-2xl text-white">
-                Equipment Down or Urgent Service Required?
-              </h2>
-              <p className="mt-1 text-xs text-slate-300 max-w-xl">
-                Our central service desk coordinates field engineers across 14 branch locations to minimize downtime for mission-critical laboratories.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-4 text-xs">
-                <a
-                  href={`tel:${site.phones.service.replace(/[^+\d]/g, "")}`}
-                  className="flex items-center gap-1.5 font-bold text-[#feeceb] hover:underline"
-                >
-                  <PhoneCall className="h-4 w-4" /> Service Hotline: {site.phones.service}
-                </a>
-                <span className="text-slate-500">•</span>
-                <a
-                  href="mailto:servicecare@orbitindia.com"
-                  className="flex items-center gap-1.5 text-slate-200 hover:text-white"
-                >
-                  <Mail className="h-4 w-4 text-[#feeceb]" /> servicecare@orbitindia.com
-                </a>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <Link href="/service-complaint-form" className="btn btn-accent text-xs">
-                Log Service Complaint Form <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a
-                href="https://wa.me/918143885547?text=Hello%20Orbit%20Service%20Desk,%20I%20need%20urgent%20support%20for%20my%20instrument."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn border border-emerald-500/30 bg-emerald-600/20 text-emerald-300 hover:bg-emerald-600/30 text-xs"
-              >
-                Direct WhatsApp Support
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 6 Core Service Offerings */}
       <section className="container-x py-16">
         <div className="max-w-2xl">
@@ -194,9 +147,6 @@ export default function OurServicesPage() {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, 33vw"
                   />
-                  <span className="absolute top-3 left-3 rounded-md bg-[#0056B3]/90 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs backdrop-blur-xs">
-                    {srv.tag}
-                  </span>
                 </div>
 
                 <div className="flex flex-1 flex-col justify-between p-6">
@@ -229,7 +179,7 @@ export default function OurServicesPage() {
                   <div className="mt-6 pt-4 border-t border-slate-100">
                     <Link
                       href="/service-complaint-form"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                      className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                     >
                       Book This Service <ArrowRight className="h-3.5 w-3.5" />
                     </Link>

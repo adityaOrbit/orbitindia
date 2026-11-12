@@ -54,12 +54,6 @@ export default function PrincipalsHubPage() {
                   className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, 33vw"
                 />
-                <span className="absolute top-3 right-3 rounded-md bg-white/95 px-2.5 py-1 text-xs font-semibold text-slate-700 shadow-xs border border-slate-200">
-                  {principal.flag} {principal.country}
-                </span>
-                <span className="absolute bottom-3 left-3 rounded-md bg-[#0056B3]/80 px-2.5 py-0.5 text-[11px] font-medium text-white backdrop-blur-xs">
-                  Est. {principal.founded}
-                </span>
               </div>
 
               <div className="flex flex-1 flex-col justify-between p-6">
@@ -95,7 +89,7 @@ export default function PrincipalsHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${principal.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     View Products &amp; History <ArrowRight className="h-4 w-4" />
                   </Link>

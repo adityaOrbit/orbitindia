@@ -53,10 +53,6 @@ export default function IndustriesHubPage() {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-4 text-xs font-bold text-white drop-shadow-md">
-                  {ind.tagline}
-                </span>
               </div>
 
               <div className="flex flex-1 flex-col justify-between p-6">
@@ -88,13 +84,13 @@ export default function IndustriesHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/industries/${ind.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline after:absolute after:inset-0 after:content-['']"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline after:absolute after:inset-0 after:content-['']"
                   >
                     Explore Sector Solutions <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href={`/products?industry=${ind.slug}`}
-                    className="relative z-10 text-[11px] font-semibold text-slate-400 hover:text-[#0056B3]"
+                    className="relative z-10 inline-flex min-h-[44px] items-center text-[11px] font-semibold text-slate-400 hover:text-[#0056B3] sm:min-h-0"
                   >
                     Filter Products
                   </Link>

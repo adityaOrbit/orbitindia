@@ -308,3 +308,27 @@ h6.font-bold {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* --------------------------------------------------------------------------
+   Phone tap targets (<640px): give stand-alone phone/email links and
+   breadcrumb links at least a 44px tap height. Links inside running text
+   (paragraphs) are left alone so line spacing isn't disturbed.
+   -------------------------------------------------------------------------- */
+@media (max-width: 639px) {
+  main a[href^="tel:"]:not(p a),
+  main a[href^="mailto:"]:not(p a) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  nav[aria-label="Breadcrumb"] > div {
+    padding-block: 0;
+  }
+
+  nav[aria-label="Breadcrumb"] a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

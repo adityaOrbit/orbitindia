@@ -107,7 +107,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
         {/* Back Link */}
         <Link
           href="/news"
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#0056B3] transition"
+          className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#0056B3] transition"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to All News &amp; Events
         </Link>
@@ -135,8 +135,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
                 className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 transition hover:border-[#0056B3]/40 hover:shadow-md"
               >
                 <div>
-                  <span className="chip chip-accent text-[10px] font-bold">{n.category}</span>
-                  <h3 className="mt-2 text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition line-clamp-2">
+                  <h3 className="text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition line-clamp-2">
                     {n.title}
                   </h3>
                   <p className="mt-1.5 text-xs text-slate-600 line-clamp-2">{n.summary}</p>
@@ -190,7 +189,6 @@ function NewsView({ article }: { article: NewsArticle }) {
         {/* Header Header */}
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="chip chip-accent text-xs font-bold">{article.category}</span>
             <span className="flex items-center gap-1 text-xs text-slate-500">
               <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {article.date}
             </span>
@@ -330,11 +328,6 @@ function NewsView({ article }: { article: NewsArticle }) {
                     />
                   </div>
                   <div className="min-w-0">
-                    {p.badge && (
-                      <span className="chip chip-accent text-[10px] py-0 px-1.5 font-bold">
-                        {p.badge}
-                      </span>
-                    )}
                     <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
                       {p.name}
                     </h4>
@@ -449,7 +442,7 @@ function EventView({ event }: { event: EventArticle }) {
                 href={event.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 <Globe className="h-3.5 w-3.5" /> Visit Official Exhibition Portal &nearr;
               </a>
@@ -534,11 +527,6 @@ function EventView({ event }: { event: EventArticle }) {
                     />
                   </div>
                   <div className="min-w-0">
-                    {p.badge && (
-                      <span className="chip chip-accent text-[10px] py-0 px-1.5 font-bold">
-                        {p.badge}
-                      </span>
-                    )}
                     <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
                       {p.name}
                     </h4>

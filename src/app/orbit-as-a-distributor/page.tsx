@@ -234,7 +234,7 @@ export default function DistributorPage() {
           </div>
           <Link
             href="/principals/"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+            className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
           >
             View All Principals Hub <ArrowRight className="h-4 w-4" />
           </Link>
@@ -254,9 +254,6 @@ export default function DistributorPage() {
                   className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, 33vw"
                 />
-                <span className="absolute top-3 right-3 rounded-md bg-white/90 px-2 py-0.5 text-xs font-semibold text-slate-700 shadow-xs border border-slate-200">
-                  {partner.flag} {partner.country}
-                </span>
               </div>
 
               <div className="flex flex-1 flex-col justify-between p-5">
@@ -274,7 +271,7 @@ export default function DistributorPage() {
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${partner.slug}/`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     Explore Principal Details <ArrowRight className="h-3.5 w-3.5" />
                   </Link>

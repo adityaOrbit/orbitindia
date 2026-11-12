@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PageHero } from "@/components/page-hero";
 import {
@@ -6,24 +8,14 @@ import {
   SOP_LIBRARY,
   KNOWLEDGE_USE_CASES,
   DOWNLOAD_CENTER,
+  FREE_TOOLS_META,
 } from "@/data/knowledge-hub";
-import { KnowledgeHubMaster } from "@/components/knowledge/knowledge-hub-master";
+import { KnowledgeHubSections } from "@/components/knowledge/knowledge-hub-tabs";
 
 export const metadata: Metadata = {
-  title: "Knowledge Hub — Learning Blogs, SOPs, Use Cases, Tools & Downloads | Orbit Technologies",
+  title: "Knowledge Hub — Articles, Downloads, SOPs & Calculators | Orbit Technologies",
   description:
-    "Authoritative analytical instrumentation hub: technical blogs, step-by-step laboratory SOPs, industrial use cases, free interactive calculators (GCV/NCV, W-factor, Autoclave sizer), and download center.",
-  keywords: [
-    "Orbit Knowledge Hub",
-    "bomb calorimetry SOP ASTM D5865",
-    "proximate analysis SOP ASTM D7582",
-    "calorific value converter",
-    "reactor pressure calculator",
-    "coal ash slagging index predictor",
-    "ash fusion standard operating procedure",
-    "Parr calorimeter brochure download",
-    "Orbit Technologies use cases",
-  ],
+    "Practical guides from Orbit Technologies' application team, plus downloadable brochures, laboratory SOPs, use cases and free calculators for calorimetry, proximate analysis, ash fusion and reactor safety.",
 };
 
 export default function KnowledgeHubPage() {
@@ -37,19 +29,31 @@ export default function KnowledgeHubPage() {
       />
 
       <PageHero
-        eyebrow="Scientific Knowledge & Engineering Hub"
-        title="Knowledge Hub — Instrumentation Science & Laboratory Standards"
-        subtitle="Explore peer-reviewed blogs, standard operating procedures (SOPs), real-world plant case studies, free interactive calculators, and technical download center."
+        title="Knowledge Hub"
+        subtitle="Articles, downloads, SOPs and calculators for coal, fuel and material testing from Orbit's application team."
       />
 
-      {/* Master 5-Pillar Knowledge Hub Component */}
-      <section className="container-x mt-8">
-        <KnowledgeHubMaster
+      {/* Articles, Downloads, SOPs, Use Cases and Calculators on one page */}
+      <section className="container-x mt-8 sm:mt-10">
+        <KnowledgeHubSections
           articles={KNOWLEDGE_ARTICLES}
           sops={SOP_LIBRARY}
           useCases={KNOWLEDGE_USE_CASES}
           downloads={DOWNLOAD_CENTER}
+          tools={FREE_TOOLS_META}
         />
+      </section>
+
+      {/* Contact banner */}
+      <section className="container-x mt-12">
+        <div className="flex flex-col gap-4 rounded-2xl bg-[#0056B3] p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <p className="text-lg font-semibold sm:text-xl">
+            Have a testing question? Talk to our application team.
+          </p>
+          <Link href="/contact-us#quote" className="btn btn-accent min-h-[48px] shrink-0 justify-center">
+            Contact us <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </section>
     </div>
   );
