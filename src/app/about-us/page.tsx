@@ -151,7 +151,7 @@ export default function AboutPage() {
         </div>
 
         {/* Quick Highlights Box */}
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#0056B3] to-[#001c3d] p-6 sm:p-8 text-white shadow-xl">
+        <div className="rounded-2xl border border-slate-200 bg-[#0056B3] p-6 sm:p-8 text-white">
           <div className="flex items-center gap-3">
             <Image
               src={withBasePath("/badge-35.jpg")}
@@ -601,7 +601,7 @@ export default function AboutPage() {
           8. LOOKING AHEAD
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16">
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#001c3d] to-[#0056B3] p-8 sm:p-12 text-white shadow-xl">
+        <div className="rounded-2xl border border-slate-200 bg-[#001c3d] p-8 sm:p-12 text-white">
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Looking Ahead
@@ -610,7 +610,7 @@ export default function AboutPage() {
               Scientific testing keeps developing, and laboratories need access to new technologies, more specialised equipment and dependable technical support. Orbit aims to keep building its Indian manufacturing, widen access to specialist international instruments and strengthen the technical support available to customers across the country.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-slate-400">
-              As Indian laboratories align with increasingly stringent global ISO and ASTM benchmarks, our vision remains resolute: to serve as the nation’s most dependable technical bridge—democratizing access to high-end instrumentation, sustaining local manufacturing precision, and empowering scientific discovery.
+              As Indian laboratories align with increasingly stringent global ISO and ASTM benchmarks, our vision remains resolute: to serve as the nation’s most dependable technical bridge—democratizing access to high-end instrumentation, sustaining local manufacturing precision, and supporting scientific research.
             </p>
           </div>
         </div>
@@ -702,7 +702,7 @@ export default function AboutPage() {
           10. FINAL CALL TO ACTION
       ------------------------------------------------------------------------ */}
       <section className="container-x mt-16 mb-20">
-        <div className="rounded-3xl border border-slate-200 bg-gradient-to-r from-[#003d80] via-[#0056B3] to-[#001c3d] p-8 sm:p-14 text-center text-white shadow-2xl">
+        <div className="rounded-3xl border border-slate-200 bg-[#0056B3] p-8 sm:p-14 text-center text-white">
           <h2 className="mx-auto max-w-2xl text-2xl font-semibold tracking-tight sm:text-4xl">
             Let’s Talk About Your Laboratory Requirements
           </h2>

@@ -43,7 +43,7 @@ export default function IndustriesHubPage() {
           {industries.map((ind) => (
             <div
               key={ind.slug}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-xl"
             >
               <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                 <Image
@@ -65,7 +65,7 @@ export default function IndustriesHubPage() {
                   </p>
 
                   <div className="mt-4 pt-4 border-t border-slate-100">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    <p className="text-xs font-bold text-slate-400">
                       Key Instruments:
                     </p>
                     <div className="mt-2 flex flex-wrap gap-1.5">

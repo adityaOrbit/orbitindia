@@ -76,7 +76,7 @@ export function SupportServiceSection() {
           return (
             <div
               key={srv.title}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-md"
+              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:border-[#0056B3]/60 hover:shadow-md"
             >
               <div>
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#feeceb] text-[#d00000]">
@@ -113,7 +113,7 @@ export function SupportServiceSection() {
       </div>
 
       {/* Action Banner: Service Complaint & Dispatch Desk */}
-      <div className="mt-8 overflow-hidden rounded-2xl bg-gradient-to-r from-[#00387a] via-[#0056B3] to-[#00274d] p-6 text-white shadow-md sm:p-8">
+      <div className="mt-8 overflow-hidden rounded-2xl bg-[#0056B3] p-6 text-white sm:p-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
             <h3 className="text-xl font-semibold sm:text-2xl">

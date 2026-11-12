@@ -169,7 +169,7 @@ export function CalorificBasisConverter() {
           Coal Calorific Value (GCV/NCV) Unit &amp; Basis Converter
         </h3>
         <p className="mt-1 text-xs text-slate-600">
-          Seamlessly convert heating values between metric and imperial units across As-Received (ar), Air-Dried (ad), Dry (db), and Dry Ash-Free (daf) bases.
+          Convert heating values between metric and imperial units across As-Received (ar), Air-Dried (ad), Dry (db), and Dry Ash-Free (daf) bases.
         </p>
       </div>
 
@@ -178,7 +178,7 @@ export function CalorificBasisConverter() {
         <div className="lg:col-span-6 space-y-4">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-2">
-              <label className="block text-[11px] font-bold uppercase text-slate-700">
+              <label className="block text-xs font-bold text-slate-700">
                 Gross Calorific Value (Input)
               </label>
               <input
@@ -189,7 +189,7 @@ export function CalorificBasisConverter() {
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold uppercase text-slate-700">Unit</label>
+              <label className="block text-xs font-bold text-slate-700">Unit</label>
               <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value as "kcal" | "mj" | "btu")}
@@ -203,7 +203,7 @@ export function CalorificBasisConverter() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase text-slate-700">
+            <label className="block text-xs font-bold text-slate-700">
               Input Reporting Basis
             </label>
             <div className="mt-1 grid grid-cols-3 gap-2">
@@ -298,7 +298,7 @@ export function CalorificBasisConverter() {
         {/* Right Output Results Column */}
         <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            <h4 className="text-xs font-bold text-slate-700">
               Computed Energy Yields
             </h4>
             <span className="text-[11px] font-semibold text-[#d00000]">Real-Time Result</span>
@@ -495,12 +495,12 @@ export function CalorimeterWCalculator() {
         {/* Results */}
         <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Calculated Energy Equivalent ($W$)
             </span>
 
             <div className="rounded-xl bg-[#0056B3] p-5 text-white shadow-sm">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#feeceb]">
+              <span className="text-xs font-bold text-[#feeceb]">
                 Effective Heat Capacity
               </span>
               <div className="mt-2 text-3xl font-bold">
@@ -638,7 +638,7 @@ export function ReactorSizerTool() {
         {/* Results */}
         <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            <span className="text-xs font-bold text-slate-700">
               Safety &amp; Pressure Verification
             </span>
             <span
@@ -821,7 +821,7 @@ export function AshSlaggingPredictor() {
 
         {/* Prediction Results */}
         <div className="lg:col-span-5 rounded-xl border border-slate-200 bg-slate-50 p-6 space-y-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <span className="text-xs font-bold text-slate-500">
             Combustion &amp; Clinkering Indexes
           </span>
 

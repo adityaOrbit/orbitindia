@@ -89,7 +89,7 @@ export default function ClientsPage() {
 
       <PageHero
         title="Our Clients"
-        subtitle="Trusted by over 7,000 testing laboratories, premier research institutions, and industrial leaders across India and internationally for 35+ years."
+        subtitle="Trusted by over 7,000 testing laboratories, research institutions, and industrial leaders across India and internationally for 35+ years."
       />
 
       {/* 1. Domestic Client Logos */}

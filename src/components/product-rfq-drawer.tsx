@@ -197,7 +197,7 @@ export function ProductRfqDrawer({
               </p>
 
               <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-4 text-left">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <h4 className="text-xs font-bold text-slate-500">
                   Need Urgent Assistance?
                 </h4>
                 <p className="mt-1 text-xs text-slate-600">

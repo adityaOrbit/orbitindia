@@ -89,7 +89,7 @@ export default async function KnowledgeArticleDetailPage({
           {/* Jump links */}
           {article.sections.length > 1 && (
             <nav aria-label="On this page" className="mt-5 border-t border-slate-100 pt-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">On this page</p>
+              <p className="text-xs font-semibold text-slate-400">On this page</p>
               <ul className="mt-1 flex flex-wrap gap-x-4 text-sm">
                 {article.sections.map((sec, idx) => (
                   <li key={idx}>
@@ -110,8 +110,8 @@ export default async function KnowledgeArticleDetailPage({
       {/* Article Content Layout */}
       <div className="container-x max-w-3xl py-8 sm:py-12">
         {/* Key takeaways */}
-        <div className="rounded-2xl border-l-4 border-l-[#d00000] border border-slate-200 bg-[#f8fafc] p-5 sm:p-6">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#0056B3]">
+        <div className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 sm:p-6">
+          <p className="mb-2 text-xs font-semibold text-[#0056B3]">
             Key takeaways
           </p>
           <p className="text-[17px] leading-[1.6] text-slate-700">{article.summary}</p>

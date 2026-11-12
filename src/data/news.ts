@@ -86,7 +86,7 @@ export const newsArticles: NewsArticle[] = [
     ],
     highlights: [
       "Automated bomb head closure, oxygen filling to 30 bar, and automatic pressure release.",
-      "Rapid testing cycle under 4 minutes per sample — industry-leading throughput.",
+      "Rapid testing cycle under 4 minutes per sample — high throughput.",
       "Thermoelectrically regulated closed-loop water management with zero tap water consumption.",
       "10-inch color touchscreen interface with live temperature curve plotting and audit-ready data export.",
       "Full compliance with ASTM D5865 / D4809 / D240, ISO 1928, and IS 1350 (Part-II).",
@@ -209,7 +209,7 @@ export const newsArticles: NewsArticle[] = [
       "Determining trace halides (fluorine, chlorine, bromine, iodine) and sulfur in organic compounds, polymers, petrochemicals, and pharmaceutical intermediates is a critical quality control requirement. The traditional Schoniger flask combustion method, while standardized, poses operator safety hazards due to manual infrared ignition and sudden pressure spikes.",
       "Orbit Technologies is proud to announce the introduction of the Oxygen Flask Combustion Unit (OFCU). This innovative benchtop digestion system automates the oxygen flask combustion process inside a reinforced blast-proof safety chamber with automatic electronic ignition.",
       "Samples are weighed onto ashless filter paper and placed within a platinum sample carrier inside a heavy-wall quartz flask. The chamber is purged with pure oxygen and ignited via an automated electrical arc or optical infrared burst. Upon combustion, gases are quantitatively absorbed into a designated absorbing liquid for immediate analysis by Ion Chromatography (IC) or ICP-OES.",
-      "With automated safety interlocks, magnetic stirrer integration, and hands-free ignition, the OFCU brings high repeatability, zero sample cross-contamination, and unmatched lab safety to environmental, pharmaceutical, and polymer testing facilities.",
+      "With automated safety interlocks, magnetic stirrer integration, and hands-free ignition, the OFCU brings high repeatability, zero sample cross-contamination, and improved lab safety to environmental, pharmaceutical, and polymer testing facilities.",
     ],
     highlights: [
       "Automated electronic ignition inside a heavy-gauge interlocked safety enclosure.",
@@ -418,8 +418,8 @@ export const newsArticles: NewsArticle[] = [
     body: [
       "Since its inception in 1988, Orbit Technologies Pvt. Ltd. has stood at the intersection of international scientific innovation and Indian industrial growth. What began as a dedicated partnership with Parr Instrument Company (USA) has evolved into one of the subcontinent's most trusted analytical instrumentation enterprises.",
       "Today, Orbit supports over 7,000 active instrument installations spanning critical national sectors: thermal power utilities (NTPC, Adani, Tata Power), steel conglomerates (SAIL, Tata Steel, JSW), commercial inspection agencies (SGS, Cotecna, Mitra S.K.), CSIR research institutes, and leading universities.",
-      "Complementing its distribution heritage, Orbit established Orlab Instruments Pvt. Ltd., an indigenous manufacturing division operating from a state-of-the-art 30,000 sq ft facility in Hyderabad, producing over 200,000 water and soil testing kits annually.",
-      "With a network of 15 regional sales and service offices staffed by factory-trained application engineers, Orbit enters 2026 committed to driving next-generation analytical automation, rapid response customer service, and unmatched technical integrity.",
+      "Complementing its distribution heritage, Orbit established Orlab Instruments Pvt. Ltd., an indigenous manufacturing division operating from a 30,000 sq ft facility in Hyderabad, producing over 200,000 water and soil testing kits annually.",
+      "With a network of 15 regional sales and service offices staffed by factory-trained application engineers, Orbit enters 2026 committed to analytical automation, rapid response customer service, and technical integrity.",
     ],
     highlights: [
       "35+ years of technical leadership in calorimetry, reactors, and elemental analysis.",
@@ -461,7 +461,7 @@ export const eventArticles: EventArticle[] = [
     show: "Arablab Live 2026",
     title: "Arablab Live 2026 – Dubai World Trade Centre",
     subtitle:
-      "The global laboratory and chemical analytics event. Meet Orbit Technologies and explore our next-generation calorimeters and stirred reactors.",
+      "The global laboratory and chemical analytics event. Meet Orbit Technologies and explore our latest calorimeters and stirred reactors.",
     date: "26th – 28th October 2026",
     startDate: "2026-10-26",
     endDate: "2026-10-28",
@@ -521,7 +521,7 @@ export const eventArticles: EventArticle[] = [
     show: "ChemTECH World Expo 2026",
     title: "ChemTECH World Expo 2026 – Mumbai",
     subtitle:
-      "South Asia's premier chemical processing and refining exhibition. Discover Orbit's pilot reactors, tubular systems, and elemental analyzers.",
+      "South Asia's major chemical processing and refining exhibition. Discover Orbit's pilot reactors, tubular systems, and elemental analyzers.",
     date: "4th – 7th March 2026",
     startDate: "2026-03-04",
     endDate: "2026-03-07",
@@ -533,7 +533,7 @@ export const eventArticles: EventArticle[] = [
     summary:
       "ChemTECH World Expo brings together over 20,000 chemical engineers, plant managers, and researchers. Orbit Technologies showcases pilot plant reactors, tubular flow systems, and certified autoclave equipment.",
     body: [
-      "Orbit Technologies returns to ChemTECH World Expo 2026 at the Bombay Exhibition Centre (NESCO) in Mumbai. As South Asia's leading international gathering for the chemical, petrochemical, and refining industries, ChemTECH offers an unparalleled venue to explore cutting-edge processing hardware.",
+      "Orbit Technologies returns to ChemTECH World Expo 2026 at the Bombay Exhibition Centre (NESCO) in Mumbai. As South Asia's leading international gathering for the chemical, petrochemical, and refining industries, ChemTECH is a major venue to see the latest processing hardware.",
       "At Stand D-14 in Hall 1, Orbit will feature Parr 5400 Continuous Flow Tubular Reactors, high-temperature high-pressure autoclaves engineered from Hastelloy and Inconel, and non-destructive 300-bar vessel safety inspection methodologies.",
       "Chemical process development engineers from leading pharmaceutical, specialty chemical, and polymer corporations will have the opportunity to discuss their reaction kinetics, catalyst screening challenges, and scale-up parameters directly with Orbit's technical team.",
     ],
@@ -612,7 +612,7 @@ export const eventArticles: EventArticle[] = [
     show: "India Lab Expo 2023",
     title: "India Lab Expo 2023 – HITEX Hyderabad",
     subtitle:
-      "India's premier lab exhibition held in Hyderabad, home to Orbit Technologies headquarters. Unveiling the TGA 3000 to over 600 visiting lab directors.",
+      "India's major lab exhibition held in Hyderabad, home to Orbit Technologies headquarters. Unveiling the TGA 3000 to over 600 visiting lab directors.",
     date: "14th September – 16th September 2023",
     startDate: "2023-09-14",
     endDate: "2023-09-16",

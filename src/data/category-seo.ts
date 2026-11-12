@@ -21,7 +21,7 @@ export const CATEGORY_HERO_INTROS: Record<string, string> = {
   "advanced-level-analytical":
     "High-precision analytical balances featuring rapid stabilization, internal calibration mechanisms, and breeze break enclosures designed for exacting chemical formulation and research quality control across Indian testing laboratories.",
   "analytical-instruments":
-    "Orbit Technologies manufactures and distributes premier scientific analytical instruments across India, providing advanced measurement solutions for elemental composition, thermal analysis, calorific value, and materials testing.",
+    "Orbit Technologies manufactures and distributes scientific analytical instruments across India, providing advanced measurement solutions for elemental composition, thermal analysis, calorific value, and materials testing.",
   "ash-fusion-analyzers":
     "Automated ash fusion temperature analyzers determining deformation, softening, hemispherical, and fluid temperatures of coal and biomass ash under controlled atmospheres in compliance with ASTM D1857 and ISO 5416.",
   "calorimeter":

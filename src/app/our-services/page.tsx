@@ -137,7 +137,7 @@ export default function OurServicesPage() {
             return (
               <div
                 key={idx}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-lg"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-lg"
               >
                 <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                   <Image

@@ -240,7 +240,7 @@ export function KnowledgeHubMaster({
             {filteredArticles.map((art) => (
               <article
                 key={art.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-xl"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:border-[#0056B3]/60 hover:shadow-xl"
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-500">
@@ -260,7 +260,7 @@ export function KnowledgeHubMaster({
                   </p>
 
                   <div className="mt-4 pt-3 border-t border-slate-100">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    <span className="text-xs font-bold text-slate-400">
                       Standard References:
                     </span>
                     <div className="mt-1.5 flex flex-wrap gap-1">

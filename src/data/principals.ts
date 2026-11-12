@@ -31,7 +31,7 @@ export const PRINCIPALS: Principal[] = [
     description:
       "For more than 125 years, Parr Instrument Company has designed and manufactured oxygen bomb calorimeters, high-pressure laboratory stirred reactors, tubular reactors, and acid digestion vessels used globally in fuel analysis, polymer research, petrochemical catalysis, and biotechnology.",
     fullHistory:
-      "Founded in 1899 by Professor S.W. Parr at the University of Illinois, Parr invented the oxygen bomb calorimeter that became the foundation for modern ASTM and ISO standard methods of measuring gross calorific value. Today, Parr operates state-of-the-art precision ASME-certified pressure vessel manufacturing in Moline, Illinois. Orbit Technologies has been Parr's exclusive distributor, service provider, and hydrotesting certification partner in India for over 35 years.",
+      "Founded in 1899 by Professor S.W. Parr at the University of Illinois, Parr invented the oxygen bomb calorimeter that became the foundation for modern ASTM and ISO standard methods of measuring gross calorific value. Today, Parr operates precision ASME-certified pressure vessel manufacturing in Moline, Illinois. Orbit Technologies has been Parr's exclusive distributor, service provider, and hydrotesting certification partner in India for over 35 years.",
     logo: "/images/orbit/parr.jpg",
     heroImage: "/images/orbit/parr.jpg",
     coreCategories: [
@@ -294,7 +294,7 @@ export const PRINCIPALS: Principal[] = [
     partnershipYears: "15+ Years",
     tagline: "Precision Micro-Balances, Analytical Balances & Moisture Determiners",
     description:
-      "A&D Company is a world-class Japanese measurement manufacturer renowned for precision analytical balances, semi-micro balances, moisture analyzers, and viscometers utilizing patented Super Hybrid Sensor (SHS) technology.",
+      "A&D Company is a Japanese measurement manufacturer renowned for precision analytical balances, semi-micro balances, moisture analyzers, and viscometers utilizing patented Super Hybrid Sensor (SHS) technology.",
     fullHistory:
       "Founded in Tokyo in 1977, A&D has pioneered measurement electronics. Its laboratory balances provide lightning-fast 1-second stabilization time, internal motorized self-calibration, and GLP/GMP compliance.",
     logo: "/images/orbit/orbit-distrubutor1.jpg",

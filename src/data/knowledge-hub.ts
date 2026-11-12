@@ -194,7 +194,7 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     author: "Orbit Technical Application Group",
     standards: ["ASTM D5865", "ISO 1928", "IS 1350 Part II"],
     summary:
-      "A head-to-head comparison between the legendary Parr 6400 and the next-generation Parr 7400 automatic isoperibol calorimeter, helping laboratory directors balance sample workload, water chiller needs, and ROI.",
+      "A head-to-head comparison between the established Parr 6400 and the newer Parr 7400 automatic isoperibol calorimeter, helping laboratory directors balance sample workload, water chiller needs, and ROI.",
     recommendedProductSlugs: [
       "7400-automatic-isoperibol-calorimeter",
       "6400-automatic-isoperibol-calorimeter",
@@ -221,7 +221,7 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
         heading: "3. Selection Recommendation",
         content:
           "Laboratories testing fewer than 25 samples per day can comfortably operate the Parr 6400 or 6200. Testing laboratories with workloads exceeding 40 samples per shift should strongly prioritize the Parr 7400 to minimize overtime and labor overhead.",
-        tip: "Both systems utilize identical 1108 style bomb head metallurgy and benzoic acid calibration routines, making operator transition seamless.",
+        tip: "Both systems utilize identical 1108 style bomb head metallurgy and benzoic acid calibration routines, making it easy for operators to switch over.",
       },
     ],
   },
@@ -845,7 +845,7 @@ export const KNOWLEDGE_USE_CASES: KnowledgeUseCase[] = [
       "Achieved 180 samples per 8-hour shift capacity on a 3-unit calorimeter bank.",
       "Completely eliminated external tap water supply and chiller maintenance.",
       "Customs clearing certificates generated 3 hours ahead of demurrage deadline.",
-      "Seamless ISO 17025 audit verification backed by Orbit's NABL benzoic acid calibration standards.",
+      "ISO 17025 audit verification backed by Orbit's NABL benzoic acid calibration standards.",
     ],
     testimonial: {
       quote:
@@ -856,7 +856,7 @@ export const KNOWLEDGE_USE_CASES: KnowledgeUseCase[] = [
   },
   {
     id: "case-csir-ncl-reactor",
-    clientType: "Premier National Research Institute (CSIR)",
+    clientType: "National Research Institute (CSIR)",
     sector: "Chemical Research & Catalysis",
     location: "Pune, Maharashtra",
     title: "High-Pressure Catalytic CO2 Hydrogenation at 200 Bar & 350°C in Hastelloy C-276",

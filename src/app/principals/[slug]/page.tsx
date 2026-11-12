@@ -168,7 +168,7 @@ export default async function PrincipalDetailPage({
               </ul>
 
               <div className="mt-6 pt-5 border-t border-slate-200">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <h4 className="text-xs font-bold text-slate-500">
                   Accreditations &amp; Standards
                 </h4>
                 <div className="mt-2 flex flex-wrap gap-1.5">

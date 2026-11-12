@@ -114,7 +114,7 @@ export function CategoryView({ category }: { category: Category }) {
                   <Link
                     key={c.path}
                     href={`/${c.path}/`}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs hover:-translate-y-1 hover:border-[#0056B3]/60 hover:shadow-lg transition-all duration-300"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs hover:border-[#0056B3]/60 hover:shadow-lg transition-all duration-300"
                   >
                     {/* Visual Category Photo Thumbnail */}
                     <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f8fafc] p-2 sm:p-4 flex items-center justify-center border-b border-slate-100">

@@ -233,7 +233,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     aria-label={`Orbit Technologies on ${s.label}`}
                     title={s.label}
-                    className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition hover:-translate-y-0.5 hover:brightness-110"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition hover:brightness-110"
                     style={{ backgroundColor: s.color }}
                   >
                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">

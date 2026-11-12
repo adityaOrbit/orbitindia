@@ -9,7 +9,7 @@ import { PRINCIPALS } from "@/data/principals";
 export const metadata: Metadata = {
   title: "OEM Principals & Global Partners | Orbit Technologies",
   description:
-    "Explore Orbit Technologies' world-class international OEM partners: Parr Instrument Company (USA), NCS (Germany), NC Technologies (Italy), Elite (UK), Sylab (France), and more.",
+    "Explore Orbit Technologies' international OEM partners: Parr Instrument Company (USA), NCS (Germany), NC Technologies (Italy), Elite (UK), Sylab (France), and more.",
 };
 
 export default function PrincipalsHubPage() {
@@ -33,7 +33,7 @@ export default function PrincipalsHubPage() {
       <section className="container-x py-12 sm:py-14">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-            World-Class Instrumentation Innovators
+            Our International Instrument Partners
           </h2>
           <p className="mt-2 text-sm text-slate-600">
             Click on any principal below to view their company history, key instruments, technical certifications, and direct product catalog links.
@@ -44,7 +44,7 @@ export default function PrincipalsHubPage() {
           {PRINCIPALS.map((principal) => (
             <div
               key={principal.slug}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-xl"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-xl"
             >
               <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-50 p-6 flex items-center justify-center border-b border-slate-100">
                 <Image
@@ -58,7 +58,7 @@ export default function PrincipalsHubPage() {
 
               <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
+                  <span className="text-xs font-bold text-[#d00000]">
                     {principal.partnershipYears}
                   </span>
                   <h3 className="mt-1 font-bold text-lg text-[#0056B3] group-hover:text-[#d00000] transition-colors">
@@ -72,7 +72,7 @@ export default function PrincipalsHubPage() {
                   </p>
 
                   <div className="mt-4 pt-4 border-t border-slate-100">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    <p className="text-xs font-bold text-slate-400">
                       Core Technologies:
                     </p>
                     <ul className="mt-2 space-y-1">

@@ -45,7 +45,7 @@ export const BRANCH_LOCATIONS: BranchLocation[] = [
     region: "North",
     tagline: "Northern Regional Sales & Technical Service Hub",
     description:
-      "Serving Delhi NCR, Haryana, Punjab, Rajasthan, and Himachal Pradesh. Our resident application and field service engineers support premier academic institutes, central public sector undertakings (PSUs), and northern thermal power plants.",
+      "Serving Delhi NCR, Haryana, Punjab, Rajasthan, and Himachal Pradesh. Our resident application and field service engineers support academic institutes, central public sector undertakings (PSUs), and northern thermal power plants.",
     address: "Regional Service Center, Connaught Place / Nehru Place Commercial Complex, New Delhi",
     phone: "+91 - 81438 85547",
     email: "delhi@orbitindia.com",
@@ -103,9 +103,9 @@ export const BRANCH_LOCATIONS: BranchLocation[] = [
     slug: "bangalore",
     state: "Karnataka",
     region: "South",
-    tagline: "Southern Technology & Premier Academic Research Support",
+    tagline: "Southern Technology & Academic Research Support",
     description:
-      "Supporting Karnataka's premier scientific institutes, advanced materials research centers, green energy initiatives, and steel production complexes.",
+      "Supporting Karnataka's scientific institutes, advanced materials research centers, green energy initiatives, and steel production complexes.",
     address: "Southern Regional Office, Peenya Industrial Area / Malleshwaram, Bangalore – 560 058, Karnataka",
     phone: "+91 - 81438 85540",
     email: "bangalore@orbitindia.com",

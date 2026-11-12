@@ -483,7 +483,7 @@ export function Header() {
                     <Link
                       href="/instrument-finder/"
                       onClick={() => setProductsOpen(false)}
-                      className="group flex items-center justify-between rounded-lg border border-slate-200 border-l-[3px] border-l-[#d00000] bg-white p-3 shadow-xs transition-all hover:border-[#0056B3] hover:shadow-sm"
+                      className="group flex items-center justify-between rounded-lg border border-slate-200 bg-white p-3 shadow-xs transition-all hover:border-[#0056B3] hover:shadow-sm"
                     >
                       <div className="flex items-center gap-2.5">
                         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#ebf3fc] text-[#0056B3] transition-colors group-hover:bg-[#feeceb] group-hover:text-[#d00000]">

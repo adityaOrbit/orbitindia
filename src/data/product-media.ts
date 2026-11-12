@@ -1399,7 +1399,7 @@ export const DEFAULT_BROCHURES: ProductBrochure[] = [
 export const DEFAULT_FAQS = [
   {
     q: "How does the true isoperibol measurement principle differ from static jacket calorimeters?",
-    a: "In a true isoperibol calorimeter, the jacket temperature is continuously regulated to maintain an exact, constant temperature surrounding the bucket throughout the entire test. Highly accurate thermistors measure heat transfer across the fixed temperature gradient, allowing the microprocessor to apply rigorous thermal leakage corrections for unmatched precision (0.1% RSD class).",
+    a: "In a true isoperibol calorimeter, the jacket temperature is continuously regulated to maintain an exact, constant temperature surrounding the bucket throughout the entire test. Highly accurate thermistors measure heat transfer across the fixed temperature gradient, allowing the microprocessor to apply rigorous thermal leakage corrections for high precision (0.1% RSD class).",
   },
   {
     q: "What are the oxygen combustion vessel inspection and hydrotesting requirements?",
@@ -1411,7 +1411,7 @@ export const DEFAULT_FAQS = [
   },
   {
     q: "Can this instrument be interfaced with analytical balances and Laboratory Information Management Systems (LIMS)?",
-    a: "Yes. The instrument features standard RS-232, dual USB ports, and a TCP/IP Ethernet network interface. It connects seamlessly to analytical balances (such as A&D, Mettler, or Sartorius) to automatically capture tare and sample weights, and outputs structured test results directly to LIMS databases.",
+    a: "Yes. The instrument features standard RS-232, dual USB ports, and a TCP/IP Ethernet network interface. It connects directly to analytical balances (such as A&D, Mettler, or Sartorius) to automatically capture tare and sample weights, and outputs structured test results directly to LIMS databases.",
   },
   {
     q: "What sample types can be tested with this system?",

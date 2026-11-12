@@ -413,7 +413,7 @@ export function ProductDetailView({
             </div>
 
             {/* Highlighted Tagline Bar */}
-            <div className="mt-4 border-l-4 border-[#0056B3] bg-[#ebf3fc] rounded-r-lg pl-3.5 py-1.5 pr-2">
+            <div className="mt-4 rounded-lg bg-[#ebf3fc] pl-3.5 py-1.5 pr-2">
               <p className="text-sm font-semibold text-[#00387a] sm:text-base">
                 {product.tagline}
               </p>
@@ -421,7 +421,7 @@ export function ProductDetailView({
 
             {/* Verified 25-35 Word Capability Statement */}
             <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
-              Engineered for rigorous testing environments across coal, fuels, minerals, and advanced materials. Delivers automated determination, high operational reproducibility, and seamless compliance with international ASTM and ISO laboratory standards.
+              Engineered for rigorous testing environments across coal, fuels, minerals, and advanced materials. Delivers automated determination, high operational reproducibility, and compliance with international ASTM and ISO laboratory standards.
             </p>
 
             {/* --------------------------------------------------------- */}

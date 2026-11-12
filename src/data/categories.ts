@@ -1448,7 +1448,7 @@ export const categories: Category[] = [
     "kind": "section",
     "blurb": "Very High Pressure Chambers, Pressure Test Benches, Testing Facilities, and Underwater Applications.",
     "guide": [
-      "DENATEC engineers world-class high-pressure test systems operating at extreme hyperbaric conditions up to 10,000+ bar. Applications span aerospace component qualification, deep-sea exploration testing, subsea sensor validation, and defense pressure hull simulations.",
+      "DENATEC engineers high-pressure test systems operating at extreme hyperbaric conditions up to 10,000+ bar. Applications span aerospace component qualification, deep-sea exploration testing, subsea sensor validation, and defense pressure hull simulations.",
       "Orbit Technologies provides direct sales, site engineering, high-pressure safety commissioning, and lifetime maintenance support for all DENATEC systems across India."
     ],
     "faq": [
@@ -1482,7 +1482,7 @@ export const categories: Category[] = [
     "kind": "section",
     "blurb": "PTFE, PFA, and borosilicate labware, stirring components, screw joints, tubing, and distillation equipment.",
     "guide": [
-      "Orbit Technologies supplies world-class Bohlender (BOLA) and related laboratory PTFE/PFA labware, including magnetic stirring bars, temperature measurement probes, high-pressure screw fittings up to 5 bar, and ATEX-certified ground joints for aggressive chemicals and high-purity applications."
+      "Orbit Technologies supplies Bohlender (BOLA) and related laboratory PTFE/PFA labware, including magnetic stirring bars, temperature measurement probes, high-pressure screw fittings up to 5 bar, and ATEX-certified ground joints for aggressive chemicals and high-purity applications."
     ],
     "faq": [
       {

@@ -18,7 +18,7 @@ import { branchOffices } from "@/data/site";
 export const metadata: Metadata = {
   title: "Orbit as a Distributor | 35+ Years of Scientific Instrumentation Excellence",
   description:
-    "Orbit Technologies is the authorized distributor and technical partner for premier global manufacturers including Parr Instrument Company (USA), NCS (Germany), NC Technologies (Italy), and Elite (UK).",
+    "Orbit Technologies is the authorized distributor and technical partner for global manufacturers including Parr Instrument Company (USA), NCS (Germany), NC Technologies (Italy), and Elite (UK).",
 };
 
 const PRINCIPAL_PARTNERS = [
@@ -90,8 +90,8 @@ export default function DistributorPage() {
 
       <PageHero
         eyebrow="Global Technology Partnership"
-        title="Orbit as a Distributor — World-Class Analytical Instrumentation"
-        subtitle="For over 35 years, Orbit Technologies has served as the exclusive Indian bridge between premier international instrumentation innovators and India's top testing laboratories, industrial plants, and research institutes."
+        title="Orbit as a Distributor — International Analytical Instruments"
+        subtitle="For over 35 years, Orbit Technologies has served as the exclusive Indian bridge between international instrument manufacturers and India's top testing laboratories, industrial plants, and research institutes."
       />
 
       {/* Narrative Section with Authentic Photos */}
@@ -102,7 +102,7 @@ export default function DistributorPage() {
               More Than A Distributor: A Comprehensive Engineering Partner
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-700">
-              When Indian laboratories invest in mission-critical analytical instrumentation — such as 
+              When Indian laboratories invest in essential analytical instrumentation — such as 
               oxygen bomb calorimeters measuring coal GCV at thermal power stations or high-pressure stirred 
               autoclaves operating at 350 bar in petrochemical pilot plants — they need more than a trading vendor. 
               They need an <strong className="text-[#0056B3]">authorized technical partner</strong> capable of handling the entire lifecycle.
@@ -226,7 +226,7 @@ export default function DistributorPage() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-              Premier Global Manufacturers We Proudly Represent
+              Global Manufacturers We Represent
             </h2>
             <p className="mt-2 text-sm text-slate-600 max-w-xl">
               Click on any principal to explore their history, equipment portfolio, and specifications.
@@ -244,7 +244,7 @@ export default function DistributorPage() {
           {PRINCIPAL_PARTNERS.map((partner) => (
             <div
               key={partner.name}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#d00000]/60 hover:shadow-lg"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-lg"
             >
               <div className="relative aspect-16/9 w-full overflow-hidden bg-slate-50 p-4 flex items-center justify-center border-b border-slate-100">
                 <Image
@@ -258,7 +258,7 @@ export default function DistributorPage() {
 
               <div className="flex flex-1 flex-col justify-between p-5">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
+                  <div className="text-xs font-bold text-[#d00000]">
                     {partner.established}
                   </div>
                   <h3 className="mt-1 font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors">

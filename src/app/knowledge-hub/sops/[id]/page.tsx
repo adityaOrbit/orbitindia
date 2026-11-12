@@ -74,7 +74,7 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
       </header>
 
       <div className="container-x max-w-3xl py-8 sm:py-12">
-        <p className="rounded-2xl border border-l-4 border-slate-200 border-l-[#d00000] bg-[#f8fafc] p-5 text-[17px] leading-[1.6] text-slate-700 sm:p-6">
+        <p className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 text-[17px] leading-[1.6] text-slate-700 sm:p-6">
           {sop.summary}
         </p>
 

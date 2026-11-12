@@ -76,7 +76,7 @@ export default async function UseCaseDetailPage({ params }: { params: Promise<Pa
         )}
 
         {uc.results.length > 0 && (
-          <section className="rounded-2xl border border-l-4 border-slate-200 border-l-[#d00000] bg-[#f8fafc] p-5 sm:p-6">
+          <section className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 sm:p-6">
             <h2 className="text-xl font-semibold text-[#0056B3]">Results</h2>
             <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[17px] leading-[1.6] text-slate-700">
               {uc.results.map((r) => (

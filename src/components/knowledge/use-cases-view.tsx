@@ -92,7 +92,7 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
               </div>
 
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <p className="text-xs font-bold text-slate-400">
                   {uc.clientType}
                 </p>
                 <h4 className="mt-1 text-lg font-semibold text-[#0056B3] leading-snug">
@@ -103,14 +103,14 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
               {/* Challenge & Solution Blocks */}
               <div className="space-y-3 text-xs">
                 <div className="rounded-xl bg-red-50/60 p-3.5 border border-red-100">
-                  <span className="font-bold uppercase tracking-wider text-red-900 block mb-1">
+                  <span className="font-bold text-red-900 block mb-1">
                     The Industrial Challenge:
                   </span>
                   <p className="text-slate-700 leading-relaxed">{uc.challenge}</p>
                 </div>
 
                 <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200">
-                  <span className="font-semibold uppercase tracking-wider text-[#0056B3] block mb-1">
+                  <span className="font-semibold text-[#0056B3] block mb-1">
                     Orbit Engineered Solution:
                   </span>
                   <p className="text-slate-700 leading-relaxed">{uc.solution}</p>
@@ -119,7 +119,7 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
 
               {/* Hardware Deployed */}
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
+                <span className="text-xs font-bold text-slate-400 block mb-1.5">
                   Instrumentation Deployed:
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -136,7 +136,7 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
 
               {/* Quantified Outcomes */}
               <div className="rounded-xl bg-emerald-50/70 p-4 border border-emerald-200/70 space-y-2">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-950 uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-950">
                   <TrendingUp className="h-4 w-4 text-emerald-600" />
                   Measurable Operational Impact:
                 </span>
@@ -152,7 +152,7 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
 
               {/* Testimonial Quote */}
               {uc.testimonial && (
-                <div className="rounded-xl border-l-4 border-[#d00000] bg-slate-50 p-3.5 text-xs italic text-slate-700 relative">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs italic text-slate-700 relative">
                   <Quote className="h-4 w-4 text-[#d00000]/40 absolute top-2 right-2" />
                   <p className="leading-relaxed">&ldquo;{uc.testimonial.quote}&rdquo;</p>
                   <p className="mt-1 text-[11px] font-semibold not-italic text-[#0056B3]">

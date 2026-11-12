@@ -59,7 +59,7 @@ const EXHIBITIONS: Exhibition[] = [
     hallStand: "Hall No. 2, Stall No. L31",
     image: "/images/events/india-lab-expo.jpg",
     description:
-      "India's premier exhibition for scientific and laboratory instruments. Meet our technical specialists, explore high-pressure reaction technology, and discover indigenous manufacturing from our Hyderabad facility.",
+      "India's major exhibition for scientific and laboratory instruments. Meet our technical specialists, explore high-pressure reaction technology, and discover indigenous manufacturing from our Hyderabad facility.",
     isUpcoming: true,
   },
   {

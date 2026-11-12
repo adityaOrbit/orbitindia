@@ -100,13 +100,13 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
     <div className="space-y-12">
       {/* Featured Headline Hero Banner */}
       {headlineNews && (
-        <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-br from-[#001c3d] via-[#00387a] to-[#0056B3] text-white shadow-xl">
+        <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-[#001c3d] text-white">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(208,0,0,0.18),transparent_65%)]" />
           
           <div className="relative grid items-center gap-8 p-6 md:p-10 lg:grid-cols-12 lg:p-12">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200 backdrop-blur-xs">
+                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">
                   {headlineNews.category}
                 </span>
                 <span className="flex items-center gap-1 text-xs text-slate-300">
@@ -140,7 +140,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                 </Link>
                 <Link
                   href="/products/7400-automatic-isoperibol-calorimeter"
-                  className="btn bg-white/15 text-white hover:bg-white/25 border-white/20 inline-flex items-center gap-2 text-sm font-semibold backdrop-blur-xs"
+                  className="btn bg-white/15 text-white hover:bg-white/25 border-white/20 inline-flex items-center gap-2 text-sm font-semibold"
                 >
                   View Product Page
                 </Link>
@@ -148,7 +148,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
             </div>
 
             <div className="relative lg:col-span-5 flex items-center justify-center">
-              <div className="relative aspect-4/3 w-full max-w-md overflow-hidden rounded-xl border border-white/15 bg-white/5 p-3 shadow-2xl backdrop-blur-xs group">
+              <div className="relative aspect-4/3 w-full max-w-md overflow-hidden rounded-xl border border-white/15 bg-white/5 p-3 shadow-2xl group">
                 <div className="relative h-full w-full overflow-hidden rounded-lg bg-white/95">
                   <Image
                     src={withBasePath(headlineNews.image)}
@@ -279,7 +279,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
         {/* Category Pills (Active when viewing All or News) */}
         {(activeTab === "all" || activeTab === "news") && (
           <div className="flex flex-wrap items-center gap-1.5 pt-1">
-            <span className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-2">
+            <span className="flex items-center gap-1 text-xs font-bold text-slate-400 mr-2">
               <SlidersHorizontal className="h-3 w-3" /> Filter:
             </span>
             {categories.map((cat) => {
@@ -327,7 +327,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                 <div>
                   {/* Top Badges */}
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-emerald-800">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-bold text-emerald-800">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-ping" />
                       Upcoming Event
                     </span>
@@ -370,7 +370,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
                   <Link
                     href={`/news/${event.slug}`}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0056B3] group-hover:text-[#d00000] transition"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
                   >
                     View Details &amp; Book Stall Meeting <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover:translate-x-1" />
                   </Link>
@@ -491,7 +491,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+                    <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600">
                       Completed Exhibition
                     </span>
                     <span className="text-xs font-semibold text-slate-500">{event.date}</span>
@@ -516,7 +516,7 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
 
                   {event.outcomes && event.outcomes.length > 0 && (
                     <div className="mt-3 rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700 space-y-1">
-                      <p className="font-bold text-[11px] uppercase tracking-wider text-slate-500">
+                      <p className="font-bold text-xs text-slate-500">
                         Event Highlights:
                       </p>
                       {event.outcomes.slice(0, 2).map((oc, i) => (

@@ -745,7 +745,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-operation`}
-          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+          className="mb-1.5 block text-xs font-bold text-slate-600"
         >
           Type of operation
         </label>
@@ -770,7 +770,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-category`}
-          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+          className="mb-1.5 block text-xs font-bold text-slate-600"
         >
           Product Group
         </label>
@@ -795,7 +795,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-industry`}
-          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+          className="mb-1.5 block text-xs font-bold text-slate-600"
         >
           Industry
         </label>
@@ -820,7 +820,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-brand`}
-          className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-slate-600"
+          className="mb-1.5 block text-xs font-bold text-slate-600"
         >
           Standards &amp; Brand
         </label>
@@ -984,7 +984,7 @@ function ProductCatalogInner({
         {hasActiveFilters && (
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3.5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              <span className="text-xs font-bold text-slate-500">
                 Your choice:
               </span>
               {activeChips.map((chip) => (

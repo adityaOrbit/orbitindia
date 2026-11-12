@@ -92,7 +92,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-3">
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+          <label className="block text-xs font-bold text-slate-700">
             Full Name *
           </label>
           <div className="relative mt-1">
@@ -110,7 +110,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
 
         <div className="grid gap-3 sm:grid-cols-2">
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+            <label className="block text-xs font-bold text-slate-700">
               Work Email *
             </label>
             <div className="relative mt-1">
@@ -127,7 +127,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+            <label className="block text-xs font-bold text-slate-700">
               Phone / Mobile *
             </label>
             <div className="relative mt-1">
@@ -145,7 +145,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+          <label className="block text-xs font-bold text-slate-700">
             Company / Institution / Laboratory *
           </label>
           <div className="relative mt-1">
@@ -163,7 +163,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
 
         {itemType === "event" && (
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+            <label className="block text-xs font-bold text-slate-700">
               Preferred Meeting Date / Time
             </label>
             <div className="relative mt-1">
@@ -180,7 +180,7 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
         )}
 
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+          <label className="block text-xs font-bold text-slate-700">
             Specific Requirements / Notes
           </label>
           <div className="relative mt-1">

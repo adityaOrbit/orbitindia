@@ -231,7 +231,7 @@ export const industries: IndustryDetail[] = [
   {
     slug: "research-education",
     name: "Research & Education",
-    tagline: "Premier Instrumentation for Central Universities, IITs & CSIR",
+    tagline: "Instrumentation for Central Universities, IITs & CSIR",
     blurb:
       "Complete teaching and research laboratories — elemental and thermal analysis, high-temperature furnaces and versatile Parr reactor systems.",
     image: "/images/industries/research-education.jpg",

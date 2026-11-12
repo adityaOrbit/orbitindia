@@ -86,7 +86,7 @@ export function CategorySeoSection({
 
   return (
     <article
-      className="mt-16 border-t border-slate-200 bg-gradient-to-b from-slate-50 to-white py-16"
+      className="mt-16 border-t border-slate-200 bg-slate-50 py-16"
       aria-label={`Technical Overview and Standards for ${category.name}`}
     >
       {/* Inject Structured Data */}
@@ -148,7 +148,7 @@ export function CategorySeoSection({
                     <span className="font-mono text-xs font-bold text-[#d00000]">
                       {std.code}
                     </span>
-                    <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-semibold text-slate-700 uppercase">
+                    <span className="rounded bg-slate-200 px-1.5 py-0.5 text-xs font-semibold text-slate-700">
                       Compliance
                     </span>
                   </div>
@@ -222,15 +222,15 @@ export function CategorySeoSection({
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-200 sm:text-base">
                 Established in Hyderabad in 1995, Orbit Technologies manufactures and
-                represents world-class scientific instruments. As Parr Instrument
+                represents leading scientific instrument makers. As Parr Instrument
                 Company&apos;s exclusive partner and #1 Global Dealer for new orders, we
                 provide full end-to-end support: from testing application guidance and
                 custom engineering to factory-certified installation, NABL-traceable
                 calibration, and lifetime spares.
               </p>
             </div>
-            <div className="flex flex-col justify-center rounded-xl bg-white/10 p-6 backdrop-blur-xs">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#feeceb]">
+            <div className="flex flex-col justify-center rounded-xl bg-white/10 p-6">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#feeceb]">
                 <MapPin className="h-4 w-4" /> Pan-India Support Network
               </div>
               <p className="mt-2 text-xs leading-relaxed text-slate-200">

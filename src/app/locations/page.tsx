@@ -57,7 +57,7 @@ export default function LocationsPage() {
               key={loc.slug}
               className={`flex flex-col justify-between rounded-2xl border p-6 sm:p-7 shadow-xs transition hover:shadow-md ${
                 loc.isHeadquarters
-                  ? "border-[#d00000]/40 bg-gradient-to-br from-blue-50/40 via-white to-white lg:col-span-2"
+                  ? "border-[#d00000]/40 bg-blue-50/40 lg:col-span-2"
                   : "border-slate-200 bg-white"
               }`}
             >
@@ -135,7 +135,7 @@ export default function LocationsPage() {
                   {/* Territory & Sectors */}
                   <div className="mt-5 grid gap-4 sm:grid-cols-2 text-xs">
                     <div>
-                      <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                      <h4 className="font-bold text-xs text-slate-400">
                         Territory Covered:
                       </h4>
                       <div className="mt-2 flex flex-wrap gap-1.5">
@@ -151,7 +151,7 @@ export default function LocationsPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                      <h4 className="font-bold text-xs text-slate-400">
                         Key Client Sectors:
                       </h4>
                       <div className="mt-2 flex flex-wrap gap-1.5">
@@ -169,7 +169,7 @@ export default function LocationsPage() {
 
                   {/* Major Local Clients */}
                   <div className="mt-5 pt-4 border-t border-slate-100">
-                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                    <h4 className="font-bold text-xs text-slate-400">
                       Notable Installations &amp; Clients Served:
                     </h4>
                     <p className="mt-1 text-xs text-slate-600 leading-relaxed">
@@ -179,7 +179,7 @@ export default function LocationsPage() {
 
                   {/* Service Capabilities */}
                   <div className="mt-4 pt-3 border-t border-slate-100">
-                    <h4 className="font-bold text-[11px] uppercase tracking-wider text-slate-400">
+                    <h4 className="font-bold text-xs text-slate-400">
                       Resident Engineering Capabilities:
                     </h4>
                     <ul className="mt-2 space-y-1.5">

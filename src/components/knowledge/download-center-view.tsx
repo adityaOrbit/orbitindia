@@ -94,7 +94,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             key={item.id}
             className={`flex flex-col justify-between rounded-2xl border p-5 transition-all duration-200 ${
               item.featured
-                ? "border-[#0056B3]/60 bg-gradient-to-b from-[#ebf3fc]/40 to-white shadow-sm ring-1 ring-[#0056B3]/20"
+                ? "border-[#0056B3]/60 bg-[#f5f9fd] shadow-sm ring-1 ring-[#0056B3]/20"
                 : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"
             }`}
           >

@@ -177,7 +177,7 @@ export default function ServiceComplaintFormPage() {
                 <form onSubmit={handleSubmit} className="mt-6 space-y-6">
                   {/* Customer Information */}
                   <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
+                    <h3 className="text-xs font-bold text-[#d00000]">
                       1. Organization &amp; Contact Details
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -284,7 +284,7 @@ export default function ServiceComplaintFormPage() {
 
                   {/* Equipment Information */}
                   <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
+                    <h3 className="text-xs font-bold text-[#d00000]">
                       2. Equipment Details
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-3">
@@ -346,7 +346,7 @@ export default function ServiceComplaintFormPage() {
 
                   {/* Service Request Nature */}
                   <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#d00000]">
+                    <h3 className="text-xs font-bold text-[#d00000]">
                       3. Service Nature &amp; Fault Description
                     </h3>
                     <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -426,7 +426,7 @@ export default function ServiceComplaintFormPage() {
           <div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-6">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#d00000]">
+                <span className="text-xs font-bold text-[#d00000]">
                   Direct Service Lines
                 </span>
                 <h3 className="mt-1 font-bold text-base text-[#0056B3]">
@@ -474,7 +474,7 @@ export default function ServiceComplaintFormPage() {
               </div>
 
               <div className="pt-5 border-t border-slate-200">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-slate-500">
+                <h4 className="font-bold text-xs text-slate-500">
                   Service Commitments
                 </h4>
                 <ul className="mt-3 space-y-2 text-xs text-slate-600">

@@ -51,7 +51,7 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
             Laboratory Standard Operating Procedures (SOPs)
           </h3>
           <p className="mt-1 text-xs text-slate-600">
-            Field-tested, peer-reviewed operating protocols adhering strictly to ASTM, ISO, and BIS testing standards.
+            Field-tested operating procedures adhering strictly to ASTM, ISO, and BIS testing standards.
           </p>
         </div>
 
@@ -188,7 +188,7 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
 
                   {/* Step-by-Step Execution Sequence */}
                   <div className="space-y-3">
-                    <h5 className="text-xs font-semibold uppercase tracking-wider text-[#0056B3]">
+                    <h5 className="text-xs font-semibold text-[#0056B3]">
                       Step-by-Step Standard Operating Procedure
                     </h5>
 
@@ -219,7 +219,7 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
                   {/* Calculations & Formulas (if present) */}
                   {sop.calculations && (
                     <div className="rounded-xl border border-slate-200 bg-white p-4">
-                      <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      <span className="text-xs font-bold text-slate-500">
                         Governing Calculations &amp; Reporting Formula
                       </span>
                       <pre className="mt-2 whitespace-pre-wrap font-mono text-xs text-slate-800 bg-slate-50 p-3 rounded-lg border border-slate-200">
@@ -230,7 +230,7 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
 
                   {/* Common Troubleshooting Table */}
                   <div className="space-y-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                    <span className="text-xs font-bold text-slate-500">
                       Standard Quality Troubleshooting
                     </span>
                     <div className="overflow-hidden rounded-xl border border-slate-200 shadow-2xs">
