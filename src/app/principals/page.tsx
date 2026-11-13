@@ -89,7 +89,7 @@ export default function PrincipalsHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${principal.slug}/`}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     View Products &amp; History <ArrowRight className="h-4 w-4" />
                   </Link>

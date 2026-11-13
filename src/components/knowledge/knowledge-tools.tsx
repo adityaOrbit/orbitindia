@@ -210,7 +210,7 @@ export function CalorificBasisConverter() {
               <button
                 type="button"
                 onClick={() => setBasis("ad")}
-                className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
+                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
                   basis === "ad"
                     ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"
@@ -221,7 +221,7 @@ export function CalorificBasisConverter() {
               <button
                 type="button"
                 onClick={() => setBasis("ar")}
-                className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
+                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
                   basis === "ar"
                     ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"
@@ -232,7 +232,7 @@ export function CalorificBasisConverter() {
               <button
                 type="button"
                 onClick={() => setBasis("db")}
-                className={`py-1.5 text-xs font-bold rounded-md border transition cursor-pointer ${
+                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
                   basis === "db"
                     ? "border-[#0056B3] bg-[#0056B3] text-white"
                     : "border-slate-200 bg-slate-50 text-slate-700"

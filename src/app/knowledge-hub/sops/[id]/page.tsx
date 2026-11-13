@@ -149,7 +149,7 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
 
         <div className="mt-10 flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
           <span>Need help applying this procedure? Our application team can help.</span>
-          <Link href="/contact-us#quote" className="inline-flex min-h-[44px] items-center gap-1.5 font-bold text-[#d00000] hover:underline sm:min-h-0">
+          <Link href="/contact-us#quote" className="inline-flex min-h-[44px] items-center gap-1.5 font-bold text-[#d00000] hover:underline lg:min-h-0">
             Contact us <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

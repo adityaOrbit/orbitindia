@@ -210,7 +210,7 @@ export default async function PrincipalDetailPage({
             </div>
             <Link
               href="/products"
-              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
             >
               Browse Full Catalog <ArrowRight className="h-4 w-4" />
             </Link>

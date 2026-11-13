@@ -310,11 +310,12 @@ h6.font-bold {
 }
 
 /* --------------------------------------------------------------------------
-   Phone tap targets (<640px): give stand-alone phone/email links and
-   breadcrumb links at least a 44px tap height. Links inside running text
-   (paragraphs) are left alone so line spacing isn't disturbed.
+   Touch tap targets (phones and tablets, <1024px): give stand-alone
+   phone/email links and breadcrumb links at least a 44px tap height. Links
+   inside running text (paragraphs) are left alone so line spacing isn't
+   disturbed.
    -------------------------------------------------------------------------- */
-@media (max-width: 639px) {
+@media (max-width: 1023px) {
   main a[href^="tel:"]:not(p a),
   main a[href^="mailto:"]:not(p a) {
     display: inline-flex;
@@ -331,4 +332,36 @@ h6.font-bold {
     align-items: center;
     min-height: 44px;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Form fields on touch screens (<1024px): 16px text stops iPhones zooming
+   in when a field is tapped, and 44px height makes fields easy to tap.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+  select,
+  textarea,
+  .input {
+    font-size: 16px;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+  select {
+    min-height: 44px;
+  }
+
+  /* Buttons: 44px tall on touch screens (base .btn is ~38px) */
+  .btn {
+    min-height: 44px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Keyboard focus: a clear outline on whatever is focused with the keyboard
+   (mouse clicks don't trigger :focus-visible on links and buttons).
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #d00000;
+  outline-offset: 2px;
 }

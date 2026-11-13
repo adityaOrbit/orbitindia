@@ -76,7 +76,7 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
             key={c}
             type="button"
             onClick={() => setSelectedCategory(c)}
-            className={`min-h-[44px] sm:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+            className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
               selectedCategory === c
                 ? "bg-[#0056B3] text-white shadow-xs"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"

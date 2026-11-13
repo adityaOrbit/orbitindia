@@ -107,7 +107,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
         {/* Back Link */}
         <Link
           href="/news"
-          className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#0056B3] transition"
+          className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#0056B3] transition"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Back to All News &amp; Events
         </Link>
@@ -442,7 +442,7 @@ function EventView({ event }: { event: EventArticle }) {
                 href={event.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 <Globe className="h-3.5 w-3.5" /> Visit Official Exhibition Portal &nearr;
               </a>

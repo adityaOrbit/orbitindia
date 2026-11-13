@@ -149,7 +149,7 @@ export function EventsAndKnowledge() {
                 type="button"
                 onClick={prevSlide}
                 aria-label="Previous event"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:bg-slate-100 hover:text-[#0056B3]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:h-9 lg:w-9 transition hover:bg-slate-100 hover:text-[#0056B3]"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -157,7 +157,7 @@ export function EventsAndKnowledge() {
                 type="button"
                 onClick={nextSlide}
                 aria-label="Next event"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:bg-slate-100 hover:text-[#0056B3]"
+                className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:h-9 lg:w-9 transition hover:bg-slate-100 hover:text-[#0056B3]"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -205,7 +205,7 @@ export function EventsAndKnowledge() {
                   <button
                     type="button"
                     onClick={() => setActiveExhibition(currentEvent)}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     View details <ArrowRight className="h-3.5 w-3.5" />
                   </button>
@@ -245,7 +245,7 @@ export function EventsAndKnowledge() {
             </div>
             <Link
               href="/knowledge-hub/"
-              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition-colors"
+              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition-colors"
             >
               <span>View All</span>
               <ArrowRight className="h-3.5 w-3.5" />

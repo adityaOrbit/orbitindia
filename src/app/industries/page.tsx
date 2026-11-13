@@ -84,13 +84,13 @@ export default function IndustriesHubPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/industries/${ind.slug}/`}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline after:absolute after:inset-0 after:content-['']"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline after:absolute after:inset-0 after:content-['']"
                   >
                     Explore Sector Solutions <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     href={`/products?industry=${ind.slug}`}
-                    className="relative z-10 inline-flex min-h-[44px] items-center text-[11px] font-semibold text-slate-400 hover:text-[#0056B3] sm:min-h-0"
+                    className="relative z-10 inline-flex min-h-[44px] items-center text-[11px] font-semibold text-slate-400 hover:text-[#0056B3] lg:min-h-0"
                   >
                     Filter Products
                   </Link>

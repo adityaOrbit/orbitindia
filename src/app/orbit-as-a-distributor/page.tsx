@@ -234,7 +234,7 @@ export default function DistributorPage() {
           </div>
           <Link
             href="/principals/"
-            className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+            className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
           >
             View All Principals Hub <ArrowRight className="h-4 w-4" />
           </Link>
@@ -271,7 +271,7 @@ export default function DistributorPage() {
                 <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/principals/${partner.slug}/`}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                   >
                     Explore Principal Details <ArrowRight className="h-3.5 w-3.5" />
                   </Link>

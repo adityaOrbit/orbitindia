@@ -65,7 +65,7 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
             key={s}
             type="button"
             onClick={() => setSelectedSector(s)}
-            className={`min-h-[44px] sm:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+            className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
               selectedSector === s
                 ? "bg-[#0056B3] text-white shadow-xs"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -165,13 +165,13 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
             <div className="mt-6 border-t border-slate-100 pt-3 flex items-center justify-between">
               <Link
                 href="/our-clients"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-xs font-semibold text-[#0056B3] hover:text-[#d00000] transition"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-semibold text-[#0056B3] hover:text-[#d00000] transition"
               >
                 View Client Directory <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 href="/contact-us#quote"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#d00000] hover:underline"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#d00000] hover:underline"
               >
                 Request Custom Solution Demo &rarr;
               </Link>

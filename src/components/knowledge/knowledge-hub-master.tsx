@@ -223,7 +223,7 @@ export function KnowledgeHubMaster({
                   key={c}
                   type="button"
                   onClick={() => setSelectedArticleCategory(c)}
-                  className={`min-h-[44px] sm:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+                  className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
                     selectedArticleCategory === c
                       ? "bg-[#d00000] text-white shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -279,7 +279,7 @@ export function KnowledgeHubMaster({
                 <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link
                     href={`/knowledge-hub/${art.slug}/`}
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
                   >
                     Read Full Article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </Link>

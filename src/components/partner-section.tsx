@@ -233,7 +233,7 @@ export function PartnerSection() {
               )}
               <Link
                 href={partner.href}
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-xs font-semibold text-[#d00000] hover:underline ml-auto"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-semibold text-[#d00000] hover:underline ml-auto"
               >
                 <span>Explore</span>
                 <ArrowRight className="h-3.5 w-3.5" />

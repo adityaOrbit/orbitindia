@@ -179,7 +179,7 @@ export default function OurServicesPage() {
                   <div className="mt-6 pt-4 border-t border-slate-100">
                     <Link
                       href="/service-complaint-form"
-                      className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
                     >
                       Book This Service <ArrowRight className="h-3.5 w-3.5" />
                     </Link>

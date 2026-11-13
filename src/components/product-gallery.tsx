@@ -64,7 +64,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handleCopyLink}
-            className="cursor-pointer relative rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer relative rounded-lg bg-white/95 p-3 text-slate-600 shadow-xs lg:p-2 hover:bg-white hover:text-[#0056B3] transition-all"
             title={copied ? "Link copied!" : "Copy sharable link"}
             aria-label="Copy link to clipboard"
           >
@@ -85,7 +85,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
             <button
               type="button"
               onClick={() => setLightboxOpen(true)}
-              className="cursor-pointer rounded-lg bg-white/95 p-2 text-slate-600 shadow-xs hover:bg-white hover:text-[#0056B3] transition-all"
+              className="cursor-pointer rounded-lg bg-white/95 p-3 text-slate-600 shadow-xs lg:p-2 hover:bg-white hover:text-[#0056B3] transition-all"
               title="Open high-resolution lightbox"
               aria-label="Expand image view"
             >
@@ -99,7 +99,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handlePrev}
-            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
             aria-label="Previous image"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -111,7 +111,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handleNext}
-            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
             aria-label="Next image"
           >
             <ChevronRight className="h-5 w-5" />

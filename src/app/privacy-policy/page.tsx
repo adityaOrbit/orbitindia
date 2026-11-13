@@ -293,7 +293,7 @@ export default function PrivacyPolicyPage() {
             <p>Looking for website usage terms?</p>
             <Link
               href="/terms-of-use/"
-              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 font-bold text-[#0056B3] hover:text-[#d00000] hover:underline"
+              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 font-bold text-[#0056B3] hover:text-[#d00000] hover:underline"
             >
               <FileText className="h-3.5 w-3.5" /> Read Terms of Use &rarr;
             </Link>

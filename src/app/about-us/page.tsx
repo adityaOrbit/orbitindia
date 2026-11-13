@@ -402,7 +402,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/analytical-instruments/"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
               >
                 Explore: Manufacturing and Analytical Instruments <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -444,7 +444,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/#industries"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition hover:underline"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition hover:underline"
               >
                 Explore: Our Principals and Partners <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -499,7 +499,7 @@ export default function AboutPage() {
             <div className="mt-6 border-t border-slate-100 pt-4">
               <Link
                 href="/#services"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline"
               >
                 Explore: Services and Support <ArrowRight className="h-3.5 w-3.5" />
               </Link>

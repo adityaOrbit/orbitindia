@@ -252,7 +252,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/instrument-finder/"
-                className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#cce1f9]"
+                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[#cce1f9]"
               >
                 Find the Right Instrument <ArrowRight className="h-4 w-4" />
               </Link>
@@ -284,7 +284,7 @@ export default function HomePage() {
                 <div>
                   <Link
                     href="/about-us"
-                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] hover:underline"
+                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-sm font-semibold text-[#d00000] hover:underline"
                   >
                     Company profile <ArrowRight className="h-4 w-4" />
                   </Link>

@@ -131,7 +131,7 @@ export const newsArticles: NewsArticle[] = [
       {
         name: "TGA 3000 Thermogravimetric Analyser",
         category: "Thermogravimetric Analysers",
-        href: "/products/tga-3000",
+        href: "/products/tga-3000-thermogravimetric-analyzer/",
         image: "/images/products/tga-3000.jpg",
       },
     ],
@@ -343,7 +343,7 @@ export const newsArticles: NewsArticle[] = [
       {
         name: "TGA 3000 Thermogravimetric Analyser",
         category: "Thermogravimetric Analysers",
-        href: "/products/tga-3000",
+        href: "/products/tga-3000-thermogravimetric-analyzer/",
         image: "/images/products/tga-3000.jpg",
         badge: "ASTM D7582",
       },
@@ -510,7 +510,7 @@ export const eventArticles: EventArticle[] = [
       {
         name: "TGA 3000 Thermogravimetric Analyser",
         category: "Thermogravimetric Analysers",
-        href: "/products/tga-3000",
+        href: "/products/tga-3000-thermogravimetric-analyzer/",
         image: "/images/products/tga-3000.jpg",
       },
     ],
@@ -643,7 +643,7 @@ export const eventArticles: EventArticle[] = [
       {
         name: "TGA 3000 Thermogravimetric Analyser",
         category: "Thermogravimetric Analysers",
-        href: "/products/tga-3000",
+        href: "/products/tga-3000-thermogravimetric-analyzer/",
         image: "/images/products/tga-3000.jpg",
       },
       {
@@ -812,7 +812,7 @@ export const latestProducts: LatestProduct[] = [
     category: "Thermogravimetric Analysers",
     image: "/images/products/tga-3000.jpg",
     badge: "Featured",
-    href: "/products/tga-3000",
+    href: "/products/tga-3000-thermogravimetric-analyzer/",
   },
   {
     name: "Oxygen Flask Combustion Unit (OFCU)",
