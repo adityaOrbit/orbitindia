@@ -1,0 +1,22 @@
+name: Refresh preview
+
+# When the testing branch changes, re-run the Pages deploy on main so the
+# /preview/ copy of the site is rebuilt. The live site (main) is rebuilt from
+# the same, unchanged main code.
+
+on:
+  push:
+    branches: [testing]
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run the Pages deploy on main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main --repo "${{ github.repository }}"

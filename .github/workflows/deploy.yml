@@ -1,5 +1,11 @@
 name: Deploy to GitHub Pages
 
+# Publishes two versions of the site to one GitHub Pages site:
+#   - the main branch at the site root          (…/orbitindia/)
+#   - the testing branch under /preview/          (…/orbitindia/preview/)
+# GitHub only lets the main branch publish, so pushes to testing ask this
+# workflow (on main) to run via .github/workflows/preview-trigger.yml.
+
 on:
   push:
     branches: [main]
@@ -18,8 +24,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site-main
+      - name: Check out testing
+        id: testing
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: testing
+          path: site-testing
       - name: Set up GitHub Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -28,22 +44,44 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Build static site
-        run: npm run build
+          cache-dependency-path: site-main/package-lock.json
+
+      - name: Build main (site root)
+        working-directory: site-main
+        run: |
+          npm ci
+          npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_GTM_ID: ${{ vars.NEXT_PUBLIC_GTM_ID || '' }}
           # Google Apps Script web app "Orbit Website Forms" (owner: seo@orbitindia.com).
           # A repository variable of the same name overrides it.
           NEXT_PUBLIC_FORMS_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORMS_ENDPOINT || 'https://script.google.com/macros/s/AKfycby0dcU28M0wL58rnO81WVbWFSgGmYOGPPsoBGAXEZniCxCSj5nLGwTpD0LJL5Iwy6J-/exec' }}
-      - name: Add Pages marker
-        run: touch ./out/.nojekyll
+
+      - name: Build testing (/preview)
+        if: steps.testing.outcome == 'success'
+        working-directory: site-testing
+        run: |
+          npm ci
+          npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}/preview
+          NEXT_PUBLIC_GTM_ID: ""
+          NEXT_PUBLIC_FORMS_ENDPOINT: ${{ vars.NEXT_PUBLIC_FORMS_ENDPOINT || 'https://script.google.com/macros/s/AKfycby0dcU28M0wL58rnO81WVbWFSgGmYOGPPsoBGAXEZniCxCSj5nLGwTpD0LJL5Iwy6J-/exec' }}
+
+      - name: Combine both builds
+        run: |
+          mkdir -p dist
+          cp -r site-main/out/. dist/
+          if [ -d site-testing/out ]; then
+            mkdir -p dist/preview
+            cp -r site-testing/out/. dist/preview/
+          fi
+          touch dist/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./dist
 
   deploy:
     environment:
