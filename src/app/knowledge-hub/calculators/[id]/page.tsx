@@ -32,7 +32,7 @@ export default async function CalculatorPage({ params }: { params: Promise<Param
       <Breadcrumb
         items={[
           { label: "Knowledge Hub", href: "/knowledge-hub/" },
-          { label: "Calculators", href: "/knowledge-hub/#calculators" },
+          { label: "Tools", href: "/knowledge-hub/tools/" },
           { label: tool.title },
         ]}
       />

@@ -36,7 +36,8 @@ export default async function UseCaseDetailPage({ params }: { params: Promise<Pa
       <Breadcrumb
         items={[
           { label: "Knowledge Hub", href: "/knowledge-hub/" },
-          { label: "Use Cases", href: "/knowledge-hub/#use-cases" },
+          { label: "Resources", href: "/knowledge-hub/resources/" },
+          { label: "Use Cases", href: "/knowledge-hub/resources/#use-cases" },
           { label: uc.title },
         ]}
       />

@@ -50,7 +50,8 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
       <Breadcrumb
         items={[
           { label: "Knowledge Hub", href: "/knowledge-hub/" },
-          { label: "SOPs", href: "/knowledge-hub/#sops" },
+          { label: "Resources", href: "/knowledge-hub/resources/" },
+          { label: "SOPs", href: "/knowledge-hub/resources/#sops" },
           { label: sop.title },
         ]}
       />

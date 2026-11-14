@@ -397,7 +397,7 @@ export default function HomePage() {
             <div>
               <h3 className="mb-1.5 flex items-baseline justify-between border-b-2 border-[var(--ink)] pb-3.5 text-xl font-semibold text-[var(--ink)]">
                 Latest from the Orbit
-                <Link href="/knowledge-hub/" className="link-more text-[15px]">
+                <Link href="/knowledge-hub/blogs/" className="link-more text-[15px]">
                   View all <ArrowRight className="h-4 w-4" />
                 </Link>
               </h3>

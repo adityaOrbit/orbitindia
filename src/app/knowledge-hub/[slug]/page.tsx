@@ -66,6 +66,7 @@ export default async function KnowledgeArticleDetailPage({
       <Breadcrumb
         items={[
           { label: "Knowledge Hub", href: "/knowledge-hub/" },
+          { label: "Blogs", href: "/knowledge-hub/blogs/" },
           { label: article.title },
         ]}
       />
@@ -244,7 +245,7 @@ export default async function KnowledgeArticleDetailPage({
               Consult Application Team <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/knowledge-hub"
+              href="/knowledge-hub/blogs/"
               className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
             >
               Browse All Whitepapers
