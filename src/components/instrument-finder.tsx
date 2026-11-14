@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, PhoneCall, SlidersHorizontal, ArrowRight } from "lucide-react";
+import { Search, PhoneCall, ArrowRight } from "lucide-react";
 import { site } from "@/data/site";
 import { trackCatalogFilter } from "@/lib/analytics";
 
@@ -133,19 +133,10 @@ export function InstrumentFinder() {
   };
 
   return (
-    <div id="finder" className="scroll-mt-28 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
-      <div className="flex items-center gap-3">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf3fc] text-[#0056B3]">
-          <SlidersHorizontal className="h-5 w-5" />
-        </span>
-        <div>
-          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-            Start With What You Need to Test
-          </h3>
-        </div>
-      </div>
+    <div id="finder" className="scroll-mt-28">
+      <h2 className="section-title">Start With What You Need to Test</h2>
 
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
+      <p className="mt-3 max-w-3xl text-base leading-relaxed text-[var(--ink-2)]">
         Choosing laboratory equipment starts with understanding your sample, application, and test
         method. Whether you are testing coal for calorific value, measuring ash fusion
         temperature, analyzing carbon and sulfur in steel, or selecting a reactor for high-pressure
@@ -153,17 +144,17 @@ export function InstrumentFinder() {
       </p>
 
       {/* Finder Form */}
-      <form onSubmit={handleFind} className="mt-6 rounded-xl border border-slate-200 bg-[#fbfcfd] p-5 sm:p-6">
+      <form onSubmit={handleFind} className="mt-6 rounded-md border border-[var(--line)] p-5 sm:p-6">
         <div className="grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-end">
           <div>
-            <label htmlFor="finder-category" className="label text-slate-700 font-semibold">
-              Product Category <span className="text-xs font-normal text-slate-500">(Optional)</span>
+            <label htmlFor="finder-category" className="label">
+              Product Category <span className="font-normal text-[var(--ink-3)]">(Optional)</span>
             </label>
             <select
               id="finder-category"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="input bg-white"
+              className="input"
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
@@ -174,14 +165,14 @@ export function InstrumentFinder() {
           </div>
 
           <div>
-            <label htmlFor="finder-industry" className="label text-slate-700 font-semibold">
-              Industry <span className="text-xs font-normal text-slate-500">(Optional)</span>
+            <label htmlFor="finder-industry" className="label">
+              Industry <span className="font-normal text-[var(--ink-3)]">(Optional)</span>
             </label>
             <select
               id="finder-industry"
               value={selectedIndustry}
               onChange={(e) => setSelectedIndustry(e.target.value)}
-              className="input bg-white"
+              className="input"
             >
               {INDUSTRIES.map((ind) => (
                 <option key={ind.value} value={ind.value}>
@@ -192,10 +183,7 @@ export function InstrumentFinder() {
           </div>
 
           <div>
-            <button
-              type="submit"
-              className="btn btn-accent w-full md:w-auto"
-            >
+            <button type="submit" className="btn btn-primary w-full md:w-auto">
               <Search className="h-4 w-4" /> Filter Instruments
             </button>
           </div>
@@ -203,53 +191,45 @@ export function InstrumentFinder() {
 
         {/* Selected parameters hint */}
         {(selectedCategory !== "all" || selectedIndustry !== "all") && (
-          <div className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
-            <SlidersHorizontal className="h-3.5 w-3.5 text-[#0056B3]" />
-            <span>
-              Target filter:{" "}
-              <strong className="text-[#0056B3]">
-                {selectedCategory !== "all"
-                  ? CATEGORIES.find((c) => c.value === selectedCategory)?.label
-                  : "All Products"}
-              </strong>
-              {selectedIndustry !== "all" && (
-                <>
-                  {" "}
-                  · Industry:{" "}
-                  <strong className="text-[#d00000]">
-                    {INDUSTRIES.find((i) => i.value === selectedIndustry)?.label}
-                  </strong>
-                </>
-              )}
-            </span>
-          </div>
+          <p className="mt-4 text-[13px] text-[var(--ink-3)]">
+            Target filter:{" "}
+            <strong className="font-semibold text-[var(--ink)]">
+              {selectedCategory !== "all"
+                ? CATEGORIES.find((c) => c.value === selectedCategory)?.label
+                : "All Products"}
+            </strong>
+            {selectedIndustry !== "all" && (
+              <>
+                {" "}
+                · Industry:{" "}
+                <strong className="font-semibold text-[var(--ink)]">
+                  {INDUSTRIES.find((i) => i.value === selectedIndustry)?.label}
+                </strong>
+              </>
+            )}
+          </p>
         )}
       </form>
 
       {/* Advisory block & secondary CTA */}
-      <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-blue-100 bg-[#ebf3fc] p-5 sm:flex-row sm:items-center">
+      <div className="mt-10 flex flex-col justify-between gap-5 border-t border-[var(--line)] pt-8 lg:flex-row lg:items-center">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-[#0056B3]">
-            Need help selecting an instrument?
-          </p>
-          <p className="mt-1 text-xs leading-relaxed text-slate-600 sm:text-sm">
+          <h3 className="text-lg font-semibold text-[var(--ink)]">Need help selecting an instrument?</h3>
+          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--ink-2)]">
             Share your sample type, test method, and applicable standard, such as ASTM or ISO.
             Our engineers will help you identify a suitable instrument and provide an official quotation.
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 flex-wrap items-center gap-3">
+          <Link href="/contact-us#quote" className="btn btn-accent">
+            Tell Us What You Need <ArrowRight className="h-4 w-4" />
+          </Link>
           <a
             href={`tel:${site.phones.office.replace(/[^+\d]/g, "")}`}
-            className="btn btn-outline border-slate-300 text-xs sm:text-sm"
+            className="btn btn-outline"
           >
-            <PhoneCall className="h-4 w-4 text-[#d00000]" /> Call Us
+            <PhoneCall className="h-4 w-4 text-[#0056B3]" /> Call Us
           </a>
-          <Link
-            href="/contact-us#quote"
-            className="btn btn-primary text-xs sm:text-sm"
-          >
-            Tell Us What You Need <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
         </div>
       </div>
     </div>

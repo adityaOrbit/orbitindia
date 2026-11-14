@@ -2,17 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import {
-  BookOpen,
-  ClipboardList,
-  Building2,
-  Calculator,
-  Download,
-  Search,
-  Clock,
-  ArrowRight,
-  X,
-} from "lucide-react";
+import { Search, ArrowRight, X } from "lucide-react";
 import type {
   KnowledgeArticle,
   StandardOperatingProcedure,
@@ -64,137 +54,60 @@ export function KnowledgeHubMaster({
     });
   }, [articles, selectedArticleCategory, searchQuery]);
 
+  const tabs: { id: KnowledgeTab; label: string; count: number }[] = [
+    { id: "blogs", label: "Learning Hub (Blogs)", count: articles.length },
+    { id: "sops", label: "SOP Library", count: sops.length },
+    { id: "usecases", label: "Use Cases", count: useCases.length },
+    { id: "tools", label: "Free Tools", count: 4 },
+    { id: "downloads", label: "Download Center", count: downloads.length },
+  ];
+
   return (
-    <div className="space-y-10">
-      {/* ==========================================
-          STICKY EASY NAVIGATION BAR
-          ========================================== */}
-      <div className="sticky top-20 z-30 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-lg backdrop-blur-md">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          {/* Main 5 Navigation Tabs */}
-          <nav className="flex flex-wrap items-center gap-1.5" aria-label="Knowledge Hub Sections">
-            <button
-              type="button"
-              onClick={() => setActiveTab("blogs")}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "blogs"
-                  ? "bg-[#0056B3] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <BookOpen className="h-3.5 w-3.5 text-[#d00000]" />
-              <span>Learning Hub (Blogs)</span>
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[10px] ${
-                  activeTab === "blogs" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {articles.length}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("sops")}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "sops"
-                  ? "bg-[#0056B3] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <ClipboardList className="h-3.5 w-3.5 text-blue-500" />
-              <span>SOP Library</span>
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[10px] ${
-                  activeTab === "sops" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {sops.length}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("usecases")}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "usecases"
-                  ? "bg-[#0056B3] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <Building2 className="h-3.5 w-3.5 text-emerald-500" />
-              <span>Use Cases</span>
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[10px] ${
-                  activeTab === "usecases"
-                    ? "bg-white/20 text-white"
-                    : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {useCases.length}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("tools")}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "tools"
-                  ? "bg-[#0056B3] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <Calculator className="h-3.5 w-3.5 text-purple-500" />
-              <span>Free Tools</span>
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[10px] ${
-                  activeTab === "tools" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                4
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("downloads")}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "downloads"
-                  ? "bg-[#0056B3] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <Download className="h-3.5 w-3.5 text-[#d00000]" />
-              <span>Download Center</span>
-              <span
-                className={`rounded-full px-1.5 py-0.5 text-[10px] ${
-                  activeTab === "downloads"
-                    ? "bg-white/20 text-white"
-                    : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {downloads.length}
-              </span>
-            </button>
+    <div>
+      {/* Section bar: tabs + quick search */}
+      <div className="section-bar">
+        <div className="flex flex-col gap-2 py-2 lg:flex-row lg:items-center lg:justify-between lg:py-0">
+          <nav className="no-scrollbar flex overflow-x-auto" aria-label="Knowledge Hub Sections">
+            {tabs.map((t) => {
+              const active = activeTab === t.id;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setActiveTab(t.id)}
+                  aria-pressed={active}
+                  className={`-mb-px inline-flex min-h-[44px] items-center gap-1.5 whitespace-nowrap border-b-2 px-3 text-sm font-medium transition-colors ${
+                    active
+                      ? "border-[#0056B3] text-[var(--ink)]"
+                      : "border-transparent text-[var(--ink-2)] hover:text-[#0056B3]"
+                  }`}
+                >
+                  {t.label}
+                  <span className="text-[13px] text-[var(--ink-3)] tnum">{t.count}</span>
+                </button>
+              );
+            })}
           </nav>
 
           {/* Quick Search across Knowledge Hub */}
-          <div className="relative min-w-[200px] max-w-xs shrink-0">
-            <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+          <div className="relative w-full shrink-0 lg:w-64">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ink-3)]" aria-hidden="true" />
             <input
               type="text"
               placeholder="Search knowledge hub..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 py-3 pl-8 pr-7 text-base font-medium sm:py-1.5 sm:text-xs text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden"
+              aria-label="Search knowledge hub"
+              className="input !pl-9 !pr-9"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                aria-label="Clear search"
+                className="absolute right-1 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[var(--ink-3)] hover:text-[var(--ink)]"
               >
-                <X className="h-3 w-3" />
+                <X className="h-4 w-4" />
               </button>
             )}
           </div>
@@ -205,94 +118,80 @@ export function KnowledgeHubMaster({
           SECTION 1: LEARNING HUB (BLOGS & WHITEPAPERS)
           ========================================== */}
       {activeTab === "blogs" && (
-        <section className="space-y-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
+        <section className="section">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <h3 className="text-2xl font-semibold text-[#0056B3] sm:text-3xl">
+              <h2 className="section-title">
                 Learning Hub — Technical Blogs &amp; Application Whitepapers
-              </h3>
-              <p className="mt-1 text-xs text-slate-600">
+              </h2>
+              <p className="section-sub">
                 In-depth methodologies, thermodynamic calculations, and standard test method guides written by Orbit application specialists.
               </p>
             </div>
 
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap items-center gap-1.5">
-              {blogCategories.map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setSelectedArticleCategory(c)}
-                  className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
-                    selectedArticleCategory === c
-                      ? "bg-[#d00000] text-white shadow-xs"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}
-                >
-                  {c === "all" ? "All Topics" : c}
-                </button>
-              ))}
+            {/* Category filter */}
+            <div className="no-scrollbar -mx-4 flex overflow-x-auto border-b border-[var(--line)] px-4 sm:mx-0 sm:px-0 lg:border-b-0">
+              {blogCategories.map((c) => {
+                const active = selectedArticleCategory === c;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setSelectedArticleCategory(c)}
+                    aria-pressed={active}
+                    className={`-mb-px min-h-[44px] whitespace-nowrap border-b-2 px-3 text-sm font-medium capitalize transition-colors lg:min-h-[36px] ${
+                      active
+                        ? "border-[#0056B3] text-[var(--ink)]"
+                        : "border-transparent text-[var(--ink-3)] hover:text-[#0056B3]"
+                    }`}
+                  >
+                    {c === "all" ? "All Topics" : c}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Articles Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {filteredArticles.map((art) => (
               <article
                 key={art.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all duration-300 hover:border-[#0056B3]/60 hover:shadow-xl"
+                className="group flex flex-col justify-between rounded-md border border-[var(--line)] bg-white p-5 transition-colors hover:border-[#0056B3]"
               >
                 <div>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
-                    <span className="flex items-center gap-1 text-[11px]">
-                      <Clock className="h-3 w-3 text-slate-400" /> {art.readTime}
-                    </span>
-                  </div>
+                  <p className="text-[13px] text-[var(--ink-3)]">{art.readTime}</p>
 
-                  <h4 className="mt-4 text-base font-semibold text-[#0056B3] group-hover:text-[#d00000] transition leading-snug">
+                  <h3 className="mt-2 text-base font-semibold leading-snug text-[var(--ink)] transition-colors group-hover:text-[#0056B3]">
                     <Link href={`/knowledge-hub/${art.slug}/`}>{art.title}</Link>
-                  </h4>
+                  </h3>
 
-                  <p className="mt-1.5 text-xs font-semibold text-[#d00000]">{art.subtitle}</p>
+                  <p className="mt-1.5 text-sm font-medium text-[var(--ink-2)]">{art.subtitle}</p>
 
-                  <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-3">
+                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-[var(--ink-3)]">
                     {art.summary}
                   </p>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100">
-                    <span className="text-xs font-bold text-slate-400">
-                      Standard References:
-                    </span>
-                    <div className="mt-1.5 flex flex-wrap gap-1">
-                      {art.standards.map((std) => (
-                        <span
-                          key={std}
-                          className="rounded-md bg-slate-50 border border-slate-200 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-slate-700"
-                        >
-                          {std}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <p className="mt-4 border-t border-[var(--line)] pt-3 text-[13px] text-[var(--ink-3)]">
+                    <span className="font-medium text-[var(--ink-2)]">Standard References: </span>
+                    {art.standards.join(" · ")}
+                  </p>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <Link
-                    href={`/knowledge-hub/${art.slug}/`}
-                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] group-hover:underline"
-                  >
-                    Read Full Article <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <div className="mt-5 flex items-center justify-between border-t border-[var(--line)] pt-3">
+                  <Link href={`/knowledge-hub/${art.slug}/`} className="link-more min-h-[44px] lg:min-h-0">
+                    Read Full Article <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <span className="text-[10px] text-slate-400">{art.date}</span>
+                  <span className="text-[13px] text-[var(--ink-3)]">{art.date}</span>
                 </div>
               </article>
             ))}
           </div>
 
           {filteredArticles.length === 0 && (
-            <div className="rounded-xl border border-dashed border-slate-300 p-8 text-center text-xs text-slate-500">
+            <p className="mt-6 rounded-md bg-[var(--soft)] p-8 text-center text-sm text-[var(--ink-3)]">
               No articles match your search. Try resetting filters.
-            </div>
+            </p>
           )}
         </section>
       )}
@@ -310,32 +209,33 @@ export function KnowledgeHubMaster({
       {/* ==========================================
           SECTION 4: FREE INTERACTIVE TOOLS
           ========================================== */}
-      {activeTab === "tools" && <KnowledgeTools />}
+      {activeTab === "tools" && (
+        <section className="section">
+          <KnowledgeTools />
+        </section>
+      )}
 
       {/* ==========================================
           SECTION 5: DOWNLOAD CENTER
           ========================================== */}
       {activeTab === "downloads" && <DownloadCenterView downloads={downloads} />}
 
-      {/* Bottom Consultation Banner */}
-      <section className="relative overflow-hidden rounded-2xl bg-[#0056B3] p-8 md:p-10 text-white shadow-xl">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Bottom Consultation */}
+      <section className="section">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
           <div className="max-w-xl">
-            <h3 className="text-xl font-semibold sm:text-2xl">
+            <h2 className="section-title">
               Require an On-Site SOP Workshop or Custom Test Protocol?
-            </h3>
-            <p className="mt-2 text-xs md:text-sm text-slate-300 leading-relaxed">
+            </h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-[var(--ink-2)]">
               Orbit&apos;s senior application chemists in Hyderabad provide complete hands-on operator training, calibration verification, and customized test procedure writing for laboratories across India.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link href="/contact-us#quote" className="btn btn-accent text-xs md:text-sm font-bold">
+          <div className="flex shrink-0 flex-wrap items-center gap-3">
+            <Link href="/contact-us#quote" className="btn btn-accent">
               Consult Application Chemist <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
-              href="/our-services"
-              className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20 text-xs md:text-sm font-semibold"
-            >
+            <Link href="/our-services" className="btn btn-outline">
               Our Service Capabilities
             </Link>
           </div>

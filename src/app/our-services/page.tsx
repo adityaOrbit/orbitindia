@@ -3,16 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Check,
   Wrench,
   ShieldAlert,
   ShieldCheck,
-  CheckCircle2,
   FileCheck,
   Award,
   Zap,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { PageHero } from "@/components/page-hero";
+import { TemperatureCurve } from "@/components/temperature-curve";
 import { JsonLd } from "@/components/json-ld";
 import { getServicesPageSchema } from "@/lib/schema";
 import { site } from "@/data/site";
@@ -104,6 +104,20 @@ const SERVICES_LIST = [
   },
 ];
 
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={`font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] ${
+        dark ? "text-[#7fb2f0]" : "text-[#0056B3]"
+      }`}
+    >
+      {children}
+    </p>
+  );
+}
+
+const h2Cls = "text-[1.65rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.1rem]";
+
 export default function OurServicesPage() {
   return (
     <div className="bg-white">
@@ -114,120 +128,122 @@ export default function OurServicesPage() {
         ]}
       />
 
-      <PageHero
-        eyebrow="Nationwide Technical Lifecycle Support"
-        title="Our Services — Calibration, Hydrotesting & Annual Maintenance"
-        subtitle="Orbit Technologies delivers rapid technical assistance, factory-certified preventive maintenance, 300-bar oxygen vessel hydrostatic proof-testing, and certified calibration across India."
-      />
-
-      {/* 6 Core Service Offerings */}
-      <section className="container-x py-16">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-            Specialized Engineering &amp; Metrology Services
-          </h2>
-          <p className="mt-2 text-sm text-slate-600">
-            Backed by 35+ years of domain expertise, our service team ensures your equipment maintains factory-grade measurement precision and safe operation.
-          </p>
+      {/* Split header: H1 and intro left; service photo on a pale field bleeding right */}
+      <section className="relative border-b border-[var(--line)]">
+        <div aria-hidden className="absolute inset-y-0 right-0 hidden w-[42%] bg-[#f3f5f8] lg:block" />
+        <div className="container-x relative grid grid-cols-1 items-center lg:grid-cols-[1.38fr_1fr]">
+          <div className="min-w-0 py-8 sm:py-10 lg:py-14 lg:pr-14">
+            <Eyebrow>Services</Eyebrow>
+            <h1 className="mt-4 max-w-3xl text-[1.75rem] font-semibold leading-tight tracking-tight text-[var(--ink)] sm:text-[2.2rem] lg:text-[2.6rem]">
+              Our Services — Calibration, Hydrotesting &amp; Annual Maintenance
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--ink-2)] sm:text-[17px]">
+              Orbit Technologies delivers rapid technical assistance, factory-certified preventive maintenance, 300-bar oxygen vessel hydrostatic proof-testing, and certified calibration across India.
+            </p>
+            <p className="mt-5 text-[13px] text-[var(--ink-3)]">Nationwide Technical Lifecycle Support</p>
+          </div>
+          <div className="-mx-4 min-w-0 bg-[#f3f5f8] px-4 py-6 sm:-mx-6 sm:px-6 lg:mx-0 lg:bg-transparent lg:py-10 lg:pl-12 lg:pr-0">
+            <div className="relative aspect-[515/450] overflow-hidden rounded-md">
+              <Image
+                src="/images/orbit/services-3.jpg"
+                alt="Hydrostatic test equipment"
+                fill
+                priority
+                className="object-cover"
+                sizes="(min-width: 1024px) 36vw, 100vw"
+              />
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES_LIST.map((srv, idx) => {
-            const Icon = srv.icon;
-            return (
-              <div
+      {/* 6 Core Service Offerings — numbered rows */}
+      <section className="py-14 sm:py-20 lg:py-[88px]">
+        <div className="container-x">
+          <div className="max-w-3xl">
+            <Eyebrow>What we do</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Specialized Engineering &amp; Metrology Services</h2>
+            <p className="mt-3 text-base leading-relaxed text-[var(--ink-3)]">
+              Backed by 35+ years of domain expertise, our service team ensures your equipment maintains factory-grade measurement precision and safe operation.
+            </p>
+          </div>
+
+          <ol className="mt-10 border-t-2 border-[var(--ink)]">
+            {SERVICES_LIST.map((srv, idx) => (
+              <li
                 key={idx}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-lg"
+                className="grid grid-cols-1 gap-5 border-b border-[var(--line)] py-8 md:grid-cols-[5.5rem_1fr] lg:grid-cols-[6.5rem_1fr_1fr_13rem] lg:gap-10 lg:py-10"
               >
-                <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
+                <span className="font-[family-name:var(--font-poppins)] text-[2.75rem] font-semibold leading-none tracking-[-0.03em] text-[#0056B3] tnum sm:text-[3.5rem]">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-[family-name:var(--font-poppins)] text-xs font-semibold uppercase tracking-[0.08em] text-[var(--ink-3)]">{srv.tag}</p>
+                  <h3 className="mt-1.5 text-xl font-semibold leading-snug text-[var(--ink)]">{srv.title}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-[var(--ink-2)]">{srv.desc}</p>
+                  <Link href="/service-complaint-form" className="link-more mt-4 min-h-[44px] lg:min-h-0">
+                    Book This Service <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <ul className="min-w-0 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[var(--ink-2)] marker:text-[#0056B3] md:col-start-2 lg:col-start-auto">
+                  {srv.points.map((pt, pIdx) => (
+                    <li key={pIdx}>{pt}</li>
+                  ))}
+                </ul>
+                <div className="relative aspect-16/10 w-full min-w-0 overflow-hidden rounded-sm bg-[var(--soft)] md:col-start-2 lg:col-start-auto lg:aspect-4/3">
                   <Image
                     src={srv.image}
                     alt={srv.title}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 208px, (min-width: 768px) 80vw, 100vw"
                   />
                 </div>
-
-                <div className="flex flex-1 flex-col justify-between p-6">
-                  <div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0056B3]/5 text-[#d00000]">
-                        <Icon className="h-4.5 w-4.5" />
-                      </div>
-                      <h3 className="font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors leading-snug">
-                        {srv.title}
-                      </h3>
-                    </div>
-
-                    <p className="mt-3 text-xs leading-relaxed text-slate-600">
-                      {srv.desc}
-                    </p>
-
-                    <div className="mt-4 pt-4 border-t border-slate-100">
-                      <ul className="space-y-1.5">
-                        {srv.points.map((pt, pIdx) => (
-                          <li key={pIdx} className="flex items-start gap-2 text-xs text-slate-700">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                            <span>{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-slate-100">
-                    <Link
-                      href="/service-complaint-form"
-                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-                    >
-                      Book This Service <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Oxygen Vessel Safety Warning & Proof-Testing Feature */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200">
-        <div className="container-x">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-                Why 300-Bar Hydrostatic Testing Is Critical for Oxygen Bombs
-              </h2>
-              <p className="mt-4 text-sm leading-relaxed text-slate-700">
-                Parr oxygen combustion vessels operate with 30 atmospheres (450 psi) of pure oxygen, reaching internal peak combustion pressures exceeding 100 atmospheres (1,500 psi) during the firing of coal or fuel samples.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                Under international safety codes (including ASTM and ASME guidelines), oxygen bombs must be hydrostatically tested to 300 bar (4,350 psi) at least once every 12 to 24 months, or whenever the vessel has experienced 500 firings. Using an uncertified or fatigue-stressed vessel poses severe catastrophic risks.
-              </p>
+      {/* Oxygen Vessel Safety Warning & Proof-Testing Feature — navy band */}
+      <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-20 lg:py-[88px]">
+        <TemperatureCurve className="pointer-events-none absolute inset-x-0 top-10 h-[140px] opacity-35" />
+        <div className="container-x relative grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="min-w-0">
+            <Eyebrow dark>Statutory Safety</Eyebrow>
+            <h2 className={`mt-3 text-white ${h2Cls}`}>Why 300-Bar Hydrostatic Testing Is Critical for Oxygen Bombs</h2>
+            <p className="mt-4 text-base leading-relaxed text-[#c9d4e3]">
+              Parr oxygen combustion vessels operate with 30 atmospheres (450 psi) of pure oxygen, reaching internal peak combustion pressures exceeding 100 atmospheres (1,500 psi) during the firing of coal or fuel samples.
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-[#b7c4d6]">
+              Under international safety codes (including ASTM and ASME guidelines), oxygen bombs must be hydrostatically tested to 300 bar (4,350 psi) at least once every 12 to 24 months, or whenever the vessel has experienced 500 firings. Using an uncertified or fatigue-stressed vessel poses severe catastrophic risks.
+            </p>
 
-              <div className="mt-6 space-y-2.5">
-                {[
-                  "Parr-certified hydraulic test bench located in Hyderabad",
-                  "Digital micrometer thread wear verification (no pitch distortion)",
-                  "Ultrasonic wall thickness measurement verifying no corrosion thinning",
-                  "Certified test certificate valid for statutory regulatory and insurance audits",
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+            <ul className="mt-6 border-t border-white/20">
+              {[
+                "Parr-certified hydraulic test bench located in Hyderabad",
+                "Digital micrometer thread wear verification (no pitch distortion)",
+                "Ultrasonic wall thickness measurement verifying no corrosion thinning",
+                "Certified test certificate valid for statutory regulatory and insurance audits",
+              ].map((item, idx) => (
+                <li key={idx} className="flex items-start gap-2.5 border-b border-white/20 py-2.5 text-[15px] text-white">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#7fb2f0]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-              <div className="mt-6">
-                <Link href="/service-complaint-form" className="btn btn-accent text-xs">
-                  Schedule Oxygen Vessel Hydrotesting <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+            <Link href="/service-complaint-form" className="btn btn-accent mt-7 min-h-[48px] whitespace-normal px-6 text-center">
+              Schedule Oxygen Vessel Hydrotesting <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="min-w-0">
+            <div className="font-[family-name:var(--font-poppins)] text-[3.5rem] font-semibold leading-none tracking-[-0.03em] text-white tnum sm:text-[5rem]">
+              300 bar
             </div>
-
-            <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+            <p className="mt-2 text-[15px] text-[#b7c4d6]">(4,350 psi)</p>
+            <div className="relative mt-6 aspect-4/3 overflow-hidden rounded-md bg-white/5">
               <Image
                 src="/images/orbit/services-2.jpg"
                 alt="Parr Oxygen Vessel Hydrostatic Testing"
@@ -241,28 +257,25 @@ export default function OurServicesPage() {
       </section>
 
       {/* Bottom Service Booking Banner */}
-      <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-            <div className="max-w-2xl">
-              <h3 className="text-2xl font-semibold sm:text-3xl">
-                Ready to Schedule Maintenance or Recalibration?
-              </h3>
-              <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-                Fill out our online service complaint form or call our Hyderabad service control desk. We will assign an authorized service engineer from your nearest branch.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-4 shrink-0">
-              <Link href="/service-complaint-form" className="btn btn-accent">
-                Submit Online Service Ticket <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a
-                href={`tel:${site.phones.service.replace(/[^+\d]/g, "")}`}
-                className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20"
-              >
-                Call: {site.phones.service}
-              </a>
-            </div>
+      <section className="bg-[#f3f5f8] py-14 sm:py-20">
+        <div className="container-x grid grid-cols-1 gap-6 lg:grid-cols-[1.5fr_1fr] lg:items-center lg:gap-14">
+          <div className="min-w-0">
+            <Eyebrow>Book a visit</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Ready to Schedule Maintenance or Recalibration?</h2>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-2)] sm:text-base">
+              Fill out our online service complaint form or call our Hyderabad service control desk. We will assign an authorized service engineer from your nearest branch.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 lg:justify-end">
+            <Link href="/service-complaint-form" className="btn btn-primary min-h-[48px] px-6">
+              Submit Online Service Ticket <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              href={`tel:${site.phones.service.replace(/[^+\d]/g, "")}`}
+              className="btn btn-outline min-h-[48px] px-6 tnum"
+            >
+              Call: {site.phones.service}
+            </a>
           </div>
         </div>
       </section>

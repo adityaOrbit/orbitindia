@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function InstrumentFinderPage() {
   return (
-    <div className="bg-[#f8fafc] min-h-screen">
+    <div className="bg-white">
       {/* Crawlable Breadcrumb */}
       <Breadcrumb items={[{ label: "Instrument Finder" }]} />
 
@@ -22,7 +22,7 @@ export default function InstrumentFinderPage() {
       />
 
       {/* Interactive Tool Container */}
-      <main className="container-x py-10 sm:py-14 space-y-12 sm:space-y-16">
+      <main className="container-x py-10 sm:py-14">
         {/* Core Tool */}
         <section aria-label="Interactive Instrument Finder Tool">
           <InstrumentFinder />

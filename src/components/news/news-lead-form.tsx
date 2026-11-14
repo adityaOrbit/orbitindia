@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, Phone, Mail, Building, User, Calendar, MessageSquare } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { trackGenerateLead } from "@/lib/analytics";
 import { FORM_FALLBACK_MESSAGE, submitForm } from "@/lib/submit-form";
 
@@ -57,18 +57,16 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
 
   if (submitted) {
     return (
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6 text-center shadow-xs">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-          <CheckCircle2 className="h-6 w-6" />
-        </div>
-        <h4 className="mt-3 text-base font-bold text-emerald-950">
+      <div className="rounded-md border border-[var(--line)] p-8 text-center">
+        <CheckCircle2 className="mx-auto h-10 w-10 text-emerald-600" />
+        <h3 className="mt-3 text-xl font-semibold text-[var(--ink)]">
           {itemType === "event" ? "Stall Meeting Request Received!" : "Technical Inquiry Received!"}
-        </h4>
-        <p className="mt-1 text-xs text-emerald-800">
-          Reference ID: <strong className="font-mono text-emerald-900">{refId}</strong>
+        </h3>
+        <p className="mt-2 text-sm text-[var(--ink-2)]">
+          Reference ID: <strong className="font-semibold tnum text-[var(--ink)]">{refId}</strong>
         </p>
-        <p className="mt-2 text-xs leading-relaxed text-emerald-700">
-          Our application engineering specialist for <strong className="text-emerald-900">{itemTitle}</strong> will
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[var(--ink-3)]">
+          Our application engineering specialist for <strong className="text-[var(--ink)]">{itemTitle}</strong> will
           contact you within 4 business hours with full technical documentation.
         </p>
       </div>
@@ -76,145 +74,110 @@ export function NewsLeadForm({ itemTitle, itemType, eventVenue }: NewsLeadFormPr
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 shadow-sm">
-      <div className="border-b border-slate-200 pb-3">
-        <h3 className="text-base font-semibold text-[#0056B3]">
-          {itemType === "event"
-            ? `Book a Meeting at Our Stall`
-            : `Request Quotation & Tech Specs`}
-        </h3>
-        <p className="mt-1 text-xs text-slate-600">
-          {itemType === "event"
-            ? `Schedule dedicated time with Orbit specialists at ${eventVenue || "our stall"}.`
-            : `Get official pricing, ASTM test protocols, and delivery schedules for ${itemTitle}.`}
-        </p>
-      </div>
+    <div>
+      <h2 className="section-title">
+        {itemType === "event"
+          ? `Book a Meeting at Our Stall`
+          : `Request Quotation & Tech Specs`}
+      </h2>
+      <p className="mt-2 text-[15px] leading-relaxed text-[var(--ink-2)]">
+        {itemType === "event"
+          ? `Schedule dedicated time with Orbit specialists at ${eventVenue || "our stall"}.`
+          : `Get official pricing, ASTM test protocols, and delivery schedules for ${itemTitle}.`}
+      </p>
 
-      <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-        <div>
-          <label className="block text-xs font-bold text-slate-700">
-            Full Name *
-          </label>
-          <div className="relative mt-1">
-            <User className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Dr. / Mr. / Ms. Scientist Name"
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-            />
-          </div>
-        </div>
+      <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+        <label className="block sm:col-span-2">
+          <span className="label">Full Name *</span>
+          <input
+            type="text"
+            required
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Dr. / Mr. / Ms. Scientist Name"
+            className="input"
+          />
+        </label>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className="block text-xs font-bold text-slate-700">
-              Work Email *
-            </label>
-            <div className="relative mt-1">
-              <Mail className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@organization.com"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-              />
-            </div>
-          </div>
+        <label className="block">
+          <span className="label">Work Email *</span>
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@organization.com"
+            className="input"
+          />
+        </label>
 
-          <div>
-            <label className="block text-xs font-bold text-slate-700">
-              Phone / Mobile *
-            </label>
-            <div className="relative mt-1">
-              <Phone className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 98765 43210"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-              />
-            </div>
-          </div>
-        </div>
+        <label className="block">
+          <span className="label">Phone / Mobile *</span>
+          <input
+            type="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+91 98765 43210"
+            className="input"
+          />
+        </label>
 
-        <div>
-          <label className="block text-xs font-bold text-slate-700">
-            Company / Institution / Laboratory *
-          </label>
-          <div className="relative mt-1">
-            <Building className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              required
-              value={organization}
-              onChange={(e) => setOrganization(e.target.value)}
-              placeholder="e.g. NTPC, Tata Steel, CSIR, IIT, SGS..."
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-            />
-          </div>
-        </div>
+        <label className="block sm:col-span-2">
+          <span className="label">Company / Institution / Laboratory *</span>
+          <input
+            type="text"
+            required
+            value={organization}
+            onChange={(e) => setOrganization(e.target.value)}
+            placeholder="e.g. NTPC, Tata Steel, CSIR, IIT, SGS..."
+            className="input"
+          />
+        </label>
 
         {itemType === "event" && (
-          <div>
-            <label className="block text-xs font-bold text-slate-700">
-              Preferred Meeting Date / Time
-            </label>
-            <div className="relative mt-1">
-              <Calendar className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={preferredDate}
-                onChange={(e) => setPreferredDate(e.target.value)}
-                placeholder="e.g. Day 1 afternoon (2:00 PM)"
-                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-              />
-            </div>
-          </div>
+          <label className="block sm:col-span-2">
+            <span className="label">Preferred Meeting Date / Time</span>
+            <input
+              type="text"
+              value={preferredDate}
+              onChange={(e) => setPreferredDate(e.target.value)}
+              placeholder="e.g. Day 1 afternoon (2:00 PM)"
+              className="input"
+            />
+          </label>
         )}
 
-        <div>
-          <label className="block text-xs font-bold text-slate-700">
-            Specific Requirements / Notes
-          </label>
-          <div className="relative mt-1">
-            <MessageSquare className="absolute left-3 top-3 h-3.5 w-3.5 text-slate-400" />
-            <textarea
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Mention sample types, required standards (ASTM/ISO), or desired demo..."
-              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
-            />
-          </div>
-        </div>
+        <label className="block sm:col-span-2">
+          <span className="label">Specific Requirements / Notes</span>
+          <textarea
+            rows={3}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Mention sample types, required standards (ASTM/ISO), or desired demo..."
+            className="input"
+          />
+        </label>
 
         {error && (
-          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
+          <p role="alert" className="rounded-[0.25rem] border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 sm:col-span-2">
             {error}
           </p>
         )}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="btn btn-accent mt-2 w-full flex items-center justify-center gap-2 text-xs font-bold shadow-md cursor-pointer disabled:opacity-50"
-        >
-          {submitting ? (
-            "Submitting..."
-          ) : (
-            <>
-              <Send className="h-3.5 w-3.5" />
-              {itemType === "event" ? "Confirm Stall Meeting Request" : "Submit Technical Inquiry"}
-            </>
-          )}
-        </button>
+        <div className="sm:col-span-2">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="btn btn-accent w-full sm:w-auto"
+          >
+            {submitting
+              ? "Submitting..."
+              : itemType === "event"
+                ? "Confirm Stall Meeting Request"
+                : "Submit Technical Inquiry"}
+          </button>
+        </div>
       </form>
     </div>
   );

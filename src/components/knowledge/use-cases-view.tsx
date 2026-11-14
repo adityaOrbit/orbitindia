@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  MapPin,
-  CheckCircle2,
-  TrendingUp,
-  Quote,
-  ArrowRight,
-  Search,
-} from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import type { KnowledgeUseCase } from "@/data/knowledge-hub";
 
 interface UseCasesViewProps {
@@ -34,151 +27,113 @@ export function UseCasesView({ useCases }: UseCasesViewProps) {
   });
 
   return (
-    <div className="space-y-6">
+    <section className="section">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-            Industrial Field Case Studies &amp; Success Stories
-          </h3>
-          <p className="mt-1 text-xs text-slate-600">
+          <h2 className="section-title">Industrial Field Case Studies &amp; Success Stories</h2>
+          <p className="section-sub">
             Real operational challenges solved by Orbit across India&apos;s leading power utilities, steel mills, and CSIR laboratories.
           </p>
         </div>
 
-        <div className="relative min-w-[240px]">
-          <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+        <div className="relative w-full lg:w-72">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ink-3)]" aria-hidden="true" />
           <input
             type="text"
             placeholder="Search plant, sector, or challenge..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 py-1.5 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden"
+            aria-label="Search use cases"
+            className="input !pl-9"
           />
         </div>
       </div>
 
       {/* Sector filter */}
-      <div className="flex flex-wrap items-center gap-1.5">
-        {sectors.map((s) => (
-          <button
-            key={s}
-            type="button"
-            onClick={() => setSelectedSector(s)}
-            className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
-              selectedSector === s
-                ? "bg-[#0056B3] text-white shadow-xs"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            {s === "all" ? "All Industrial Sectors" : s}
-          </button>
-        ))}
+      <div className="no-scrollbar -mx-4 mt-6 flex overflow-x-auto border-b border-[var(--line)] px-4 sm:mx-0 sm:px-0">
+        {sectors.map((s) => {
+          const active = selectedSector === s;
+          return (
+            <button
+              key={s}
+              type="button"
+              onClick={() => setSelectedSector(s)}
+              aria-pressed={active}
+              className={`-mb-px min-h-[44px] whitespace-nowrap border-b-2 px-3 text-sm font-medium capitalize transition-colors ${
+                active
+                  ? "border-[#0056B3] text-[var(--ink)]"
+                  : "border-transparent text-[var(--ink-3)] hover:text-[#0056B3]"
+              }`}
+            >
+              {s === "all" ? "All Industrial Sectors" : s}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Cards Grid */}
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Cases */}
+      <div className="cells mt-8 grid-cols-1 md:grid-cols-2">
         {filtered.map((uc) => (
-          <article
-            key={uc.id}
-            className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition hover:border-[#0056B3]/50 hover:shadow-lg"
-          >
-            <div className="space-y-4">
-              {/* Header Badges */}
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                <span className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-                  <MapPin className="h-3 w-3 text-[#d00000]" /> {uc.location}
-                </span>
-              </div>
-
+          <article key={uc.id} className="flex flex-col justify-between p-5 sm:p-6">
+            <div className="space-y-5">
               <div>
-                <p className="text-xs font-bold text-slate-400">
-                  {uc.clientType}
+                <p className="text-[13px] text-[var(--ink-3)]">
+                  {uc.clientType} · {uc.location}
                 </p>
-                <h4 className="mt-1 text-lg font-semibold text-[#0056B3] leading-snug">
-                  {uc.title}
-                </h4>
+                <h3 className="mt-1 text-lg font-semibold leading-snug text-[var(--ink)]">{uc.title}</h3>
               </div>
 
-              {/* Challenge & Solution Blocks */}
-              <div className="space-y-3 text-xs">
-                <div className="rounded-xl bg-red-50/60 p-3.5 border border-red-100">
-                  <span className="font-bold text-red-900 block mb-1">
-                    The Industrial Challenge:
-                  </span>
-                  <p className="text-slate-700 leading-relaxed">{uc.challenge}</p>
+              {/* Challenge & Solution */}
+              <div className="space-y-3 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                <div>
+                  <h4 className="font-semibold text-[var(--ink)]">The Industrial Challenge:</h4>
+                  <p className="mt-0.5">{uc.challenge}</p>
                 </div>
-
-                <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200">
-                  <span className="font-semibold text-[#0056B3] block mb-1">
-                    Orbit Engineered Solution:
-                  </span>
-                  <p className="text-slate-700 leading-relaxed">{uc.solution}</p>
+                <div>
+                  <h4 className="font-semibold text-[var(--ink)]">Orbit Engineered Solution:</h4>
+                  <p className="mt-0.5">{uc.solution}</p>
                 </div>
               </div>
 
               {/* Hardware Deployed */}
-              <div>
-                <span className="text-xs font-bold text-slate-400 block mb-1.5">
-                  Instrumentation Deployed:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {uc.equipmentDeployed.map((eq, i) => (
-                    <span
-                      key={i}
-                      className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-700"
-                    >
-                      {eq}
-                    </span>
-                  ))}
-                </div>
+              <div className="text-sm">
+                <h4 className="font-semibold text-[var(--ink)]">Instrumentation Deployed:</h4>
+                <p className="mt-0.5 text-[var(--ink-2)]">{uc.equipmentDeployed.join(" · ")}</p>
               </div>
 
               {/* Quantified Outcomes */}
-              <div className="rounded-xl bg-emerald-50/70 p-4 border border-emerald-200/70 space-y-2">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-950">
-                  <TrendingUp className="h-4 w-4 text-emerald-600" />
-                  Measurable Operational Impact:
-                </span>
-                <ul className="space-y-1.5">
+              <div className="border-l-2 border-[#0056B3] bg-[var(--soft)] p-4">
+                <h4 className="text-sm font-semibold text-[var(--ink)]">Measurable Operational Impact:</h4>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-relaxed text-[var(--ink-2)] marker:text-[var(--ink-3)]">
                   {uc.results.map((res, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-emerald-900">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{res}</span>
-                    </li>
+                    <li key={i}>{res}</li>
                   ))}
                 </ul>
               </div>
 
               {/* Testimonial Quote */}
               {uc.testimonial && (
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-xs italic text-slate-700 relative">
-                  <Quote className="h-4 w-4 text-[#d00000]/40 absolute top-2 right-2" />
-                  <p className="leading-relaxed">&ldquo;{uc.testimonial.quote}&rdquo;</p>
-                  <p className="mt-1 text-[11px] font-semibold not-italic text-[#0056B3]">
-                    — {uc.testimonial.author}, <span className="font-normal text-slate-500">{uc.testimonial.designation}</span>
-                  </p>
-                </div>
+                <figure className="border-l-2 border-[var(--line)] pl-4 text-sm">
+                  <blockquote className="italic leading-relaxed text-[var(--ink-2)]">&ldquo;{uc.testimonial.quote}&rdquo;</blockquote>
+                  <figcaption className="mt-1 text-[13px] text-[var(--ink-3)]">
+                    — <span className="font-medium text-[var(--ink)]">{uc.testimonial.author}</span>, {uc.testimonial.designation}
+                  </figcaption>
+                </figure>
               )}
             </div>
 
-            <div className="mt-6 border-t border-slate-100 pt-3 flex items-center justify-between">
-              <Link
-                href="/our-clients"
-                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-semibold text-[#0056B3] hover:text-[#d00000] transition"
-              >
-                View Client Directory <ArrowRight className="h-3.5 w-3.5" />
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-x-4 border-t border-[var(--line)] pt-3">
+              <Link href="/our-clients" className="link-more min-h-[44px] lg:min-h-0">
+                View Client Directory <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                href="/contact-us#quote"
-                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#d00000] hover:underline"
-              >
+              <Link href="/contact-us#quote" className="link-more min-h-[44px] lg:min-h-0">
                 Request Custom Solution Demo &rarr;
               </Link>
             </div>
           </article>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   PhoneCall,
   Mail,
+  Check,
   CheckCircle2,
   AlertCircle,
   ArrowRight,
@@ -90,7 +91,6 @@ export default function ServiceComplaintFormPage() {
     <div className="bg-white">
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Our Services", href: "/our-services/" },
           { label: "Service Complaint Form" },
         ]}
@@ -102,37 +102,36 @@ export default function ServiceComplaintFormPage() {
         subtitle="Log an official service ticket for breakdown repairs, preventive maintenance (AMC/CMC), oxygen vessel 300-bar hydrotesting, or calibration."
       />
 
-      <div className="container-x py-12">
-        <div className="grid gap-12 lg:grid-cols-3">
+      <div className="container-x py-10 sm:py-14">
+        <div className="grid gap-10 lg:grid-cols-3 lg:gap-14">
           {/* Main Form Area */}
           <div className="lg:col-span-2">
             {ticketResult?.success ? (
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-8 text-center sm:p-10">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
-                  <CheckCircle2 className="h-8 w-8" />
-                </div>
-                <span className="mt-4 inline-block rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
+              <div className="rounded-md border border-[var(--line)] p-8 text-center sm:p-10">
+                <CheckCircle2 className="mx-auto h-10 w-10 text-[#15803d]" />
+                <p className="mt-4 text-sm font-medium text-[#15803d]">
                   Service Ticket Logged Successfully
-                </span>
-                <h2 className="mt-2 text-2xl font-semibold text-[#0056B3]">
+                </p>
+                <h2 className="mt-1 text-2xl font-semibold text-[var(--ink)] tnum">
                   Ticket Reference #{ticketResult.ticketNumber}
                 </h2>
-                <p className="mx-auto mt-2 max-w-lg text-sm text-slate-700 leading-relaxed">
+                <p className="mx-auto mt-2 max-w-lg text-[15px] leading-relaxed text-[var(--ink-2)]">
                   Your request has been registered in the Orbit Service Care system. A factory-trained service engineer from the nearest branch ({formData.nearestBranch}) will review your instrument details and reach out shortly.
                 </p>
 
-                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
                   {ticketResult.whatsappUrl && (
                     <a
                       href={ticketResult.whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
+                      className="btn whitespace-normal bg-[#15803d] text-center text-white hover:bg-[#166534]"
                     >
                       Connect on WhatsApp with Ticket #{ticketResult.ticketNumber}
                     </a>
                   )}
                   <button
+                    type="button"
                     onClick={() => {
                       setTicketResult(null);
                       setFormData({
@@ -157,33 +156,33 @@ export default function ServiceComplaintFormPage() {
                 </div>
               </div>
             ) : (
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
-                <div className="border-b border-slate-100 pb-5">
-                  <h2 className="text-xl font-bold text-[#0056B3]">
+              <div className="rounded-md border border-[var(--line)] p-5 sm:p-7">
+                <div className="border-b border-[var(--line)] pb-5">
+                  <h2 className="section-title">
                     Instrument Service Registration
                   </h2>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Fields marked with an asterisk (<span className="text-red-500">*</span>) are required.
+                  <p className="mt-1.5 text-[13px] text-[var(--ink-3)]">
+                    Fields marked with an asterisk (<span className="text-[#d00000]">*</span>) are required.
                   </p>
                 </div>
 
                 {errorMessage && (
-                  <div className="mt-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-xs text-red-800">
+                  <div role="alert" className="mt-6 flex items-start gap-3 rounded-md border border-red-200 bg-red-50 p-4 text-[15px] text-red-800">
                     <AlertCircle className="h-4 w-4 shrink-0 text-red-600 mt-0.5" />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+                <form onSubmit={handleSubmit} className="mt-6 space-y-8">
                   {/* Customer Information */}
                   <div>
-                    <h3 className="text-xs font-bold text-[#d00000]">
+                    <h3 className="text-base font-semibold text-[var(--ink)]">
                       1. Organization &amp; Contact Details
                     </h3>
-                    <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          Contact Person Name <span className="text-red-500">*</span>
+                        <label className="label">
+                          Contact Person Name <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="text"
@@ -193,13 +192,13 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, contactPerson: e.target.value })
                           }
                           placeholder="e.g. Dr. Rajesh Sharma"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          Company / Institution Name <span className="text-red-500">*</span>
+                        <label className="label">
+                          Company / Institution Name <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="text"
@@ -209,13 +208,13 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, company: e.target.value })
                           }
                           placeholder="e.g. NTPC Ramagundam / IIT Madras"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          Mobile / Phone Number <span className="text-red-500">*</span>
+                        <label className="label">
+                          Mobile / Phone Number <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="tel"
@@ -225,13 +224,13 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, phone: e.target.value })
                           }
                           placeholder="e.g. +91 98765 43210"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          Email Address <span className="text-red-500">*</span>
+                        <label className="label">
+                          Email Address <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="email"
@@ -241,13 +240,13 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, email: e.target.value })
                           }
                           placeholder="e.g. r.sharma@ntpc.co.in"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          City / Plant Location <span className="text-red-500">*</span>
+                        <label className="label">
+                          City / Plant Location <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="text"
@@ -257,12 +256,12 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, city: e.target.value })
                           }
                           placeholder="e.g. Singrauli / Jamnagar"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
+                        <label className="label">
                           Nearest Orbit Branch
                         </label>
                         <select
@@ -270,7 +269,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, nearestBranch: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
+                          className="input"
                         >
                           {branchOffices.map((b) => (
                             <option key={b} value={b}>
@@ -283,13 +282,13 @@ export default function ServiceComplaintFormPage() {
                   </div>
 
                   {/* Equipment Information */}
-                  <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold text-[#d00000]">
+                  <div className="border-t border-[var(--line)] pt-6">
+                    <h3 className="text-base font-semibold text-[var(--ink)]">
                       2. Equipment Details
                     </h3>
-                    <div className="mt-3 grid gap-4 sm:grid-cols-3">
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
+                        <label className="label">
                           Brand / Manufacturer
                         </label>
                         <select
@@ -297,7 +296,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, brand: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
+                          className="input"
                         >
                           <option value="Parr Instrument Company">Parr Instrument Company</option>
                           <option value="Orlab / Orbit Technologies">Orlab / Orbit Technologies</option>
@@ -312,8 +311,8 @@ export default function ServiceComplaintFormPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
-                          Instrument Model <span className="text-red-500">*</span>
+                        <label className="label">
+                          Instrument Model <span className="text-[#d00000]">*</span>
                         </label>
                         <input
                           type="text"
@@ -323,12 +322,12 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, instrumentModel: e.target.value })
                           }
                           placeholder="e.g. Parr 6400 / TGA 3000 / CS-8800"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
+                        <label className="label">
                           Serial Number (if known)
                         </label>
                         <input
@@ -338,20 +337,20 @@ export default function ServiceComplaintFormPage() {
                             setFormData({ ...formData, serialNumber: e.target.value })
                           }
                           placeholder="e.g. 6400-10492"
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden"
+                          className="input"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Service Request Nature */}
-                  <div className="pt-4 border-t border-slate-100">
-                    <h3 className="text-xs font-bold text-[#d00000]">
+                  <div className="border-t border-[var(--line)] pt-6">
+                    <h3 className="text-base font-semibold text-[var(--ink)]">
                       3. Service Nature &amp; Fault Description
                     </h3>
-                    <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
+                        <label className="label">
                           Service Type Required
                         </label>
                         <select
@@ -359,7 +358,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, serviceType: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
+                          className="input"
                         >
                           <option value="Breakdown / Repair">Breakdown / Emergency Repair</option>
                           <option value="Preventive Maintenance AMC/CMC">Preventive Maintenance (AMC / CMC)</option>
@@ -371,7 +370,7 @@ export default function ServiceComplaintFormPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-700">
+                        <label className="label">
                           Urgency Level
                         </label>
                         <select
@@ -379,7 +378,7 @@ export default function ServiceComplaintFormPage() {
                           onChange={(e) =>
                             setFormData({ ...formData, urgency: e.target.value })
                           }
-                          className="mt-1 w-full rounded-lg border border-slate-300 px-3.5 py-2 text-xs focus:border-[#d00000] focus:outline-hidden bg-white"
+                          className="input"
                         >
                           <option value="Standard">Standard (2 to 3 days)</option>
                           <option value="High Priority">High Priority (Within 24 hours)</option>
@@ -389,8 +388,8 @@ export default function ServiceComplaintFormPage() {
                     </div>
 
                     <div className="mt-4">
-                      <label className="block text-xs font-semibold text-slate-700">
-                        Detailed Problem Description / Error Codes <span className="text-red-500">*</span>
+                      <label className="label">
+                        Detailed Problem Description / Error Codes <span className="text-[#d00000]">*</span>
                       </label>
                       <textarea
                         required
@@ -400,19 +399,19 @@ export default function ServiceComplaintFormPage() {
                           setFormData({ ...formData, issueDescription: e.target.value })
                         }
                         placeholder="Please describe symptoms, error messages shown on screen, pressure leaks, or parts needed..."
-                        className="mt-1 w-full rounded-lg border border-slate-300 p-3 text-xs focus:border-[#d00000] focus:outline-hidden"
+                        className="input resize-y"
                       />
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <p className="text-[11px] text-slate-500">
+                  <div className="flex flex-col gap-4 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-[13px] text-[var(--ink-3)]">
                       By submitting, you will receive an official ticket number and instant WhatsApp escalation.
                     </p>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn btn-accent text-xs px-6 py-2.5 font-bold"
+                      className="btn btn-primary w-full shrink-0 sm:w-auto"
                     >
                       {isSubmitting ? "Generating Ticket..." : "Submit Service Ticket"}
                     </button>
@@ -423,86 +422,79 @@ export default function ServiceComplaintFormPage() {
           </div>
 
           {/* Sidebar Service Contacts */}
-          <div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-6">
-              <div>
-                <span className="text-xs font-bold text-[#d00000]">
-                  Direct Service Lines
-                </span>
-                <h3 className="mt-1 font-bold text-base text-[#0056B3]">
-                  Central Service Control Desk
-                </h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                  For immediate assistance during operating hours (Mon–Sat):
-                </p>
+          <aside className="space-y-8">
+            <div>
+              <p className="text-[13px] font-medium text-[#0056B3]">Direct Service Lines</p>
+              <h3 className="mt-1 text-lg font-semibold text-[var(--ink)]">Central Service Control Desk</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                For immediate assistance during operating hours (Mon–Sat):
+              </p>
 
-                <div className="mt-4 space-y-3 text-xs">
-                  <div className="flex items-start gap-2.5">
-                    <PhoneCall className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-bold text-[#0056B3]">Toll-Free / Service Hotline:</p>
-                      <a href="tel:+918712613589" className="text-slate-700 hover:text-[#d00000] font-semibold">
+              <dl className="mt-4 divide-y divide-[var(--line)] border-y border-[var(--line)] text-[15px]">
+                <div className="flex items-start gap-2.5 py-3">
+                  <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <div>
+                    <dt className="text-[13px] text-[var(--ink-3)]">Toll-Free / Service Hotline:</dt>
+                    <dd className="m-0">
+                      <a href="tel:+918712613589" className="font-semibold text-[var(--ink)] tnum hover:text-[#0056B3]">
                         +91 87126 13589
                       </a>
-                    </div>
+                    </dd>
                   </div>
+                </div>
 
-                  <div className="flex items-start gap-2.5">
-                    <PhoneCall className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-bold text-[#0056B3]">Alternate Technical Desk:</p>
-                      <a href="tel:+918143885547" className="text-slate-700 hover:text-[#d00000] font-semibold">
+                <div className="flex items-start gap-2.5 py-3">
+                  <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <div>
+                    <dt className="text-[13px] text-[var(--ink-3)]">Alternate Technical Desk:</dt>
+                    <dd className="m-0">
+                      <a href="tel:+918143885547" className="font-semibold text-[var(--ink)] tnum hover:text-[#0056B3]">
                         +91 81438 85547
                       </a>
                       {" / "}
-                      <a href="tel:+918143885540" className="text-slate-700 hover:text-[#d00000] font-semibold">
+                      <a href="tel:+918143885540" className="font-semibold text-[var(--ink)] tnum hover:text-[#0056B3]">
                         +91 81438 85540
                       </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <Mail className="h-4 w-4 text-[#d00000] shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-bold text-[#0056B3]">Official Email:</p>
-                      <a href="mailto:servicecare@orbitindia.com" className="text-slate-700 hover:text-[#d00000]">
-                        servicecare@orbitindia.com
-                      </a>
-                    </div>
+                    </dd>
                   </div>
                 </div>
-              </div>
 
-              <div className="pt-5 border-t border-slate-200">
-                <h4 className="font-bold text-xs text-slate-500">
-                  Service Commitments
-                </h4>
-                <ul className="mt-3 space-y-2 text-xs text-slate-600">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Response within 2 hours of ticket generation</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Pan-India on-site support across 14 locations</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Genuine OEM spare parts directly from Hyderabad</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-5 border-t border-slate-200">
-                <Link
-                  href="/our-services"
-                  className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-                >
-                  Learn more about AMC &amp; Hydrotesting <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
+                <div className="flex items-start gap-2.5 py-3">
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <div>
+                    <dt className="text-[13px] text-[var(--ink-3)]">Official Email:</dt>
+                    <dd className="m-0">
+                      <a href="mailto:servicecare@orbitindia.com" className="font-semibold text-[#0056B3] hover:underline">
+                        servicecare@orbitindia.com
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+              </dl>
             </div>
-          </div>
+
+            <div>
+              <h4 className="text-base font-semibold text-[var(--ink)]">Service Commitments</h4>
+              <ul className="mt-3 space-y-2 text-[15px] text-[var(--ink-2)]">
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <span>Response within 2 hours of ticket generation</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <span>Pan-India on-site support across 14 locations</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                  <span>Genuine OEM spare parts directly from Hyderabad</span>
+                </li>
+              </ul>
+            </div>
+
+            <Link href="/our-services" className="link-more min-h-[44px] whitespace-normal lg:min-h-0">
+              Learn more about AMC &amp; Hydrotesting <ArrowRight className="h-4 w-4 shrink-0" />
+            </Link>
+          </aside>
         </div>
       </div>
     </div>

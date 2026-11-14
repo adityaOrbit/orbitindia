@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/page-hero";
 import { NewsHub } from "@/components/news/news-hub";
 import { getAllNews, getUpcomingEvents, getPastEvents } from "@/data/news";
 
@@ -25,20 +24,23 @@ export default function NewsPage() {
   const pastEvents = getPastEvents();
 
   return (
-    <div className="pb-16">
-      <PageHero
-        eyebrow="Newsroom & Global Exhibitions"
-        title="News & Events"
-        subtitle="Latest instrument innovations, factory engineering bulletins, and international trade shows where you can meet Orbit's technical application specialists."
-      />
+    <div className="bg-white">
+      {/* Page header: eyebrow, H1 and intro */}
+      <section className="border-b border-[var(--line)]">
+        <div className="container-x py-10 sm:py-12 lg:py-16">
+          <p className="font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#0056B3]">
+            Newsroom &amp; Global Exhibitions
+          </p>
+          <h1 className="mt-4 max-w-4xl text-[2rem] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--ink)] sm:text-[2.6rem] lg:text-[3rem]">
+            News &amp; Events
+          </h1>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-[var(--ink-2)] sm:text-lg">
+            Latest instrument innovations, factory engineering bulletins, and international trade shows where you can meet Orbit&apos;s technical application specialists.
+          </p>
+        </div>
+      </section>
 
-      <div className="container-x mt-10">
-        <NewsHub
-          news={news}
-          upcomingEvents={upcomingEvents}
-          pastEvents={pastEvents}
-        />
-      </div>
+      <NewsHub news={news} upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
     </div>
   );
 }

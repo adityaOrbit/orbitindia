@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Download,
-  FileText,
-  Search,
-  ArrowRight,
-} from "lucide-react";
+import { Download, FileText, Search, ArrowRight } from "lucide-react";
 import type { DownloadItem } from "@/data/knowledge-hub";
 
 interface DownloadCenterViewProps {
@@ -45,100 +40,80 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <section className="section">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-            Technical Documentation &amp; Download Center
-          </h3>
-          <p className="mt-1 text-xs text-slate-600">
+          <h2 className="section-title">Technical Documentation &amp; Download Center</h2>
+          <p className="section-sub">
             Download certified instrument brochures, pre-installation utility checklists, application notes, and ASTM-ISO standards matrices.
           </p>
         </div>
 
-        <div className="relative min-w-[240px]">
-          <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+        <div className="relative w-full lg:w-72">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ink-3)]" aria-hidden="true" />
           <input
             type="text"
             placeholder="Search brochures, manuals, tags..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 py-1.5 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden"
+            aria-label="Search downloads"
+            className="input !pl-9"
           />
         </div>
       </div>
 
-      {/* Category Pills */}
-      <div className="flex flex-wrap items-center gap-1.5">
-        {categories.map((c) => (
-          <button
-            key={c}
-            type="button"
-            onClick={() => setSelectedCategory(c)}
-            className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
-              selectedCategory === c
-                ? "bg-[#0056B3] text-white shadow-xs"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            {c === "all" ? "All Documents" : c}
-          </button>
-        ))}
+      {/* Category filter */}
+      <div className="no-scrollbar -mx-4 mt-6 flex overflow-x-auto border-b border-[var(--line)] px-4 sm:mx-0 sm:px-0">
+        {categories.map((c) => {
+          const active = selectedCategory === c;
+          return (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setSelectedCategory(c)}
+              aria-pressed={active}
+              className={`-mb-px min-h-[44px] whitespace-nowrap border-b-2 px-3 text-sm font-medium capitalize transition-colors ${
+                active
+                  ? "border-[#0056B3] text-[var(--ink)]"
+                  : "border-transparent text-[var(--ink-3)] hover:text-[#0056B3]"
+              }`}
+            >
+              {c === "all" ? "All Documents" : c}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Documents Grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Documents */}
+      <div className="cells mt-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((item) => (
-          <div
-            key={item.id}
-            className={`flex flex-col justify-between rounded-2xl border p-5 transition-all duration-200 ${
-              item.featured
-                ? "border-[#0056B3]/60 bg-[#f5f9fd] shadow-sm ring-1 ring-[#0056B3]/20"
-                : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"
-            }`}
-          >
+          <div key={item.id} className={`flex flex-col justify-between p-5 ${item.featured ? "bg-[#eef4fb]" : ""}`}>
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-1 font-mono text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">
-                  <FileText className="h-3 w-3" />
-                  {item.format} · {item.fileSize}
-                </span>
-              </div>
+              <p className="flex items-center gap-1.5 text-[13px] text-[var(--ink-3)] tnum">
+                <FileText className="h-4 w-4" aria-hidden="true" />
+                {item.format} · {item.fileSize}
+              </p>
 
               <div>
-                <h4 className="text-sm font-semibold text-[#0056B3] leading-snug line-clamp-2">
-                  {item.title}
-                </h4>
-                <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-3">
-                  {item.description}
-                </p>
+                <h3 className="line-clamp-2 text-base font-semibold leading-snug text-[var(--ink)]">{item.title}</h3>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[var(--ink-3)]">{item.description}</p>
               </div>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1 pt-1">
-                {item.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600"
-                  >
-                    #{t}
-                  </span>
-                ))}
-              </div>
+              <p className="text-[13px] text-[var(--ink-3)]">{item.tags.map((t) => `#${t}`).join(" ")}</p>
             </div>
 
-            <div className="mt-5 border-t border-slate-100 pt-3">
+            <div className="mt-5 border-t border-[var(--line)] pt-3">
               <button
                 type="button"
                 onClick={() => handleDownloadClick(item)}
-                className="w-full btn btn-accent flex items-center justify-center gap-2 text-xs font-bold shadow-xs cursor-pointer"
+                className="link-more min-h-[44px] lg:min-h-0"
               >
                 {requestedId === item.id ? (
                   "Opening PDF / Inquiring..."
                 ) : (
                   <>
-                    <Download className="h-3.5 w-3.5" />
+                    <Download className="h-4 w-4" />
                     Download Official Document
                   </>
                 )}
@@ -148,18 +123,18 @@ export function DownloadCenterView({ downloads }: DownloadCenterViewProps) {
         ))}
       </div>
 
-      {/* Lab Planning Help Banner */}
-      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Lab Planning Help */}
+      <div className="mt-8 flex flex-col justify-between gap-4 rounded-md border border-[var(--line)] p-5 sm:flex-row sm:items-center sm:p-6">
         <div>
-          <h4 className="text-sm font-semibold text-[#0056B3]">Need Custom Instrument Schematics or AutoCAD Drawings?</h4>
-          <p className="mt-1 text-xs text-slate-600">
+          <h3 className="text-base font-semibold text-[var(--ink)]">Need Custom Instrument Schematics or AutoCAD Drawings?</h3>
+          <p className="mt-1 text-sm text-[var(--ink-3)]">
             Our engineering team supplies detailed utility hookup diagrams, 3D CAD step files, and gas piping blueprints for new lab projects.
           </p>
         </div>
-        <Link href="/contact-us#quote" className="btn btn-outline shrink-0 text-xs font-bold">
-          Request CAD Files <ArrowRight className="h-3.5 w-3.5" />
+        <Link href="/contact-us#quote" className="btn btn-outline shrink-0">
+          Request CAD Files <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,16 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ShieldAlert,
-  Wrench,
-  CheckCircle2,
-  ChevronDown,
-  Download,
-  Copy,
-  Check,
-  Search,
-} from "lucide-react";
+import { ShieldAlert, ChevronDown, Download, Copy, Check, Search } from "lucide-react";
 import type { StandardOperatingProcedure } from "@/data/knowledge-hub";
 
 interface SopLibraryViewProps {
@@ -43,211 +34,182 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <section className="section">
       {/* Header and Filter Controls */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-slate-200 pb-4">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-            Laboratory Standard Operating Procedures (SOPs)
-          </h3>
-          <p className="mt-1 text-xs text-slate-600">
+          <h2 className="section-title">Laboratory Standard Operating Procedures (SOPs)</h2>
+          <p className="section-sub">
             Field-tested operating procedures adhering strictly to ASTM, ISO, and BIS testing standards.
           </p>
         </div>
 
         {/* Search */}
-        <div className="relative min-w-[240px]">
-          <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+        <div className="relative w-full lg:w-72">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ink-3)]" aria-hidden="true" />
           <input
             type="text"
             placeholder="Search by SOP, method, ASTM..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 py-1.5 pl-9 pr-3 text-xs text-slate-800 focus:border-[#0056B3] focus:outline-hidden"
+            aria-label="Search SOPs"
+            className="input !pl-9"
           />
         </div>
       </div>
 
-      {/* Category Pills */}
-      <div className="flex flex-wrap items-center gap-1.5">
-        {categories.map((c) => (
-          <button
-            key={c}
-            type="button"
-            onClick={() => setSelectedCategory(c)}
-            className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
-              selectedCategory === c
-                ? "bg-[#0056B3] text-white shadow-xs"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            {c === "all" ? "All SOPs" : c}
-          </button>
-        ))}
+      {/* Category filter */}
+      <div className="no-scrollbar -mx-4 mt-6 flex overflow-x-auto border-b border-[var(--line)] px-4 sm:mx-0 sm:px-0">
+        {categories.map((c) => {
+          const active = selectedCategory === c;
+          return (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setSelectedCategory(c)}
+              aria-pressed={active}
+              className={`-mb-px min-h-[44px] whitespace-nowrap border-b-2 px-3 text-sm font-medium capitalize transition-colors ${
+                active
+                  ? "border-[#0056B3] text-[var(--ink)]"
+                  : "border-transparent text-[var(--ink-3)] hover:text-[#0056B3]"
+              }`}
+            >
+              {c === "all" ? "All SOPs" : c}
+            </button>
+          );
+        })}
       </div>
 
       {/* Accordion / List of SOPs */}
-      <div className="space-y-4">
+      <div className="mt-6 border-t border-[var(--line)]">
         {filteredSops.map((sop) => {
           const isExpanded = expandedId === sop.id;
 
           return (
-            <div
-              key={sop.id}
-              className={`overflow-hidden rounded-2xl border transition-all duration-200 ${
-                isExpanded
-                  ? "border-[#d00000] bg-white shadow-md ring-1 ring-[#d00000]/30"
-                  : "border-slate-200 bg-white hover:border-slate-300"
-              }`}
-            >
+            <div key={sop.id} className="border-b border-[var(--line)]">
               {/* Header Bar */}
               <button
                 type="button"
                 onClick={() => setExpandedId(isExpanded ? null : sop.id)}
-                className="w-full flex items-start justify-between p-5 text-left cursor-pointer"
+                aria-expanded={isExpanded}
+                className="flex w-full items-start justify-between gap-4 py-5 text-left"
               >
-                <div className="space-y-1.5 pr-4">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-[#d00000] bg-[#feeceb] px-2 py-0.5 rounded-md">
-                      {sop.docNumber}
-                    </span>
-                    <span className="text-[10px] font-semibold text-slate-500">{sop.revision}</span>
-                  </div>
+                <div className="min-w-0 space-y-1.5">
+                  <p className="text-[13px] text-[var(--ink-3)] tnum">
+                    <span className="font-mono font-semibold text-[var(--ink-2)]">{sop.docNumber}</span> · {sop.revision}
+                  </p>
 
-                  <h4 className="text-base font-semibold text-[#0056B3] hover:text-[#d00000] transition">
+                  <h3 className="text-base font-semibold text-[var(--ink)] transition-colors hover:text-[#0056B3] sm:text-lg">
                     {sop.title}
-                  </h4>
+                  </h3>
 
-                  <p className="text-xs text-slate-600 line-clamp-1">{sop.summary}</p>
+                  <p className="line-clamp-1 text-sm text-[var(--ink-3)]">{sop.summary}</p>
 
-                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                    <span className="text-[11px] font-bold text-slate-400">Target Instrument:</span>
-                    <span className="text-xs font-semibold text-slate-800">{sop.targetEquipment}</span>
-                  </div>
+                  <p className="text-[13px] text-[var(--ink-3)]">
+                    Target Instrument: <span className="font-medium text-[var(--ink)]">{sop.targetEquipment}</span>
+                  </p>
                 </div>
 
-                <div className="shrink-0 p-1 text-slate-400 hover:text-slate-700">
-                  <ChevronDown
-                    className={`h-5 w-5 transition-transform duration-200 ${
-                      isExpanded ? "rotate-180 text-[#d00000]" : ""
-                    }`}
-                  />
-                </div>
+                <ChevronDown
+                  className={`mt-1 h-5 w-5 shrink-0 text-[var(--ink-3)] transition-transform duration-200 ${
+                    isExpanded ? "rotate-180 text-[#0056B3]" : ""
+                  }`}
+                  aria-hidden="true"
+                />
               </button>
 
               {/* Expanded Content Details */}
               {isExpanded && (
-                <div className="border-t border-slate-100 p-6 space-y-6 bg-slate-50/50">
+                <div className="space-y-8 pb-8">
                   {/* Standards & Safety Warning Grid */}
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid gap-6 sm:grid-cols-2">
                     {/* Safety Warnings */}
-                    <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4">
-                      <div className="flex items-center gap-2 text-xs font-bold text-amber-900">
-                        <ShieldAlert className="h-4 w-4 text-amber-600" />
-                        <span>Critical Safety Precautions</span>
-                      </div>
-                      <ul className="mt-2.5 space-y-1.5">
+                    <div className="border-l-2 border-amber-500 bg-[var(--soft)] p-4">
+                      <h4 className="flex items-center gap-2 text-[15px] font-semibold text-[var(--ink)]">
+                        <ShieldAlert className="h-4 w-4 text-amber-600" aria-hidden="true" />
+                        Critical Safety Precautions
+                      </h4>
+                      <ul className="mt-2.5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[var(--ink-2)] marker:text-[var(--ink-3)]">
                         {sop.safetyPrecautions.map((sec, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-amber-950">
-                            <span className="text-amber-500 font-bold">&bull;</span>
-                            <span>{sec}</span>
-                          </li>
+                          <li key={idx}>{sec}</li>
                         ))}
                       </ul>
                     </div>
 
                     {/* Equipment & Reagents */}
-                    <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3">
+                    <div className="space-y-3 text-sm leading-relaxed text-[var(--ink-2)]">
                       <div>
-                        <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
-                          <Wrench className="h-3.5 w-3.5 text-[#0056B3]" />
-                          <span>Apparatus &amp; Standard Reference Standards</span>
-                        </div>
-                        <div className="mt-1.5 flex flex-wrap gap-1">
-                          {sop.standards.map((st) => (
-                            <span
-                              key={st}
-                              className="rounded-md bg-slate-100 border border-slate-200 px-2 py-0.5 font-mono text-[10px] font-semibold text-slate-700"
-                            >
-                              {st}
-                            </span>
-                          ))}
-                        </div>
+                        <h4 className="text-[15px] font-semibold text-[var(--ink)]">
+                          Apparatus &amp; Standard Reference Standards
+                        </h4>
+                        <p className="mt-1">{sop.standards.join(" · ")}</p>
                       </div>
 
-                      <div className="text-xs text-slate-600 space-y-1 border-t border-slate-100 pt-2">
+                      <div className="space-y-1 border-t border-[var(--line)] pt-3">
                         <p>
-                          <strong>Required Hardware:</strong> {sop.equipmentRequired.join(", ")}
+                          <strong className="font-medium text-[var(--ink)]">Required Hardware:</strong> {sop.equipmentRequired.join(", ")}
                         </p>
                         <p>
-                          <strong>Reagents &amp; Gases:</strong> {sop.reagents.join(", ")}
+                          <strong className="font-medium text-[var(--ink)]">Reagents &amp; Gases:</strong> {sop.reagents.join(", ")}
                         </p>
                       </div>
                     </div>
                   </div>
 
                   {/* Step-by-Step Execution Sequence */}
-                  <div className="space-y-3">
-                    <h5 className="text-xs font-semibold text-[#0056B3]">
+                  <div>
+                    <h4 className="text-[15px] font-semibold text-[var(--ink)]">
                       Step-by-Step Standard Operating Procedure
-                    </h5>
+                    </h4>
 
-                    <div className="space-y-3">
+                    <ol className="mt-3 border-t border-[var(--line)]">
                       {sop.stepByStepProcedure.map((step) => (
-                        <div
-                          key={step.stepNumber}
-                          className="flex items-start gap-3.5 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs"
-                        >
-                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0056B3] text-xs font-bold text-white">
-                            {step.stepNumber}
-                          </div>
-                          <div className="space-y-1 text-xs">
-                            <h6 className="font-semibold text-slate-900">{step.title}</h6>
-                            <p className="leading-relaxed text-slate-700">{step.instruction}</p>
+                        <li key={step.stepNumber} className="flex items-start gap-4 border-b border-[var(--line)] py-4">
+                          <span className="w-6 shrink-0 font-semibold text-[#0056B3] tnum">{step.stepNumber}</span>
+                          <div className="min-w-0 space-y-1 text-[15px]">
+                            <h5 className="font-semibold text-[var(--ink)]">{step.title}</h5>
+                            <p className="leading-relaxed text-[var(--ink-2)]">{step.instruction}</p>
                             {step.checkPoint && (
-                              <div className="mt-1 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60 inline-flex">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-600" />
-                                <span>Check Point: {step.checkPoint}</span>
-                              </div>
+                              <p className="mt-2 border-l-2 border-[#0056B3] bg-[var(--soft)] px-3 py-1.5 text-sm text-[var(--ink-2)]">
+                                Check Point: {step.checkPoint}
+                              </p>
                             )}
                           </div>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ol>
                   </div>
 
                   {/* Calculations & Formulas (if present) */}
                   {sop.calculations && (
-                    <div className="rounded-xl border border-slate-200 bg-white p-4">
-                      <span className="text-xs font-bold text-slate-500">
+                    <div>
+                      <h4 className="text-[15px] font-semibold text-[var(--ink)]">
                         Governing Calculations &amp; Reporting Formula
-                      </span>
-                      <pre className="mt-2 whitespace-pre-wrap font-mono text-xs text-slate-800 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                      </h4>
+                      <pre className="mt-2 overflow-x-auto whitespace-pre-wrap border-l-2 border-[#0056B3] bg-[var(--soft)] p-4 font-mono text-sm text-[var(--ink)]">
                         {sop.calculations}
                       </pre>
                     </div>
                   )}
 
                   {/* Common Troubleshooting Table */}
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-slate-500">
-                      Standard Quality Troubleshooting
-                    </span>
-                    <div className="overflow-hidden rounded-xl border border-slate-200 shadow-2xs">
-                      <table className="w-full text-left text-xs">
-                        <thead className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <div>
+                    <h4 className="text-[15px] font-semibold text-[var(--ink)]">Standard Quality Troubleshooting</h4>
+                    <div className="mt-2 overflow-x-auto">
+                      <table className="data-table min-w-[560px]">
+                        <thead>
                           <tr>
-                            <th className="p-2.5">Observed Issue</th>
-                            <th className="p-2.5">Probable Root Cause</th>
-                            <th className="p-2.5">Corrective Action</th>
+                            <th scope="col">Observed Issue</th>
+                            <th scope="col">Probable Root Cause</th>
+                            <th scope="col">Corrective Action</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 bg-white">
+                        <tbody>
                           {sop.troubleshooting.map((tb, idx) => (
                             <tr key={idx}>
-                              <td className="p-2.5 font-semibold text-slate-800">{tb.issue}</td>
-                              <td className="p-2.5 text-slate-600">{tb.cause}</td>
-                              <td className="p-2.5 text-emerald-700 font-medium">{tb.remedy}</td>
+                              <td className="font-semibold">{tb.issue}</td>
+                              <td className="text-[var(--ink-2)]">{tb.cause}</td>
+                              <td>{tb.remedy}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -256,7 +218,7 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
                   </div>
 
                   {/* Bottom Action Row */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-3">
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-3">
                     <button
                       type="button"
                       onClick={() =>
@@ -270,16 +232,16 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
                               .join("\n")
                         )
                       }
-                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#0056B3] cursor-pointer"
+                      className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-[var(--ink-2)] hover:text-[#0056B3] lg:min-h-0"
                     >
                       {copiedId === sop.id ? (
                         <>
-                          <Check className="h-3.5 w-3.5 text-emerald-600" />
-                          <span className="text-emerald-700 font-bold">Copied to Clipboard!</span>
+                          <Check className="h-4 w-4 text-emerald-700" />
+                          <span className="text-emerald-700">Copied to Clipboard!</span>
                         </>
                       ) : (
                         <>
-                          <Copy className="h-3.5 w-3.5" />
+                          <Copy className="h-4 w-4" />
                           <span>Copy SOP to Clipboard</span>
                         </>
                       )}
@@ -289,9 +251,9 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
                       href={`/contact-us?subject=Request%20Official%20PDF%20for%20${encodeURIComponent(
                         sop.docNumber
                       )}`}
-                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+                      className="link-more min-h-[44px] lg:min-h-0"
                     >
-                      <Download className="h-3.5 w-3.5" /> Request Official Formatted PDF
+                      <Download className="h-4 w-4" /> Request Official Formatted PDF
                     </a>
                   </div>
                 </div>
@@ -300,6 +262,6 @@ export function SopLibraryView({ sops }: SopLibraryViewProps) {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

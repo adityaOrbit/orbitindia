@@ -23,7 +23,7 @@ interface FilterOption {
   label: string;
 }
 
-const CATEGORY_OPTIONS: FilterOption[] = [
+export const CATEGORY_OPTIONS: FilterOption[] = [
   { value: "all", label: "All Product Groups" },
   { value: "analytical", label: "Analytical Instruments (Calorimeters, Elemental, TGA)" },
   { value: "reactors", label: "Reactors & Pressure Systems (Parr)" },
@@ -34,7 +34,7 @@ const CATEGORY_OPTIONS: FilterOption[] = [
   { value: "crms", label: "CRMs & Lab Consumables" },
 ];
 
-const INDUSTRY_OPTIONS: FilterOption[] = [
+export const INDUSTRY_OPTIONS: FilterOption[] = [
   { value: "all", label: "All Industries" },
   { value: "fuels-energy", label: "Fuels & Energy / Coal & Coke" },
   { value: "minerals-materials", label: "Minerals & Materials" },
@@ -46,7 +46,7 @@ const INDUSTRY_OPTIONS: FilterOption[] = [
   { value: "environmental-testing", label: "Environmental & Water Testing" },
 ];
 
-const OPERATION_OPTIONS: FilterOption[] = [
+export const OPERATION_OPTIONS: FilterOption[] = [
   { value: "all", label: "All Operations" },
   { value: "calorimetry", label: "Calorimetry & Heat Value (Bomb / Solution)" },
   { value: "thermal-analysis", label: "Thermal & Proximate Analysis (TGA / Ash)" },
@@ -745,7 +745,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-operation`}
-          className="mb-1.5 block text-xs font-bold text-slate-600"
+          className="label"
         >
           Type of operation
         </label>
@@ -754,7 +754,7 @@ function ProductCatalogInner({
             id={`${idPrefix}filter-operation`}
             value={selectedOperation}
             onChange={(e) => handleOperationChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+            className="input cursor-pointer appearance-none !pr-9"
           >
             {OPERATION_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -770,7 +770,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-category`}
-          className="mb-1.5 block text-xs font-bold text-slate-600"
+          className="label"
         >
           Product Group
         </label>
@@ -779,7 +779,7 @@ function ProductCatalogInner({
             id={`${idPrefix}filter-category`}
             value={selectedCategory}
             onChange={(e) => handleCategoryChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+            className="input cursor-pointer appearance-none !pr-9"
           >
             {CATEGORY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -795,7 +795,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-industry`}
-          className="mb-1.5 block text-xs font-bold text-slate-600"
+          className="label"
         >
           Industry
         </label>
@@ -804,7 +804,7 @@ function ProductCatalogInner({
             id={`${idPrefix}filter-industry`}
             value={selectedIndustry}
             onChange={(e) => handleIndustryChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+            className="input cursor-pointer appearance-none !pr-9"
           >
             {INDUSTRY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -820,7 +820,7 @@ function ProductCatalogInner({
       <div>
         <label
           htmlFor={`${idPrefix}filter-brand`}
-          className="mb-1.5 block text-xs font-bold text-slate-600"
+          className="label"
         >
           Standards &amp; Brand
         </label>
@@ -829,7 +829,7 @@ function ProductCatalogInner({
             id={`${idPrefix}filter-brand`}
             value={selectedBrand}
             onChange={(e) => handleBrandChange(e.target.value)}
-            className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3 pr-9 text-sm font-medium text-slate-800 shadow-xs transition hover:border-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-2 focus:ring-[#0056B3]/20 cursor-pointer"
+            className="input cursor-pointer appearance-none !pr-9"
           >
             {BRAND_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -873,7 +873,7 @@ function ProductCatalogInner({
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
           placeholder="Search instruments by name, brand, ASTM/ISO standard, or application…"
-          className="input !pl-11 !pr-10 !py-3 !text-base bg-white border-slate-300 shadow-xs focus:border-[#0056B3] focus:ring-[#0056B3]/20"
+          className="input !pl-11 !pr-10 !py-3 !text-base"
           aria-label="Search instruments"
         />
         {query && (
@@ -896,7 +896,7 @@ function ProductCatalogInner({
             onClick={() => setFiltersOpen(true)}
             aria-haspopup="dialog"
             aria-expanded={filtersOpen}
-            className="cursor-pointer inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 shadow-xs transition hover:border-[#0056B3]"
+            className="btn btn-outline"
           >
             <SlidersHorizontal className="h-4 w-4 text-[#0056B3]" />
             Filters
@@ -914,7 +914,7 @@ function ProductCatalogInner({
                 key={chip.key}
                 type="button"
                 onClick={chip.onRemove}
-                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-800 cursor-pointer"
+                className="inline-flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-[0.25rem] border border-[var(--line)] bg-white px-3 text-sm text-[var(--ink)]"
                 title={`Remove ${chip.label}`}
               >
                 <span>{chip.label}</span>
@@ -924,7 +924,7 @@ function ProductCatalogInner({
             <button
               type="button"
               onClick={handleResetAll}
-              className="cursor-pointer text-xs font-semibold text-[#d00000] hover:underline"
+              className="min-h-[36px] cursor-pointer text-sm font-medium text-[#0056B3] hover:underline"
             >
               Clear all
             </button>
@@ -939,9 +939,9 @@ function ProductCatalogInner({
               onClick={() => setFiltersOpen(false)}
               className="absolute inset-0 bg-slate-900/50"
             />
-            <div className="relative flex max-h-[85vh] flex-col rounded-t-2xl bg-white shadow-xl">
+            <div className="relative flex max-h-[85vh] flex-col rounded-t-md bg-white shadow-xl">
               <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-                <h2 className="flex items-center gap-2 text-base font-semibold text-[#0056B3]">
+                <h2 className="flex items-center gap-2 text-base font-semibold text-[var(--ink)]">
                   <SlidersHorizontal className="h-4 w-4" /> Filters
                 </h2>
                 <button
@@ -960,14 +960,14 @@ function ProductCatalogInner({
                 <button
                   type="button"
                   onClick={handleResetAll}
-                  className="cursor-pointer flex-1 rounded-lg border border-slate-300 py-2.5 text-sm font-semibold text-slate-700"
+                  className="btn btn-outline flex-1"
                 >
                   Clear all
                 </button>
                 <button
                   type="button"
                   onClick={() => setFiltersOpen(false)}
-                  className="cursor-pointer flex-[2] rounded-lg bg-[#0056B3] py-2.5 text-sm font-semibold text-white"
+                  className="btn btn-primary flex-[2]"
                 >
                   Show {filteredProducts.length} {filteredProducts.length === 1 ? "result" : "results"}
                 </button>
@@ -978,13 +978,13 @@ function ProductCatalogInner({
       </div>
 
       {/* 2b. TABLET / DESKTOP: Horizontal 4-Dropdown Filter Bar (Anton Paar Style) */}
-      <div className="hidden md:block rounded-xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5">
+      <div className="hidden border-y border-[var(--line)] py-5 md:block">
         {renderFilterFields("", "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4")}
 
         {hasActiveFilters && (
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3.5">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-500">
+              <span className="text-sm text-[var(--ink-3)]">
                 Your choice:
               </span>
               {activeChips.map((chip) => (
@@ -992,7 +992,7 @@ function ProductCatalogInner({
                   key={chip.key}
                   type="button"
                   onClick={chip.onRemove}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-800 hover:border-slate-300 hover:bg-slate-100 transition group cursor-pointer"
+                  className="group inline-flex cursor-pointer items-center gap-1.5 rounded-[0.25rem] border border-[var(--line)] bg-white px-2.5 py-1 text-sm text-[var(--ink)] transition hover:border-[#0056B3]"
                   title={`Remove ${chip.label}`}
                 >
                   <span>{chip.label}</span>
@@ -1004,7 +1004,7 @@ function ProductCatalogInner({
             <button
               type="button"
               onClick={handleResetAll}
-              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-semibold text-[#d00000] hover:text-[#b00000] hover:underline transition cursor-pointer"
+              className="min-h-[44px] lg:min-h-0 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-[#0056B3] hover:underline"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               <span>Reset all filters</span>
@@ -1017,7 +1017,7 @@ function ProductCatalogInner({
       {filteredProducts.length > 0 ? (
         <ProductGrid
           products={filteredProducts}
-          className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
+          className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
           itemListId={selectedCategory !== "all" ? selectedCategory : "product_catalog"}
           itemListName={
             selectedCategory !== "all"
@@ -1028,14 +1028,11 @@ function ProductCatalogInner({
         />
       ) : (
         /* Empty State */
-        <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-xs">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#feeceb] text-[#d00000]">
-            <SlidersHorizontal className="h-7 w-7" />
-          </div>
-          <h3 className="mt-4 text-lg font-semibold text-[#0056B3]">
+        <div className="mt-8 rounded-md border border-[var(--line)] p-10 text-center sm:p-12">
+          <h3 className="text-lg font-semibold text-[var(--ink)]">
             No instruments match this combination
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-slate-600 leading-relaxed">
+          <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-[var(--ink-2)]">
             Try clearing one of the filters or resetting to see the full range of instruments
             available from Orbit Technologies.
           </p>
@@ -1043,7 +1040,7 @@ function ProductCatalogInner({
             <button
               type="button"
               onClick={handleResetAll}
-              className="btn btn-outline border-slate-300 cursor-pointer"
+              className="btn btn-outline"
             >
               <RotateCcw className="h-4 w-4" /> Reset All Filters
             </button>

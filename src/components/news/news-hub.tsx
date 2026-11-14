@@ -3,19 +3,8 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  CalendarDays,
-  MapPin,
-  Clock,
-  ArrowRight,
-  Search,
-  Sparkles,
-  CheckCircle2,
-  SlidersHorizontal,
-  Check,
-  Building2,
-  X,
-} from "lucide-react";
+import { ArrowRight, Search, Check, X } from "lucide-react";
+import { TemperatureCurve } from "@/components/temperature-curve";
 import { withBasePath } from "@/lib/utils";
 import type { NewsArticle, EventArticle } from "@/data/news";
 
@@ -26,6 +15,49 @@ interface NewsHubProps {
 }
 
 type TabType = "all" | "news" | "upcoming" | "past";
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={`font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] ${
+        dark ? "text-[#7fb2f0]" : "text-[#0056B3]"
+      }`}
+    >
+      {children}
+    </p>
+  );
+}
+
+const h2Cls = "text-[1.65rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.1rem]";
+const sectionCls = "py-14 sm:py-16 lg:py-20";
+
+/** Section header: eyebrow and title on the left, a count on the right. */
+function GroupHead({ eyebrow, title, count }: { eyebrow: string; title: string; count: string }) {
+  return (
+    <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+      <div>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>{title}</h2>
+      </div>
+      <span className="text-[13px] text-[var(--ink-3)] tnum">{count}</span>
+    </div>
+  );
+}
+
+/** Large day numeral with month and year beneath, from an ISO start date. */
+function EventDate({ startDate }: { startDate: string }) {
+  const [y, m, d] = startDate.split("-");
+  return (
+    <div className="font-[family-name:var(--font-poppins)] text-[15px] font-semibold leading-tight text-[#0056B3] tnum">
+      <b className="block text-[2.4rem] leading-none tracking-[-0.02em] text-[var(--ink)] sm:text-[3.25rem]">{d}</b>
+      <span className="mt-1.5 block">
+        {MONTHS.at(Number(m) - 1)} {y}
+      </span>
+    </div>
+  );
+}
 
 export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
   const [activeTab, setActiveTab] = useState<TabType>("all");
@@ -96,70 +128,68 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
   const totalPastCount = pastEvents.length;
   const totalAllCount = totalNewsCount + totalUpcomingCount + totalPastCount;
 
+  const tabs: { id: TabType; label: string; count: number }[] = [
+    { id: "all", label: "All Updates", count: totalAllCount },
+    { id: "news", label: "News & Launches", count: totalNewsCount },
+    { id: "upcoming", label: "Upcoming Events", count: totalUpcomingCount },
+    { id: "past", label: "Past Exhibitions", count: totalPastCount },
+  ];
+
   return (
-    <div className="space-y-12">
-      {/* Featured Headline Hero Banner */}
+    <div>
+      {/* Featured headline — wide image card */}
       {headlineNews && (
-        <section className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-[#001c3d] text-white">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(208,0,0,0.18),transparent_65%)]" />
-          
-          <div className="relative grid items-center gap-8 p-6 md:p-10 lg:grid-cols-12 lg:p-12">
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-200">
-                  {headlineNews.category}
-                </span>
-                <span className="flex items-center gap-1 text-xs text-slate-300">
-                  <Clock className="h-3.5 w-3.5 text-[#feeceb]" /> {headlineNews.readTime}
-                </span>
-              </div>
-
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl text-white">
-                {headlineNews.title}
-              </h2>
-
-              <p className="text-sm leading-relaxed text-slate-200 md:text-base">
-                {headlineNews.subtitle}
-              </p>
-
-              <div className="grid gap-2 pt-2 sm:grid-cols-2">
-                {headlineNews.highlights.slice(0, 4).map((h, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs text-slate-200">
-                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#feeceb]" />
-                    <span>{h}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 pt-4">
-                <Link
-                  href={`/news/${headlineNews.slug}`}
-                  className="btn btn-accent inline-flex items-center gap-2 text-sm font-bold shadow-md"
-                >
-                  Read Full Technical Article <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/products/7400-automatic-isoperibol-calorimeter"
-                  className="btn bg-white/15 text-white hover:bg-white/25 border-white/20 inline-flex items-center gap-2 text-sm font-semibold"
-                >
-                  View Product Page
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative lg:col-span-5 flex items-center justify-center">
-              <div className="relative aspect-4/3 w-full max-w-md overflow-hidden rounded-xl border border-white/15 bg-white/5 p-3 shadow-2xl group">
-                <div className="relative h-full w-full overflow-hidden rounded-lg bg-white/95">
+        <section className={sectionCls}>
+          <div className="container-x">
+            <Eyebrow>Featured story</Eyebrow>
+            <div className="mt-5 grid grid-cols-1 overflow-hidden rounded-md border border-[var(--line)] lg:grid-cols-[1.15fr_1fr]">
+              <figure className="relative m-0 min-w-0 bg-[#f3f5f8]">
+                <div className="relative aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[460px]">
                   <Image
                     src={withBasePath(headlineNews.image)}
                     alt={headlineNews.title}
                     fill
-                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-contain p-8 mix-blend-multiply lg:p-12"
                     priority
                   />
                 </div>
-                <div className="mt-2 text-center text-[11px] font-medium text-slate-300">
+                <figcaption className="absolute bottom-3 left-4 right-4 text-[13px] text-[var(--ink-3)] sm:left-6">
                   {headlineNews.imageCaption || headlineNews.title}
+                </figcaption>
+              </figure>
+
+              <div className="min-w-0 p-6 sm:p-8 lg:p-10">
+                <p className="text-[13px] text-[var(--ink-3)]">
+                  <span className="font-medium text-[#0056B3]">{headlineNews.category}</span>
+                  {" · "}
+                  {headlineNews.readTime}
+                </p>
+
+                <h2 className="mt-2 text-2xl font-semibold leading-tight tracking-[-0.015em] text-[var(--ink)] sm:text-[2rem]">
+                  {headlineNews.title}
+                </h2>
+
+                <p className="mt-3 text-base leading-relaxed text-[var(--ink-2)] sm:text-[17px]">
+                  {headlineNews.subtitle}
+                </p>
+
+                <ul className="mt-5 grid gap-y-2">
+                  {headlineNews.highlights.slice(0, 4).map((h, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-[#0056B3]" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <Link href={`/news/${headlineNews.slug}`} className="btn btn-primary min-h-[48px] px-6">
+                    Read Full Technical Article <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link href="/products/7400-automatic-isoperibol-calorimeter" className="btn btn-outline min-h-[48px] px-6">
+                    View Product Page
+                  </Link>
                 </div>
               </div>
             </div>
@@ -167,132 +197,71 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
         </section>
       )}
 
-      {/* Filter & Search Bar */}
-      <div className="space-y-4">
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab("all")}
-              className={`flex min-h-[44px] items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer lg:min-h-0 ${
-                activeTab === "all"
-                  ? "bg-[#0056B3] text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-              }`}
-            >
-              <span>All Updates</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] ${
-                  activeTab === "all" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {totalAllCount}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("news")}
-              className={`flex min-h-[44px] items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer lg:min-h-0 ${
-                activeTab === "news"
-                  ? "bg-[#0056B3] text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-              }`}
-            >
-              <Sparkles className="h-3.5 w-3.5 text-[#d00000]" />
-              <span>News & Launches</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] ${
-                  activeTab === "news" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {totalNewsCount}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("upcoming")}
-              className={`flex min-h-[44px] items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer lg:min-h-0 ${
-                activeTab === "upcoming"
-                  ? "bg-[#0056B3] text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-              }`}
-            >
-              <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Upcoming Events</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] ${
-                  activeTab === "upcoming"
-                    ? "bg-emerald-500 text-white"
-                    : "bg-emerald-100 text-emerald-800"
-                }`}
-              >
-                {totalUpcomingCount}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("past")}
-              className={`flex min-h-[44px] items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-all cursor-pointer lg:min-h-0 ${
-                activeTab === "past"
-                  ? "bg-[#0056B3] text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-              }`}
-            >
-              <Building2 className="h-3.5 w-3.5 text-slate-500" />
-              <span>Past Exhibitions</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] ${
-                  activeTab === "past" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-                }`}
-              >
-                {totalPastCount}
-              </span>
-            </button>
+      {/* Tabs, search and category filter */}
+      <div className="container-x pb-8">
+        <div className="flex flex-col gap-4 border-b border-[var(--line)] lg:flex-row lg:items-end lg:justify-between">
+          <div className="-mb-px flex overflow-x-auto no-scrollbar" role="tablist" aria-label="Filter updates">
+            {tabs.map((t) => {
+              const isActive = activeTab === t.id;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveTab(t.id)}
+                  className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap border-b-2 px-3 text-[15px] font-medium transition-colors ${
+                    isActive
+                      ? "border-[#0056B3] text-[var(--ink)]"
+                      : "border-transparent text-[var(--ink-2)] hover:text-[#0056B3]"
+                  }`}
+                >
+                  {t.label}
+                  <span className="text-[13px] text-[var(--ink-3)] tnum">{t.count}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Search Box */}
-          <div className="relative min-w-[240px] flex-1 max-w-sm">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <div className="relative mb-3 w-full lg:max-w-xs">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ink-3)]" />
             <input
               type="text"
               placeholder="Search news, events, models..."
+              aria-label="Search news and events"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-9 text-xs font-medium text-slate-900 placeholder-slate-400 focus:border-[#0056B3] focus:outline-hidden focus:ring-1 focus:ring-[#0056B3]"
+              className="input !pl-9 !pr-10"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                aria-label="Clear search"
+                className="absolute right-0 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center text-[var(--ink-3)] hover:text-[var(--ink)] lg:h-9 lg:w-9"
               >
-                <X className="h-3.5 w-3.5" />
+                <X className="h-4 w-4" />
               </button>
             )}
           </div>
         </div>
 
-        {/* Category Pills (Active when viewing All or News) */}
+        {/* Category filter (active when viewing All or News) */}
         {(activeTab === "all" || activeTab === "news") && (
-          <div className="flex flex-wrap items-center gap-1.5 pt-1">
-            <span className="flex items-center gap-1 text-xs font-bold text-slate-400 mr-2">
-              <SlidersHorizontal className="h-3 w-3" /> Filter:
-            </span>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-[13px] font-medium text-[var(--ink-3)]">Filter:</span>
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
                 <button
                   key={cat}
                   type="button"
+                  aria-pressed={isActive}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`min-h-[44px] lg:min-h-0 rounded-full px-4 py-1 text-xs font-semibold capitalize transition cursor-pointer ${
+                  className={`min-h-[44px] rounded-md border px-3 text-sm capitalize transition-colors lg:min-h-[34px] ${
                     isActive
-                      ? "bg-[#d00000] text-white shadow-xs"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      ? "border-[var(--ink)] bg-[var(--ink)] text-white"
+                      : "border-[var(--line)] text-[var(--ink-2)] hover:border-[#0056B3] hover:text-[#0056B3]"
                   }`}
                 >
                   {cat === "all" ? "All Categories" : cat}
@@ -303,281 +272,274 @@ export function NewsHub({ news, upcomingEvents, pastEvents }: NewsHubProps) {
         )}
       </div>
 
-      {/* SECTION 1: UPCOMING EVENTS (Shown in 'all' or 'upcoming' tab) */}
+      {/* UPCOMING EVENTS — date timeline on pale grey (shown in 'all' or 'upcoming') */}
       {(activeTab === "all" || activeTab === "upcoming") && filteredUpcoming.length > 0 && (
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                Upcoming Trade Shows &amp; Exhibitions
-              </h2>
-            </div>
-            <span className="text-xs font-bold text-slate-500">
-              {filteredUpcoming.length} {filteredUpcoming.length === 1 ? "Event" : "Events"} Scheduled
-            </span>
-          </div>
+        <section className={`bg-[#f3f5f8] ${sectionCls}`}>
+          <div className="container-x">
+            <GroupHead
+              eyebrow="Upcoming events"
+              title="Upcoming Trade Shows & Exhibitions"
+              count={`${filteredUpcoming.length} ${filteredUpcoming.length === 1 ? "Event" : "Events"} Scheduled`}
+            />
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {filteredUpcoming.map((event) => (
-              <article
-                key={event.slug}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-emerald-500/30 bg-white p-6 shadow-sm transition hover:border-emerald-500 hover:shadow-lg"
-              >
-                <div>
-                  {/* Top Badges */}
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-bold text-emerald-800">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-ping" />
-                      Upcoming Event
-                    </span>
-                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                      <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" />
-                      {event.date}
-                    </span>
-                  </div>
+            <div className="border-t-2 border-[var(--ink)]">
+              {filteredUpcoming.map((event) => (
+                <article
+                  key={event.slug}
+                  className="grid grid-cols-[72px_minmax(0,1fr)] gap-4 border-b border-[var(--line)] py-7 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-6 lg:grid-cols-[120px_minmax(0,1fr)_320px] lg:gap-10"
+                >
+                  <EventDate startDate={event.startDate} />
 
-                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-[#0056B3] group-hover:text-[#d00000] transition-colors">
-                    <Link href={`/news/${event.slug}`}>{event.show}</Link>
-                  </h3>
-
-                  <p className="mt-1.5 text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-                    <MapPin className="h-3.5 w-3.5 shrink-0 text-[#d00000]" />
-                    {event.location}
-                  </p>
-
-                  <div className="mt-2 inline-block rounded-md bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700">
-                    {event.hall} · {event.booth}
-                  </div>
-
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600 line-clamp-3">
-                    {event.summary}
-                  </p>
-
-                  {/* Highlights */}
-                  {event.highlights && event.highlights.length > 0 && (
-                    <div className="mt-4 space-y-1.5 border-t border-slate-100 pt-3">
-                      {event.highlights.slice(0, 3).map((hl, i) => (
-                        <div key={i} className="flex items-start gap-1.5 text-xs text-slate-700">
-                          <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                          <span>{hl}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
-                  <Link
-                    href={`/news/${event.slug}`}
-                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
-                  >
-                    View Details &amp; Book Stall Meeting <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover:translate-x-1" />
-                  </Link>
-
-                  {event.href && (
-                    <a
-                      href={event.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-[44px] items-center text-xs font-semibold text-slate-500 hover:text-slate-800 underline lg:min-h-0"
-                    >
-                      Official Website &nearr;
-                    </a>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 2: LATEST NEWS & PRODUCT LAUNCHES (Shown in 'all' or 'news' tab) */}
-      {(activeTab === "all" || activeTab === "news") && filteredNews.length > 0 && (
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-              Latest News &amp; Technical Announcements
-            </h2>
-            <span className="text-xs font-bold text-slate-500">
-              {filteredNews.length} {filteredNews.length === 1 ? "Article" : "Articles"}
-            </span>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredNews.map((article) => (
-              <article
-                key={article.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition hover:border-[#0056B3]/30 hover:shadow-md"
-              >
-                <div>
-                  {/* Thumbnail */}
-                  <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-50 border-b border-slate-100">
-                    <Image
-                      src={withBasePath(article.image)}
-                      alt={article.title}
-                      fill
-                      className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-5">
-                    <div className="flex items-center justify-between text-xs text-slate-500">
-                      <span>{article.date}</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3 text-slate-400" /> {article.readTime}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-2 text-base font-bold leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors">
-                      <Link href={`/news/${article.slug}`}>{article.title}</Link>
-                    </h3>
-
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-3">
-                      {article.summary}
+                  <div className="min-w-0">
+                    <p className="text-[13px] text-[var(--ink-3)]">
+                      <span className="font-medium text-[#0056B3]">Upcoming Event</span>
+                      {" · "}
+                      <span className="tnum">{event.date}</span>
                     </p>
 
-                    {/* Highlights pill preview */}
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {article.highlights.slice(0, 2).map((h, i) => (
-                        <span
-                          key={i}
-                          className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-700 line-clamp-1"
+                    <h3 className="mt-1.5 text-xl font-semibold tracking-tight text-[var(--ink)] sm:text-[1.5rem]">
+                      <Link href={`/news/${event.slug}`} className="hover:text-[#0056B3]">
+                        {event.show}
+                      </Link>
+                    </h3>
+
+                    <p className="mt-1.5 text-[15px] text-[var(--ink-2)]">{event.location}</p>
+                    <p className="mt-0.5 text-sm font-medium text-[var(--ink)]">
+                      {event.hall} · {event.booth}
+                    </p>
+
+                    <p className="mt-3 line-clamp-3 max-w-3xl text-[15px] leading-relaxed text-[var(--ink-3)]">
+                      {event.summary}
+                    </p>
+
+                    {event.highlights && event.highlights.length > 0 && (
+                      <ul className="mt-4 space-y-1.5">
+                        {event.highlights.slice(0, 3).map((hl, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm leading-relaxed text-[var(--ink-2)]">
+                            <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                            <span>{hl}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
+                      <Link href={`/news/${event.slug}`} className="link-more min-h-[44px] !whitespace-normal lg:min-h-0">
+                        View Details &amp; Book Stall Meeting <ArrowRight className="h-4 w-4 shrink-0" />
+                      </Link>
+                      {event.href && (
+                        <a
+                          href={event.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-[44px] items-center text-sm text-[var(--ink-3)] underline hover:text-[var(--ink)] lg:min-h-0"
                         >
-                          {h}
-                        </span>
-                      ))}
+                          Official Website &nearr;
+                        </a>
+                      )}
                     </div>
                   </div>
-                </div>
 
-                <div className="p-5 pt-0 border-t border-slate-100">
-                  <div className="mt-3 flex items-center justify-between">
-                    <Link
-                      href={`/news/${article.slug}`}
-                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
-                    >
-                      Read Full Article <ArrowRight className="h-3.5 w-3.5 ml-0.5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* SECTION 3: PAST EXHIBITIONS (Shown in 'all' or 'past' tab) */}
-      {(activeTab === "all" || activeTab === "past") && filteredPast.length > 0 && (
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <div className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-slate-600" />
-              <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                Finished &amp; Past Exhibitions
-              </h2>
-            </div>
-            <span className="text-xs font-bold text-slate-500">
-              {filteredPast.length} Completed Expos
-            </span>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredPast.map((event) => (
-              <article
-                key={event.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-xs transition hover:border-slate-400 hover:shadow-md"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600">
-                      Completed Exhibition
-                    </span>
-                    <span className="text-xs font-semibold text-slate-500">{event.date}</span>
-                  </div>
-
-                  <h3 className="mt-3 text-base font-bold text-[#0056B3] group-hover:text-[#d00000] transition">
-                    <Link href={`/news/${event.slug}`}>{event.show}</Link>
-                  </h3>
-
-                  <p className="mt-1 text-xs font-medium text-slate-600 flex items-center gap-1">
-                    <MapPin className="h-3 w-3 text-slate-400 shrink-0" />
-                    {event.location}
-                  </p>
-
-                  <p className="mt-1 text-xs font-bold text-slate-700">
-                    {event.hall} · {event.booth}
-                  </p>
-
-                  <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-3">
-                    {event.summary}
-                  </p>
-
-                  {event.outcomes && event.outcomes.length > 0 && (
-                    <div className="mt-3 rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700 space-y-1">
-                      <p className="font-bold text-xs text-slate-500">
-                        Event Highlights:
-                      </p>
-                      {event.outcomes.slice(0, 2).map((oc, i) => (
-                        <p key={i} className="text-[11px] leading-tight text-slate-600">
-                          &bull; {oc}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-4 border-t border-slate-100 pt-3">
                   <Link
                     href={`/news/${event.slug}`}
-                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1 text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition"
+                    aria-hidden="true"
+                    tabIndex={-1}
+                    className="relative col-span-2 aspect-[16/7] overflow-hidden rounded-md bg-white lg:col-span-1 lg:self-start"
                   >
-                    View Exhibition Recap <ArrowRight className="h-3.5 w-3.5 ml-0.5 transition-transform group-hover:translate-x-1" />
+                    <Image
+                      src={withBasePath(event.image)}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 320px, 100vw"
+                      className="object-contain p-3"
+                    />
                   </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      {/* Empty State */}
+      {/* LATEST NEWS & PRODUCT LAUNCHES — first story wider (shown in 'all' or 'news') */}
+      {(activeTab === "all" || activeTab === "news") && filteredNews.length > 0 && (
+        <section className={sectionCls}>
+          <div className="container-x">
+            <GroupHead
+              eyebrow="News and launches"
+              title="Latest News & Technical Announcements"
+              count={`${filteredNews.length} ${filteredNews.length === 1 ? "Article" : "Articles"}`}
+            />
+
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredNews.map((article, i) => {
+                const wide = i === 0 && filteredNews.length > 1;
+                return (
+                  <article
+                    key={article.slug}
+                    className={`group relative flex min-w-0 flex-col overflow-hidden rounded-md border border-[var(--line)] bg-white transition-colors hover:border-[#0056B3] ${
+                      wide ? "md:col-span-2 sm:flex-row" : ""
+                    }`}
+                  >
+                    <div
+                      className={`relative w-full shrink-0 bg-[#f3f5f8] ${
+                        wide ? "aspect-[16/10] sm:aspect-auto sm:min-h-[300px] sm:w-[48%]" : "aspect-[16/10]"
+                      }`}
+                    >
+                      <Image
+                        src={withBasePath(article.image)}
+                        alt={article.title}
+                        fill
+                        sizes={wide ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"}
+                        className="object-contain p-5 mix-blend-multiply"
+                      />
+                    </div>
+
+                    <div className={`flex min-w-0 flex-1 flex-col ${wide ? "p-6 sm:p-7" : "p-5"}`}>
+                      <p className="text-[13px] text-[var(--ink-3)]">
+                        <span className="tnum">{article.date}</span> · {article.readTime}
+                      </p>
+
+                      <h3
+                        className={`mt-2 font-semibold leading-snug text-[var(--ink)] group-hover:text-[#0056B3] ${
+                          wide ? "text-xl sm:text-[1.4rem]" : "text-base"
+                        }`}
+                      >
+                        <Link
+                          href={`/news/${article.slug}`}
+                          className="after:absolute after:inset-0 after:content-['']"
+                        >
+                          {article.title}
+                        </Link>
+                      </h3>
+
+                      <p className={`mt-2 text-sm leading-relaxed text-[var(--ink-3)] ${wide ? "line-clamp-4 sm:text-[15px]" : "line-clamp-3"}`}>
+                        {article.summary}
+                      </p>
+
+                      {article.highlights.length > 0 && (
+                        <p className="mt-3 line-clamp-2 text-[13px] leading-relaxed text-[var(--ink-2)]">
+                          {article.highlights.slice(0, 2).join(" · ")}
+                        </p>
+                      )}
+
+                      <span className="link-more mt-auto pt-4 text-sm" aria-hidden="true">
+                        Read Full Article <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* PAST EXHIBITIONS — date list on pale grey (shown in 'all' or 'past') */}
+      {(activeTab === "all" || activeTab === "past") && filteredPast.length > 0 && (
+        <section className={`bg-[#f3f5f8] ${sectionCls}`}>
+          <div className="container-x">
+            <GroupHead
+              eyebrow="Past exhibitions"
+              title="Finished & Past Exhibitions"
+              count={`${filteredPast.length} Completed Expos`}
+            />
+
+            <div className="border-t-2 border-[var(--ink)]">
+              {filteredPast.map((event) => (
+                <article
+                  key={event.slug}
+                  className="grid grid-cols-[72px_minmax(0,1fr)] gap-4 border-b border-[var(--line)] py-6 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-6 lg:grid-cols-[120px_minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-10"
+                >
+                  <EventDate startDate={event.startDate} />
+
+                  <div className="min-w-0">
+                    <p className="text-[13px] text-[var(--ink-3)]">
+                      Completed Exhibition · <span className="tnum">{event.date}</span>
+                    </p>
+
+                    <h3 className="mt-1.5 text-lg font-semibold text-[var(--ink)]">
+                      <Link href={`/news/${event.slug}`} className="hover:text-[#0056B3]">
+                        {event.show}
+                      </Link>
+                    </h3>
+
+                    <p className="mt-1 text-sm text-[var(--ink-2)]">{event.location}</p>
+                    <p className="mt-0.5 text-sm font-medium text-[var(--ink)]">
+                      {event.hall} · {event.booth}
+                    </p>
+
+                    <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-[var(--ink-3)]">
+                      {event.summary}
+                    </p>
+
+                    <Link href={`/news/${event.slug}`} className="link-more mt-3 min-h-[44px] lg:min-h-0">
+                      View Exhibition Recap <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+
+                  {event.outcomes && event.outcomes.length > 0 && (
+                    <div className="col-span-2 min-w-0 sm:col-span-1 sm:col-start-2 lg:col-start-3">
+                      <p className="text-[13px] font-medium text-[var(--ink)]">Event Highlights:</p>
+                      <ul className="mt-1 list-disc space-y-1 pl-4 text-[13px] leading-snug text-[var(--ink-3)] marker:text-[#0056B3]">
+                        {event.outcomes.slice(0, 2).map((oc, i) => (
+                          <li key={i}>{oc}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Empty state */}
       {filteredNews.length === 0 && filteredUpcoming.length === 0 && filteredPast.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-slate-300 p-12 text-center">
-          <p className="text-base font-bold text-slate-700">No news or events match your search.</p>
-          <p className="mt-1 text-xs text-slate-500">Try adjusting your keyword filter or view all updates.</p>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("all");
-              setActiveTab("all");
-            }}
-            className="btn btn-outline mt-4 text-xs"
-          >
-            Reset Filters
-          </button>
+        <div className={sectionCls}>
+          <div className="container-x">
+            <div className="rounded-md border border-[var(--line)] p-10 text-center">
+              <p className="text-base font-semibold text-[var(--ink)]">No news or events match your search.</p>
+              <p className="mt-1 text-sm text-[var(--ink-3)]">Try adjusting your keyword filter or view all updates.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory("all");
+                  setActiveTab("all");
+                }}
+                className="btn btn-outline mt-4"
+              >
+                Reset Filters
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Newsletter / Catalog Request Banner */}
-      <section className="relative overflow-hidden rounded-2xl bg-[#ebf3fc] p-8 md:p-10 border border-blue-200">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="max-w-xl">
-            <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
+      {/* Bulletins / demonstration request — navy closing band */}
+      <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+        <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+        <div className="container-x relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-14">
+          <div>
+            <Eyebrow dark>Bulletins and demonstrations</Eyebrow>
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
               Require Technical Product Bulletins or Application Notes?
-            </h3>
-            <p className="mt-2 text-xs md:text-sm leading-relaxed text-slate-700">
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#c9d4e3]">
               Speak directly with our senior application engineers or schedule a private technical
               demonstration for your laboratory across any of our 15 PAN-India branch locations.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link href="/contact-us" className="btn btn-accent text-xs md:text-sm font-bold shadow-md">
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <Link href="/contact-us" className="btn btn-accent min-h-[48px] px-6">
               Schedule Demonstration <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/contact-us/" className="btn btn-outline text-xs md:text-sm font-semibold">
+            <Link
+              href="/contact-us/"
+              className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
+            >
               Our Branch Offices
             </Link>
           </div>

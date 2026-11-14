@@ -37,16 +37,16 @@ export default async function CalculatorPage({ params }: { params: Promise<Param
         ]}
       />
 
-      <header className="border-b border-slate-200 pt-8 pb-6 sm:pt-12 sm:pb-8">
-        <div className="container-x max-w-4xl">
-          <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight text-[#0056B3] sm:text-4xl">
+      <header className="border-b border-[var(--line)] pt-8 pb-6 sm:pt-12 sm:pb-8">
+        <div className="container-x max-w-5xl">
+          <h1 className="text-[1.75rem] font-semibold leading-tight tracking-tight text-[var(--ink)] sm:text-4xl">
             {tool.title}
           </h1>
-          <p className="mt-3 text-lg leading-snug text-slate-600">{tool.description}</p>
+          <p className="mt-3 max-w-3xl text-lg leading-snug text-[var(--ink-2)]">{tool.description}</p>
         </div>
       </header>
 
-      <div className="container-x max-w-4xl py-8 sm:py-12">
+      <div className="container-x max-w-5xl py-8 sm:py-12">
         <CalculatorById id={tool.id} />
       </div>
     </div>

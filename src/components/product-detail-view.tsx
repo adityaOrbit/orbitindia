@@ -4,28 +4,17 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   FileDown,
-  Phone,
   Check,
   ChevronDown,
-  Layers,
-  Sparkles,
-  BookOpen,
   ArrowRight,
-  Sliders,
-  Info,
   CheckCircle2,
-  Mail,
-  Building2,
-  User,
-  FlaskConical,
-  Clock,
   FileText,
   MessageCircle,
 } from "lucide-react";
 import { ProductGallery } from "@/components/product-gallery";
+import { TemperatureCurve } from "@/components/temperature-curve";
 import { ProductRfqDrawer } from "@/components/product-rfq-drawer";
 import { ProductCard } from "@/components/product-card";
-import { Carousel } from "@/components/carousel";
 import { Breadcrumb, type Crumb } from "@/components/breadcrumb";
 import {
   DEFAULT_BROCHURES,
@@ -49,17 +38,6 @@ interface ProductDetailViewProps {
   crumbs: Crumb[];
   relatedProducts: Product[];
 }
-
-type TabKey =
-  | "description"
-  | "specifications"
-  | "applications"
-  | "advantages"
-  | "brochures";
-
-type SectionKey = Exclude<TabKey, "description">;
-
-const SECTION_KEYS: SectionKey[] = ["specifications", "applications", "advantages", "brochures"];
 
 const ARCHITECTURE_POINTS = [
   {
@@ -96,48 +74,106 @@ const FALLBACK_ADVANTAGES = [
   "Full compliance with ASTM D5865, ISO 1928, and BIS standards",
 ];
 
-function MobileAccordion({
-  id,
-  title,
-  icon,
-  open,
-  onToggle,
-  children,
-}: {
-  id: SectionKey;
-  title: string;
-  icon: React.ReactNode;
-  open: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-}) {
+function getDefaultSpecs(p: Product): [string, string][] {
+  const cat = (p.category || "").toLowerCase();
+  const name = (p.name || "").toLowerCase();
+
+  if (cat.includes("reactor") || name.includes("reactor") || name.includes("vessel") || name.includes("autoclave")) {
+    return [
+      ["Design Configuration", "Stirred / Non-Stirred High-Pressure Laboratory Reactor"],
+      ["Vessel Construction", "High-Strength Alloy (Stainless Steel 316L / Hastelloy C-276 / Inconel)"],
+      ["Operating Pressure Rating", "Up to 350 bar (5,000 psi) proof-tested to 500 bar"],
+      ["Temperature Range", "Ambient to 350°C (Optional up to 500°C with ceramic heating)"],
+      ["Agitation & Stirring", "Zero-Leakage Magnetic Drive Coupling with Digital Speed Regulation"],
+      ["Vessel Seal Architecture", "PTFE / Graphoil / Self-Sealing Conical Metal-to-Metal Gasket"],
+      ["Safety Systems", "Certified Rupture Disc, Dual Safety Relief, High-Limit Controller"],
+      ["Utility Ports", "Gas Inlet, Liquid Sampling Dip Tube, Thermocouple Well, Gas Release"],
+      ["Compliance & Code", "ASME Section VIII, CE Pressure Equipment Directive (PED), ISO 9001"],
+    ];
+  }
+
+  if (cat.includes("furnace") || name.includes("furnace") || name.includes("oven")) {
+    return [
+      ["Furnace Architecture", "Laboratory & Light Industrial High-Temperature Chamber / Tube"],
+      ["Maximum Temperature", "1200°C Continuous (High-Temperature options up to 1800°C)"],
+      ["Heating Elements", "High-Grade FeCrAl / Silicon Carbide (SiC) / MoSi2 Elements"],
+      ["Thermal Insulation", "Ultra-Low Thermal Mass Ceramic Fiber & Multi-Layer Refractory"],
+      ["Temperature Controller", "Multi-Segment Microprocessor PID Programmable Controller"],
+      ["Atmosphere Capability", "Air / Inert Gas Purge (Nitrogen, Argon) / Optional Vacuum Tight"],
+      ["Safety Systems", "Double-Skin Outer Case with Fan Cooling, Door Safety Interlock"],
+      ["Electrical Requirement", "230V AC Single Phase / 415V 3-Phase, 50/60 Hz"],
+    ];
+  }
+
+  if (cat.includes("balance") || name.includes("balance") || (p.brand || "").toLowerCase().includes("a&d")) {
+    return [
+      ["Measurement Type", "Micro / Semi-Micro / Analytical Precision Weighing"],
+      ["Readability (d)", "0.0001 g (0.1 mg) / 0.01 mg High Sensitivity"],
+      ["Stabilization Time", "Approx. 1 to 2 Seconds (Compact Super Hybrid Sensor)"],
+      ["Calibration System", "Motorized Internal Self-Calibration with Automatic Temperature Compensation"],
+      ["Weighing Pan", "Stainless Steel Anti-Static Pan with Breeze Break Chamber"],
+      ["Data Connectivity", "Bi-directional RS-232C, USB Interface, WinCT Software Support"],
+      ["Protection Rating", "IP65 Dust & Water Resistant Enclosure"],
+      ["Compliance", "GLP / GMP / GCP / ISO Compliant Report Output with Timestamp"],
+    ];
+  }
+
+  if (cat.includes("elemental") || name.includes("analyzer")) {
+    return [
+      ["Measurement Method", "High-Frequency Induction Combustion with Solid-State NDIR Detection"],
+      ["Sample Elements", "Carbon (C), Sulfur (S), Oxygen (O), Nitrogen (N), Hydrogen (H)"],
+      ["Analysis Measuring Range", "0.0001% (1 ppm) up to 100% Concentration"],
+      ["Analysis Cycle Time", "Typically 40 to 60 Seconds per determination"],
+      ["Carrier & Combustion Gas", "Oxygen (99.995% purity) / Nitrogen / Argon Carrier"],
+      ["Furnace Power", "2.2 kW High-Frequency Oscillator Furnace (up to 2000°C)"],
+      ["Balance Interface", "Direct connection to 4/5 place analytical balance with tare sync"],
+      ["Governing Test Standards", "ASTM E1019, ISO 9556, ISO 10720, DIN EN 10276"],
+    ];
+  }
+
+  if (cat.includes("calorimeter") || name.includes("calorimeter")) {
+    return [
+      ["Measurement Principle", "True Isoperibolic Calorimetry with Continuous Jacket Regulation"],
+      ["Precision Classification", "0.1% RSD Class (High Repeatability)"],
+      ["Temperature Resolution", "0.0001 °C (High Sensitivity Micro-Thermistor)"],
+      ["Sample Testing Capacity", "4 – 6 tests per hour"],
+      ["Combustion Vessel", "Parr 1108 Oxygen Vessel (Alloy 20 / Stainless Steel)"],
+      ["Max Working Pressure", "30 bar (435 psi) operating, proof-tested to 300 bar"],
+      ["Bucket & Jacket Management", "Automated precision water fill & temperature equilibrium"],
+      ["Data Interfaces", "TCP/IP Ethernet, Dual USB 2.0, RS-232 for Analytical Balance & LIMS"],
+      ["Governing Standards", "ASTM D5865, ISO 1928, DIN 51900, IS 1350 (Part-II)"],
+    ];
+  }
+
+  return [
+    ["Measurement Architecture", "Factory Calibrated High-Precision Analytical System"],
+    ["Application Testing Range", "Research, Industrial Production & Quality Settlement Laboratories"],
+    ["Interface & Automation", "Digital Microprocessor Controller with USB & Ethernet Data Export"],
+    ["Safety Rating", "CE Certified, Over-Temperature & Over-Pressure Protection"],
+    ["Origin & Brand Support", `${p.brand || "Orbit Technologies"} — Authorized Service in India`],
+    ["Warranty & Certification", "12 Months OEM Warranty with Certified Inspection Certificate"],
+  ];
+}
+
+/** Real spec rows, minus header rows some scraped tables carry ("Specification | Details"). */
+function realSpecs(p: Product): [string, string][] {
+  return (p.specs || []).filter(([k]) => k.trim().toLowerCase() !== "specification");
+}
+
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+/** Model number to set large above the name, e.g. "7400", "IF2000G-HDC", "4560". */
+function modelNumberOf(name: string): string | null {
+  const token = name.split(/\s+/).find((t) => /\d{3,}/.test(t) && !/^\d+-\d+$/.test(t) && t.length <= 14);
+  return token ? token.replace(/[,:;]$/, "") : null;
+}
+
+/** Section header used down the page: title + optional one-line description. */
+function SectionHead({ title, sub }: { title: string; sub?: string }) {
   return (
-    <div
-      id={`m-${id}`}
-      className={`scroll-mt-24 overflow-hidden rounded-xl border bg-white transition-colors ${
-        open ? "border-[#0056B3]/40" : "border-slate-200"
-      }`}
-    >
-      <h3>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls={`m-panel-${id}`}
-          onClick={onToggle}
-          className="cursor-pointer flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left"
-        >
-          <span className="flex items-center gap-2.5 text-sm font-semibold text-[#0056B3]">
-            <span className={open ? "text-[#d00000]" : "text-slate-400"}>{icon}</span>
-            {title}
-          </span>
-          <ChevronDown
-            className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${open ? "rotate-180" : ""}`}
-          />
-        </button>
-      </h3>
-      <div id={`m-panel-${id}`} hidden={!open} className="border-t border-slate-100 px-4 pb-4 pt-3">
-        {children}
-      </div>
+    <div className="mb-6">
+      <h2 className="section-title">{title}</h2>
+      {sub && <p className="section-sub">{sub}</p>}
     </div>
   );
 }
@@ -149,50 +185,10 @@ export function ProductDetailView({
   crumbs,
   relatedProducts,
 }: ProductDetailViewProps) {
-  const [activeTab, setActiveTab] = useState<TabKey>("description");
   const [isRfqOpen, setIsRfqOpen] = useState(false);
   const [specSearch, setSpecSearch] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  // Mobile layout: one accordion open at a time, Specifications by default
-  const [openSection, setOpenSection] = useState<SectionKey | null>("specifications");
-  const [descExpanded, setDescExpanded] = useState(false);
-
-  const scrollToMobileSection = (key: SectionKey) => {
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`m-${key}`);
-      // offsetParent is null when the mobile layout is hidden (desktop)
-      if (el && el.offsetParent !== null && el.getBoundingClientRect().top < 80) {
-        el.scrollIntoView({ block: "start" });
-      }
-    });
-  };
-
-  const toggleSection = (key: SectionKey) => {
-    const next = openSection === key ? null : key;
-    setOpenSection(next);
-    if (next) scrollToMobileSection(next);
-  };
-
-  // Sync with URL hash (e.g. #specifications) on load and when it changes
-  useEffect(() => {
-    const syncHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash === "description" || SECTION_KEYS.includes(hash as SectionKey)) {
-        setActiveTab(hash as TabKey);
-      }
-      if (SECTION_KEYS.includes(hash as SectionKey)) {
-        setOpenSection(hash as SectionKey);
-        requestAnimationFrame(() => {
-          const el = document.getElementById(`m-${hash}`);
-          if (el && el.offsetParent !== null) el.scrollIntoView({ block: "start" });
-        });
-      }
-    };
-
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, []);
+  const [specView, setSpecView] = useState<"compare" | "single">("compare");
 
   // GA4 view_item tracking
   useEffect(() => {
@@ -245,261 +241,109 @@ export function ProductDetailView({
     }
   };
 
-  function getDefaultSpecs(p: Product): [string, string][] {
-    const cat = (p.category || "").toLowerCase();
-    const name = (p.name || "").toLowerCase();
+  const ownSpecs = realSpecs(product);
+  const rawSpecs = ownSpecs.length > 0 ? ownSpecs : getDefaultSpecs(product);
 
-    if (cat.includes("reactor") || name.includes("reactor") || name.includes("vessel") || name.includes("autoclave")) {
-      return [
-        ["Design Configuration", "Stirred / Non-Stirred High-Pressure Laboratory Reactor"],
-        ["Vessel Construction", "High-Strength Alloy (Stainless Steel 316L / Hastelloy C-276 / Inconel)"],
-        ["Operating Pressure Rating", "Up to 350 bar (5,000 psi) proof-tested to 500 bar"],
-        ["Temperature Range", "Ambient to 350°C (Optional up to 500°C with ceramic heating)"],
-        ["Agitation & Stirring", "Zero-Leakage Magnetic Drive Coupling with Digital Speed Regulation"],
-        ["Vessel Seal Architecture", "PTFE / Graphoil / Self-Sealing Conical Metal-to-Metal Gasket"],
-        ["Safety Systems", "Certified Rupture Disc, Dual Safety Relief, High-Limit Controller"],
-        ["Utility Ports", "Gas Inlet, Liquid Sampling Dip Tube, Thermocouple Well, Gas Release"],
-        ["Compliance & Code", "ASME Section VIII, CE Pressure Equipment Directive (PED), ISO 9001"],
-      ];
-    }
+  const findSpec = (...keys: string[]) =>
+    rawSpecs.find(([k]) => keys.some((key) => k.toLowerCase().includes(key)))?.[1];
 
-    if (cat.includes("furnace") || name.includes("furnace") || name.includes("oven")) {
-      return [
-        ["Furnace Architecture", "Laboratory & Light Industrial High-Temperature Chamber / Tube"],
-        ["Maximum Temperature", "1200°C Continuous (High-Temperature options up to 1800°C)"],
-        ["Heating Elements", "High-Grade FeCrAl / Silicon Carbide (SiC) / MoSi2 Elements"],
-        ["Thermal Insulation", "Ultra-Low Thermal Mass Ceramic Fiber & Multi-Layer Refractory"],
-        ["Temperature Controller", "Multi-Segment Microprocessor PID Programmable Controller"],
-        ["Atmosphere Capability", "Air / Inert Gas Purge (Nitrogen, Argon) / Optional Vacuum Tight"],
-        ["Safety Systems", "Double-Skin Outer Case with Fan Cooling, Door Safety Interlock"],
-        ["Electrical Requirement", "230V AC Single Phase / 415V 3-Phase, 50/60 Hz"],
-      ];
-    }
+  const precisionSpec = findSpec("precision", "accuracy", "resolution", "readability") || "0.1% RSD Class";
+  const jacketOrTypeSpec = findSpec("jacket", "principle", "measurement", "type") || "True Isoperibol Jacket";
+  const throughputSpec = findSpec("tests", "capacity", "speed", "time") || "4 – 6 Tests / Hour";
 
-    if (cat.includes("balance") || name.includes("balance") || (p.brand || "").toLowerCase().includes("a&d")) {
-      return [
-        ["Measurement Type", "Micro / Semi-Micro / Analytical Precision Weighing"],
-        ["Readability (d)", "0.0001 g (0.1 mg) / 0.01 mg High Sensitivity"],
-        ["Stabilization Time", "Approx. 1 to 2 Seconds (Compact Super Hybrid Sensor)"],
-        ["Calibration System", "Motorized Internal Self-Calibration with Automatic Temperature Compensation"],
-        ["Weighing Pan", "Stainless Steel Anti-Static Pan with Breeze Break Chamber"],
-        ["Data Connectivity", "Bi-directional RS-232C, USB Interface, WinCT Software Support"],
-        ["Protection Rating", "IP65 Dust & Water Resistant Enclosure"],
-        ["Compliance", "GLP / GMP / GCP / ISO Compliant Report Output with Timestamp"],
-      ];
-    }
-
-    if (cat.includes("elemental") || name.includes("analyzer")) {
-      return [
-        ["Measurement Method", "High-Frequency Induction Combustion with Solid-State NDIR Detection"],
-        ["Sample Elements", "Carbon (C), Sulfur (S), Oxygen (O), Nitrogen (N), Hydrogen (H)"],
-        ["Analysis Measuring Range", "0.0001% (1 ppm) up to 100% Concentration"],
-        ["Analysis Cycle Time", "Typically 40 to 60 Seconds per determination"],
-        ["Carrier & Combustion Gas", "Oxygen (99.995% purity) / Nitrogen / Argon Carrier"],
-        ["Furnace Power", "2.2 kW High-Frequency Oscillator Furnace (up to 2000°C)"],
-        ["Balance Interface", "Direct connection to 4/5 place analytical balance with tare sync"],
-        ["Governing Test Standards", "ASTM E1019, ISO 9556, ISO 10720, DIN EN 10276"],
-      ];
-    }
-
-    if (cat.includes("calorimeter") || name.includes("calorimeter")) {
-      return [
-        ["Measurement Principle", "True Isoperibolic Calorimetry with Continuous Jacket Regulation"],
-        ["Precision Classification", "0.1% RSD Class (High Repeatability)"],
-        ["Temperature Resolution", "0.0001 °C (High Sensitivity Micro-Thermistor)"],
-        ["Sample Testing Capacity", "4 – 6 tests per hour"],
-        ["Combustion Vessel", "Parr 1108 Oxygen Vessel (Alloy 20 / Stainless Steel)"],
-        ["Max Working Pressure", "30 bar (435 psi) operating, proof-tested to 300 bar"],
-        ["Bucket & Jacket Management", "Automated precision water fill & temperature equilibrium"],
-        ["Data Interfaces", "TCP/IP Ethernet, Dual USB 2.0, RS-232 for Analytical Balance & LIMS"],
-        ["Governing Standards", "ASTM D5865, ISO 1928, DIN 51900, IS 1350 (Part-II)"],
-      ];
-    }
-
-    return [
-      ["Measurement Architecture", "Factory Calibrated High-Precision Analytical System"],
-      ["Application Testing Range", "Research, Industrial Production & Quality Settlement Laboratories"],
-      ["Interface & Automation", "Digital Microprocessor Controller with USB & Ethernet Data Export"],
-      ["Safety Rating", "CE Certified, Over-Temperature & Over-Pressure Protection"],
-      ["Origin & Brand Support", `${p.brand || "Orbit Technologies"} — Authorized Service in India`],
-      ["Warranty & Certification", "12 Months OEM Warranty with Certified Inspection Certificate"],
-    ];
-  }
-
-  const rawSpecs = product.specs && product.specs.length > 0 ? product.specs : getDefaultSpecs(product);
-
-  // Extract or intelligently synthesize the 2x3 quick chips
-  const precisionSpec =
-    rawSpecs.find(([k]) =>
-      k.toLowerCase().includes("precision") ||
-      k.toLowerCase().includes("accuracy") ||
-      k.toLowerCase().includes("resolution") ||
-      k.toLowerCase().includes("readability")
-    )?.[1] || "0.1% RSD Class";
-
-  const jacketOrTypeSpec =
-    rawSpecs.find(([k]) =>
-      k.toLowerCase().includes("jacket") ||
-      k.toLowerCase().includes("principle") ||
-      k.toLowerCase().includes("measurement") ||
-      k.toLowerCase().includes("type")
-    )?.[1] || "True Isoperibol Jacket";
-
-  const throughputSpec =
-    rawSpecs.find(([k]) =>
-      k.toLowerCase().includes("tests") ||
-      k.toLowerCase().includes("capacity") ||
-      k.toLowerCase().includes("speed") ||
-      k.toLowerCase().includes("time")
-    )?.[1] || "4 – 6 Tests / Hour";
-
-  // Filter specs by search
   const filteredSpecs = rawSpecs.filter(
     ([k, v]) =>
       k.toLowerCase().includes(specSearch.toLowerCase()) ||
       v.toLowerCase().includes(specSearch.toLowerCase())
   );
 
+  // Model comparison: up to 3 other products from the same category that have
+  // their own spec tables, compared on this product's spec rows.
+  const siblings =
+    ownSpecs.length > 0
+      ? relatedProducts
+          .filter((p) => p.category === product.category && realSpecs(p).length > 0)
+          .slice(0, 3)
+      : [];
+  const compareRows = ownSpecs.filter(([k]) => norm(k) !== "modelnumber");
+  const siblingValue = (p: Product, key: string) =>
+    realSpecs(p).find(([k]) => norm(k) === norm(key))?.[1] ?? "—";
+  const canCompare = siblings.length > 0 && compareRows.length > 0;
+
   const cleanDescription = product.description
     ? product.description.replace(/\[…\]/g, "").trim()
     : product.tagline;
 
-  const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = [
-    { key: "description", label: "Description", icon: <BookOpen className="h-4 w-4" /> },
-    {
-      key: "specifications",
-      label: "Specifications",
-      icon: <Sliders className="h-4 w-4" />,
-    },
-    { key: "applications", label: "Applications & Standards", icon: <Layers className="h-4 w-4" /> },
-    { key: "advantages", label: "Key Advantages", icon: <Sparkles className="h-4 w-4" /> },
-    {
-      key: "brochures",
-      label: "Downloads",
-      icon: <FileDown className="h-4 w-4" />,
-    },
+  const advantages =
+    product.features && product.features.length > 0 ? product.features : FALLBACK_ADVANTAGES;
+
+  const keyFacts: [string, string][] = [
+    ["Section", category?.name || "Analytical Lab"],
+    ["Precision rating", precisionSpec],
+    ["Compliance", "ASTM / ISO / CE"],
+    ["Origin", product.origin || "India / USA"],
+    ["Methodology", jacketOrTypeSpec],
+    ["Throughput / cycles", throughputSpec],
   ];
 
-  const handleTabClick = (tabKey: TabKey) => {
-    setActiveTab(tabKey);
-  };
+  const sections = [
+    { id: "overview", label: "Overview" },
+    { id: "specifications", label: "Specifications" },
+    { id: "applications", label: "Applications & Standards" },
+    { id: "advantages", label: "Key Advantages" },
+    { id: "brochures", label: "Downloads" },
+    { id: "faq-section", label: "FAQ" },
+  ];
+
+  const modelNumber = modelNumberOf(product.name);
+  const sameCategory = relatedProducts.filter((p) => p.category === product.category);
+  const relatedHeading =
+    sameCategory.length > 0 && category ? `Other ${category.name}` : "Related Laboratory Instruments";
 
   return (
     <div className="bg-white">
-      {/* Breadcrumb Navigation */}
       <Breadcrumb items={crumbs} />
 
-      {/* ------------------------------------------------------------- */}
-      {/* 1. HERO SECTION (Medigear & SciMed style split layout)         */}
-      {/* ------------------------------------------------------------- */}
-      <section className="container-x py-8 lg:py-12">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.25fr)] lg:gap-14">
-          {/* LEFT: Product Gallery */}
-          <ProductGallery product={product} />
-
-          {/* RIGHT: Product Overview & 2x3 Chips Matrix */}
-          <div className="flex flex-col">
-            {/* H1 Title */}
-            <h1 className="text-3xl font-semibold tracking-tight text-[#0056B3] sm:text-4xl">
+      {/* 1. HERO — name, model number and key facts left; photos on a pale field bleeding to the right edge */}
+      <section className="relative">
+        <div aria-hidden className="absolute inset-y-0 right-0 hidden w-1/2 bg-[#f3f5f8] lg:block" />
+        <div className="container-x relative grid grid-cols-1 lg:grid-cols-2">
+          <div className="order-2 flex min-w-0 flex-col py-8 lg:order-1 lg:py-14 lg:pr-14">
+            <p className="text-sm text-[var(--ink-3)]">
+              {product.brand && <span className="font-medium text-[var(--ink-2)]">{product.brand}</span>}
+              {product.brand && " · "}
+              {category?.name}
+            </p>
+            {modelNumber && (
+              <p className="mt-4 font-[family-name:var(--font-poppins)] text-[3rem] font-semibold leading-none tracking-[-0.03em] text-[var(--ink)] sm:text-[4.25rem]">
+                {modelNumber}
+              </p>
+            )}
+            <h1 className={`${modelNumber ? "mt-3 text-xl sm:text-2xl" : "mt-2 text-[1.75rem] sm:text-[2.1rem]"} font-semibold leading-tight tracking-tight text-[var(--ink)]`}>
               {product.name}
             </h1>
-
-            {/* Product SKU */}
-            <div className="mt-2 flex items-center gap-2 text-xs text-slate-500 font-medium">
-              <span>PRODUCT CODE:</span>
-              <span className="font-mono font-bold text-[#0056B3] bg-slate-100 px-2 py-0.5 rounded">
-                {skuCode}
-              </span>
-            </div>
-
-            {/* Highlighted Tagline Bar */}
-            <div className="mt-4 rounded-lg bg-[#ebf3fc] pl-3.5 py-1.5 pr-2">
-              <p className="text-sm font-semibold text-[#00387a] sm:text-base">
-                {product.tagline}
-              </p>
-            </div>
-
-            {/* Verified 25-35 Word Capability Statement */}
-            <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
+            <p className="mt-3 text-base leading-relaxed text-[var(--ink-2)] sm:text-[17px]">{product.tagline}</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-3)]">
               Engineered for rigorous testing environments across coal, fuels, minerals, and advanced materials. Delivers automated determination, high operational reproducibility, and compliance with international ASTM and ISO laboratory standards.
             </p>
 
-            {/* --------------------------------------------------------- */}
-            {/* SPECIFICATION CHIP MATRIX                                 */}
-            {/* --------------------------------------------------------- */}
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {/* Chip 1: Category / Section */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Section
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
-                  {category?.name || "Analytical Lab"}
-                </span>
-              </div>
+            <dl className="cells mt-6 grid-cols-2 sm:grid-cols-3">
+              {keyFacts.map(([label, value]) => (
+                <div key={label} className="flex flex-col-reverse px-4 py-3">
+                  <dt className="mt-0.5 text-[13px] text-[var(--ink-3)]">{label}</dt>
+                  <dd className="m-0 line-clamp-2 text-[15px] font-semibold text-[var(--ink)]">{value}</dd>
+                </div>
+              ))}
+            </dl>
 
-              {/* Chip 2: Precision / Accuracy */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Precision rating
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
-                  {precisionSpec}
-                </span>
-              </div>
-
-              {/* Chip 3: Condition / Compliance */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Compliance
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-emerald-700">
-                  ASTM / ISO / CE
-                </span>
-              </div>
-
-              {/* Chip 4: Origin */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Origin
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-[#0056B3]">
-                  {product.origin || "India / USA"}
-                </span>
-              </div>
-
-              {/* Chip 5: Measurement Architecture */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Methodology
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
-                  {jacketOrTypeSpec}
-                </span>
-              </div>
-
-              {/* Chip 6: Throughput / Service */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 transition-colors hover:border-slate-300">
-                <span className="block text-[11px] font-medium text-slate-500">
-                  Throughput / cycles
-                </span>
-                <span className="mt-1 block text-xs font-semibold text-[#0056B3] line-clamp-1">
-                  {throughputSpec}
-                </span>
-              </div>
-            </div>
-
-            {/* Primary Action CTA (Request a Quote + WhatsApp) */}
-            <div className="mt-8 flex flex-wrap items-center gap-3.5">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={() => setIsRfqOpen(true)}
-                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-[#d00000] px-8 py-3.5 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-[#b00000] transition-colors"
+                className="btn btn-accent min-h-[48px] w-full px-6 sm:w-auto"
               >
-                <span>Request a Quote</span>
-                <ArrowRight className="h-5 w-5" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </button>
-
               <a
                 href={`https://wa.me/?text=${encodeURIComponent(
                   // Same URL on server and client (avoids a hydration mismatch); matches SITE_URL in lib/schema.ts
@@ -514,857 +358,498 @@ export function ProductDetailView({
                     context: "product_cta",
                   })
                 }
-                className="cursor-pointer inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-emerald-300 bg-emerald-50 px-6 py-3.5 text-sm sm:text-base font-semibold text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 shadow-xs transition-all"
+                className="btn btn-outline min-h-[48px] w-full px-6 sm:w-auto"
               >
-                <MessageCircle className="h-5 w-5 text-emerald-600" />
-                <span>WhatsApp</span>
+                <MessageCircle className="h-4 w-4 text-emerald-600" />
+                WhatsApp
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* 2. TABBED CONTENT SECTION (Medigear & SciMed Style)           */}
-      {/* ------------------------------------------------------------- */}
-      <section id="technical-tabs" className="border-t border-slate-200 bg-[#f8fafc] py-10 lg:py-14 scroll-mt-24">
-        <div className="container-x">
-          {/* MOBILE: description first, then one-at-a-time accordions */}
-          <div className="md:hidden">
-            <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs">
-              <h2 className="text-lg font-semibold tracking-tight text-[#0056B3]">Description</h2>
-              <p
-                className={`mt-2 text-sm leading-relaxed text-slate-700 ${descExpanded ? "" : "line-clamp-4"}`}
-              >
-                {cleanDescription}
-              </p>
-              <div hidden={!descExpanded} className="mt-5 space-y-5">
-                <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold text-[#0056B3]">
-                    <Info className="h-4 w-4 shrink-0 text-[#d00000]" /> Scientific Architecture & Measurement Physics
-                  </h3>
-                  <div className="mt-3 space-y-3">
-                    {ARCHITECTURE_POINTS.map((pt) => (
-                      <div key={pt.title}>
-                        <h4 className="text-sm font-semibold text-slate-800">{pt.title}</h4>
-                        <p className="mt-1 text-xs leading-relaxed text-slate-600">{pt.body}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                {product.applications && product.applications.length > 0 && (
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#0056B3]">Target Laboratory Applications</h3>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {product.applications.map((app) => (
-                        <span
-                          key={app}
-                          className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700"
-                        >
-                          {app}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <button
-                type="button"
-                aria-expanded={descExpanded}
-                onClick={() => setDescExpanded((v) => !v)}
-                className="min-h-[44px] lg:min-h-0 cursor-pointer mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#0056B3]"
-              >
-                {descExpanded ? "Read less" : "Read more"}
-                <ChevronDown className={`h-4 w-4 transition-transform ${descExpanded ? "rotate-180" : ""}`} />
-              </button>
-            </div>
-
-            <div className="mt-4 space-y-3">
-              <MobileAccordion
-                id="specifications"
-                title="Specifications"
-                icon={<Sliders className="h-4 w-4" />}
-                open={openSection === "specifications"}
-                onToggle={() => toggleSection("specifications")}
-              >
-                <dl className="divide-y divide-slate-100">
-                  {rawSpecs.map(([param, val], idx) => (
-                    <div key={idx} className="py-2.5">
-                      <dt className="text-xs font-medium text-slate-500">{param}</dt>
-                      <dd className="mt-0.5 text-sm text-slate-800">{val}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <p className="mt-3 border-t border-slate-100 pt-3 text-xs text-slate-500">
-                  Specifications subject to continuous development. Certified test reports provided with each dispatch.
-                </p>
-              </MobileAccordion>
-
-              <MobileAccordion
-                id="applications"
-                title="Applications & Standards"
-                icon={<Layers className="h-4 w-4" />}
-                open={openSection === "applications"}
-                onToggle={() => toggleSection("applications")}
-              >
-                <h4 className="text-xs font-semibold text-slate-500">Compliance & standard methods</h4>
-                <div className="mt-2 space-y-2">
-                  {DEFAULT_STANDARDS.map((std, idx) => (
-                    <div key={idx} className="rounded-lg border border-slate-200 p-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <span className="text-sm font-bold text-[#0056B3]">{std.standard}</span>
-                        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">
-                          <CheckCircle2 className="h-3 w-3" /> Certified
-                        </span>
-                      </div>
-                      <p className="mt-1 text-xs font-semibold text-slate-700">{std.title}</p>
-                      <p className="text-[11px] text-slate-500">
-                        {std.organization} · {std.applicableRange}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <h4 className="mt-4 text-xs font-semibold text-slate-500">Validated sample matrices</h4>
-                <div className="mt-2 space-y-2">
-                  {SAMPLE_MATRICES.map((m) => (
-                    <div key={m.name} className="rounded-lg bg-slate-50 p-3">
-                      <p className="text-xs font-bold text-[#0056B3]">{m.name}</p>
-                      <p className="mt-0.5 text-[11px] leading-relaxed text-slate-500">{m.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </MobileAccordion>
-
-              <MobileAccordion
-                id="advantages"
-                title="Key Advantages"
-                icon={<Sparkles className="h-4 w-4" />}
-                open={openSection === "advantages"}
-                onToggle={() => toggleSection("advantages")}
-              >
-                <ul className="space-y-2.5">
-                  {(product.features && product.features.length > 0 ? product.features : FALLBACK_ADVANTAGES).map(
-                    (feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
-                          <Check className="h-3.5 w-3.5" />
-                        </span>
-                        {feat}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </MobileAccordion>
-
-              <MobileAccordion
-                id="brochures"
-                title="Downloads"
-                icon={<FileDown className="h-4 w-4" />}
-                open={openSection === "brochures"}
-                onToggle={() => toggleSection("brochures")}
-              >
-                <div className="space-y-2">
-                  {DEFAULT_BROCHURES.map((b, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => {
-                        trackFileDownload({
-                          fileName: b.title,
-                          fileUrl: `${b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
-                          productName: product.name,
-                        });
-                        setIsRfqOpen(true);
-                      }}
-                      className="cursor-pointer flex w-full items-center gap-3 rounded-lg border border-slate-200 p-3 text-left"
-                    >
-                      <FileText className="h-5 w-5 shrink-0 text-[#d00000]" />
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-sm font-semibold text-[#0056B3]">{b.title}</span>
-                        <span className="block text-[11px] text-slate-500">
-                          {b.type} · {b.size}
-                        </span>
-                      </span>
-                      <FileDown className="h-4 w-4 shrink-0 text-slate-400" />
-                    </button>
-                  ))}
-                </div>
-              </MobileAccordion>
-            </div>
-          </div>
-
-          {/* TABLET / DESKTOP: Unified Medigear-Style Technical Card */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-xs">
-            {/* Tab Navigation Strip along the top of the card */}
-            <div className="border-b border-slate-200 bg-slate-50/80 px-2 sm:px-6">
-              <div className="flex overflow-x-auto scrollbar-none gap-1 sm:gap-2">
-                {tabs.map((tab) => {
-                  const isActive = activeTab === tab.key;
-                  return (
-                    <button
-                      key={tab.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      onClick={() => handleTabClick(tab.key)}
-                      className={`cursor-pointer inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3.5 text-xs sm:text-sm font-semibold transition-all ${
-                        isActive
-                          ? "border-[#d00000] text-[#0056B3] bg-white -mb-px shadow-2xs"
-                          : "border-transparent text-slate-500 hover:border-slate-300 hover:text-[#0056B3] hover:bg-slate-100/60"
-                      }`}
-                    >
-                      <span className={isActive ? "text-[#d00000]" : "text-slate-400"}>
-                        {tab.icon}
-                      </span>
-                      <span>{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Active Tab Panel Body */}
-            <div className="p-6 sm:p-8 lg:p-10">
-              {/* TAB 1: DESCRIPTION */}
-              {activeTab === "description" && (
-                <div id="section-description" className="space-y-8">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                      Instrument Overview & Operating Principle
-                    </h2>
-                    <p className="mt-3 text-base leading-relaxed text-slate-700">
-                      {cleanDescription}
-                    </p>
-                  </div>
-
-                  {/* Operating Principles Callout Box */}
-                  <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-6">
-                    <h3 className="text-base font-semibold text-[#0056B3] flex items-center gap-2">
-                      <Info className="h-5 w-5 text-[#d00000]" /> Scientific Architecture & Measurement Physics
-                    </h3>
-                    <div className="mt-4 grid gap-6 sm:grid-cols-2">
-                      {ARCHITECTURE_POINTS.map((pt) => (
-                        <div key={pt.title} className="space-y-2 text-sm text-slate-600">
-                          <h4 className="font-semibold text-slate-800">{pt.title}</h4>
-                          <p className="text-xs leading-relaxed">{pt.body}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Applications list in Description */}
-                  {product.applications && product.applications.length > 0 && (
-                    <div>
-                      <h3 className="text-base font-semibold text-[#0056B3]">
-                        Target Laboratory Applications
-                      </h3>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {product.applications.map((app) => (
-                          <span
-                            key={app}
-                            className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700"
-                          >
-                            {app}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* TAB 2: SPECIFICATIONS */}
-              {activeTab === "specifications" && (
-                <div id="section-specifications" className="space-y-6">
-                  <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                    <div>
-                      <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                        Technical Specifications
-                      </h2>
-                      <p className="mt-1 text-xs text-slate-500">
-                        Factory calibrated specifications and operational ratings ({rawSpecs.length} parameters)
-                      </p>
-                    </div>
-                    {/* Search input for specs */}
-                    <div className="w-full sm:w-64">
-                      <input
-                        type="text"
-                        value={specSearch}
-                        onChange={(e) => setSpecSearch(e.target.value)}
-                        placeholder="Search parameters..."
-                        className="w-full rounded-lg border border-slate-300 px-3 py-1.5 text-xs focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  {filteredSpecs.length > 0 ? (
-                    <div className="mt-4 overflow-hidden rounded-xl border border-slate-200">
-                      <table className="w-full text-left text-sm">
-                        <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-600">
-                          <tr>
-                            <th className="w-2/5 px-5 py-3">Technical Parameter</th>
-                            <th className="px-5 py-3">Engineering Rating / Tolerance</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                          {filteredSpecs.map(([param, val], idx) => (
-                            <tr
-                              key={idx}
-                              className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/50"}
-                            >
-                              <td className="px-5 py-3 font-semibold text-slate-700 align-top">
-                                {param}
-                              </td>
-                              <td className="px-5 py-3 text-slate-800 align-top">
-                                {val}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-8 text-center text-slate-500 text-sm">
-                      No matching parameters found for &ldquo;{specSearch}&rdquo;.
-                    </div>
-                  )}
-
-                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 pt-4 text-xs text-slate-500">
-                    <span>Specifications subject to continuous development. Certified test reports provided with each dispatch.</span>
-                    <button
-                      type="button"
-                      onClick={() => setIsRfqOpen(true)}
-                      className="cursor-pointer font-bold text-[#d00000] hover:underline"
-                    >
-                      Request Custom Engineering Tolerance Report &rarr;
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 3: APPLICATIONS & STANDARDS */}
-              {activeTab === "applications" && (
-                <div id="section-applications" className="space-y-8">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                      Compliance & International Standard Methods
-                    </h2>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Meets or exceeds all established testing protocols for commercial settlement and research
-                    </p>
-                  </div>
-
-                  {/* Standards Table */}
-                  <div className="overflow-hidden rounded-xl border border-slate-200">
-                    <table className="w-full text-left text-sm">
-                      <thead className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold text-slate-600">
-                        <tr>
-                          <th className="px-5 py-3">Standard Reference</th>
-                          <th className="px-5 py-3">Governing Body</th>
-                          <th className="px-5 py-3">Test Method Scope</th>
-                          <th className="px-5 py-3">Compliance</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {DEFAULT_STANDARDS.map((std, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
-                            <td className="px-5 py-3.5 font-bold text-[#0056B3]">
-                              {std.standard}
-                            </td>
-                            <td className="px-5 py-3.5 text-xs text-slate-600">
-                              {std.organization}
-                            </td>
-                            <td className="px-5 py-3.5 text-xs text-slate-700">
-                              <span className="font-semibold block">{std.title}</span>
-                              <span className="text-slate-500 text-[11px]">{std.applicableRange}</span>
-                            </td>
-                            <td className="px-5 py-3.5">
-                              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
-                                <CheckCircle2 className="h-3.5 w-3.5" /> Certified
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {/* Sample Matrices Grid */}
-                  <div>
-                    <h3 className="text-base font-semibold text-[#0056B3]">
-                      Validated Sample Matrices & Materials
-                    </h3>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                      {SAMPLE_MATRICES.map((m, idx) => (
-                        <div
-                          key={idx}
-                          className="rounded-xl border border-slate-200 bg-slate-50/60 p-4"
-                        >
-                          <h4 className="font-bold text-xs text-[#0056B3]">{m.name}</h4>
-                          <p className="mt-1 text-[11px] text-slate-500 leading-relaxed">{m.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 4: KEY ADVANTAGES */}
-              {activeTab === "advantages" && (
-                <div id="section-advantages" className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                      Engineering Advantages & Key Features
-                    </h2>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Why testing laboratories choose this configuration
-                    </p>
-                  </div>
-
-                  {product.features && product.features.length > 0 ? (
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {product.features.map((feat, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4"
-                        >
-                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
-                            <Check className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-semibold text-[#0056B3]">
-                              {feat}
-                            </h4>
-                            <p className="mt-1 text-xs text-slate-600">
-                              Engineered for high sample reproducibility, minimal maintenance downtime, and operator safety.
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      {FALLBACK_ADVANTAGES.map((f, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4"
-                        >
-                          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#feeceb] text-[#d00000]">
-                            <Check className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-semibold text-[#0056B3]">{f}</h4>
-                            <p className="mt-1 text-xs text-slate-600">
-                              Delivers research-grade precision and continuous production reliability for Indian industrial testing labs.
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Service Commitment Banner */}
-                  <div className="mt-8 rounded-xl bg-[#0056B3] p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                      <h3 className="text-base font-semibold">Orbit Technologies After-Sales Assurance</h3>
-                      <p className="mt-1 text-xs text-slate-200">
-                        Installation, user training, hydrotesting, and genuine Parr spare parts stocked locally in Hyderabad.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsRfqOpen(true)}
-                      className="cursor-pointer btn btn-accent shrink-0 text-xs font-bold"
-                    >
-                      Discuss With Technical Engineer
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 5: BROCHURES & RESOURCES */}
-              {activeTab === "brochures" && (
-                <div id="section-brochures" className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight text-[#0056B3] sm:text-2xl">
-                      Technical Documentation & Downloads
-                    </h2>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Official product brochures, engineering datasheets, and laboratory pre-installation manuals
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    {DEFAULT_BROCHURES.map((b, idx) => (
-                      <div
-                        key={idx}
-                        className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-2xs hover:border-slate-300 hover:shadow-xs transition-all"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="rounded bg-rose-50 px-2 py-0.5 text-[10px] font-bold text-rose-700">
-                              {b.type}
-                            </span>
-                            <span className="text-[11px] text-slate-400 font-mono">
-                              {b.size}
-                            </span>
-                          </div>
-                          <h3 className="mt-2 text-sm font-semibold text-[#0056B3]">
-                            {b.title}
-                          </h3>
-                          <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                            {b.description}
-                          </p>
-                        </div>
-
-                        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                          <span className="text-[11px] text-slate-400">
-                            Orbit Technologies Document
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              trackFileDownload({
-                                fileName: b.title,
-                                fileUrl: `${b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
-                                productName: product.name,
-                              });
-                              setIsRfqOpen(true);
-                            }}
-                            className="min-h-[44px] lg:min-h-0 cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-                          >
-                            <FileDown className="h-4 w-4" /> Download PDF
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* 3. DIRECT IN-PAGE QUOTE FORM (Attachment 2 & SciMed Style)    */}
-      {/* ------------------------------------------------------------- */}
-      <section id="quote-section" className="border-t border-slate-200 bg-[#f8fafc] py-14 scroll-mt-20">
-        <div className="container-x max-w-4xl">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-              Request a quote for the {product.name}
-            </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
-              Share your requirement and our laboratory engineering team will get back to you within one working day with pricing, lead time, and application guidance.
+            <p className="mt-4 text-[13px] text-[var(--ink-3)]">
+              Product code <span className="tnum">{skuCode}</span>
             </p>
           </div>
+          <div className="order-1 -mx-4 min-w-0 bg-[#f3f5f8] px-4 py-6 sm:-mx-6 sm:px-6 lg:order-2 lg:mx-0 lg:bg-transparent lg:py-10 lg:pl-12 lg:pr-0">
+            <ProductGallery product={product} />
+          </div>
+        </div>
+      </section>
 
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            {inPageSubmitted ? (
-              <div className="py-8 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                  <CheckCircle2 className="h-8 w-8" />
+      {/* 2. STICKY SECTION BAR */}
+      <nav aria-label="Product sections" className="section-bar">
+        <div className="container-x flex items-center gap-1 overflow-x-auto no-scrollbar">
+          {sections.map((s) => (
+            <a key={s.id} href={`#${s.id}`} className="tab">
+              {s.label}
+            </a>
+          ))}
+          <button
+            type="button"
+            onClick={() => setIsRfqOpen(true)}
+            className="btn btn-accent ml-auto hidden !min-h-[36px] !px-4 !py-2 text-sm md:inline-flex"
+          >
+            Request a Quote
+          </button>
+        </div>
+      </nav>
+
+      <div className="container-x">
+        {/* 3. OVERVIEW */}
+        <section id="overview" className="section scroll-mt-16">
+          <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
+            <div>
+              <SectionHead title="Instrument Overview & Operating Principle" />
+              <p className="max-w-3xl text-base leading-relaxed text-[var(--ink-2)]">{cleanDescription}</p>
+              {product.applications && product.applications.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="text-base font-semibold text-[var(--ink)]">Target Laboratory Applications</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                    {product.applications.join(" · ")}
+                  </p>
                 </div>
-                <h3 className="mt-3 text-xl font-semibold text-[#0056B3]">
-                  Quotation Request Received!
-                </h3>
-                <p className="mt-2 text-xs sm:text-sm text-slate-600">
-                  Reference ID:{" "}
-                  <span className="font-mono font-bold text-[#d00000]">
-                    {inPageQuoteId}
-                  </span>
-                </p>
-                <p className="mt-2 text-xs text-slate-500 max-w-md mx-auto">
-                  An official quotation configured for <strong className="text-slate-800">{product.name}</strong> will be emailed to you shortly along with utility schematics and installation support details.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setInPageSubmitted(false)}
-                  className="cursor-pointer mt-5 inline-flex items-center justify-center rounded-lg bg-[#0056B3] px-5 py-2 text-xs font-semibold text-white hover:bg-[#003d80]"
-                >
-                  Submit Another Inquiry
-                </button>
+              )}
+            </div>
+            <div className="rounded-md bg-[var(--soft)] p-5 sm:p-6">
+              <h3 className="text-base font-semibold text-[var(--ink)]">Scientific Architecture & Measurement Physics</h3>
+              <div className="mt-4 space-y-4">
+                {ARCHITECTURE_POINTS.map((pt) => (
+                  <div key={pt.title}>
+                    <h4 className="text-sm font-semibold text-[var(--ink)]">{pt.title}</h4>
+                    <p className="mt-1 text-sm leading-relaxed text-[var(--ink-3)]">{pt.body}</p>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <form onSubmit={handleInPageSubmit} className="space-y-4">
-                <div className="rounded-lg bg-[#ebf3fc] p-3 border border-blue-200/80 text-xs text-[#00387a] flex items-center justify-between">
-                  <span className="font-semibold text-[#0056B3]">Enquiring about: {product.name} (Code: {skuCode})</span>
-                  <span className="text-[11px] text-emerald-700 font-bold hidden sm:inline">Direct OEM Support</span>
+            </div>
+          </div>
+        </section>
+
+        {/* PROOF STRIP — who installs and supports it */}
+        <section aria-label="Orbit support" className="section">
+          <dl className="cells grid-cols-1 sm:grid-cols-3">
+            <div className="flex flex-col-reverse p-5">
+              <dt className="mt-2 text-sm text-[var(--ink-3)]">Orbit Technologies serving Indian laboratories</dt>
+              <dd className="m-0 font-[family-name:var(--font-poppins)] text-[2.25rem] font-semibold leading-none tracking-[-0.02em] text-[var(--ink)] tnum">35 years</dd>
+            </div>
+            <div className="flex flex-col-reverse p-5">
+              <dt className="mt-2 text-sm text-[var(--ink-3)]">Customer installations across India</dt>
+              <dd className="m-0 font-[family-name:var(--font-poppins)] text-[2.25rem] font-semibold leading-none tracking-[-0.02em] text-[var(--ink)] tnum">7,000+</dd>
+            </div>
+            <div className="p-5">
+              <p className="text-base font-semibold text-[var(--ink)]">Orbit Technologies After-Sales Assurance</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink-3)]">
+                Installation, user training, hydrotesting, and genuine Parr spare parts stocked locally in Hyderabad.
+              </p>
+            </div>
+          </dl>
+        </section>
+
+        {/* 4. SPECIFICATIONS */}
+        <section id="specifications" className="section scroll-mt-16">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHead
+              title="Technical Specifications"
+              sub={`Factory calibrated specifications and operational ratings (${rawSpecs.length} parameters)`}
+            />
+            <div className="mb-6 flex flex-wrap items-center gap-2">
+              {canCompare && (
+                <div className="flex rounded-[0.25rem] border border-[#b9c2ce] p-0.5 text-sm" role="group" aria-label="Specification view">
+                  <button
+                    type="button"
+                    onClick={() => setSpecView("compare")}
+                    aria-pressed={specView === "compare"}
+                    className={`min-h-[40px] rounded-[0.2rem] px-3 ${specView === "compare" ? "bg-[var(--ink)] text-white" : "text-[var(--ink-2)]"}`}
+                  >
+                    Compare models
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSpecView("single")}
+                    aria-pressed={specView === "single"}
+                    className={`min-h-[40px] rounded-[0.2rem] px-3 ${specView === "single" ? "bg-[var(--ink)] text-white" : "text-[var(--ink-2)]"}`}
+                  >
+                    This model only
+                  </button>
                 </div>
+              )}
+              {(!canCompare || specView === "single") && (
+                <input
+                  type="text"
+                  value={specSearch}
+                  onChange={(e) => setSpecSearch(e.target.value)}
+                  placeholder="Search parameters..."
+                  aria-label="Search specifications"
+                  className="input w-full sm:w-56"
+                />
+              )}
+            </div>
+          </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Full Name *
-                    </label>
-                    <div className="relative">
-                      <User className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <input
-                        type="text"
-                        required
-                        value={inPageForm.name}
-                        onChange={(e) => setInPageForm({ ...inPageForm, name: e.target.value })}
-                        placeholder="Dr. Rajesh Kumar"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
+          {canCompare && specView === "compare" ? (
+            <div className="overflow-x-auto">
+              <table className="data-table min-w-[560px]">
+                <thead>
+                  <tr>
+                    <th scope="col" className="w-[28%]"></th>
+                    <th scope="col" className="is-current">{product.name}</th>
+                    {siblings.map((p) => (
+                      <th scope="col" key={p.slug}>
+                        <Link href={`/products/${p.slug}/`} className="hover:text-[#0056B3] hover:underline">
+                          {p.name}
+                        </Link>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {compareRows.map(([k, v]) => (
+                    <tr key={k}>
+                      <th scope="row">{k}</th>
+                      <td className="is-current">{v}</td>
+                      {siblings.map((p) => (
+                        <td key={p.slug}>{siblingValue(p, k)}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : filteredSpecs.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="data-table">
+                <tbody>
+                  {filteredSpecs.map(([param, val], idx) => (
+                    <tr key={idx}>
+                      <th scope="row">{param}</th>
+                      <td>{val}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="rounded-md bg-[var(--soft)] p-6 text-center text-sm text-[var(--ink-3)]">
+              No matching parameters found for &ldquo;{specSearch}&rdquo;.
+            </p>
+          )}
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Company / Institution *
-                    </label>
-                    <div className="relative">
-                      <Building2 className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <input
-                        type="text"
-                        required
-                        value={inPageForm.company}
-                        onChange={(e) => setInPageForm({ ...inPageForm, company: e.target.value })}
-                        placeholder="e.g. NTPC / CSIR / Reliance Industries"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-[var(--ink-3)]">
+            <span>Specifications subject to continuous development. Certified test reports provided with each dispatch.</span>
+            <button
+              type="button"
+              onClick={() => setIsRfqOpen(true)}
+              className="min-h-[44px] font-medium text-[#0056B3] hover:underline lg:min-h-0"
+            >
+              Request Custom Engineering Tolerance Report &rarr;
+            </button>
+          </div>
+        </section>
+
+        {/* 5. APPLICATIONS & STANDARDS */}
+        <section id="applications" className="section scroll-mt-16">
+          <SectionHead
+            title="Compliance & International Standard Methods"
+            sub="Meets or exceeds all established testing protocols for commercial settlement and research"
+          />
+          <div className="overflow-x-auto">
+            <table className="data-table min-w-[560px]">
+              <thead>
+                <tr>
+                  <th scope="col">Standard Reference</th>
+                  <th scope="col">Governing Body</th>
+                  <th scope="col">Test Method Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DEFAULT_STANDARDS.map((std) => (
+                  <tr key={std.standard}>
+                    <td className="font-semibold">{std.standard}</td>
+                    <td className="text-[var(--ink-3)]">{std.organization}</td>
+                    <td>
+                      <span className="block">{std.title}</span>
+                      <span className="text-sm text-[var(--ink-3)]">{std.applicableRange}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className="mt-10 text-base font-semibold text-[var(--ink)]">Validated Sample Matrices & Materials</h3>
+          <dl className="cells mt-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            {SAMPLE_MATRICES.map((m) => (
+              <div key={m.name} className="p-4">
+                <dt className="text-[15px] font-semibold text-[var(--ink)]">{m.name}</dt>
+                <dd className="m-0 mt-1 text-sm leading-relaxed text-[var(--ink-3)]">{m.desc}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* 6. KEY ADVANTAGES */}
+        <section id="advantages" className="section scroll-mt-16">
+          <SectionHead
+            title="Engineering Advantages & Key Features"
+            sub="Why testing laboratories choose this configuration"
+          />
+          <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
+            {advantages.map((feat) => (
+              <li key={feat} className="flex items-start gap-3 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                <Check className="mt-1 h-4 w-4 shrink-0 text-[#0056B3]" />
+                {feat}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 7. DOWNLOADS */}
+        <section id="brochures" className="section scroll-mt-16">
+          <SectionHead
+            title="Technical Documentation & Downloads"
+            sub="Official product brochures, engineering datasheets, and laboratory pre-installation manuals"
+          />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {DEFAULT_BROCHURES.map((b) => (
+              <button
+                key={b.title}
+                type="button"
+                onClick={() => {
+                  trackFileDownload({
+                    fileName: b.title,
+                    fileUrl: `${b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.pdf`,
+                    productName: product.name,
+                  });
+                  setIsRfqOpen(true);
+                }}
+                className="flex w-full items-start gap-4 rounded-md border border-[var(--line)] p-4 text-left transition-colors hover:border-[#0056B3]"
+              >
+                <FileText className="mt-0.5 h-6 w-6 shrink-0 text-[var(--ink-3)]" />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[15px] font-semibold text-[var(--ink)]">{b.title}</span>
+                  <span className="mt-0.5 block text-sm leading-relaxed text-[var(--ink-3)]">{b.description}</span>
+                  <span className="mt-1 block text-[13px] text-[var(--ink-3)]">
+                    {b.type} · {b.size}
+                  </span>
+                </span>
+                <FileDown className="mt-0.5 h-5 w-5 shrink-0 text-[#0056B3]" />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        {/* 8. QUOTE FORM */}
+        <section id="quote-section" className="section scroll-mt-16">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
+            <div>
+              <h2 className="section-title">Request a quote for the {product.name}</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                Share your requirement and our laboratory engineering team will get back to you within one working day with pricing, lead time, and application guidance.
+              </p>
+              <blockquote className="mt-8 border-l-2 border-[#0056B3] pl-4 text-[15px] leading-relaxed text-[var(--ink-2)]">
+                &ldquo;Every {category?.name || "Instrument"} we supply arrives with Orbit&rsquo;s own factory-trained engineers — selection, installation, training, and after-sales service, anywhere in India.&rdquo;
+                <footer className="mt-2 text-sm text-[var(--ink-3)]">
+                  Orbit Technologies · 35 years · 7,000+ customer installations across India
+                </footer>
+              </blockquote>
+            </div>
+
+            <div>
+              {inPageSubmitted ? (
+                <div className="rounded-md border border-[var(--line)] p-8 text-center">
+                  <CheckCircle2 className="mx-auto h-10 w-10 text-emerald-600" />
+                  <h3 className="mt-3 text-xl font-semibold text-[var(--ink)]">Quotation Request Received!</h3>
+                  <p className="mt-2 text-sm text-[var(--ink-2)]">
+                    Reference ID: <span className="font-semibold tnum text-[var(--ink)]">{inPageQuoteId}</span>
+                  </p>
+                  <p className="mx-auto mt-2 max-w-md text-sm text-[var(--ink-3)]">
+                    An official quotation configured for <strong className="text-[var(--ink)]">{product.name}</strong> will be emailed to you shortly along with utility schematics and installation support details.
+                  </p>
+                  <button type="button" onClick={() => setInPageSubmitted(false)} className="btn btn-outline mt-5">
+                    Submit Another Inquiry
+                  </button>
                 </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Work Email *
-                    </label>
-                    <div className="relative">
-                      <Mail className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <input
-                        type="email"
-                        required
-                        value={inPageForm.email}
-                        onChange={(e) => setInPageForm({ ...inPageForm, email: e.target.value })}
-                        placeholder="r.kumar@organization.com"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Phone Number *
-                    </label>
-                    <div className="relative">
-                      <Phone className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <input
-                        type="tel"
-                        required
-                        value={inPageForm.phone}
-                        onChange={(e) => setInPageForm({ ...inPageForm, phone: e.target.value })}
-                        placeholder="+91 98765 43210"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Sample / Testing Material
-                    </label>
-                    <div className="relative">
-                      <FlaskConical className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <input
-                        type="text"
-                        value={inPageForm.sampleType}
-                        onChange={(e) => setInPageForm({ ...inPageForm, sampleType: e.target.value })}
-                        placeholder="e.g. Coal & Coke, Heavy Fuel Oil, Biomass"
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Procurement Timeline
-                    </label>
-                    <div className="relative">
-                      <Clock className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                      <select
-                        value={inPageForm.timeline}
-                        onChange={(e) => setInPageForm({ ...inPageForm, timeline: e.target.value })}
-                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
-                      >
-                        <option value="immediate">Immediate (Ready to procure)</option>
-                        <option value="1-3 months">1 – 3 months</option>
-                        <option value="3-6 months">3 – 6 months</option>
-                        <option value="budgetary">Budgetary quotation only</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Your Requirement Details
+              ) : (
+                <form onSubmit={handleInPageSubmit} className="grid gap-4 sm:grid-cols-2">
+                  <p className="rounded-[0.25rem] bg-[var(--soft)] px-4 py-3 text-sm text-[var(--ink-2)] sm:col-span-2">
+                    Enquiring about: <strong className="text-[var(--ink)]">{product.name}</strong> (Code: {skuCode})
+                  </p>
+                  <label className="block">
+                    <span className="label">Full Name *</span>
+                    <input
+                      type="text"
+                      required
+                      value={inPageForm.name}
+                      onChange={(e) => setInPageForm({ ...inPageForm, name: e.target.value })}
+                      placeholder="Dr. Rajesh Kumar"
+                      className="input"
+                    />
                   </label>
-                  <div className="relative">
-                    <FileText className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                  <label className="block">
+                    <span className="label">Company / Institution *</span>
+                    <input
+                      type="text"
+                      required
+                      value={inPageForm.company}
+                      onChange={(e) => setInPageForm({ ...inPageForm, company: e.target.value })}
+                      placeholder="e.g. NTPC / CSIR / Reliance Industries"
+                      className="input"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="label">Work Email *</span>
+                    <input
+                      type="email"
+                      required
+                      value={inPageForm.email}
+                      onChange={(e) => setInPageForm({ ...inPageForm, email: e.target.value })}
+                      placeholder="r.kumar@organization.com"
+                      className="input"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="label">Phone Number *</span>
+                    <input
+                      type="tel"
+                      required
+                      value={inPageForm.phone}
+                      onChange={(e) => setInPageForm({ ...inPageForm, phone: e.target.value })}
+                      placeholder="+91 98765 43210"
+                      className="input"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="label">Sample / Testing Material</span>
+                    <input
+                      type="text"
+                      value={inPageForm.sampleType}
+                      onChange={(e) => setInPageForm({ ...inPageForm, sampleType: e.target.value })}
+                      placeholder="e.g. Coal & Coke, Heavy Fuel Oil, Biomass"
+                      className="input"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="label">Procurement Timeline</span>
+                    <select
+                      value={inPageForm.timeline}
+                      onChange={(e) => setInPageForm({ ...inPageForm, timeline: e.target.value })}
+                      className="input"
+                    >
+                      <option value="immediate">Immediate (Ready to procure)</option>
+                      <option value="1-3 months">1 – 3 months</option>
+                      <option value="3-6 months">3 – 6 months</option>
+                      <option value="budgetary">Budgetary quotation only</option>
+                    </select>
+                  </label>
+                  <label className="block sm:col-span-2">
+                    <span className="label">Your Requirement Details</span>
                     <textarea
                       rows={3}
                       value={inPageForm.requirement}
                       onChange={(e) => setInPageForm({ ...inPageForm, requirement: e.target.value })}
                       placeholder="Tell us about your testing throughput, specific standards (ASTM/ISO), or laboratory bench space..."
-                      className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 focus:border-[#0056B3] focus:outline-none"
+                      className="input"
                     />
+                  </label>
+                  {inPageError && (
+                    <p role="alert" className="rounded-[0.25rem] border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 sm:col-span-2">
+                      {inPageError}
+                    </p>
+                  )}
+                  <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-sm text-[var(--ink-3)]">
+                      We reply within one working day. Details are used only to answer your technical inquiry.
+                    </p>
+                    <button type="submit" disabled={inPageSubmitting} className="btn btn-accent shrink-0">
+                      {inPageSubmitting ? "Submitting..." : "Send Enquiry →"}
+                    </button>
                   </div>
-                </div>
-
-                {inPageError && (
-                  <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
-                    {inPageError}
-                  </p>
-                )}
-
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <p className="text-[11px] text-slate-500">
-                    We reply within one working day. Details are used only to answer your technical inquiry.
-                  </p>
-                  <button
-                    type="submit"
-                    disabled={inPageSubmitting}
-                    className="cursor-pointer btn btn-accent px-6 py-2.5 text-xs font-bold shadow-md hover:shadow-lg shrink-0"
-                  >
-                    {inPageSubmitting ? "Submitting..." : "Send Enquiry →"}
-                  </button>
-                </div>
-              </form>
-            )}
+                </form>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ------------------------------------------------------------- */}
-      {/* 4. STATEMENT / QUOTE NAVY BANNER (Attachment 2 & SciMed)      */}
-      {/* ------------------------------------------------------------- */}
-      <section className="quote-band py-12 text-white">
-        <div className="container-x text-center">
-          <p className="mx-auto max-w-3xl text-lg font-bold sm:text-2xl sm:leading-relaxed">
-            &ldquo;Every {category?.name || "Instrument"} we supply arrives with Orbit&rsquo;s own factory-trained engineers — selection, installation, training, and after-sales service, anywhere in India.&rdquo;
-          </p>
-          <p className="mt-3 text-xs font-medium text-slate-300">
-            Orbit Technologies · 35 years · 7,000+ customer installations across India
-          </p>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------- */}
-      {/* 5. RELATED PRODUCTS                                           */}
-      {/* ------------------------------------------------------------- */}
-      {relatedProducts.length > 0 && (
-        <section className="border-t border-slate-200 bg-white py-14">
-          <div className="container-x">
+        {/* 9. RELATED PRODUCTS */}
+        {relatedProducts.length > 0 && (
+          <section className="section">
             <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-                  Related Laboratory Instruments
-                </h2>
-              </div>
-              <Link href="/products/" className="cursor-pointer btn btn-outline shrink-0 text-xs">
+              <h2 className="section-title">{relatedHeading}</h2>
+              <Link href="/products/" className="link-more min-h-[44px] lg:min-h-0">
                 View All Products <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-            <Carousel label="Related laboratory instruments">
-              {relatedProducts.map((p, idx) => (
-                <div
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+              {(sameCategory.length > 0 ? sameCategory : relatedProducts).slice(0, 8).map((p, idx) => (
+                <ProductCard
                   key={p.slug}
-                  className="w-[44%] shrink-0 snap-start sm:w-[30%] lg:w-[18.5%]"
-                >
-                  <ProductCard
-                    product={p}
-                    itemListId="related_products"
-                    itemListName={`Related to ${product.name}`}
-                    index={idx}
-                    compact
-                  />
-                </div>
+                  product={p}
+                  itemListId="related_products"
+                  itemListName={`Related to ${product.name}`}
+                  index={idx}
+                  compact
+                />
               ))}
-            </Carousel>
-          </div>
-        </section>
-      )}
+            </div>
+          </section>
+        )}
 
-      {/* ------------------------------------------------------------- */}
-      {/* 6. FREQUENTLY ASKED QUESTIONS (Medigear Style, Just Above Footer) */}
-      {/* ------------------------------------------------------------- */}
-      <section id="faq-section" className="border-t border-slate-200 bg-[#fbfcfd] py-16 lg:py-20 scroll-mt-20">
-        <div className="container-x max-w-3xl">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
-              Frequently Asked Questions
-            </h2>
-            <p className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 max-w-xl mx-auto">
-              Everything testing laboratories and procurement managers need to know about sourcing, installing, and servicing analytical instruments through Orbit Technologies.
-            </p>
-          </div>
-
-          <div className="mt-10 divide-y divide-slate-200 border-y border-slate-200 bg-white rounded-2xl p-2 sm:p-6 shadow-xs border">
-            {DEFAULT_FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div key={idx} className="py-4 sm:py-5 px-3">
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="cursor-pointer flex w-full items-center justify-between gap-4 text-left font-semibold text-[#0056B3] hover:text-[#d00000] transition-colors"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="text-sm sm:text-base pr-2">{faq.q}</span>
-                    <div
-                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors ${
-                        isOpen ? "bg-[#feeceb] text-[#d00000]" : "bg-slate-100 text-slate-500"
-                      }`}
-                    >
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          isOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </div>
-                  </button>
-                  {isOpen && (
-                    <div className="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 pr-6 pl-1 animate-fadeIn">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Direct Support Assistance Callout */}
-          <div className="mt-8 rounded-2xl border border-blue-200 bg-[#ebf3fc] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        {/* 10. FAQ */}
+        <section id="faq-section" className="section scroll-mt-16">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
             <div>
-              <h3 className="text-sm font-semibold text-[#0056B3]">
-                Have a specific testing sample or standard not covered here?
-              </h3>
-              <p className="text-xs text-slate-600 mt-1">
-                Our application engineers offer pre-sale testing feasibility analysis and laboratory site visits.
+              <h2 className="section-title">Frequently Asked Questions</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-3)]">
+                Everything testing laboratories and procurement managers need to know about sourcing, installing, and servicing analytical instruments through Orbit Technologies.
               </p>
             </div>
+            <div className="border-t border-[var(--line)]">
+              {DEFAULT_FAQS.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div key={faq.q} className="border-b border-[var(--line)]">
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-[15px] font-semibold text-[var(--ink)] hover:text-[#0056B3]"
+                      aria-expanded={isOpen}
+                    >
+                      <span>{faq.q}</span>
+                      <ChevronDown className={`h-5 w-5 shrink-0 text-[var(--ink-3)] transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    {isOpen && <p className="pb-5 pr-8 text-[15px] leading-relaxed text-[var(--ink-2)]">{faq.a}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* CLOSING BAND — navy */}
+      <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+        <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+        <div className="container-x relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl">
+            <h2 className="text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+              Have a specific testing sample or standard not covered here?
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-[#c9d4e3]">
+              Our application engineers offer pre-sale testing feasibility analysis and laboratory site visits.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button type="button" onClick={() => setIsRfqOpen(true)} className="btn btn-accent min-h-[48px] px-6">
+              Request a Quote <ArrowRight className="h-4 w-4" />
+            </button>
             <button
               type="button"
               onClick={() => setIsRfqOpen(true)}
-              className="cursor-pointer inline-flex items-center justify-center gap-2 rounded-xl bg-[#d00000] px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#b00000] transition-all shrink-0"
+              className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
             >
-              <span>Ask An Instrument Specialist</span>
-              <ArrowRight className="h-4 w-4" />
+              Ask An Instrument Specialist
             </button>
           </div>
         </div>
       </section>
 
-      {/* ------------------------------------------------------------- */}
-      {/* 7. SLIDE-OUT RFQ DRAWER                                        */}
-      {/* ------------------------------------------------------------- */}
       <ProductRfqDrawer
         product={product}
         isOpen={isRfqOpen}

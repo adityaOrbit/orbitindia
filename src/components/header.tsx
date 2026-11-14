@@ -102,6 +102,32 @@ export function Header() {
     setAboutOpen(false);
   };
 
+  // Publish the sticky header's height as --header-h so in-page sticky bars
+  // (e.g. the product section bar) can sit directly underneath it.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const bar = el.firstElementChild as HTMLElement | null;
+    const update = () => {
+      // Measure the logo row + nav bar only (not an open menu panel).
+      let h = 0;
+      for (const child of Array.from(el.children) as HTMLElement[]) {
+        const pos = getComputedStyle(child).position;
+        if (pos === "absolute" || pos === "fixed" || child.offsetHeight === 0) continue;
+        if (child.tagName === "NAV" || child === bar || child.dataset.headerRow !== undefined) h += child.offsetHeight;
+      }
+      document.documentElement.style.setProperty("--header-h", `${h || el.offsetHeight}px`);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   // Close menus when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -316,7 +342,7 @@ export function Header() {
       </div>
 
       {/* Royal Blue Navigation Bar (Desktop lg:) */}
-      <div className="relative hidden bg-[#0056B3] lg:block">
+      <div data-header-row className="relative hidden bg-[#0056B3] lg:block">
         <div className="container-x flex items-center justify-between">
           <nav className="flex items-center gap-1">
             <Link

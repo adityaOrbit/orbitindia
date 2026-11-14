@@ -44,16 +44,16 @@ export function ProductCard({
     <Link
       href={`/products/${product.slug}/`}
       onClick={handleClick}
-      className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white shadow-xs transition-colors hover:border-[#0056B3]/60 overflow-hidden cursor-pointer"
+      className="group flex h-full flex-col overflow-hidden rounded-md border border-[var(--line)] bg-white transition-colors hover:border-[#0056B3]"
     >
-      <div className={`relative ${compact ? "aspect-square p-1.5" : "aspect-4/3 p-2 sm:p-3"} w-full border-b border-slate-100 bg-[#f9fafb] flex items-center justify-center overflow-hidden`}>
+      <div className={`relative ${compact ? "aspect-square p-2" : "aspect-4/3 p-3"} w-full bg-[var(--soft)] flex items-center justify-center overflow-hidden`}>
         {mappedImage ? (
           <div className="relative h-full w-full">
             <Image
               src={mappedImage}
               alt={product.name}
               fill
-              className="object-contain"
+              className="object-contain mix-blend-multiply"
               sizes={compact ? "(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw" : "(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"}
             />
           </div>
@@ -65,8 +65,11 @@ export function ProductCard({
           />
         )}
       </div>
-      <div className={`flex flex-1 flex-col ${compact ? "p-3" : "p-3 sm:p-4 sm:pb-5"}`}>
-        <h3 className={`${compact ? "text-xs sm:text-sm line-clamp-2" : "text-sm sm:text-base"} font-semibold leading-snug text-[#0056B3] group-hover:text-[#d00000] transition-colors`}>
+      <div className={`flex flex-1 flex-col ${compact ? "p-3" : "p-3 sm:p-4"}`}>
+        {product.brand && (
+          <span className="mb-1 line-clamp-1 text-xs text-[var(--ink-3)]">{product.brand}</span>
+        )}
+        <h3 className={`${compact ? "text-sm line-clamp-2" : "text-sm sm:text-base"} font-semibold leading-snug text-[var(--ink)] group-hover:text-[#0056B3] transition-colors`}>
           {product.name}
         </h3>
       </div>

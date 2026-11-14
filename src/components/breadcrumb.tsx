@@ -33,26 +33,26 @@ export function Breadcrumb({ items }: { items: Crumb[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav aria-label="Breadcrumb" className="relative z-20 border-b border-slate-200 bg-white">
-        <div className="container-x flex flex-wrap items-center gap-x-1.5 gap-y-1 py-2.5 text-[13px] text-slate-500">
+      <nav aria-label="Breadcrumb" className="relative z-20 border-b border-[var(--line)] bg-white">
+        <div className="container-x flex flex-wrap items-center gap-x-1.5 gap-y-1 py-2.5 text-[13px] text-[var(--ink-3)]">
           <Link
             href="/"
-            className="cursor-pointer flex items-center gap-1.5 font-medium text-slate-600 transition-colors hover:text-[#0056B3]"
+            className="cursor-pointer flex items-center gap-1.5 text-[var(--ink-3)] transition-colors hover:text-[#0056B3]"
           >
             <Home className="h-3.5 w-3.5" /> Home
           </Link>
           {items.map((c, i) => (
             <span key={`${c.label}-${i}`} className="flex items-center gap-1.5">
-              <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              <ChevronRight className="h-3.5 w-3.5 text-[var(--ink-3)]" />
               {c.href ? (
                 <Link
                   href={c.href}
-                  className="cursor-pointer font-medium text-[#0056B3] transition-colors hover:text-[#d00000] hover:underline"
+                  className="cursor-pointer text-[var(--ink-3)] transition-colors hover:text-[#0056B3] hover:underline"
                 >
                   {c.label}
                 </Link>
               ) : (
-                <span className="font-semibold text-slate-800" aria-current="page">
+                <span className="font-medium text-[var(--ink)]" aria-current="page">
                   {c.label}
                 </span>
               )}

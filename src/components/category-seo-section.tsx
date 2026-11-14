@@ -1,19 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import {
-  CheckCircle2,
-  ChevronDown,
-  FileText,
-  Layers,
-  MapPin,
-  ShieldCheck,
-  Wrench,
-} from "lucide-react";
+import { ChevronDown, MapPin } from "lucide-react";
 import type { Category } from "@/data/categories";
 import type { Product } from "@/data/products";
 import { getCategorySeoData } from "@/data/category-seo";
 import { site } from "@/data/site";
+
+/** Labelled sketch of a bomb-calorimeter temperature-rise curve (illustrative shape, not measured data). */
+function CalorimetryCurve() {
+  return (
+    <figure className="mt-8 rounded-md bg-[var(--soft)] p-5">
+      <svg viewBox="0 0 520 210" role="img" aria-label="Temperature rise in a bomb calorimeter: fore-period, firing, rise and post-period" className="h-auto w-full">
+        <line x1="40" y1="170" x2="500" y2="170" stroke="#9aa6b5" strokeWidth="1" />
+        <line x1="40" y1="20" x2="40" y2="170" stroke="#9aa6b5" strokeWidth="1" />
+        <path d="M40 150 H190 C210 150 218 146 226 132 C240 104 248 58 276 48 C300 41 340 42 500 44" fill="none" stroke="#0056B3" strokeWidth="2.5" />
+        <line x1="190" y1="30" x2="190" y2="170" stroke="#d00000" strokeWidth="1" strokeDasharray="4 4" />
+        <text x="194" y="28" fontSize="12" fill="#d00000">Firing</text>
+        <text x="60" y="140" fontSize="12" fill="#3d4a5c">Fore-period</text>
+        <text x="250" y="124" fontSize="12" fill="#3d4a5c">Rise</text>
+        <text x="380" y="36" fontSize="12" fill="#3d4a5c">Post-period</text>
+        <text x="44" y="190" fontSize="12" fill="#5b6676">Time</text>
+        <text x="14" y="24" fontSize="12" fill="#5b6676">ΔT</text>
+      </svg>
+      <figcaption className="mt-2 text-[13px] text-[var(--ink-3)]">
+        Shape of the temperature rise the calorimeter records after the sample is fired (illustrative).
+      </figcaption>
+    </figure>
+  );
+}
 
 export function CategorySeoSection({
   category,
@@ -85,220 +100,166 @@ export function CategorySeoSection({
   };
 
   return (
-    <article
-      className="mt-16 border-t border-slate-200 bg-slate-50 py-16"
-      aria-label={`Technical Overview and Standards for ${category.name}`}
-    >
+    <article aria-label={`Technical Overview and Standards for ${category.name}`}>
       {/* Inject Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="container-x">
-        {/* Section Header */}
-        <div className="max-w-3xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
-            {seoData.overviewTitle}
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-            {seoData.technicalSummary}
-          </p>
-        </div>
-
-        {/* 2-Column Technical Pillars */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-2">
-          {/* Working Principles */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3]">
-                <Layers className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-[#0056B3]">
-                Measurement Principles & Technology
-              </h3>
-            </div>
-            <ul className="mt-6 space-y-3.5 text-sm leading-relaxed text-slate-600">
-              {seoData.principles.map((pr, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#d00000]" />
-                  <span>{pr}</span>
+      {/* How it works: overview, numbered principles and (for calorimeters) the temperature-rise curve */}
+      <section className="section">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
+          <div>
+            <p className="font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] text-[#0056B3]">
+              How it works
+            </p>
+            <h2 className="section-title mt-3">{seoData.overviewTitle}</h2>
+            <p className="mt-4 text-base leading-relaxed text-[var(--ink-2)]">{seoData.technicalSummary}</p>
+            {category.path.startsWith("calorimeter") && <CalorimetryCurve />}
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-[var(--ink)]">Measurement Principles &amp; Technology</h3>
+            <ol className="mt-4 border-t border-[var(--line)]">
+              {seoData.principles.map((pr, i) => (
+                <li key={pr} className="grid grid-cols-[3rem_1fr] gap-3 border-b border-[var(--line)] py-4">
+                  <span className="font-[family-name:var(--font-poppins)] text-2xl font-semibold leading-none text-[#0056B3] tnum">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[15px] leading-relaxed text-[var(--ink-2)]">{pr}</span>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
+        </div>
+      </section>
 
-          {/* Test Standards & Methods */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#feeceb] text-[#d00000]">
-                <FileText className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-[#0056B3]">
-                International Standards & Regulatory Compliance
-              </h3>
-            </div>
-            <div className="mt-6 space-y-4">
-              {seoData.standards.map((std, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg border border-slate-100 bg-slate-50/70 p-3.5"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-xs font-bold text-[#d00000]">
-                      {std.code}
-                    </span>
-                    <span className="rounded bg-slate-200 px-1.5 py-0.5 text-xs font-semibold text-slate-700">
-                      Compliance
-                    </span>
-                  </div>
-                  <h4 className="mt-1 text-sm font-semibold text-[#0056B3]">
-                    {std.title}
-                  </h4>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-500">
-                    {std.scope}
-                  </p>
+      {/* Standards */}
+      {seoData.standards.length > 0 && (
+        <section className="section">
+          <h2 className="section-title">International Standards &amp; Regulatory Compliance</h2>
+          <div className="mt-6 overflow-x-auto">
+            <table className="data-table min-w-[560px]">
+              <thead>
+                <tr>
+                  <th scope="col" className="w-[22%]">Standard</th>
+                  <th scope="col">Title</th>
+                  <th scope="col" className="w-[36%]">Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                {seoData.standards.map((std) => (
+                  <tr key={std.code}>
+                    <td className="font-semibold">{std.code}</td>
+                    <td>{std.title}</td>
+                    <td className="text-[var(--ink-3)]">{std.scope}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* Applications + selection checklist */}
+      <section className="section">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <div>
+            <h2 className="section-title">Core Industrial Applications</h2>
+            <dl className="mt-5 border-t border-[var(--line)]">
+              {seoData.applications.map((app) => (
+                <div key={app.industry} className="border-b border-[var(--line)] py-4">
+                  <dt className="text-[15px] font-semibold text-[var(--ink)]">{app.industry}</dt>
+                  <dd className="m-0 mt-1 text-[15px] leading-relaxed text-[var(--ink-2)]">{app.useCase}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
-
-          {/* Applications */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#ebf3fc] text-[#0056B3]">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-[#0056B3]">
-                Core Industrial Applications
-              </h3>
-            </div>
-            <div className="mt-6 divide-y divide-slate-100">
-              {seoData.applications.map((app, idx) => (
-                <div key={idx} className="py-3.5 first:pt-0 last:pb-0">
-                  <h4 className="text-sm font-semibold text-[#0056B3]">
-                    {app.industry}
-                  </h4>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                    {app.useCase}
-                  </p>
+          <div>
+            <h2 className="section-title">Laboratory Selection Checklist</h2>
+            <dl className="mt-5 border-t border-[var(--line)]">
+              {seoData.selectionCriteria.map((crit) => (
+                <div key={crit.factor} className="border-b border-[var(--line)] py-4">
+                  <dt className="text-[15px] font-semibold text-[var(--ink)]">{crit.factor}</dt>
+                  <dd className="m-0 mt-1 text-[15px] leading-relaxed text-[var(--ink-2)]">{crit.description}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
+        </div>
+      </section>
 
-          {/* Selection Guide */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#feeceb] text-[#d00000]">
-                <Wrench className="h-5 w-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-[#0056B3]">
-                Laboratory Selection Checklist
-              </h3>
-            </div>
-            <div className="mt-6 space-y-3.5">
-              {seoData.selectionCriteria.map((crit, idx) => (
-                <div key={idx} className="flex items-start gap-3 text-sm">
-                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#d00000]" />
-                  <div>
-                    <span className="font-semibold text-[#0056B3]">
-                      {crit.factor}:{" "}
-                    </span>
-                    <span className="text-slate-600">{crit.description}</span>
-                  </div>
-                </div>
-              ))}
+      {/* Why Orbit */}
+      <section className="section">
+        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
+          <div>
+            <h2 className="section-title">Why Laboratories Across India Partner with Orbit Technologies</h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-2)] sm:text-base">
+              Established in Hyderabad in 1995, Orbit Technologies manufactures and
+              represents leading scientific instrument makers. As Parr Instrument
+              Company&apos;s exclusive partner and #1 Global Dealer for new orders, we
+              provide full end-to-end support: from testing application guidance and
+              custom engineering to factory-certified installation, NABL-traceable
+              calibration, and lifetime spares.
+            </p>
+          </div>
+          <div className="rounded-md bg-[var(--soft)] p-5">
+            <p className="flex items-center gap-2 text-sm font-semibold text-[var(--ink)]">
+              <MapPin className="h-4 w-4 text-[#0056B3]" /> Pan-India Support Network
+            </p>
+            <p className="mt-2 text-sm text-[var(--ink-2)]">14 Dedicated Sales &amp; Service Branch Locations:</p>
+            <p className="mt-1 text-sm leading-relaxed text-[var(--ink-3)]">
+              Hyderabad · Delhi · Mumbai · Kolkata · Chennai · Bangalore · Pune ·
+              Nagpur · Lucknow · Baroda · Bhubaneswar · Bilaspur · Raipur · Ranchi
+            </p>
+            <div className="mt-4 flex items-center justify-between border-t border-[var(--line)] pt-3 text-sm">
+              <span className="text-[var(--ink-3)]">Direct Sales Desk:</span>
+              <a
+                href={`tel:${site.phones.sales1.replace(/[^+\d]/g, "")}`}
+                className="font-semibold text-[#0056B3] hover:underline"
+              >
+                {site.phones.sales1}
+              </a>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Orbit Infrastructure Banner */}
-        <div className="mt-12 rounded-2xl border border-slate-200 bg-[#0056B3] p-8 text-white shadow-md sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                Why Laboratories Across India Partner with Orbit Technologies
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-200 sm:text-base">
-                Established in Hyderabad in 1995, Orbit Technologies manufactures and
-                represents leading scientific instrument makers. As Parr Instrument
-                Company&apos;s exclusive partner and #1 Global Dealer for new orders, we
-                provide full end-to-end support: from testing application guidance and
-                custom engineering to factory-certified installation, NABL-traceable
-                calibration, and lifetime spares.
-              </p>
-            </div>
-            <div className="flex flex-col justify-center rounded-xl bg-white/10 p-6">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#feeceb]">
-                <MapPin className="h-4 w-4" /> Pan-India Support Network
-              </div>
-              <p className="mt-2 text-xs leading-relaxed text-slate-200">
-                14 Dedicated Sales &amp; Service Branch Locations:
-              </p>
-              <p className="mt-1 font-mono text-[11px] leading-relaxed text-slate-200">
-                Hyderabad · Delhi · Mumbai · Kolkata · Chennai · Bangalore · Pune ·
-                Nagpur · Lucknow · Baroda · Bhubaneswar · Bilaspur · Raipur · Ranchi
-              </p>
-              <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between">
-                <span className="text-xs text-slate-200">Direct Sales Desk:</span>
-                <a
-                  href={`tel:${site.phones.sales1.replace(/[^+\d]/g, "")}`}
-                  className="text-xs font-bold text-white hover:text-[#feeceb] hover:underline"
-                >
-                  {site.phones.sales1}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Technical FAQ */}
-        {allFaqs.length > 0 && (
-          <div className="mt-14">
-            <div className="text-center max-w-2xl mx-auto">
-              <h3 className="text-2xl font-semibold text-[#0056B3] sm:text-3xl">
-                Common Technical Questions: {category.name}
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
+      {/* Technical FAQ */}
+      {allFaqs.length > 0 && (
+        <section className="section">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
+            <div>
+              <h2 className="section-title">Common Technical Questions: {category.name}</h2>
+              <p className="mt-3 text-[15px] text-[var(--ink-3)]">
                 Key questions on testing standards, operating methods, maintenance,
                 and calibration.
               </p>
             </div>
-
-            <div className="mt-8 max-w-3xl mx-auto space-y-3">
+            <div className="border-t border-[var(--line)]">
               {allFaqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
-                  <div
-                    key={idx}
-                    className="overflow-hidden rounded-xl border border-slate-200 bg-white transition shadow-2xs"
-                  >
+                  <div key={faq.q} className="border-b border-[var(--line)]">
                     <button
                       type="button"
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between gap-4 p-5 text-left font-semibold text-[#0056B3] hover:bg-slate-50"
+                      className="flex min-h-[56px] w-full items-center justify-between gap-4 py-4 text-left text-[15px] font-semibold text-[var(--ink)] hover:text-[#0056B3]"
                       aria-expanded={isOpen}
                     >
-                      <span className="text-sm sm:text-base">{faq.q}</span>
+                      <span>{faq.q}</span>
                       <ChevronDown
-                        className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-[#d00000]" : ""
-                        }`}
+                        className={`h-5 w-5 shrink-0 text-[var(--ink-3)] transition-transform ${isOpen ? "rotate-180" : ""}`}
                       />
                     </button>
-                    {isOpen && (
-                      <div className="border-t border-slate-100 bg-slate-50/50 p-5 text-sm leading-relaxed text-slate-600">
-                        {faq.a}
-                      </div>
-                    )}
+                    {isOpen && <p className="pb-5 pr-8 text-[15px] leading-relaxed text-[var(--ink-2)]">{faq.a}</p>}
                   </div>
                 );
               })}
             </div>
           </div>
-        )}
-      </div>
+        </section>
+      )}
     </article>
   );
 }

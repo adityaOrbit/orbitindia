@@ -2,22 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  CalendarDays,
-  MapPin,
-  Clock,
-  ArrowRight,
-  ArrowLeft,
-  CheckCircle2,
-  Check,
-  Building2,
-  Globe,
-  Sparkles,
-  Award,
-  Layers,
-} from "lucide-react";
+import { ArrowRight, ArrowLeft, ChevronRight } from "lucide-react";
 import { withBasePath } from "@/lib/utils";
 import { JsonLd } from "@/components/json-ld";
+import { TemperatureCurve } from "@/components/temperature-curve";
 import { getNewsOrEventSchema } from "@/lib/schema";
 import {
   getNewsOrEventBySlug,
@@ -26,6 +14,7 @@ import {
   getAllEvents,
   type NewsArticle,
   type EventArticle,
+  type RelatedProductRef,
 } from "@/data/news";
 import { NewsLeadForm } from "@/components/news/news-lead-form";
 
@@ -65,6 +54,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
+const MONTHS_LONG = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={`font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] ${
+        dark ? "text-[#7fb2f0]" : "text-[#0056B3]"
+      }`}
+    >
+      {children}
+    </p>
+  );
+}
+
+const h1Cls = "mt-4 max-w-4xl text-[2rem] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--ink)] sm:text-[2.6rem] lg:text-[3rem]";
+
 export default async function NewsDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const item = getNewsOrEventBySlug(slug);
@@ -84,96 +92,178 @@ export default async function NewsDetailPage({ params }: PageProps) {
     .slice(0, 2);
 
   return (
-    <div className="pb-20">
+    <div className="bg-white">
       <JsonLd data={getNewsOrEventSchema(item)} />
       {/* Breadcrumb row */}
-      <div className="border-b border-slate-200 bg-slate-50/80 py-3 text-xs">
-        <div className="container-x flex items-center gap-2 text-slate-500">
-          <Link href="/" className="hover:text-[#0056B3] transition">
+      <nav aria-label="Breadcrumb" className="border-b border-[var(--line)]">
+        <div className="container-x flex flex-wrap items-center gap-x-1.5 gap-y-1 py-2.5 text-[13px] text-[var(--ink-3)]">
+          <Link href="/" className="hover:text-[#0056B3]">
             Home
           </Link>
-          <span>/</span>
-          <Link href="/news" className="hover:text-[#0056B3] transition">
+          <ChevronRight className="h-3.5 w-3.5 text-[var(--ink-3)]" />
+          <Link href="/news" className="text-[#0056B3] hover:underline">
             News &amp; Events
           </Link>
-          <span>/</span>
-          <span className="font-semibold text-slate-900 truncate max-w-[280px] sm:max-w-md">
+          <ChevronRight className="h-3.5 w-3.5 text-[var(--ink-3)]" />
+          <span className="max-w-[240px] truncate font-medium text-[var(--ink)] sm:max-w-md" aria-current="page">
             {isEvent ? (item as EventArticle).show : item.title}
           </span>
         </div>
-      </div>
+      </nav>
 
-      <div className="container-x mt-8">
-        {/* Back Link */}
-        <Link
-          href="/news"
-          className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#0056B3] transition"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to All News &amp; Events
-        </Link>
+      {isEvent ? <EventView event={item as EventArticle} /> : <NewsView article={item as NewsArticle} />}
 
-        {isEvent ? (
-          // ==========================================
-          // EVENT DETAIL VIEW
-          // ==========================================
-          <EventView event={item as EventArticle} />
-        ) : (
-          // ==========================================
-          // NEWS ARTICLE DETAIL VIEW
-          // ==========================================
-          <NewsView article={item as NewsArticle} />
-        )}
-
-        {/* Bottom Recommendations */}
-        <div className="mt-16 border-t border-slate-200 pt-12">
-          <h2 className="text-xl font-semibold text-[#0056B3]">More from Orbit Technologies</h2>
-          <div className="mt-6 grid gap-6 md:grid-cols-3">
+      {/* Bottom recommendations */}
+      <section className="py-14 sm:py-16 lg:py-20">
+        <div className="container-x">
+          <Eyebrow>Keep reading</Eyebrow>
+          <h2 className="mt-3 text-[1.65rem] font-semibold leading-tight tracking-[-0.015em] text-[var(--ink)] sm:text-[2.1rem]">
+            More from Orbit Technologies
+          </h2>
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
             {recentNews.slice(0, 2).map((n) => (
               <Link
                 key={n.slug}
                 href={`/news/${n.slug}`}
-                className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 transition hover:border-[#0056B3]/40 hover:shadow-md"
+                className="group flex min-w-0 flex-col justify-between overflow-hidden rounded-md border border-[var(--line)] transition-colors hover:border-[#0056B3]"
               >
-                <div>
-                  <h3 className="text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition line-clamp-2">
+                <div className="relative aspect-[16/9] bg-[#f3f5f8]">
+                  <Image
+                    src={withBasePath(n.image)}
+                    alt=""
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-contain p-5 mix-blend-multiply"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <p className="text-[13px] text-[var(--ink-3)] tnum">{n.date}</p>
+                  <h3 className="mt-1.5 line-clamp-2 text-base font-semibold leading-snug text-[var(--ink)] group-hover:text-[#0056B3]">
                     {n.title}
                   </h3>
-                  <p className="mt-1.5 text-xs text-slate-600 line-clamp-2">{n.summary}</p>
-                </div>
-                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#0056B3]">
-                  <span>{n.date}</span>
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-[var(--ink-3)]">{n.summary}</p>
+                  <span className="mt-auto pt-4"><ArrowRight className="h-4 w-4 text-[#0056B3]" /></span>
                 </div>
               </Link>
             ))}
 
-            {otherEvents.slice(0, 1).map((e) => (
-              <Link
-                key={e.slug}
-                href={`/news/${e.slug}`}
-                className="group flex flex-col justify-between rounded-xl border-2 border-emerald-500/20 bg-white p-5 transition hover:border-emerald-500 hover:shadow-md"
-              >
-                <div>
-                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
-                    {e.status === "upcoming" ? "Upcoming Expo" : "Past Expo"}
-                  </span>
-                  <h3 className="mt-2 text-sm font-bold text-[#0056B3] group-hover:text-[#d00000] transition">
+            {otherEvents.slice(0, 1).map((e) => {
+              const [y, m, d] = e.startDate.split("-");
+              return (
+                <Link
+                  key={e.slug}
+                  href={`/news/${e.slug}`}
+                  className="group flex min-w-0 flex-col rounded-md border border-[var(--line)] bg-[#f3f5f8] p-5 transition-colors hover:border-[#0056B3] sm:p-6"
+                >
+                  <div className="font-[family-name:var(--font-poppins)] text-[15px] font-semibold leading-tight text-[#0056B3] tnum">
+                    <b className="block text-[3rem] leading-none tracking-[-0.02em] text-[var(--ink)] sm:text-[3.5rem]">{d}</b>
+                    <span className="mt-1.5 block">
+                      {MONTHS_LONG.at(Number(m) - 1)} {y}
+                    </span>
+                  </div>
+                  <p className="mt-6 text-[13px] text-[var(--ink-3)]">
+                    <span className="font-medium text-[#0056B3]">
+                      {e.status === "upcoming" ? "Upcoming Expo" : "Past Expo"}
+                    </span>
+                    {" · "}
+                    <span className="tnum">{e.date}</span>
+                  </p>
+                  <h3 className="mt-1.5 text-base font-semibold leading-snug text-[var(--ink)] group-hover:text-[#0056B3]">
                     {e.show}
                   </h3>
-                  <p className="mt-1 text-xs text-slate-600 line-clamp-2">{e.summary}</p>
-                </div>
-                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600">
-                  <span className="flex items-center gap-1">
-                    <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {e.date}
-                  </span>
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </Link>
-            ))}
+                  <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-[var(--ink-3)]">{e.summary}</p>
+                  <span className="mt-auto pt-4"><ArrowRight className="h-4 w-4 text-[#0056B3]" /></span>
+                </Link>
+              );
+            })}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Direct line — navy closing band */}
+      {isEvent ? <EventContactBand event={item as EventArticle} /> : <NewsContactBand />}
     </div>
+  );
+}
+
+// ==========================================
+// SHARED ARTICLE PIECES
+// ==========================================
+
+const h2Class = "mt-12 text-xl font-semibold tracking-tight text-[var(--ink)] sm:text-[1.5rem]";
+const bodyClass = "text-base leading-[1.75] text-[var(--ink-2)] sm:text-[17px]";
+
+function BackLink() {
+  return (
+    <Link
+      href="/news"
+      className="inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-[var(--ink-2)] hover:text-[#0056B3] lg:min-h-0"
+    >
+      <ArrowLeft className="h-4 w-4" /> Back to All News &amp; Events
+    </Link>
+  );
+}
+
+function Body({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className={`mt-8 space-y-5 ${bodyClass}`}>
+      {paragraphs.map((p, idx) => (
+        <p key={idx}>{p}</p>
+      ))}
+    </div>
+  );
+}
+
+function PlainList({ items }: { items: string[] }) {
+  return (
+    <ul className={`mt-4 list-disc space-y-2 pl-5 marker:text-[#0056B3] ${bodyClass}`}>
+      {items.map((h, i) => (
+        <li key={i} className="pl-1">
+          {h}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProductRefCards({ items }: { items: RelatedProductRef[] }) {
+  return (
+    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {items.map((p) => (
+        <Link
+          key={p.name}
+          href={p.href}
+          className="group flex min-w-0 items-center gap-3 rounded-md border border-[var(--line)] p-3 transition-colors hover:border-[#0056B3]"
+        >
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-sm bg-[var(--soft)]">
+            <Image
+              src={withBasePath(p.image)}
+              alt={p.name}
+              fill
+              sizes="56px"
+              className="object-contain p-1 mix-blend-multiply"
+            />
+          </div>
+          <div className="min-w-0">
+            <h3 className="truncate text-[15px] font-semibold text-[var(--ink)] group-hover:text-[#0056B3]">
+              {p.name}
+            </h3>
+            <span className="text-[13px] text-[var(--ink-3)]">{p.category}</span>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+/** Lead form on the pale grey field, inside a white panel. */
+function InquirySection({ children }: { children: React.ReactNode }) {
+  return (
+    <section id="inquiry" className="scroll-mt-16 bg-[#f3f5f8] py-14 sm:py-16 lg:py-20">
+      <div className="container-x">
+        <div className="mx-auto max-w-[760px] rounded-md bg-white p-5 sm:p-8 lg:p-10">{children}</div>
+      </div>
+    </section>
   );
 }
 
@@ -183,194 +273,138 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
 function NewsView({ article }: { article: NewsArticle }) {
   return (
-    <div className="mt-6 grid gap-10 lg:grid-cols-12">
-      {/* Main Content Column */}
-      <div className="lg:col-span-8 space-y-8">
-        {/* Header Header */}
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="flex items-center gap-1 text-xs text-slate-500">
-              <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {article.date}
-            </span>
-            <span className="flex items-center gap-1 text-xs text-slate-500">
-              <Clock className="h-3.5 w-3.5 text-slate-400" /> {article.readTime}
-            </span>
+    <>
+      <article>
+        <header className="container-x pb-8 pt-6 sm:pb-10">
+          <BackLink />
+          <div className="mt-6">
+            <Eyebrow>{article.category}</Eyebrow>
+            <h1 className={h1Cls}>{article.title}</h1>
+            <p className="mt-4 max-w-3xl text-[17px] leading-relaxed text-[var(--ink-2)] sm:text-lg">
+              {article.subtitle}
+            </p>
+            <p className="mt-5 text-[13px] text-[var(--ink-3)]">
+              <span className="tnum">{article.date}</span> · {article.readTime}
+            </p>
           </div>
+        </header>
 
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
-            {article.title}
-          </h1>
-
-          <p className="mt-3 text-base text-slate-600 leading-relaxed font-medium">
-            {article.subtitle}
-          </p>
-        </div>
-
-        {/* Hero Photo */}
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
-          <div className="relative aspect-16/10 w-full bg-white">
+        <figure className="container-x m-0">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-[#f3f5f8] sm:aspect-[16/8] lg:aspect-[16/7]">
             <Image
               src={withBasePath(article.image)}
               alt={article.title}
               fill
-              className="object-contain p-6"
+              sizes="(min-width: 1280px) 1200px, 100vw"
+              className="object-contain p-6 mix-blend-multiply sm:p-10"
               priority
             />
           </div>
           {article.imageCaption && (
-            <div className="border-t border-slate-100 bg-slate-50 px-4 py-2.5 text-center text-xs text-slate-500">
-              {article.imageCaption}
-            </div>
+            <figcaption className="mt-2 text-[13px] text-[var(--ink-3)]">{article.imageCaption}</figcaption>
           )}
-        </div>
+        </figure>
 
-        {/* Executive Summary Callout */}
-        <div className="rounded-xl border border-red-100 bg-[#feeceb] p-5">
-          <h3 className="text-xs font-bold text-[#d00000]">
-            Executive Overview
-          </h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-[#0056B3] font-medium">
-            {article.summary}
-          </p>
-        </div>
-
-        {/* Body Paragraphs */}
-        <div className="space-y-4 text-sm leading-relaxed text-slate-700">
-          {article.body.map((p, idx) => (
-            <p key={idx} className="leading-relaxed">
-              {p}
-            </p>
-          ))}
-        </div>
-
-        {/* Key Highlights */}
-        {article.highlights && article.highlights.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#d00000]" />
-              <h3 className="text-base font-bold text-[#0056B3]">Key Technical Highlights</h3>
+        <div className="container-x">
+          <div className="mx-auto max-w-[720px] pb-14 pt-10 sm:pb-16">
+            {/* Executive overview */}
+            <div className="border-l-2 border-[#0056B3] pl-4">
+              <p className="text-[13px] font-semibold text-[var(--ink-3)]">Executive Overview</p>
+              <p className="mt-1 text-base font-medium leading-relaxed text-[var(--ink)] sm:text-[17px]">
+                {article.summary}
+              </p>
             </div>
-            <ul className="mt-4 space-y-2.5">
-              {article.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                  <span className="leading-relaxed">{h}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
-        {/* Specifications Table (if available) */}
-        {article.specifications && article.specifications.length > 0 && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Layers className="h-4 w-4 text-[#0056B3]" />
-              <h3 className="text-base font-bold text-[#0056B3]">Technical Specifications</h3>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-slate-200 shadow-xs">
-              <table className="w-full text-left text-xs">
-                <tbody>
-                  {article.specifications.map((spec, i) => (
-                    <tr
-                      key={i}
-                      className={i % 2 === 0 ? "bg-white" : "bg-slate-50 border-t border-slate-100"}
-                    >
-                      <th className="w-1/3 p-3.5 font-bold text-slate-700">{spec.label}</th>
-                      <td className="w-2/3 p-3.5 text-slate-800">{spec.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+            <Body paragraphs={article.body} />
 
-        {/* International Standards Compliance (if available) */}
-        {article.standards && article.standards.length > 0 && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Award className="h-4 w-4 text-[#d00000]" />
-              <h3 className="text-base font-bold text-[#0056B3]">
-                Standard Test Methods &amp; Regulatory Compliance
-              </h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {article.standards.map((st, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-800 shadow-xs"
-                >
-                  &check; {st}
+            {article.highlights && article.highlights.length > 0 && (
+              <>
+                <h2 className={h2Class}>Key Technical Highlights</h2>
+                <PlainList items={article.highlights} />
+              </>
+            )}
+
+            {article.specifications && article.specifications.length > 0 && (
+              <>
+                <h2 className={h2Class}>Technical Specifications</h2>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="data-table">
+                    <tbody>
+                      {article.specifications.map((spec, i) => (
+                        <tr key={i}>
+                          <th scope="row">{spec.label}</th>
+                          <td>{spec.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+              </>
+            )}
 
-        {/* Related Products Section */}
-        {article.relatedProducts && article.relatedProducts.length > 0 && (
-          <div className="space-y-4 border-t border-slate-200 pt-6">
-            <h3 className="text-base font-bold text-[#0056B3]">Related Instruments &amp; Systems</h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {article.relatedProducts.map((p) => (
-                <Link
-                  key={p.name}
-                  href={p.href}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#0056B3] hover:shadow-sm"
-                >
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-slate-50 border border-slate-100">
-                    <Image
-                      src={withBasePath(p.image)}
-                      alt={p.name}
-                      fill
-                      className="object-contain p-1"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
-                      {p.name}
-                    </h4>
-                    <span className="text-[11px] text-slate-500">{p.category}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
+            {article.standards && article.standards.length > 0 && (
+              <>
+                <h2 className={h2Class}>Standard Test Methods &amp; Regulatory Compliance</h2>
+                <PlainList items={article.standards} />
+              </>
+            )}
 
-      {/* Right Column: Inquiry Form & Quick Contact */}
-      <div className="lg:col-span-4 space-y-6">
-        <div className="sticky top-28 space-y-6">
-          <NewsLeadForm itemTitle={article.title} itemType="news" />
-
-          {/* Quick Support Card */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-            <h4 className="text-xs font-bold text-slate-500">
-              Direct Technical Line
-            </h4>
-            <p className="mt-2 text-sm font-semibold text-[#0056B3]">
-              Orbit Hyderabad Central Office
-            </p>
-            <p className="mt-1 text-xs text-slate-600">
-              B-50, Industrial Estate, Sanath Nagar, Hyderabad – 500018
-            </p>
-            <div className="mt-4 space-y-2 border-t border-slate-100 pt-3 text-xs text-slate-700">
-              <p>
-                <strong>Tel:</strong> +91 40 6721 6354 / 6355
-              </p>
-              <p>
-                <strong>Email:</strong> orbit@orbitindia.com
-              </p>
-              <p>
-                <strong>PAN-India:</strong> 15 regional branch service centers
-              </p>
-            </div>
+            {article.relatedProducts && article.relatedProducts.length > 0 && (
+              <>
+                <h2 className={h2Class}>Related Instruments &amp; Systems</h2>
+                <ProductRefCards items={article.relatedProducts} />
+              </>
+            )}
           </div>
         </div>
+      </article>
+
+      {/* Inquiry form */}
+      <InquirySection>
+        <NewsLeadForm itemTitle={article.title} itemType="news" />
+      </InquirySection>
+    </>
+  );
+}
+
+function NewsContactBand() {
+  return (
+    <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+      <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+      <div className="container-x relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-14">
+        <div>
+          <Eyebrow dark>Direct Technical Line</Eyebrow>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+            Orbit Hyderabad Central Office
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-[#c9d4e3]">
+            B-50, Industrial Estate, Sanath Nagar, Hyderabad – 500018
+          </p>
+          <div className="mt-4 space-y-1 text-[15px] text-[#c9d4e3]">
+            <p>
+              <strong className="font-medium text-white">Tel:</strong> <span className="tnum">+91 40 6721 6354 / 6355</span>
+            </p>
+            <p>
+              <strong className="font-medium text-white">Email:</strong> orbit@orbitindia.com
+            </p>
+            <p>
+              <strong className="font-medium text-white">PAN-India:</strong> 15 regional branch service centers
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <a href="tel:+914067216354" className="btn min-h-[48px] bg-white px-6 text-[#001733] hover:bg-[#e6edf6]">
+            <span className="tnum">+91 40 6721 6354</span>
+          </a>
+          <a
+            href="mailto:orbit@orbitindia.com"
+            className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
+          >
+            orbit@orbitindia.com
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -378,194 +412,166 @@ function NewsView({ article }: { article: NewsArticle }) {
 // COMPONENT: EVENT VIEW
 // ==========================================
 
+/** Day numerals for the event span, e.g. "26–28", with month(s) and year. */
+function eventDateParts(event: EventArticle) {
+  const [sy, sm, sd] = event.startDate.split("-");
+  const end = event.endDate ? event.endDate.split("-") : null;
+  const startMonth = MONTHS_LONG.at(Number(sm) - 1);
+  if (!end) return { days: sd, monthYear: `${startMonth} ${sy}` };
+  const [ey, em, ed] = end;
+  const endMonth = MONTHS_LONG.at(Number(em) - 1);
+  return {
+    days: `${sd}–${ed}`,
+    monthYear: sm === em && sy === ey ? `${startMonth} ${sy}` : `${startMonth} – ${endMonth} ${ey}`,
+  };
+}
+
 function EventView({ event }: { event: EventArticle }) {
   const isUpcoming = event.status === "upcoming";
+  const { days, monthYear } = eventDateParts(event);
 
   return (
-    <div className="mt-6 grid gap-10 lg:grid-cols-12">
-      {/* Main Left Content */}
-      <div className="lg:col-span-8 space-y-8">
-        {/* Header */}
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            {isUpcoming ? (
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-bold text-emerald-800">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-ping" />
-                Upcoming Exhibition
-              </span>
-            ) : (
-              <span className="rounded-full bg-slate-100 px-3 py-0.5 text-xs font-bold text-slate-600">
-                Completed Exhibition
-              </span>
-            )}
-            <span className="flex items-center gap-1 text-xs font-semibold text-slate-600">
-              <CalendarDays className="h-3.5 w-3.5 text-[#d00000]" /> {event.date}
-            </span>
-          </div>
-
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl lg:text-4xl">
-            {event.title}
-          </h1>
-
-          {event.subtitle && (
-            <p className="mt-3 text-base text-slate-600 leading-relaxed font-medium">
-              {event.subtitle}
-            </p>
-          )}
-        </div>
-
-        {/* Quick Venue Information Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-          <div className="space-y-1">
-            <span className="text-xs font-bold text-slate-400">
-              Venue &amp; Location
-            </span>
-            <p className="text-xs font-bold text-slate-800 flex items-start gap-1.5">
-              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#d00000]" />
-              <span>{event.venue}</span>
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-xs font-bold text-slate-400">
-              Stall &amp; Stand Location
-            </span>
-            <p className="text-xs font-bold text-[#0056B3] flex items-center gap-1.5">
-              <Building2 className="h-3.5 w-3.5 shrink-0 text-[#d00000]" />
-              <span>{event.hall} &bull; {event.booth}</span>
-            </p>
-          </div>
-
-          {event.href && (
-            <div className="sm:col-span-2 border-t border-slate-200/70 pt-3">
-              <a
-                href={event.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-              >
-                <Globe className="h-3.5 w-3.5" /> Visit Official Exhibition Portal &nearr;
-              </a>
+    <>
+      <article>
+        <header className="container-x pb-8 pt-6 sm:pb-10">
+          <BackLink />
+          <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-14">
+            <div className="min-w-0">
+              <Eyebrow>{isUpcoming ? "Upcoming Exhibition" : "Completed Exhibition"}</Eyebrow>
+              <h1 className={h1Cls}>{event.title}</h1>
+              {event.subtitle && (
+                <p className="mt-4 max-w-3xl text-[17px] leading-relaxed text-[var(--ink-2)] sm:text-lg">
+                  {event.subtitle}
+                </p>
+              )}
             </div>
-          )}
-        </div>
+            <div className="border-t-2 border-[var(--ink)] pt-4 lg:min-w-[260px]">
+              <p className="font-[family-name:var(--font-poppins)] text-[3.5rem] font-semibold leading-none tracking-[-0.03em] text-[var(--ink)] tnum sm:text-[4.5rem]">
+                {days}
+              </p>
+              <p className="mt-2 font-[family-name:var(--font-poppins)] text-[15px] font-semibold text-[#0056B3] tnum">
+                {monthYear}
+              </p>
+              <p className="mt-1 text-sm text-[var(--ink-3)]">{event.location}</p>
+            </div>
+          </div>
+        </header>
 
-        {/* Featured Image */}
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
-          <div className="relative aspect-16/9 w-full bg-white">
+        <figure className="container-x m-0">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md bg-[#f3f5f8] sm:aspect-[16/6]">
             <Image
               src={withBasePath(event.image)}
               alt={event.show}
               fill
-              className="object-contain p-4"
+              sizes="(min-width: 1280px) 1200px, 100vw"
+              className="object-contain"
               priority
             />
           </div>
-        </div>
+        </figure>
 
-        {/* Detailed Narrative */}
-        <div className="space-y-4 text-sm leading-relaxed text-slate-700">
-          {event.body.map((p, idx) => (
-            <p key={idx} className="leading-relaxed">
-              {p}
+        <div className="container-x">
+          <div className="mx-auto max-w-[720px] pb-14 pt-10 sm:pb-16">
+            {/* Event facts */}
+            <table className="data-table border-t border-[var(--line)]">
+              <tbody>
+                <tr>
+                  <th scope="row">Dates</th>
+                  <td className="tnum">{event.date}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Venue &amp; Location</th>
+                  <td>{event.venue}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Stall &amp; Stand Location</th>
+                  <td>
+                    {event.hall} &bull; {event.booth}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {event.href && (
+              <a
+                href={event.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-more mt-3 min-h-[44px] lg:min-h-0"
+              >
+                Visit Official Exhibition Portal &nearr;
+              </a>
+            )}
+
+            <Body paragraphs={event.body} />
+
+            {event.highlights && event.highlights.length > 0 && (
+              <>
+                <h2 className={h2Class}>
+                  {isUpcoming ? "What You Will Experience at Our Booth" : "Exhibition Focus Areas"}
+                </h2>
+                <PlainList items={event.highlights} />
+              </>
+            )}
+
+            {event.outcomes && event.outcomes.length > 0 && (
+              <>
+                <h2 className={h2Class}>Exhibition Milestones &amp; Outcomes</h2>
+                <PlainList items={event.outcomes} />
+              </>
+            )}
+
+            {event.showcasedProducts && event.showcasedProducts.length > 0 && (
+              <>
+                <h2 className={h2Class}>Showcased Instruments &amp; Demos</h2>
+                <ProductRefCards items={event.showcasedProducts} />
+              </>
+            )}
+          </div>
+        </div>
+      </article>
+
+      {/* Booking / follow-up form */}
+      <InquirySection>
+        <NewsLeadForm
+          itemTitle={event.show}
+          itemType="event"
+          eventVenue={`${event.hall}, ${event.booth} (${event.location})`}
+        />
+      </InquirySection>
+    </>
+  );
+}
+
+function EventContactBand({ event }: { event: EventArticle }) {
+  return (
+    <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+      <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+      <div className="container-x relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-14">
+        <div>
+          <Eyebrow dark>Orbit Event Coordination</Eyebrow>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">{event.venue}</h2>
+          <p className="mt-3 text-base leading-relaxed text-[#c9d4e3]">{event.location}</p>
+          <div className="mt-4 space-y-1 text-[15px] text-[#c9d4e3]">
+            <p>
+              <strong className="font-medium text-white">Coordination Desk:</strong> <span className="tnum">+91 40 6721 6354</span>
             </p>
-          ))}
-        </div>
-
-        {/* Highlights */}
-        {event.highlights && event.highlights.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-6">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-[#d00000]" />
-              <h3 className="text-base font-bold text-[#0056B3]">
-                {isUpcoming ? "What You Will Experience at Our Booth" : "Exhibition Focus Areas"}
-              </h3>
-            </div>
-            <ul className="mt-4 space-y-2.5">
-              {event.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                  <span className="leading-relaxed">{h}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Outcomes (For past events) */}
-        {event.outcomes && event.outcomes.length > 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-emerald-50/50 p-6">
-            <h3 className="text-base font-bold text-emerald-950">Exhibition Milestones &amp; Outcomes</h3>
-            <ul className="mt-3 space-y-2">
-              {event.outcomes.map((oc, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-emerald-900">
-                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
-                  <span>{oc}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Showcased Instruments */}
-        {event.showcasedProducts && event.showcasedProducts.length > 0 && (
-          <div className="space-y-4 border-t border-slate-200 pt-6">
-            <h3 className="text-base font-bold text-[#0056B3]">Showcased Instruments &amp; Demos</h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {event.showcasedProducts.map((p) => (
-                <Link
-                  key={p.name}
-                  href={p.href}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 transition hover:border-[#0056B3] hover:shadow-sm"
-                >
-                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-slate-50 border border-slate-100">
-                    <Image
-                      src={withBasePath(p.image)}
-                      alt={p.name}
-                      fill
-                      className="object-contain p-1"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-[#0056B3] group-hover:text-[#d00000] transition truncate">
-                      {p.name}
-                    </h4>
-                    <span className="text-[11px] text-slate-500">{p.category}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Right Column: Booking or Follow-up form */}
-      <div className="lg:col-span-4 space-y-6">
-        <div className="sticky top-28 space-y-6">
-          <NewsLeadForm
-            itemTitle={event.show}
-            itemType="event"
-            eventVenue={`${event.hall}, ${event.booth} (${event.location})`}
-          />
-
-          {/* Location info */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-            <h4 className="text-xs font-bold text-slate-500">
-              Orbit Event Coordination
-            </h4>
-            <p className="mt-2 text-sm font-bold text-[#0056B3]">{event.venue}</p>
-            <p className="mt-1 text-xs text-slate-600">{event.location}</p>
-            <div className="mt-4 border-t border-slate-100 pt-3 text-xs text-slate-600 space-y-1">
-              <p>
-                <strong>Coordination Desk:</strong> +91 40 6721 6354
-              </p>
-              <p>
-                <strong>Exhibition Email:</strong> events@orbitindia.com
-              </p>
-            </div>
+            <p>
+              <strong className="font-medium text-white">Exhibition Email:</strong> events@orbitindia.com
+            </p>
           </div>
         </div>
+        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <a href="tel:+914067216354" className="btn min-h-[48px] bg-white px-6 text-[#001733] hover:bg-[#e6edf6]">
+            <span className="tnum">+91 40 6721 6354</span>
+          </a>
+          <a
+            href="mailto:events@orbitindia.com"
+            className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
+          >
+            events@orbitindia.com
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

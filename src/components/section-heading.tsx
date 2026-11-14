@@ -25,7 +25,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "text-2xl font-semibold tracking-tight sm:text-3xl",
-          dark ? "text-white" : "text-[#0056B3]",
+          dark ? "text-white" : "text-[var(--ink)]",
         )}
       >
         {title}
@@ -34,7 +34,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mt-3 text-sm leading-relaxed sm:text-base",
-            dark ? "text-slate-300" : "text-slate-600",
+            dark ? "text-slate-300" : "text-[var(--ink-3)]",
           )}
         >
           {subtitle}

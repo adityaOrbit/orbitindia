@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AlertTriangle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { SOP_LIBRARY } from "@/data/knowledge-hub";
 
@@ -23,17 +23,17 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   };
 }
 
+const h2Cls = "text-xl font-semibold tracking-tight text-[var(--ink)]";
+const bodyCls = "text-[17px] leading-[1.65] text-[var(--ink-2)]";
+
 function ListBlock({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
   return (
-    <section className="mt-8">
-      <h2 className="text-xl font-semibold text-[#0056B3]">{title}</h2>
-      <ul className="mt-3 space-y-2">
+    <section className="mt-10">
+      <h2 className={h2Cls}>{title}</h2>
+      <ul className={`mt-3 list-disc space-y-1.5 pl-5 marker:text-[var(--ink-3)] ${bodyCls}`}>
         {items.map((it) => (
-          <li key={it} className="flex items-start gap-2.5 text-base leading-relaxed text-slate-700">
-            <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-emerald-600" />
-            <span>{it}</span>
-          </li>
+          <li key={it}>{it}</li>
         ))}
       </ul>
     </section>
@@ -55,35 +55,33 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
         ]}
       />
 
-      <header className="border-b border-slate-200 pt-8 pb-6 sm:pt-12 sm:pb-8">
-        <div className="container-x max-w-3xl">
-          <p className="text-sm text-slate-500">
+      <header className="border-b border-[var(--line)] pt-8 pb-6 sm:pt-12 sm:pb-8">
+        <div className="container-x max-w-[760px]">
+          <p className="text-sm text-[var(--ink-3)] tnum">
             {sop.docNumber} · Rev. {sop.revision} · {sop.category}
           </p>
-          <h1 className="mt-2 text-[1.75rem] font-semibold leading-tight tracking-tight text-[#0056B3] sm:text-4xl">
+          <h1 className="mt-2 text-[1.75rem] font-semibold leading-tight tracking-tight text-[var(--ink)] sm:text-4xl">
             {sop.title}
           </h1>
-          <p className="mt-3 text-lg leading-snug text-slate-600">For: {sop.targetEquipment}</p>
+          <p className="mt-3 text-lg leading-snug text-[var(--ink-2)]">For: {sop.targetEquipment}</p>
           {sop.standards.length > 0 && (
-            <p className="mt-2 text-sm text-slate-600">
-              <span className="font-semibold text-slate-700">Standards: </span>
+            <p className="mt-2 text-sm text-[var(--ink-3)]">
+              <span className="font-medium text-[var(--ink)]">Standards: </span>
               {sop.standards.join(" · ")}
             </p>
           )}
         </div>
       </header>
 
-      <div className="container-x max-w-3xl py-8 sm:py-12">
-        <p className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 text-[17px] leading-[1.6] text-slate-700 sm:p-6">
-          {sop.summary}
-        </p>
+      <div className="container-x max-w-[760px] py-8 sm:py-12">
+        <p className={bodyCls}>{sop.summary}</p>
 
         {sop.safetyPrecautions.length > 0 && (
-          <section className="mt-8 rounded-xl border border-amber-200 bg-amber-50/70 p-5">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-amber-900">
-              <AlertTriangle className="h-5 w-5" /> Safety precautions
+          <section className="mt-8 border-l-2 border-amber-500 bg-[var(--soft)] p-5">
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--ink)]">
+              <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" /> Safety precautions
             </h2>
-            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-relaxed text-amber-900">
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base leading-relaxed text-[var(--ink-2)] marker:text-[var(--ink-3)]">
               {sop.safetyPrecautions.map((p) => (
                 <li key={p}>{p}</li>
               ))}
@@ -95,19 +93,19 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
         <ListBlock title="Reagents" items={sop.reagents} />
 
         <section className="mt-10">
-          <h2 className="text-xl font-semibold text-[#0056B3]">Procedure</h2>
-          <ol className="mt-4 space-y-5">
+          <h2 className={h2Cls}>Procedure</h2>
+          <ol className="mt-4 border-t border-[var(--line)]">
             {sop.stepByStepProcedure.map((step) => (
-              <li key={step.stepNumber} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0056B3] text-sm font-semibold text-white">
+              <li key={step.stepNumber} className="flex gap-4 border-b border-[var(--line)] py-5">
+                <span className="w-7 shrink-0 font-[family-name:var(--font-poppins)] text-lg font-semibold text-[#0056B3] tnum">
                   {step.stepNumber}
                 </span>
-                <div>
-                  <h3 className="text-base font-semibold text-slate-900">{step.title}</h3>
-                  <p className="mt-1 text-[17px] leading-[1.6] text-slate-700">{step.instruction}</p>
+                <div className="min-w-0">
+                  <h3 className="text-base font-semibold text-[var(--ink)]">{step.title}</h3>
+                  <p className={`mt-1 ${bodyCls}`}>{step.instruction}</p>
                   {step.checkPoint && (
-                    <p className="mt-2 rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900">
-                      <span className="font-semibold">Check: </span>
+                    <p className="mt-3 border-l-2 border-[#0056B3] bg-[var(--soft)] px-3 py-2 text-[15px] text-[var(--ink-2)]">
+                      <span className="font-semibold text-[var(--ink)]">Check: </span>
                       {step.checkPoint}
                     </p>
                   )}
@@ -119,8 +117,8 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
 
         {sop.calculations && (
           <section className="mt-10">
-            <h2 className="text-xl font-semibold text-[#0056B3]">Calculations</h2>
-            <pre className="mt-3 overflow-x-auto whitespace-pre rounded-xl bg-slate-900 p-4 font-mono text-sm text-amber-300">
+            <h2 className={h2Cls}>Calculations</h2>
+            <pre className="mt-3 overflow-x-auto whitespace-pre border-l-2 border-[#0056B3] bg-[var(--soft)] p-4 font-mono text-sm leading-relaxed text-[var(--ink)]">
               {sop.calculations}
             </pre>
           </section>
@@ -128,17 +126,17 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
 
         {sop.troubleshooting.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-xl font-semibold text-[#0056B3]">Troubleshooting</h2>
-            <div className="mt-3 space-y-3">
+            <h2 className={h2Cls}>Troubleshooting</h2>
+            <div className="mt-3 border-t border-[var(--line)]">
               {sop.troubleshooting.map((t) => (
-                <div key={t.issue} className="rounded-xl border border-slate-200 p-4 text-base leading-relaxed">
-                  <p className="font-semibold text-slate-900">{t.issue}</p>
-                  <p className="mt-1 text-slate-700">
-                    <span className="font-medium">Cause: </span>
+                <div key={t.issue} className="border-b border-[var(--line)] py-4 text-base leading-relaxed">
+                  <p className="font-semibold text-[var(--ink)]">{t.issue}</p>
+                  <p className="mt-1 text-[var(--ink-2)]">
+                    <span className="font-medium text-[var(--ink)]">Cause: </span>
                     {t.cause}
                   </p>
-                  <p className="mt-1 text-slate-700">
-                    <span className="font-medium">Remedy: </span>
+                  <p className="mt-1 text-[var(--ink-2)]">
+                    <span className="font-medium text-[var(--ink)]">Remedy: </span>
                     {t.remedy}
                   </p>
                 </div>
@@ -147,9 +145,9 @@ export default async function SopDetailPage({ params }: { params: Promise<Params
           </section>
         )}
 
-        <div className="mt-10 flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-1 border-t border-[var(--line)] pt-6 text-[15px] text-[var(--ink-2)] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <span>Need help applying this procedure? Our application team can help.</span>
-          <Link href="/contact-us#quote" className="inline-flex min-h-[44px] items-center gap-1.5 font-bold text-[#d00000] hover:underline lg:min-h-0">
+          <Link href="/contact-us#quote" className="link-more min-h-[44px] lg:min-h-0">
             Contact us <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

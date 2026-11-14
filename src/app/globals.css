@@ -13,6 +13,19 @@
     "Noto Sans", "Noto Sans Devanagari", sans-serif;
 }
 
+/* Redesign: flatter, more technical look. Large rounded corners and soft
+   card shadows were a big part of the "template" feel, so the scale is
+   tightened here once for every page. Overlays keep shadow-xl/2xl. */
+@theme {
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.5rem;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 1px 3px rgba(15, 23, 42, 0.07);
+  --shadow-lg: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
 :root {
   --brand-950: #001733;
   --brand-900: #002244;
@@ -27,6 +40,12 @@
   --accent-100: #feeceb;
   --sand-500: #cbd5e1;
   --sand-100: #f8fafc;
+  /* redesign neutrals */
+  --ink: #0f1b2d;
+  --ink-2: #3d4a5c;
+  --ink-3: #5b6676;
+  --line: #e3e7ed;
+  --soft: #f5f7fa;
   color-scheme: light;
 }
 
@@ -36,7 +55,7 @@ html {
 
 body {
   background: #ffffff;
-  color: #1e293b;
+  color: var(--ink);
   font-family: var(--font-sans);
   min-height: 100dvh;
 }
@@ -102,11 +121,12 @@ h6.font-bold {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 0.6rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+    border-radius: 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
     line-height: 1;
-    padding: 0.7rem 1.15rem;
+    min-height: 2.75rem;
+    padding: 0.75rem 1.25rem;
     cursor: pointer;
     transition: all 0.15s ease;
     white-space: nowrap;
@@ -133,13 +153,12 @@ h6.font-bold {
   }
   .btn-outline {
     background: #ffffff;
-    border: 1px solid #cbd5e1;
-    color: #0056B3;
+    border: 1px solid #b9c2ce;
+    color: var(--ink);
   }
   .btn-outline:hover {
     border-color: #0056B3;
     color: #0056B3;
-    background: #ebf3fc;
   }
 }
 
@@ -163,8 +182,8 @@ h6.font-bold {
 
 .input {
   width: 100%;
-  border-radius: 0.6rem;
-  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  border: 1px solid #b9c2ce;
   background: #ffffff;
   padding: 0.65rem 0.9rem;
   font-size: 0.9rem;
@@ -183,16 +202,15 @@ h6.font-bold {
 .label {
   display: block;
   margin-bottom: 0.35rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .surface {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
 }
 .surface-hover {
   transition: border-color 0.15s ease;
@@ -247,6 +265,56 @@ h6.font-bold {
 }
 .rise-in-3 {
   animation-delay: 0.28s;
+}
+
+/* ---------------------------- redesign kit ----------------------------
+   Shared building blocks for the redesigned pages. Pattern: content is
+   grouped by whitespace, rules and headings rather than boxed cards; red is
+   reserved for quote buttons; numbers use tabular figures.
+------------------------------------------------------------------------ */
+@layer components {
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* page section with a hairline between sections */
+.section { padding-block: 3.5rem; border-bottom: 1px solid var(--line); }
+.section:last-child { border-bottom: 0; }
+@media (max-width: 767px) { .section { padding-block: 2.5rem; } }
+
+.section-title { font-size: 1.5rem; line-height: 1.25; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+@media (min-width: 640px) { .section-title { font-size: 1.75rem; } }
+.section-sub { margin-top: 0.4rem; font-size: 0.9375rem; line-height: 1.6; color: var(--ink-3); max-width: 46rem; }
+
+/* "View all →" style text link */
+.link-more { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9375rem; font-weight: 500; color: #0056B3; white-space: nowrap; }
+.link-more:hover { text-decoration: underline; }
+
+/* grid of bordered cells sharing hairlines (no gaps, no rounded cards) */
+.cells { display: grid; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.cells > * { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+/* row of key numbers separated by vertical rules */
+.stat-row { display: flex; flex-wrap: wrap; row-gap: 1rem; }
+.stat-row > * { padding-right: 1.5rem; margin-right: 1.5rem; border-right: 1px solid var(--line); }
+.stat-row > *:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.stat-row b, .stat-num { display: block; font-family: var(--font-poppins), var(--font-sans); font-size: 1.6rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stat-row span, .stat-label { font-size: 0.8125rem; color: var(--ink-3); }
+
+/* data / spec tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+.data-table th, .data-table td { text-align: left; padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.data-table thead th { background: var(--soft); font-family: var(--font-poppins), var(--font-sans); font-weight: 600; font-size: 0.875rem; color: var(--ink); }
+.data-table tbody th { font-weight: 400; color: var(--ink-3); width: 36%; }
+.data-table tbody td { color: var(--ink); }
+.data-table tr.group td { padding-top: 1.1rem; font-family: var(--font-poppins), var(--font-sans); font-weight: 600; font-size: 0.8125rem; color: #0056B3; border-bottom-color: #cfd6df; }
+.data-table .is-current { background: #eef4fb; }
+
+/* sections jumped to from the section bar clear the sticky header + bar */
+.scroll-mt-16 { scroll-margin-top: calc(var(--header-h, 0px) + 3.5rem) !important; }
+
+/* light sticky in-page section bar */
+.section-bar { position: sticky; top: var(--header-h, 0px); z-index: 30; background: #fff; border-block: 1px solid var(--line); }
+.section-bar a.tab { display: inline-flex; align-items: center; padding: 0.85rem 0.75rem; font-size: 0.875rem; font-weight: 500; color: var(--ink-2); border-bottom: 2px solid transparent; white-space: nowrap; }
+.section-bar a.tab:hover { color: #0056B3; border-bottom-color: #0056B3; }
 }
 
 /* ---------------------- reference-style page sections ---------------------- */

@@ -1,115 +1,119 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Calculator,
-  Flame,
-  Gauge,
-  Sliders,
-  CheckCircle2,
-  AlertTriangle,
-} from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { CheckCircle2, AlertTriangle } from "lucide-react";
+
+// ==========================================
+// Shared presentation helpers (redesign kit)
+// ==========================================
+
+const inputCls = "input tnum";
+const helpCls = "mt-1 block text-[13px] text-[var(--ink-3)] tnum";
+
+function ToolHeader({ title, intro }: { title: ReactNode; intro: ReactNode }) {
+  return (
+    <div className="border-b border-[var(--line)] pb-5">
+      <h2 className="text-xl font-semibold tracking-tight text-[var(--ink)] sm:text-2xl">{title}</h2>
+      <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-[var(--ink-3)]">{intro}</p>
+    </div>
+  );
+}
+
+/** Bordered results panel with a light header row. */
+function ResultPanel({ title, aside, children }: { title: ReactNode; aside?: ReactNode; children: ReactNode }) {
+  return (
+    <div className="self-start rounded-md border border-[var(--line)]">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] bg-[var(--soft)] px-4 py-3">
+        <h3 className="text-[15px] font-semibold text-[var(--ink)]">{title}</h3>
+        {aside}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+/** One result line: label + note on the left, value on the right. */
+function ResultRow({
+  label,
+  note,
+  value,
+  sub,
+  highlight = false,
+}: {
+  label: ReactNode;
+  note?: ReactNode;
+  value: ReactNode;
+  sub?: ReactNode;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-col gap-1 border-b border-[var(--line)] px-4 py-3 last:border-b-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4 ${
+        highlight ? "bg-[#eef4fb]" : ""
+      }`}
+    >
+      <div className="min-w-0">
+        <span className="text-[15px] font-medium text-[var(--ink)]">{label}</span>
+        {note && <p className="text-[13px] text-[var(--ink-3)]">{note}</p>}
+      </div>
+      <div className="shrink-0 sm:text-right tnum">
+        <span className={`font-semibold text-[var(--ink)] ${highlight ? "text-lg" : "text-base"}`}>{value}</span>
+        {sub && <p className="text-[13px] text-[var(--ink-3)]">{sub}</p>}
+      </div>
+    </div>
+  );
+}
+
+/** Status text for risk levels: colour carries the meaning, no pill. */
+function statusCls(level: string) {
+  if (level === "Low") return "text-emerald-700";
+  if (level === "Medium") return "text-amber-700";
+  return "text-red-700";
+}
+
+// ==========================================
+// TOOL PICKER (all four tools in one view)
+// ==========================================
 
 export function KnowledgeTools() {
   const [activeTool, setActiveTool] = useState<
     "calorific" | "calorimeter-w" | "reactor-sizer" | "ash-slagging"
   >("calorific");
 
+  const tools: { id: typeof activeTool; title: string; sub: string }[] = [
+    { id: "calorific", title: "GCV & Basis Tool", sub: "Convert kcal/MJ/BTU & ar/ad/db" },
+    { id: "calorimeter-w", title: "W-Factor Calculator", sub: "Benzoic Acid heat equivalent" },
+    { id: "reactor-sizer", title: "Autoclave Sizer", sub: "Pressure & 75% fill safety check" },
+    { id: "ash-slagging", title: "Slagging Risk Predictor", sub: "Silica ratio & fouling index" },
+  ];
+
   return (
     <div className="space-y-8">
       {/* Sub-selector for tools */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <button
-          type="button"
-          onClick={() => setActiveTool("calorific")}
-          className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
-            activeTool === "calorific"
-              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
-              : "border-slate-200 bg-white hover:border-slate-300"
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <Flame
-              className={`h-4 w-4 ${
-                activeTool === "calorific" ? "text-[#d00000]" : "text-slate-400"
+      <div className="cells grid-cols-2 sm:grid-cols-4" role="group" aria-label="Calculators">
+        {tools.map((t) => {
+          const active = activeTool === t.id;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setActiveTool(t.id)}
+              aria-pressed={active}
+              className={`flex min-h-[44px] flex-col items-start p-4 text-left transition-colors ${
+                active ? "bg-[var(--soft)] shadow-[inset_0_-2px_0_#0056B3]" : "hover:bg-[var(--soft)]"
               }`}
-            />
-            <span className="text-xs font-semibold text-[#0056B3]">GCV &amp; Basis Tool</span>
-          </div>
-          <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-            Convert kcal/MJ/BTU &amp; ar/ad/db
-          </span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTool("calorimeter-w")}
-          className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
-            activeTool === "calorimeter-w"
-              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
-              : "border-slate-200 bg-white hover:border-slate-300"
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <Calculator
-              className={`h-4 w-4 ${
-                activeTool === "calorimeter-w" ? "text-[#d00000]" : "text-slate-400"
-              }`}
-            />
-            <span className="text-xs font-semibold text-[#0056B3]">W-Factor Calculator</span>
-          </div>
-          <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-            Benzoic Acid heat equivalent
-          </span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTool("reactor-sizer")}
-          className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
-            activeTool === "reactor-sizer"
-              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
-              : "border-slate-200 bg-white hover:border-slate-300"
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <Gauge
-              className={`h-4 w-4 ${
-                activeTool === "reactor-sizer" ? "text-[#d00000]" : "text-slate-400"
-              }`}
-            />
-            <span className="text-xs font-semibold text-[#0056B3]">Autoclave Sizer</span>
-          </div>
-          <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-            Pressure &amp; 75% fill safety check
-          </span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTool("ash-slagging")}
-          className={`flex flex-col items-start p-4 rounded-xl border text-left transition cursor-pointer ${
-            activeTool === "ash-slagging"
-              ? "border-[#0056B3] bg-[#ebf3fc]/50 shadow-sm"
-              : "border-slate-200 bg-white hover:border-slate-300"
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <Sliders
-              className={`h-4 w-4 ${
-                activeTool === "ash-slagging" ? "text-[#d00000]" : "text-slate-400"
-              }`}
-            />
-            <span className="text-xs font-semibold text-[#0056B3]">Slagging Risk Predictor</span>
-          </div>
-          <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-            Silica ratio &amp; fouling index
-          </span>
-        </button>
+            >
+              <span className={`text-[15px] font-semibold ${active ? "text-[#0056B3]" : "text-[var(--ink)]"}`}>
+                {t.title}
+              </span>
+              <span className="mt-1 text-[13px] text-[var(--ink-3)]">{t.sub}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Render selected tool */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <div>
         {activeTool === "calorific" && <CalorificBasisConverter />}
         {activeTool === "calorimeter-w" && <CalorimeterWCalculator />}
         {activeTool === "reactor-sizer" && <ReactorSizerTool />}
@@ -162,38 +166,42 @@ export function CalorificBasisConverter() {
   const ncvArKcal = Math.max(0, gcvAr - 50.6 * hAr - 5.85 * mAr);
   const ncvArMj = ncvArKcal * 0.0041868;
 
+  const bases: { id: "ad" | "ar" | "db"; label: string }[] = [
+    { id: "ad", label: "Air-Dried (ad)" },
+    { id: "ar", label: "As-Received (ar)" },
+    { id: "db", label: "Dry Basis (db)" },
+  ];
+
   return (
     <div className="space-y-6">
-      <div className="border-b border-slate-100 pb-4">
-        <h3 className="text-xl font-semibold text-[#0056B3]">
-          Coal Calorific Value (GCV/NCV) Unit &amp; Basis Converter
-        </h3>
-        <p className="mt-1 text-xs text-slate-600">
-          Convert heating values between metric and imperial units across As-Received (ar), Air-Dried (ad), Dry (db), and Dry Ash-Free (daf) bases.
-        </p>
-      </div>
+      <ToolHeader
+        title={<>Coal Calorific Value (GCV/NCV) Unit &amp; Basis Converter</>}
+        intro="Convert heating values between metric and imperial units across As-Received (ar), Air-Dried (ad), Dry (db), and Dry Ash-Free (daf) bases."
+      />
 
-      <div className="grid gap-6 lg:grid-cols-12">
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
         {/* Left Inputs Column */}
-        <div className="lg:col-span-6 space-y-4">
+        <div className="space-y-5">
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-2">
-              <label className="block text-xs font-bold text-slate-700">
+              <label htmlFor="cv-val" className="label">
                 Gross Calorific Value (Input)
               </label>
               <input
+                id="cv-val"
                 type="number"
                 value={val}
                 onChange={(e) => setVal(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-sm font-bold text-slate-900 focus:border-[#0056B3] focus:outline-hidden"
+                className={`${inputCls} font-semibold`}
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-700">Unit</label>
+              <label htmlFor="cv-unit" className="label">Unit</label>
               <select
+                id="cv-unit"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value as "kcal" | "mj" | "btu")}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className="input"
               >
                 <option value="kcal">kcal / kg</option>
                 <option value="mj">MJ / kg</option>
@@ -203,186 +211,124 @@ export function CalorificBasisConverter() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700">
-              Input Reporting Basis
-            </label>
-            <div className="mt-1 grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setBasis("ad")}
-                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
-                  basis === "ad"
-                    ? "border-[#0056B3] bg-[#0056B3] text-white"
-                    : "border-slate-200 bg-slate-50 text-slate-700"
-                }`}
-              >
-                Air-Dried (ad)
-              </button>
-              <button
-                type="button"
-                onClick={() => setBasis("ar")}
-                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
-                  basis === "ar"
-                    ? "border-[#0056B3] bg-[#0056B3] text-white"
-                    : "border-slate-200 bg-slate-50 text-slate-700"
-                }`}
-              >
-                As-Received (ar)
-              </button>
-              <button
-                type="button"
-                onClick={() => setBasis("db")}
-                className={`min-h-[44px] py-1.5 text-xs font-bold rounded-md border transition cursor-pointer lg:min-h-0 ${
-                  basis === "db"
-                    ? "border-[#0056B3] bg-[#0056B3] text-white"
-                    : "border-slate-200 bg-slate-50 text-slate-700"
-                }`}
-              >
-                Dry Basis (db)
-              </button>
+            <span className="label">Input Reporting Basis</span>
+            <div
+              className="grid grid-cols-3 rounded-[0.25rem] border border-[#b9c2ce] p-0.5"
+              role="group"
+              aria-label="Input Reporting Basis"
+            >
+              {bases.map((b) => (
+                <button
+                  key={b.id}
+                  type="button"
+                  onClick={() => setBasis(b.id)}
+                  aria-pressed={basis === b.id}
+                  className={`min-h-[44px] rounded-[0.2rem] px-2 text-[13px] font-medium transition-colors sm:text-sm lg:min-h-[40px] ${
+                    basis === b.id ? "bg-[var(--ink)] text-white" : "text-[var(--ink-2)] hover:text-[#0056B3]"
+                  }`}
+                >
+                  {b.label}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 pt-2">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="cv-mad" className="label">
                 Air-Dry Moisture (M_ad %)
               </label>
               <input
+                id="cv-mad"
                 type="number"
                 step="0.1"
                 value={mAd}
                 onChange={(e) => setMAd(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs text-slate-800"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="cv-mar" className="label">
                 Total Moisture (M_ar %)
               </label>
               <input
+                id="cv-mar"
                 type="number"
                 step="0.1"
                 value={mAr}
                 onChange={(e) => setMAr(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs text-slate-800"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="cv-ash" className="label">
                 Air-Dry Ash (A_ad %)
               </label>
               <input
+                id="cv-ash"
                 type="number"
                 step="0.1"
                 value={ashAd}
                 onChange={(e) => setAshAd(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs text-slate-800"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="cv-h" className="label">
                 Hydrogen (H_ar % for NCV)
               </label>
               <input
+                id="cv-h"
                 type="number"
                 step="0.1"
                 value={hAr}
                 onChange={(e) => setHAr(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs text-slate-800"
+                className={inputCls}
               />
             </div>
           </div>
         </div>
 
         {/* Right Output Results Column */}
-        <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h4 className="text-xs font-bold text-slate-700">
-              Computed Energy Yields
-            </h4>
-            <span className="text-[11px] font-semibold text-[#d00000]">Real-Time Result</span>
-          </div>
-
-          <div className="grid gap-2.5 text-xs">
-            {/* GCV As-Received */}
-            <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
-              <div>
-                <span className="font-bold text-[#0056B3]">GCV As-Received (GCV_ar)</span>
-                <p className="text-[10px] text-slate-500">Commercial billing base at plant siding</p>
-              </div>
-              <div className="text-right">
-                <span className="text-sm font-bold text-[#d00000]">
-                  {Math.round(gcvAr).toLocaleString()} kcal/kg
-                </span>
-                <p className="text-[10px] font-medium text-slate-600">
-                  {(gcvAr * 0.0041868).toFixed(2)} MJ/kg · {Math.round(gcvAr * 1.8).toLocaleString()} BTU/lb
-                </p>
-              </div>
-            </div>
-
-            {/* GCV Air-Dried */}
-            <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
-              <div>
-                <span className="font-bold text-[#0056B3]">GCV Air-Dried (GCV_ad)</span>
-                <p className="text-[10px] text-slate-500">Laboratory test bench reporting basis</p>
-              </div>
-              <div className="text-right">
-                <span className="text-sm font-bold text-slate-800">
-                  {Math.round(gcvAd).toLocaleString()} kcal/kg
-                </span>
-                <p className="text-[10px] font-medium text-slate-600">
-                  {(gcvAd * 0.0041868).toFixed(2)} MJ/kg
-                </p>
-              </div>
-            </div>
-
-            {/* GCV Dry Basis */}
-            <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
-              <div>
-                <span className="font-bold text-[#0056B3]">GCV Dry Basis (GCV_db)</span>
-                <p className="text-[10px] text-slate-500">Moisture-free matrix</p>
-              </div>
-              <div className="text-right">
-                <span className="text-sm font-bold text-slate-800">
-                  {Math.round(gcvDb).toLocaleString()} kcal/kg
-                </span>
-                <p className="text-[10px] font-medium text-slate-600">
-                  {(gcvDb * 0.0041868).toFixed(2)} MJ/kg
-                </p>
-              </div>
-            </div>
-
-            {/* GCV DAF */}
-            <div className="flex items-center justify-between rounded-lg bg-white p-3 border border-slate-200 shadow-2xs">
-              <div>
-                <span className="font-bold text-[#0056B3]">Dry Ash-Free (GCV_daf)</span>
-                <p className="text-[10px] text-slate-500">Pure organic combustible substance</p>
-              </div>
-              <div className="text-right">
-                <span className="text-sm font-bold text-slate-800">
-                  {Math.round(gcvDaf).toLocaleString()} kcal/kg
-                </span>
-              </div>
-            </div>
-
-            {/* NCV / LHV As-Received */}
-            <div className="flex items-center justify-between rounded-lg bg-[#0056B3] p-3 text-white shadow-sm">
-              <div>
-                <span className="font-bold text-[#feeceb]">Net Calorific Value (NCV_ar / LHV)</span>
-                <p className="text-[10px] text-slate-300">Latent heat of moisture vapor deducted</p>
-              </div>
-              <div className="text-right">
-                <span className="text-base font-bold text-white">
-                  {Math.round(ncvArKcal).toLocaleString()} kcal/kg
-                </span>
-                <p className="text-[10px] text-slate-300 font-medium">
-                  {ncvArMj.toFixed(2)} MJ/kg
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ResultPanel
+          title="Computed Energy Yields"
+          aside={<span className="text-[13px] text-[var(--ink-3)]">Real-Time Result</span>}
+        >
+          <ResultRow
+            label="GCV As-Received (GCV_ar)"
+            note="Commercial billing base at plant siding"
+            value={<>{Math.round(gcvAr).toLocaleString()} kcal/kg</>}
+            sub={
+              <>
+                {(gcvAr * 0.0041868).toFixed(2)} MJ/kg · {Math.round(gcvAr * 1.8).toLocaleString()} BTU/lb
+              </>
+            }
+          />
+          <ResultRow
+            label="GCV Air-Dried (GCV_ad)"
+            note="Laboratory test bench reporting basis"
+            value={<>{Math.round(gcvAd).toLocaleString()} kcal/kg</>}
+            sub={<>{(gcvAd * 0.0041868).toFixed(2)} MJ/kg</>}
+          />
+          <ResultRow
+            label="GCV Dry Basis (GCV_db)"
+            note="Moisture-free matrix"
+            value={<>{Math.round(gcvDb).toLocaleString()} kcal/kg</>}
+            sub={<>{(gcvDb * 0.0041868).toFixed(2)} MJ/kg</>}
+          />
+          <ResultRow
+            label="Dry Ash-Free (GCV_daf)"
+            note="Pure organic combustible substance"
+            value={<>{Math.round(gcvDaf).toLocaleString()} kcal/kg</>}
+          />
+          <ResultRow
+            highlight
+            label="Net Calorific Value (NCV_ar / LHV)"
+            note="Latent heat of moisture vapor deducted"
+            value={<>{Math.round(ncvArKcal).toLocaleString()} kcal/kg</>}
+            sub={<>{ncvArMj.toFixed(2)} MJ/kg</>}
+          />
+        </ResultPanel>
       </div>
     </div>
   );
@@ -411,127 +357,109 @@ export function CalorimeterWCalculator() {
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-slate-100 pb-4">
-        <h3 className="text-xl font-semibold text-[#0056B3]">
-          Bomb Calorimeter Water Equivalent ($W$) Calibration Calculator
-        </h3>
-        <p className="mt-1 text-xs text-slate-600">
-          Compute the precise heat capacity ($W$-factor) of your bomb calorimeter bucket assembly from standardization runs with NIST-traceable Benzoic Acid.
-        </p>
-      </div>
+      <ToolHeader
+        title="Bomb Calorimeter Water Equivalent ($W$) Calibration Calculator"
+        intro="Compute the precise heat capacity ($W$-factor) of your bomb calorimeter bucket assembly from standardization runs with NIST-traceable Benzoic Acid."
+      />
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="lg:col-span-6 space-y-4">
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+        <div className="space-y-5">
           <div>
-            <label className="block text-[11px] font-bold text-slate-700">
+            <label htmlFor="w-h" className="label">
               Benzoic Acid Certified Heat Value ($H$, J/g)
             </label>
             <input
+              id="w-h"
               type="number"
               value={h}
               onChange={(e) => setH(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+              className={inputCls}
             />
-            <span className="text-[10px] text-slate-500">Standard NIST value: 26,454 J/g ± 20 J/g</span>
+            <span className={helpCls}>Standard NIST value: 26,454 J/g ± 20 J/g</span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="w-m" className="label">
                 Pellet Mass ($m$, grams)
               </label>
               <input
+                id="w-m"
                 type="number"
                 step="0.0001"
                 value={mass}
                 onChange={(e) => setMass(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="w-dt" className="label">
                 Corrected Temp Rise ($\Delta T$, °C)
               </label>
               <input
+                id="w-dt"
                 type="number"
                 step="0.0001"
                 value={deltaT}
                 onChange={(e) => setDeltaT(parseFloat(e.target.value) || 0.1)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="w-fuse" className="label">
                 Burned Fuse Wire Length (cm)
               </label>
               <input
+                id="w-fuse"
                 type="number"
                 step="0.1"
                 value={fuseLen}
                 onChange={(e) => setFuseLen(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
-              <span className="text-[10px] text-slate-500">Corr ($e_2$): {e2.toFixed(1)} J</span>
+              <span className={helpCls}>Corr ($e_2$): {e2.toFixed(1)} J</span>
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="w-tit" className="label">
                 $Na_2CO_3$ Titration (mL)
               </label>
               <input
+                id="w-tit"
                 type="number"
                 step="0.1"
                 value={titrationMl}
                 onChange={(e) => setTitrationMl(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
-              <span className="text-[10px] text-slate-500">Corr ($e_1$): {e1.toFixed(1)} J</span>
+              <span className={helpCls}>Corr ($e_1$): {e1.toFixed(1)} J</span>
             </div>
           </div>
         </div>
 
         {/* Results */}
-        <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-6 flex flex-col justify-between">
-          <div className="space-y-4">
-            <span className="text-xs font-bold text-slate-500">
-              Calculated Energy Equivalent ($W$)
-            </span>
-
-            <div className="rounded-xl bg-[#0056B3] p-5 text-white shadow-sm">
-              <span className="text-xs font-bold text-[#feeceb]">
-                Effective Heat Capacity
-              </span>
-              <div className="mt-2 text-3xl font-bold">
-                {wJoules.toFixed(1)} <span className="text-lg font-bold">J / °C</span>
-              </div>
-              <p className="mt-1 text-xs text-slate-300">
-                Equivalent to <strong>{wCalories.toFixed(2)} cal / °C</strong>
-              </p>
+        <ResultPanel title="Calculated Energy Equivalent ($W$)">
+          <div className="border-b border-[var(--line)] bg-[#eef4fb] px-4 py-5">
+            <span className="stat-label">Effective Heat Capacity</span>
+            <div className="stat-num mt-1 !text-3xl">
+              {wJoules.toFixed(1)} <span className="text-lg font-semibold">J / °C</span>
             </div>
-
-            <div className="rounded-lg bg-white p-3.5 border border-slate-200 text-xs space-y-1.5">
-              <div className="flex justify-between text-slate-600">
-                <span>Benzoic Acid Heat ($m \times H$):</span>
-                <strong>{(mass * h).toFixed(1)} J</strong>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>Total Corrections ($e_1 + e_2$):</span>
-                <strong>{(e1 + e2).toFixed(1)} J</strong>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>Net Temperature Lift ($\Delta T$):</span>
-                <strong>{deltaT.toFixed(4)} °C</strong>
-              </div>
-            </div>
+            <p className="mt-1 text-sm text-[var(--ink-2)] tnum">
+              Equivalent to <strong className="font-semibold text-[var(--ink)]">{wCalories.toFixed(2)} cal / °C</strong>
+            </p>
           </div>
 
-          <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-emerald-800 bg-emerald-50 p-2.5 rounded-lg border border-emerald-200">
-            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+          <ResultRow label="Benzoic Acid Heat ($m \times H$):" value={<>{(mass * h).toFixed(1)} J</>} />
+          <ResultRow label="Total Corrections ($e_1 + e_2$):" value={<>{(e1 + e2).toFixed(1)} J</>} />
+          <ResultRow label="Net Temperature Lift ($\Delta T$):" value={<>{deltaT.toFixed(4)} °C</>} />
+
+          <p className="flex items-start gap-2 border-t border-[var(--line)] px-4 py-3 text-sm text-[var(--ink-2)]">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
             <span>Ready for input into Parr 6400 / 7400 calibration configuration menu.</span>
-          </div>
-        </div>
+          </p>
+        </ResultPanel>
       </div>
     </div>
   );
@@ -566,26 +494,23 @@ export function ReactorSizerTool() {
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-slate-100 pb-4">
-        <h3 className="text-xl font-semibold text-[#0056B3]">
-          High-Pressure Reactor Headspace &amp; Safety Sizer
-        </h3>
-        <p className="mt-1 text-xs text-slate-600">
-          Verify safe liquid fill limits (≤ 75% rule) and estimate combined gas expansion and solvent vapor pressures for autoclave synthesis.
-        </p>
-      </div>
+      <ToolHeader
+        title={<>High-Pressure Reactor Headspace &amp; Safety Sizer</>}
+        intro="Verify safe liquid fill limits (≤ 75% rule) and estimate combined gas expansion and solvent vapor pressures for autoclave synthesis."
+      />
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="lg:col-span-6 space-y-4">
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+        <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="r-vol" className="label">
                 Total Vessel Volume (mL)
               </label>
               <select
+                id="r-vol"
                 value={totalVol}
                 onChange={(e) => setTotalVol(parseInt(e.target.value) || 1000)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className="input"
               >
                 <option value={100}>100 mL (Micro-Reactor)</option>
                 <option value={300}>300 mL (Mini-Reactor)</option>
@@ -597,99 +522,89 @@ export function ReactorSizerTool() {
               </select>
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="r-liq" className="label">
                 Liquid Charge Volume (mL)
               </label>
               <input
+                id="r-liq"
                 type="number"
                 value={liqVol}
                 onChange={(e) => setLiqVol(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="r-temp" className="label">
                 Target Temperature (°C)
               </label>
               <input
+                id="r-temp"
                 type="number"
                 value={tempC}
                 onChange={(e) => setTempC(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-bold text-slate-700">
+              <label htmlFor="r-press" className="label">
                 Room Temp Gas Charge (bar)
               </label>
               <input
+                id="r-press"
                 type="number"
                 value={coldPress}
                 onChange={(e) => setColdPress(parseFloat(e.target.value) || 0)}
-                className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+                className={inputCls}
               />
             </div>
           </div>
         </div>
 
         {/* Results */}
-        <div className="lg:col-span-6 rounded-xl border border-slate-200 bg-slate-50 p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-            <span className="text-xs font-bold text-slate-700">
-              Safety &amp; Pressure Verification
-            </span>
-            <span
-              className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                isOverfilled
-                  ? "bg-red-100 text-red-800"
-                  : "bg-emerald-100 text-emerald-800"
-              }`}
-            >
+        <ResultPanel
+          title={<>Safety &amp; Pressure Verification</>}
+          aside={
+            <span className={`text-sm font-semibold ${isOverfilled ? "text-red-700" : "text-emerald-700"}`}>
               {isOverfilled ? "Caution: Overfilled" : "Safe Fill Level"}
             </span>
-          </div>
-
-          <div className="rounded-lg bg-white p-3.5 border border-slate-200 space-y-2 text-xs">
-            <div className="flex justify-between items-center">
-              <span className="text-slate-600">Liquid Fill Ratio:</span>
-              <strong className={isOverfilled ? "text-red-600 font-bold text-sm" : "text-emerald-700 font-bold"}>
+          }
+        >
+          <div className="space-y-2 border-b border-[var(--line)] px-4 py-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-[15px] text-[var(--ink-2)]">Liquid Fill Ratio:</span>
+              <strong className={`font-semibold tnum ${isOverfilled ? "text-red-700" : "text-emerald-700"}`}>
                 {fillFraction.toFixed(1)}% (Max safe: 75%)
               </strong>
             </div>
-            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+            <div className="h-2 w-full overflow-hidden rounded-sm bg-[var(--line)]">
               <div
-                className={`h-full ${isOverfilled ? "bg-red-500" : "bg-emerald-500"}`}
+                className={`h-full ${isOverfilled ? "bg-red-600" : "bg-emerald-600"}`}
                 style={{ width: `${Math.min(100, fillFraction)}%` }}
               />
             </div>
             {isOverfilled && (
-              <p className="flex items-center gap-1.5 text-[11px] text-red-600 font-semibold pt-1">
-                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+              <p className="flex items-start gap-1.5 pt-1 text-sm font-medium text-red-700">
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                 Never fill beyond 75%! Thermal expansion can cause dangerous hydraulic rupture.
               </p>
             )}
           </div>
 
-          <div className="rounded-xl bg-[#0056B3] p-4 text-white space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-slate-300">Hot Gas Thermal Pressure:</span>
-              <span className="font-bold">{hotGasPress.toFixed(1)} bar</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-slate-300">Solvent Vapor Pressure:</span>
-              <span className="font-bold">~ {vaporPress.toFixed(1)} bar</span>
-            </div>
-            <div className="border-t border-white/20 pt-2 flex justify-between items-center text-sm">
-              <span className="font-bold text-[#feeceb]">Estimated Total Pressure:</span>
-              <span className="text-lg font-bold text-white">
+          <ResultRow label="Hot Gas Thermal Pressure:" value={<>{hotGasPress.toFixed(1)} bar</>} />
+          <ResultRow label="Solvent Vapor Pressure:" value={<>~ {vaporPress.toFixed(1)} bar</>} />
+          <ResultRow
+            highlight
+            label="Estimated Total Pressure:"
+            value={
+              <>
                 ~ {Math.round(estTotalPress)} bar ({Math.round(estTotalPress * 14.5)} psi)
-              </span>
-            </div>
-          </div>
-        </div>
+              </>
+            }
+          />
+        </ResultPanel>
       </div>
     </div>
   );
@@ -732,146 +647,77 @@ export function AshSlaggingPredictor() {
   else if (slaggingFactor >= 2.0) rsRisk = "High";
   else if (slaggingFactor >= 0.6) rsRisk = "Medium";
 
+  const oxides: { id: string; label: string; value: number; set: (n: number) => void }[] = [
+    { id: "sio2", label: "% $SiO_2$", value: sio2, set: setSio2 },
+    { id: "al2o3", label: "% $Al_2O_3$", value: al2o3, set: setAl2o3 },
+    { id: "fe2o3", label: "% $Fe_2O_3$", value: fe2o3, set: setFe2o3 },
+    { id: "cao", label: "% $CaO$", value: cao, set: setCao },
+    { id: "mgo", label: "% $MgO$", value: mgo, set: setMgo },
+    { id: "alk", label: "% $Na_2O + K_2O$", value: alkalies, set: setAlkalies },
+  ];
+
   return (
     <div className="space-y-6">
-      <div className="border-b border-slate-100 pb-4">
-        <h3 className="text-xl font-semibold text-[#0056B3]">
-          Coal Ash Slagging &amp; Fouling Risk Predictor
-        </h3>
-        <p className="mt-1 text-xs text-slate-600">
-          Enter coal ash oxide analysis to compute the Silica Ratio (SR) and Slagging Factor ($R_s$) to anticipate boiler clinkering risks before firing.
-        </p>
-      </div>
+      <ToolHeader
+        title={<>Coal Ash Slagging &amp; Fouling Risk Predictor</>}
+        intro="Enter coal ash oxide analysis to compute the Silica Ratio (SR) and Slagging Factor ($R_s$) to anticipate boiler clinkering risks before firing."
+      />
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $SiO_2$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={sio2}
-              onChange={(e) => setSio2(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $Al_2O_3$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={al2o3}
-              onChange={(e) => setAl2o3(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $Fe_2O_3$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={fe2o3}
-              onChange={(e) => setFe2o3(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $CaO$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={cao}
-              onChange={(e) => setCao(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $MgO$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={mgo}
-              onChange={(e) => setMgo(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700">% $Na_2O + K_2O$</label>
-            <input
-              type="number"
-              step="0.1"
-              value={alkalies}
-              onChange={(e) => setAlkalies(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
-            />
-          </div>
-          <div className="col-span-2 sm:col-span-3 pt-1">
-            <label className="block text-[11px] font-bold text-slate-700">
+      <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="grid grid-cols-2 content-start gap-3 sm:grid-cols-3 lg:col-span-7">
+          {oxides.map((o) => (
+            <div key={o.id}>
+              <label htmlFor={`ash-${o.id}`} className="label">{o.label}</label>
+              <input
+                id={`ash-${o.id}`}
+                type="number"
+                step="0.1"
+                value={o.value}
+                onChange={(e) => o.set(parseFloat(e.target.value) || 0)}
+                className={inputCls}
+              />
+            </div>
+          ))}
+          <div className="col-span-2 pt-1 sm:col-span-3">
+            <label htmlFor="ash-s" className="label">
               Total Sulfur in Coal (% S dry basis)
             </label>
             <input
+              id="ash-s"
               type="number"
               step="0.05"
               value={sulfur}
               onChange={(e) => setSulfur(parseFloat(e.target.value) || 0)}
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold text-slate-800"
+              className={inputCls}
             />
           </div>
         </div>
 
         {/* Prediction Results */}
-        <div className="lg:col-span-5 rounded-xl border border-slate-200 bg-slate-50 p-6 space-y-4">
-          <span className="text-xs font-bold text-slate-500">
-            Combustion &amp; Clinkering Indexes
-          </span>
+        <div className="lg:col-span-5">
+          <ResultPanel title={<>Combustion &amp; Clinkering Indexes</>}>
+            <div className="border-b border-[var(--line)] px-4 py-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[15px] font-medium text-[var(--ink)]">Silica Ratio (SR)</span>
+                <span className={`text-sm font-semibold ${statusCls(srRisk)}`}>{srRisk} Risk</span>
+              </div>
+              <div className="stat-num mt-1">{silicaRatio.toFixed(1)}%</div>
+              <p className="mt-1 text-[13px] text-[var(--ink-3)]">
+                SR &gt; 72 indicates minimal molten slagging tendency.
+              </p>
+            </div>
 
-          {/* Silica Ratio Card */}
-          <div className="rounded-xl bg-white p-4 border border-slate-200 shadow-2xs">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#0056B3]">Silica Ratio (SR)</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
-                  srRisk === "Low"
-                    ? "bg-emerald-100 text-emerald-800"
-                    : srRisk === "Medium"
-                    ? "bg-amber-100 text-amber-800"
-                    : "bg-red-100 text-red-800"
-                }`}
-              >
-                {srRisk} Risk
-              </span>
+            <div className="px-4 py-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[15px] font-medium text-[var(--ink)]">Slagging Factor ($R_s$)</span>
+                <span className={`text-sm font-semibold ${statusCls(rsRisk)}`}>{rsRisk} Slagging</span>
+              </div>
+              <div className="stat-num mt-1">{slaggingFactor.toFixed(3)}</div>
+              <p className="mt-1 text-[13px] text-[var(--ink-3)]">
+                $R_s = (B/A) \times S$. Value &lt; 0.6 indicates low tube fouling propensity.
+              </p>
             </div>
-            <div className="mt-1 text-2xl font-bold text-slate-900">
-              {silicaRatio.toFixed(1)}%
-            </div>
-            <p className="mt-1 text-[10px] text-slate-500">
-              SR &gt; 72 indicates minimal molten slagging tendency.
-            </p>
-          </div>
-
-          {/* Slagging Factor Card */}
-          <div className="rounded-xl bg-white p-4 border border-slate-200 shadow-2xs">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#0056B3]">Slagging Factor ($R_s$)</span>
-              <span
-                className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${
-                  rsRisk === "Low"
-                    ? "bg-emerald-100 text-emerald-800"
-                    : rsRisk === "Medium"
-                    ? "bg-amber-100 text-amber-800"
-                    : "bg-red-100 text-red-800"
-                }`}
-              >
-                {rsRisk} Slagging
-              </span>
-            </div>
-            <div className="mt-1 text-2xl font-bold text-slate-900">
-              {slaggingFactor.toFixed(3)}
-            </div>
-            <p className="mt-1 text-[10px] text-slate-500">
-              $R_s = (B/A) \times S$. Value &lt; 0.6 indicates low tube fouling propensity.
-            </p>
-          </div>
+          </ResultPanel>
         </div>
       </div>
     </div>

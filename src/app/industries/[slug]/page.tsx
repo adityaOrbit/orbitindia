@@ -2,13 +2,29 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { TemperatureCurve } from "@/components/temperature-curve";
 import { JsonLd } from "@/components/json-ld";
 import { ProductCard } from "@/components/product-card";
 import { industries } from "@/data/industries";
 import { products, type Product } from "@/data/products";
 import { getIndustryPageSchema } from "@/lib/schema";
+import { withBasePath } from "@/lib/utils";
+
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={`font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] ${
+        dark ? "text-[#7fb2f0]" : "text-[#0056B3]"
+      }`}
+    >
+      {children}
+    </p>
+  );
+}
+
+const h2Cls = "text-[1.65rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.1rem]";
 
 export const dynamicParams = false;
 
@@ -86,176 +102,171 @@ export default async function IndustryDetailPage({
         ]}
       />
 
-      {/* Hero Header */}
-      <section className="relative overflow-hidden bg-[#001c3d] py-16 text-white">
-        <div className="container-x">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-white">
-                {industry.name}
-              </h1>
-              <p className="mt-2 text-lg font-medium text-[#feeceb]">
-                {industry.tagline}
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                {industry.blurb}
-              </p>
+      {/* Full-width photo banner: navy gradient on the left behind the H1 and intro */}
+      <section className="relative overflow-hidden bg-[#001733] text-white">
+        <Image
+          src={withBasePath(industry.image)}
+          alt={industry.name}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[#001733]/80 lg:bg-transparent lg:bg-gradient-to-r lg:from-[#001733] lg:from-35% lg:via-[#001733]/85 lg:via-55% lg:to-transparent lg:to-80%"
+        />
+        <div className="container-x relative flex min-h-[340px] items-center py-10 sm:py-12 lg:min-h-[380px]">
+          <div className="min-w-0 max-w-[40rem]">
+            <Eyebrow dark>Industries</Eyebrow>
+            <h1 className="mt-4 text-[2rem] font-semibold leading-[1.15] tracking-[-0.02em] text-white sm:text-[2.6rem] lg:text-[2.9rem]">
+              {industry.name}
+            </h1>
+            <p className="mt-3 text-[17px] font-medium leading-relaxed text-white sm:text-lg">
+              {industry.tagline}
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-[#c9d4e3]">{industry.blurb}</p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {industry.instruments.map((inst, idx) => (
-                  <span
-                    key={idx}
-                    className="rounded-md bg-white/10 px-3 py-1 text-xs font-medium text-slate-200 border border-white/10"
-                  >
-                    ✓ {inst}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link href="/contact-us#quote" className="btn btn-accent text-xs">
-                  Request Solution Proposal <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={`/products?industry=${industry.slug}`}
-                  className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20 text-xs"
-                >
-                  View Filtered Products
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative aspect-16/10 w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-800 shadow-2xl">
-              <Image
-                src={industry.image}
-                alt={industry.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <Link href="/contact-us#quote" className="btn btn-accent min-h-[48px] px-6">
+                Request Solution Proposal <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={`/products?industry=${industry.slug}`}
+                className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
+              >
+                View Filtered Products
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Analytical Challenges & Workflow Solutions */}
-      <section className="container-x py-16">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-            Critical Analytical Demands in {industry.name}
-          </h2>
-          <p className="mt-2 text-sm text-slate-600">
-            How our instrumentation overcomes measurement bottlenecks, improves repeatability, and maintains high throughput.
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {industry.keyChallenges.map((challenge, idx) => (
-            <div
-              key={idx}
-              className="flex items-start gap-3.5 rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 shadow-xs"
-            >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#0056B3] text-xs font-bold text-white">
-                {idx + 1}
-              </div>
-              <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-700">
-                {challenge}
-              </p>
-            </div>
-          ))}
+      {/* Key instruments strip */}
+      <section className="border-b border-[var(--line)]">
+        <div className="container-x py-6">
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
+            {industry.instruments.map((inst, idx) => (
+              <li key={idx} className="flex min-w-0 items-start gap-2.5 text-[15px] font-medium text-[var(--ink)]">
+                <Check className="mt-1 h-4 w-4 shrink-0 text-[#0056B3]" />
+                {inst}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* ASTM / ISO Standards Table */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200">
+      {/* Analytical challenges — large numerals */}
+      <section className="bg-[#f3f5f8] py-14 sm:py-16 lg:py-20">
         <div className="container-x">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-              Applicable ASTM, ISO &amp; BIS Testing Standards
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
+          <div className="mb-9 max-w-3xl">
+            <Eyebrow>Key challenges</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Critical Analytical Demands in {industry.name}</h2>
+            <p className="mt-2.5 text-base leading-relaxed text-[var(--ink-3)]">
+              How our instrumentation overcomes measurement bottlenecks, improves repeatability, and maintains high throughput.
+            </p>
+          </div>
+
+          <ol className="grid grid-cols-1 gap-x-12 border-t-2 border-[var(--ink)] sm:grid-cols-2">
+            {industry.keyChallenges.map((challenge, idx) => (
+              <li
+                key={idx}
+                className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-start gap-4 border-b border-[var(--line)] py-6 sm:grid-cols-[84px_minmax(0,1fr)]"
+              >
+                <span className="font-[family-name:var(--font-poppins)] text-[2.5rem] font-semibold leading-none tracking-[-0.02em] text-[#0056B3] tnum sm:text-[3.25rem]">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span className="pt-1 text-base leading-relaxed text-[var(--ink-2)]">{challenge}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ASTM / ISO standards */}
+      <section className="py-14 sm:py-16 lg:py-20">
+        <div className="container-x grid grid-cols-1 gap-8 lg:grid-cols-[1fr_2fr] lg:gap-14">
+          <div className="min-w-0">
+            <Eyebrow>Testing standards</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Applicable ASTM, ISO &amp; BIS Testing Standards</h2>
+            <p className="mt-2.5 text-base leading-relaxed text-[var(--ink-3)]">
               Our instrumentation is factory-calibrated to strictly comply with recognized national and international testing methods:
             </p>
           </div>
 
-          <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs">
-            <div className="divide-y divide-slate-100">
-              {industry.testingStandards.map((std, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between hover:bg-slate-50/80 transition"
-                >
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-[#d00000] shrink-0" />
-                    <div>
-                      <span className="font-mono text-xs font-bold text-[#0056B3]">
-                        {std.code}
-                      </span>
-                      <p className="text-xs text-slate-600 mt-0.5">{std.title}</p>
-                    </div>
-                  </div>
-                  <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 self-start sm:self-auto">
-                    Full Compliance
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="min-w-0 overflow-x-auto">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th scope="col" className="w-[30%]">Standard</th>
+                  <th scope="col">Test Method</th>
+                  <th scope="col" className="hidden sm:table-cell">Compliance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {industry.testingStandards.map((std, idx) => (
+                  <tr key={idx}>
+                    <td className="font-semibold">{std.code}</td>
+                    <td className="!text-[var(--ink-2)]">{std.title}</td>
+                    <td className="hidden whitespace-nowrap !text-[var(--ink-3)] sm:table-cell">Full Compliance</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      {/* Core Applications Breakdown */}
-      <section className="container-x py-16">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-            Key Laboratory Workflows
-          </h2>
-        </div>
+      {/* Core applications — first one larger */}
+      <section className="bg-[#f3f5f8] py-14 sm:py-16 lg:py-20">
+        <div className="container-x">
+          <Eyebrow>Applications</Eyebrow>
+          <h2 className={`mb-9 mt-3 text-[var(--ink)] ${h2Cls}`}>Key Laboratory Workflows</h2>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {industry.applications.map((app, idx) => (
-            <div
-              key={idx}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex flex-col justify-between"
-            >
-              <div>
-                <h3 className="font-bold text-sm text-[#0056B3]">{app.name}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                  {app.desc}
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-100">
-                <span className="text-[11px] font-bold text-[#d00000]">
-                  Application {idx + 1}
-                </span>
-              </div>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+            {industry.applications.map((app, idx) => {
+              const lead = idx === 0;
+              return (
+                <div
+                  key={idx}
+                  className={`flex min-w-0 flex-col rounded-md bg-white p-6 ${lead ? "sm:col-span-2 lg:row-span-2 lg:p-8" : ""}`}
+                >
+                  <p className="font-[family-name:var(--font-poppins)] text-[13px] font-semibold text-[#0056B3] tnum">
+                    Application {idx + 1}
+                  </p>
+                  <h3 className={`mt-1 font-semibold text-[var(--ink)] ${lead ? "text-xl sm:text-[1.5rem]" : "text-base"}`}>
+                    {app.name}
+                  </h3>
+                  <p className={`mt-2 leading-relaxed text-[var(--ink-3)] ${lead ? "text-[15px] sm:text-base" : "text-sm"}`}>
+                    {app.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Recommended Instruments Showcase */}
-      <section className="bg-slate-50 py-16 border-t border-slate-200">
+      {/* Recommended instruments */}
+      <section className="py-14 sm:py-16 lg:py-20">
         <div className="container-x">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-                Featured Instruments for {industry.name}
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">
+          <div className="mb-9 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+            <div className="min-w-0">
+              <Eyebrow>Recommended instruments</Eyebrow>
+              <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Featured Instruments for {industry.name}</h2>
+              <p className="mt-2.5 text-base leading-relaxed text-[var(--ink-3)]">
                 Certified equipment engineered for this sector&apos;s demanding analytical parameters.
               </p>
             </div>
             <Link
               href={`/products?industry=${industry.slug}`}
-              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
+              className="link-more min-h-[44px] !whitespace-normal lg:min-h-0"
             >
-              Filter All Instruments for {industry.name} <ArrowRight className="h-4 w-4" />
+              Filter All Instruments for {industry.name} <ArrowRight className="h-4 w-4 shrink-0" />
             </Link>
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 [&>*]:min-w-0">
             {matchedProducts.map((prod) => (
               <ProductCard key={prod.slug} product={prod} />
             ))}
@@ -263,29 +274,29 @@ export default async function IndustryDetailPage({
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-            <div className="max-w-2xl">
-              <h3 className="text-2xl font-semibold sm:text-3xl">
-                Need a Custom Proposal for Your {industry.name} Facility?
-              </h3>
-              <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-                Our application engineering group provides detailed equipment sizing, utility requirement schedules, and ASTM/ISO standard compliance matrices.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-4 shrink-0">
-              <Link href="/contact-us#quote" className="btn btn-accent">
-                Request Detailed Proposal <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/our-clients"
-                className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20"
-              >
-                View Client References
-              </Link>
-            </div>
+      {/* CTA — navy closing band */}
+      <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+        <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+        <div className="container-x relative grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-14">
+          <div>
+            <Eyebrow dark>Custom proposal</Eyebrow>
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+              Need a Custom Proposal for Your {industry.name} Facility?
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#c9d4e3]">
+              Our application engineering group provides detailed equipment sizing, utility requirement schedules, and ASTM/ISO standard compliance matrices.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <Link href="/contact-us#quote" className="btn btn-accent min-h-[48px] px-6">
+              Request Detailed Proposal <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/our-clients"
+              className="btn min-h-[48px] border border-white/45 px-6 text-white hover:border-white"
+            >
+              View Client References
+            </Link>
           </div>
         </div>
       </section>

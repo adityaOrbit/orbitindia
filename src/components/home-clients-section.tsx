@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { SectionHeading } from "@/components/section-heading";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { withBasePath } from "@/lib/utils";
 
 const clientLogos = [
@@ -32,39 +33,35 @@ const clientLogos = [
 ];
 
 export function HomeClientsSection() {
-  // Duplicate list to achieve a seamless, continuous right-to-left infinite loop
-  const marqueeLogos = [...clientLogos, ...clientLogos];
+  // Named client logos first; the strip shows 12 and links to the full list.
+  const logos = [
+    ...clientLogos.filter((l) => !l.alt.startsWith("Client Partner")),
+    ...clientLogos.filter((l) => l.alt.startsWith("Client Partner")),
+  ].slice(0, 12);
 
   return (
-    <section className="bg-slate-50 py-16 border-b border-slate-200 overflow-hidden">
-      <div className="container-x">
-        {/* Section Heading */}
-        <div className="mb-8">
-          <SectionHeading
-            title="Trusted by India's Industry Leaders & Research Institutions"
-            subtitle="Powering quality and research testing at over 7,000 laboratories across thermal power, steel, petroleum, mining, and CSIR institutes."
-          />
+    <section className="border-y border-[var(--line)] py-12 sm:py-14">
+      <div className="container-x grid items-center gap-8 lg:grid-cols-[240px_1fr] lg:gap-10">
+        <div>
+          <h2 className="font-[family-name:var(--font-poppins)] text-lg font-semibold leading-snug text-[var(--ink)]">
+            Trusted by India&apos;s Industry Leaders &amp; Research Institutions
+          </h2>
+          <p className="mt-1.5 text-sm text-[var(--ink-3)]">
+            Powering quality and research testing at over 7,000 laboratories across thermal power, steel, petroleum, mining, and CSIR institutes.
+          </p>
+          <Link href="/our-clients/" className="link-more mt-3 min-h-[44px] text-sm lg:min-h-0">
+            All clients <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
-      </div>
-
-      {/* Infinite Horizontal Logo Marquee (Single line, moving right-to-left) */}
-      <div className="relative mt-2 w-full overflow-hidden">
-        {/* Left & Right gradient edge fades for smooth entry/exit */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50 to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50 to-transparent z-10" />
-
-        <div className="animate-marquee gap-4 py-2">
-          {marqueeLogos.map((logo, idx) => (
-            <div
-              key={idx}
-              className="w-40 sm:w-48 h-20 sm:h-24 shrink-0 flex items-center justify-center rounded-xl border border-slate-200/90 bg-white p-3 shadow-xs hover:border-[#0056B3]/40 transition-colors"
-            >
+        <div className="grid grid-cols-3 items-center gap-x-8 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
+          {logos.map((logo) => (
+            <div key={logo.src} className="flex h-12 items-center justify-center">
               <Image
                 src={withBasePath(logo.src)}
                 alt={logo.alt}
                 width={160}
                 height={70}
-                className="max-h-12 w-auto max-w-[85%] object-contain"
+                className="max-h-11 w-auto max-w-full object-contain opacity-75 grayscale transition hover:opacity-100 hover:grayscale-0"
               />
             </div>
           ))}

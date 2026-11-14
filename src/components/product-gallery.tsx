@@ -57,14 +57,14 @@ export function ProductGallery({ product }: ProductGalleryProps) {
   return (
     <div className="flex flex-col">
       {/* Main Viewport Card */}
-      <div className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-[#f8fafc] shadow-xs">
+      <div className="relative overflow-hidden">
         {/* Top-Right Action Controls: Share Link & Lightbox Toggle */}
         <div className="absolute right-3.5 top-3.5 z-10 flex items-center gap-1.5">
           {/* Sharable Link Icon Only */}
           <button
             type="button"
             onClick={handleCopyLink}
-            className="cursor-pointer relative rounded-lg bg-white/95 p-3 text-slate-600 shadow-xs lg:p-2 hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer relative rounded-[0.25rem] border border-[var(--line)] bg-white p-3 text-[var(--ink-2)] lg:p-2 hover:text-[#0056B3] transition-colors"
             title={copied ? "Link copied!" : "Copy sharable link"}
             aria-label="Copy link to clipboard"
           >
@@ -74,7 +74,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
               <Share2 className="h-4 w-4" />
             )}
             {copied && (
-              <span className="absolute -bottom-8 right-0 rounded-md bg-slate-900 px-2 py-0.5 text-[10px] font-medium text-white shadow-md whitespace-nowrap">
+              <span className="absolute -bottom-8 right-0 rounded-md bg-slate-900 px-2 py-0.5 text-xs font-medium text-white whitespace-nowrap">
                 Link copied!
               </span>
             )}
@@ -85,7 +85,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
             <button
               type="button"
               onClick={() => setLightboxOpen(true)}
-              className="cursor-pointer rounded-lg bg-white/95 p-3 text-slate-600 shadow-xs lg:p-2 hover:bg-white hover:text-[#0056B3] transition-all"
+              className="cursor-pointer rounded-[0.25rem] border border-[var(--line)] bg-white p-3 text-[var(--ink-2)] lg:p-2 hover:text-[#0056B3] transition-colors"
               title="Open high-resolution lightbox"
               aria-label="Expand image view"
             >
@@ -99,7 +99,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handlePrev}
-            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full border border-[var(--line)] bg-white text-[var(--ink-2)] hover:text-[#0056B3] transition-colors"
             aria-label="Previous image"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -111,7 +111,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
           <button
             type="button"
             onClick={handleNext}
-            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full bg-white/90 shadow-md text-slate-700 hover:bg-white hover:text-[#0056B3] transition-all"
+            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center lg:h-9 lg:w-9 rounded-full border border-[var(--line)] bg-white text-[var(--ink-2)] hover:text-[#0056B3] transition-colors"
             aria-label="Next image"
           >
             <ChevronRight className="h-5 w-5" />
@@ -121,16 +121,16 @@ export function ProductGallery({ product }: ProductGalleryProps) {
         {/* Main Display Area */}
         <div
           onClick={() => hasImages && setLightboxOpen(true)}
-          className="relative flex items-center justify-center p-6 min-h-[380px] sm:min-h-[440px] cursor-pointer"
+          className="relative flex items-center justify-center p-6 min-h-[320px] sm:min-h-[440px] cursor-pointer"
         >
           {currentImage ? (
-            <div className="relative h-[340px] sm:h-[400px] w-full">
+            <div className="relative h-[280px] sm:h-[400px] w-full">
               <Image
                 src={currentImage}
                 alt={`${product.name} - view ${activeThumb + 1}`}
                 fill
                 priority
-                className="object-contain transition-transform duration-300 hover:scale-105"
+                className="object-contain mix-blend-multiply"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
@@ -149,7 +149,7 @@ export function ProductGallery({ product }: ProductGalleryProps) {
 
       {/* Thumbnails Row (if multiple images) */}
       {totalImages > 1 && (
-        <div className="mt-3.5 flex gap-2.5 overflow-x-auto scrollbar-thin pb-1">
+        <div className="mt-3 flex gap-2 overflow-x-auto scrollbar-thin pb-1 sm:justify-center">
           {images.map((img, idx) => {
             const isActive = idx === activeThumb;
             return (
@@ -160,10 +160,10 @@ export function ProductGallery({ product }: ProductGalleryProps) {
                   e.preventDefault();
                   setActiveThumb(idx);
                 }}
-                className={`cursor-pointer relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border bg-white p-1 transition-all ${
+                className={`cursor-pointer relative h-16 w-20 shrink-0 overflow-hidden rounded-[0.25rem] border bg-white p-1 transition-colors ${
                   isActive
-                    ? "border-[#d00000] ring-2 ring-[#d00000]/40 shadow-sm"
-                    : "border-slate-200 hover:border-slate-300 opacity-70 hover:opacity-100"
+                    ? "border-[#0056B3] ring-1 ring-[#0056B3]"
+                    : "border-[var(--line)] hover:border-[#0056B3]"
                 }`}
                 title={`View photo ${idx + 1}`}
               >

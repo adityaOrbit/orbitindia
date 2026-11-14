@@ -3,16 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  CalendarDays,
-  MapPin,
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-  Building2,
-  X,
-  ExternalLink,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, X, ExternalLink } from "lucide-react";
 import { withBasePath } from "@/lib/utils";
 
 type Exhibition = {
@@ -136,220 +127,176 @@ export function EventsAndKnowledge() {
   const currentEvent = upcomingEvents[currentSlide] || upcomingEvents[0];
 
   return (
-    <div className="grid gap-8 lg:grid-cols-2">
-      {/* LEFT COLUMN: News and Events (Carousel) */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 flex flex-col justify-between h-full">
-        <div>
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">News and Events</h3>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={prevSlide}
-                aria-label="Previous event"
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:h-9 lg:w-9 transition hover:bg-slate-100 hover:text-[#0056B3]"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                type="button"
-                onClick={nextSlide}
-                aria-label="Next event"
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:h-9 lg:w-9 transition hover:bg-slate-100 hover:text-[#0056B3]"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+    <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
+      {/* LEFT COLUMN: News and Events (carousel) */}
+      <div className="flex h-full flex-col">
+        <div className="flex items-center justify-between gap-4 border-b border-[var(--line)] pb-3">
+          <h3 className="text-lg font-semibold text-[var(--ink)] sm:text-xl">News and Events</h3>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={prevSlide}
+              aria-label="Previous event"
+              className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--line)] text-[var(--ink-2)] transition-colors hover:border-[#0056B3] hover:text-[#0056B3] lg:h-9 lg:w-9"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={nextSlide}
+              aria-label="Next event"
+              className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--line)] text-[var(--ink-2)] transition-colors hover:border-[#0056B3] hover:text-[#0056B3] lg:h-9 lg:w-9"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
-
-          {/* Carousel Card */}
-          {currentEvent && (
-            <div className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-[#fbfcfd]">
-              {currentEvent.image && (
-                <div className="relative aspect-[16/8] w-full overflow-hidden bg-slate-100">
-                  <Image
-                    src={withBasePath(currentEvent.image)}
-                    alt={`${currentEvent.name} banner`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="p-5 sm:p-6">
-                <p className="flex items-center gap-2 text-xs font-semibold text-[#d00000]">
-                  <CalendarDays className="h-4 w-4 shrink-0" /> {currentEvent.dates}
-                </p>
-                <h4 className="mt-2 text-lg font-semibold text-[#0056B3] sm:text-xl">
-                  {currentEvent.name}
-                </h4>
-
-                <div className="mt-3 space-y-1.5 text-xs text-slate-600 sm:text-sm">
-                  <p className="flex items-start gap-2">
-                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
-                    <span>{currentEvent.cityVenue}</span>
-                  </p>
-                  <p className="flex items-start gap-2 font-medium text-slate-700">
-                    <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-[#d00000]" />
-                    <span>{currentEvent.hallStand}</span>
-                  </p>
-                </div>
-
-                <p className="mt-3 text-xs leading-relaxed text-slate-600 line-clamp-2">
-                  {currentEvent.description}
-                </p>
-
-                <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setActiveExhibition(currentEvent)}
-                    className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-                  >
-                    View details <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-                  <div className="flex gap-4 sm:gap-1.5">
-                    {upcomingEvents.map((ev, idx) => (
-                      <button
-                        key={ev.id}
-                        onClick={() => setCurrentSlide(idx)}
-                        aria-label={`Go to slide ${idx + 1}`}
-                        className={`relative h-2 rounded-full transition-all after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] sm:after:hidden ${
-                          currentSlide === idx ? "w-6 bg-[#d00000]" : "w-2 bg-slate-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
-        <div className="mt-6 flex items-center justify-between pt-2">
-          <Link href="/news" className="btn btn-outline text-xs sm:text-sm">
+        {currentEvent && (
+          <div className="mt-5 flex-1">
+            {currentEvent.image && (
+              <div className="relative aspect-[16/8] w-full overflow-hidden rounded-md bg-[var(--soft)]">
+                <Image
+                  src={withBasePath(currentEvent.image)}
+                  alt={`${currentEvent.name} banner`}
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            )}
+
+            <p className="mt-4 text-[13px] text-[var(--ink-3)] tnum">{currentEvent.dates}</p>
+            <h4 className="mt-1 text-lg font-semibold text-[var(--ink)] sm:text-xl">{currentEvent.name}</h4>
+            <p className="mt-1.5 text-[15px] text-[var(--ink-2)]">{currentEvent.cityVenue}</p>
+            <p className="mt-0.5 text-sm font-medium text-[var(--ink)]">{currentEvent.hallStand}</p>
+
+            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-[var(--ink-3)]">
+              {currentEvent.description}
+            </p>
+
+            <div className="mt-4 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setActiveExhibition(currentEvent)}
+                className="link-more min-h-[44px] lg:min-h-0"
+              >
+                View details <ArrowRight className="h-4 w-4" />
+              </button>
+              <div className="flex gap-4 sm:gap-1.5">
+                {upcomingEvents.map((ev, idx) => (
+                  <button
+                    key={ev.id}
+                    type="button"
+                    onClick={() => setCurrentSlide(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                    aria-current={currentSlide === idx}
+                    className={`relative h-1.5 rounded-full transition-all after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] sm:after:hidden ${
+                      currentSlide === idx ? "w-6 bg-[#0056B3]" : "w-2 bg-[#cfd6df]"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 border-t border-[var(--line)] pt-4">
+          <Link href="/news" className="link-more min-h-[44px] lg:min-h-0">
             View All News and Events <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
 
       {/* RIGHT COLUMN: Latest from the Orbit */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 flex flex-col justify-between h-full">
+      <div className="flex h-full flex-col">
+        <div className="flex items-center justify-between gap-4 border-b border-[var(--line)] pb-3">
+          <h3 className="text-lg font-semibold text-[var(--ink)] sm:text-xl">Latest from the Orbit</h3>
+          <Link href="/knowledge-hub/" className="link-more min-h-[44px] lg:min-h-0">
+            View All <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
         <div>
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-semibold text-[#0056B3] sm:text-2xl">
-                Latest from the Orbit
-              </h3>
-            </div>
+          {KNOWLEDGE_ARTICLES.map((art) => (
             <Link
-              href="/knowledge-hub/"
-              className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0056B3] hover:text-[#d00000] transition-colors"
+              key={art.id}
+              href={`/knowledge-hub/${art.slug}/`}
+              className="group flex items-start gap-4 border-b border-[var(--line)] py-4"
             >
-              <span>View All</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-
-          <div className="mt-6 space-y-3">
-            {KNOWLEDGE_ARTICLES.map((art) => (
-              <Link
-                key={art.id}
-                href={`/knowledge-hub/${art.slug}/`}
-                className="group flex items-center gap-3 sm:gap-4 rounded-xl border border-slate-200 bg-[#fbfcfd] p-3 sm:p-3.5 transition hover:border-[#0056B3]/40 hover:bg-white hover:shadow-xs"
-              >
-                {/* Left: Thumbnail Image */}
-                {art.image && (
-                  <div className="relative h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-white">
-                    <Image
-                      src={withBasePath(art.image)}
-                      alt={art.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-
-                {/* Right: Tag, Title, Short Description */}
-                <div className="flex-1 min-w-0 space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`inline-block rounded-md px-2 py-0.5 text-[10px] font-medium ${
-                        art.tag === "Technical Article"
-                          ? "bg-sky-50 text-sky-800 border border-sky-200"
-                          : "bg-[#feeceb] text-[#d00000] border border-red-200"
-                      }`}
-                    >
-                      {art.tag}
-                    </span>
-                  </div>
-
-                  <h4 className="text-xs sm:text-sm font-semibold text-[#0056B3] group-hover:text-[#d00000] transition-colors leading-snug">
-                    {art.title}
-                  </h4>
-
-                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2">
-                    {art.summary}
-                  </p>
+              {art.image && (
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-sm bg-[var(--soft)] sm:h-[5.5rem] sm:w-[5.5rem]">
+                  <Image
+                    src={withBasePath(art.image)}
+                    alt={art.title}
+                    fill
+                    sizes="88px"
+                    className="object-contain p-1.5 mix-blend-multiply"
+                  />
                 </div>
-              </Link>
-            ))}
-          </div>
+              )}
+
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-medium text-[#0056B3]">{art.tag}</p>
+                <h4 className="mt-0.5 text-[15px] font-semibold leading-snug text-[var(--ink)] group-hover:text-[#0056B3]">
+                  {art.title}
+                </h4>
+                <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-[var(--ink-3)]">{art.summary}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 
-      {/* Exhibition Detail Modal */}
+      {/* Exhibition detail modal */}
       {activeExhibition && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-xl bg-white p-6 sm:p-8 shadow-xl">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeExhibition.name}
+        >
+          <div className="relative max-h-[85vh] w-full max-w-xl overflow-y-auto rounded-md bg-white p-6 sm:p-8">
             <button
               type="button"
               onClick={() => setActiveExhibition(null)}
               aria-label="Close modal"
-              className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-md text-[var(--ink-3)] hover:bg-[var(--soft)] hover:text-[var(--ink)]"
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="mt-3 text-xl font-semibold text-[#0056B3] sm:text-2xl">
-              {activeExhibition.name}
-            </h3>
+            <h3 className="pr-10 text-xl font-semibold text-[var(--ink)] sm:text-2xl">{activeExhibition.name}</h3>
 
-            <div className="mt-4 space-y-2 rounded-xl bg-slate-50 p-4 text-xs sm:text-sm text-slate-700">
-              <p className="flex items-center gap-2">
-                <CalendarDays className="h-4 w-4 text-[#d00000]" />{" "}
-                <span className="font-semibold">Dates:</span> {activeExhibition.dates}
-              </p>
-              <p className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-[#d00000]" />{" "}
-                <span className="font-semibold">Venue:</span> {activeExhibition.cityVenue}
-              </p>
-              <p className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-[#d00000]" />{" "}
-                <span className="font-semibold">Stand:</span> {activeExhibition.hallStand}
-              </p>
-            </div>
+            <table className="data-table mt-4 border-t border-[var(--line)]">
+              <tbody>
+                <tr>
+                  <th scope="row">Dates:</th>
+                  <td className="tnum">{activeExhibition.dates}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Venue:</th>
+                  <td>{activeExhibition.cityVenue}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Stand:</th>
+                  <td>{activeExhibition.hallStand}</td>
+                </tr>
+              </tbody>
+            </table>
 
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              {activeExhibition.description}
-            </p>
+            <p className="mt-4 text-[15px] leading-relaxed text-[var(--ink-2)]">{activeExhibition.description}</p>
 
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--line)] pt-5">
               {activeExhibition.url && (
-                <a
-                  href={activeExhibition.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn btn-outline text-xs"
-                >
-                  Official Event Site <ExternalLink className="h-3.5 w-3.5" />
+                <a href={activeExhibition.url} target="_blank" rel="noreferrer" className="btn btn-outline">
+                  Official Event Site <ExternalLink className="h-4 w-4" />
                 </a>
               )}
               <Link
                 href="/contact-us#quote"
                 onClick={() => setActiveExhibition(null)}
-                className="btn btn-accent text-xs"
+                className="btn btn-accent"
               >
                 Schedule Booth Meeting
               </Link>

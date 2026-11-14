@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { PageHero } from "@/components/page-hero";
+import { TemperatureCurve } from "@/components/temperature-curve";
 
 export const metadata: Metadata = {
   title: "Orbit as a Manufacturer | Orlab Instruments Pvt. Ltd.",
@@ -11,75 +11,99 @@ export const metadata: Metadata = {
     "Orbit Technologies' manufacturing journey started in 1998 with Orlab Instruments Pvt. Ltd., an ISO 9001 certified & MSME registered project integrator and equipment manufacturer.",
 };
 
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={`font-[family-name:var(--font-poppins)] text-[13px] font-semibold uppercase tracking-[0.08em] ${
+        dark ? "text-[#7fb2f0]" : "text-[#0056B3]"
+      }`}
+    >
+      {children}
+    </p>
+  );
+}
+
+const h2Cls = "text-[1.65rem] font-semibold leading-tight tracking-[-0.015em] sm:text-[2.1rem]";
+
 export default function ManufacturerPage() {
   return (
     <div className="bg-white">
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
           { label: "Orbit as a Manufacturer" },
         ]}
       />
 
-      <PageHero
-        eyebrow="Indian Manufacturing & Engineering"
-        title="Orbit as a Manufacturer — Orlab Instruments"
-        subtitle="Our manufacturing journey began in 1998 with our group company Orlab Instruments Pvt. Ltd. Today we operate an ISO 9001 certified facility dedicated to analytical testing kits, proximate analyzers, and specialized laboratory equipment."
-      />
-
-      {/* Main Narrative & Story */}
-      <section className="container-x mt-8 py-6">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-              Precision Engineering Meets Field Practicality
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-slate-700">
-              Our journey into manufacturing started in 1998 with group company <strong className="text-[#0056B3]">Orlab Instruments Pvt. Ltd.</strong>, an ISO Certified &amp; MSME Registered Manufacturer and Project Integrator of diversified products in the field of Testing kits for Water &amp; Soil, Water &amp; Wastewater related Lab &amp; Field Instruments, and specialized analytical systems.
+      {/* Split header: H1 and intro left; TGA 3000 on a pale field bleeding right */}
+      <section className="relative border-b border-[var(--line)]">
+        <div aria-hidden className="absolute inset-y-0 right-0 hidden w-[42%] bg-[#f3f5f8] lg:block" />
+        <div className="container-x relative grid grid-cols-1 items-center lg:grid-cols-[1.38fr_1fr]">
+          <div className="min-w-0 py-8 sm:py-10 lg:py-14 lg:pr-14">
+            <Eyebrow>Indian Manufacturing &amp; Engineering</Eyebrow>
+            <h1 className="mt-4 max-w-3xl text-[1.75rem] font-semibold leading-tight tracking-tight text-[var(--ink)] sm:text-[2.2rem] lg:text-[2.6rem]">
+              Orbit as a Manufacturer — Orlab Instruments
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--ink-2)] sm:text-[17px]">
+              Our manufacturing journey began in 1998 with our group company Orlab Instruments Pvt. Ltd. Today we operate an ISO 9001 certified facility dedicated to analytical testing kits, proximate analyzers, and specialized laboratory equipment.
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Over the last two decades, Orlab has grown to become one of India&apos;s leading manufacturers of soil testing laboratories, mobile soil testing vans, water testing kits, and laboratory analytical instruments including Thermogravimetric Analyzers (TGA 3000), Ash Fusion Analyzers (OFCU), and custom pressure vessels.
-            </p>
-            <div className="mt-6 space-y-3">
-              {[
-                "Modern CNC machining and precision mechanical assembly",
-                "Dedicated hydrostatic test benches proof-tested up to 500 bar",
-                "In-house electronics fabrication and embedded microcontroller testing",
-                "Certified calibration laboratories with NABL traceability standards",
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 text-sm text-slate-700">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
           </div>
-
-          <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+          <figure className="relative -mx-4 my-0 h-64 min-w-0 bg-[#f3f5f8] sm:-mx-6 sm:h-80 lg:mx-0 lg:h-full lg:min-h-[340px] lg:bg-transparent">
             <Image
               src="/images/orbit/tga-3000.jpg"
               alt="Orlab Instruments Manufacturing Facility"
               fill
-              className="object-contain p-6"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+              className="object-contain p-6 mix-blend-multiply lg:p-10"
+              sizes="(min-width: 1024px) 40vw, 100vw"
             />
-          </div>
+            <figcaption className="absolute left-4 top-4 font-[family-name:var(--font-poppins)] text-[2.5rem] font-semibold leading-none tracking-[-0.02em] text-[var(--ink)] tnum sm:left-6 sm:top-6 lg:left-12">
+              1998
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* Core Manufactured Product Portfolio */}
-      <section className="bg-slate-50 py-16 border-y border-slate-200 mt-12">
+      {/* Main Narrative & Story */}
+      <section className="py-14 sm:py-20 lg:py-[88px]">
+        <div className="container-x grid grid-cols-1 gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+          <div className="min-w-0">
+            <Eyebrow>Orlab Instruments</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Precision Engineering Meets Field Practicality</h2>
+            <p className="mt-4 text-base leading-relaxed text-[var(--ink-2)]">
+              Our journey into manufacturing started in 1998 with group company <strong className="font-semibold text-[var(--ink)]">Orlab Instruments Pvt. Ltd.</strong>, an ISO Certified &amp; MSME Registered Manufacturer and Project Integrator of diversified products in the field of Testing kits for Water &amp; Soil, Water &amp; Wastewater related Lab &amp; Field Instruments, and specialized analytical systems.
+            </p>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--ink-3)]">
+              Over the last two decades, Orlab has grown to become one of India&apos;s leading manufacturers of soil testing laboratories, mobile soil testing vans, water testing kits, and laboratory analytical instruments including Thermogravimetric Analyzers (TGA 3000), Ash Fusion Analyzers (OFCU), and custom pressure vessels.
+            </p>
+          </div>
+          <ul className="min-w-0 self-end border-t-2 border-[var(--ink)]">
+            {[
+              "Modern CNC machining and precision mechanical assembly",
+              "Dedicated hydrostatic test benches proof-tested up to 500 bar",
+              "In-house electronics fabrication and embedded microcontroller testing",
+              "Certified calibration laboratories with NABL traceability standards",
+            ].map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2.5 border-b border-[var(--line)] py-3.5 text-[15px] text-[var(--ink-2)]">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Core Manufactured Product Portfolio — pale grey */}
+      <section className="bg-[#f3f5f8] py-14 sm:py-20 lg:py-[88px]">
         <div className="container-x">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-[#0056B3] sm:text-3xl">
-              Key Manufactured Instruments
-            </h2>
-            <p className="mt-2 text-sm text-slate-600">
+          <div className="max-w-3xl">
+            <Eyebrow>Made in India</Eyebrow>
+            <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>Key Manufactured Instruments</h2>
+            <p className="mt-3 text-base leading-relaxed text-[var(--ink-3)]">
               Instruments proudly designed, manufactured, and supported in India by Orbit and Orlab Instruments.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {[
               {
                 title: "TGA 3000 Thermogravimetric Analyzer",
@@ -118,63 +142,57 @@ export default function ManufacturerPage() {
                 link: "/milling-pulverising/",
               },
             ].map((prod) => (
-              <div
+              <Link
                 key={prod.title}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:border-[#d00000]/60 hover:shadow-lg"
+                href={prod.link}
+                className="group flex min-w-0 flex-col justify-between overflow-hidden rounded-md border border-[var(--line)] bg-white transition-colors hover:border-[#0056B3]"
               >
-                <div className="relative aspect-16/10 w-full overflow-hidden bg-[#f9fafb] p-4 flex items-center justify-center border-b border-slate-100">
-                  <Image
-                    src={prod.image}
-                    alt={prod.title}
-                    fill
-                    className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col justify-between p-5">
-                  <div>
-                    <h3 className="font-bold text-base text-[#0056B3] group-hover:text-[#d00000] transition-colors">
+                <div>
+                  <div className="relative aspect-16/10 w-full overflow-hidden border-b border-[var(--line)] bg-white">
+                    <Image
+                      src={prod.image}
+                      alt={prod.title}
+                      fill
+                      className="object-contain p-4 mix-blend-multiply"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-base font-semibold text-[var(--ink)] group-hover:text-[#0056B3]">
                       {prod.title}
                     </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                      {prod.desc}
-                    </p>
-                  </div>
-                  <div className="mt-5 pt-3 border-t border-slate-100">
-                    <Link
-                      href={prod.link}
-                      className="min-h-[44px] lg:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#d00000] hover:underline"
-                    >
-                      View Specifications <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
+                    <p className="mt-1.5 text-sm leading-relaxed text-[var(--ink-2)]">{prod.desc}</p>
                   </div>
                 </div>
-              </div>
+                <span className="link-more px-5 pb-5">
+                  View Specifications <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Turnkey Integration CTA */}
-      <section className="container-x py-16">
-        <div className="overflow-hidden rounded-2xl bg-[#0056B3] p-8 text-white sm:p-12">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-            <div className="max-w-2xl">
-              <h3 className="text-2xl font-semibold sm:text-3xl">
-                Have a Custom Manufacturing Requirement?
-              </h3>
-              <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-                Whether you need specialized pilot reactor systems, customized sample preparation lines, or mobile testing vans, our engineering team can design and build to your specifications.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-4 shrink-0">
-              <Link href="/contact-us#quote" className="btn btn-accent">
-                Consult Application Engineers <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a href="tel:+914067216354" className="btn border border-white/20 bg-white/10 text-white hover:bg-white/20">
-                Call: +91 40 6721 6354
-              </a>
-            </div>
+      {/* Turnkey Integration CTA — navy closing band */}
+      <section className="relative overflow-hidden bg-[#001733] py-14 text-white sm:py-16">
+        <TemperatureCurve className="pointer-events-none absolute inset-x-0 bottom-6 h-24 opacity-35" />
+        <div className="container-x relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl">
+            <Eyebrow dark>Custom engineering</Eyebrow>
+            <h2 className="mt-3 text-2xl font-semibold leading-tight text-white sm:text-[1.9rem]">
+              Have a Custom Manufacturing Requirement?
+            </h2>
+            <p className="mt-3 text-base leading-relaxed text-[#c9d4e3]">
+              Whether you need specialized pilot reactor systems, customized sample preparation lines, or mobile testing vans, our engineering team can design and build to your specifications.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link href="/contact-us#quote" className="btn btn-accent min-h-[48px] px-6">
+              Consult Application Engineers <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a href="tel:+914067216354" className="btn min-h-[48px] border border-white/45 px-6 text-white tnum hover:border-white">
+              Call: +91 40 6721 6354
+            </a>
           </div>
         </div>
       </section>
