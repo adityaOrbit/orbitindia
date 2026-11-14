@@ -1,14 +1,13 @@
 name: Deploy to GitHub Pages
 
+# Runs from the testing branch only (main keeps its own original workflow).
 # Publishes two versions of the site to one GitHub Pages site:
-#   - the main branch at the site root          (…/orbitindia/)
-#   - the testing branch under /preview/          (…/orbitindia/preview/)
-# GitHub only lets the main branch publish, so pushes to testing ask this
-# workflow (on main) to run via .github/workflows/preview-trigger.yml.
+#   - the main branch, unchanged, at the site root   (…/orbitindia/)
+#   - the testing branch under /preview/              (…/orbitindia/preview/)
 
 on:
   push:
-    branches: [main]
+    branches: [testing]
   workflow_dispatch:
 
 permissions:
