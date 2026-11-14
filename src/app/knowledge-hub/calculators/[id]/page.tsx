@@ -31,7 +31,6 @@ export default async function CalculatorPage({ params }: { params: Promise<Param
     <div className="bg-white">
       <Breadcrumb
         items={[
-          { label: "Knowledge Hub", href: "/knowledge-hub/" },
           { label: "Tools", href: "/knowledge-hub/tools/" },
           { label: tool.title },
         ]}

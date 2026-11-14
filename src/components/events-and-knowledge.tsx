@@ -212,7 +212,7 @@ export function EventsAndKnowledge() {
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-between gap-4 border-b border-[var(--line)] pb-3">
           <h3 className="text-lg font-semibold text-[var(--ink)] sm:text-xl">Latest from the Orbit</h3>
-          <Link href="/knowledge-hub/" className="link-more min-h-[44px] lg:min-h-0">
+          <Link href="/knowledge-hub/blogs/" className="link-more min-h-[44px] lg:min-h-0">
             View All <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

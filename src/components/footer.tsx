@@ -17,7 +17,7 @@ const quickLinks = [
   { href: "/our-services", label: "Services & Hydrotesting" },
   { href: "/service-complaint-form", label: "Service Complaint Form" },
   { href: "/our-clients", label: "Our Clients" },
-  { href: "/knowledge-hub", label: "Knowledge Hub" },
+  { href: "/knowledge-hub/blogs/", label: "Blogs" },
   { href: "/news", label: "News & Events" },
   { href: "/contact-us", label: "Contact Us" },
 ];

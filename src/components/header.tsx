@@ -26,6 +26,13 @@ const mobileProductLinks = [
   { href: "/crms-srms-laboratory-accessories/", label: "CRM’s, SRM’s & Laboratory Accessories" },
 ];
 
+/** Knowledge Hub sub-pages (dropdown on desktop, accordion on phones). */
+const knowledgeLinks = [
+  { href: "/knowledge-hub/blogs/", label: "Blogs" },
+  { href: "/knowledge-hub/tools/", label: "Tools" },
+  { href: "/knowledge-hub/resources/", label: "Resources" },
+];
+
 const mainNav = [
   { href: "/industries/", label: "Industries" },
   { href: "/our-services/", label: "Services" },
@@ -41,6 +48,7 @@ export function Header() {
 
   const [mobileProducts, setMobileProducts] = useState(false);
   const [mobileAbout, setMobileAbout] = useState(false);
+  const [mobileKnowledge, setMobileKnowledge] = useState(false);
   const [activeTabId, setActiveTabId] = useState<string>("analytical-instruments");
 
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -304,8 +312,40 @@ export function Header() {
               )}
             </div>
 
-            {/* Standard Nav Items */}
-            {mainNav.map((item) => (
+            {/* Standard Nav Items (Knowledge Hub opens its sub-pages) */}
+            {mainNav.map((item) =>
+              item.href === "/knowledge-hub/" ? (
+                <div key={item.href} className="rounded-lg bg-slate-50/70 border border-slate-100 overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setMobileKnowledge((v) => !v)}
+                    aria-expanded={mobileKnowledge}
+                    className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-semibold text-slate-800 hover:text-[#0056B3] transition cursor-pointer"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 text-slate-500 transition-transform duration-200",
+                        mobileKnowledge && "rotate-180"
+                      )}
+                    />
+                  </button>
+                  {mobileKnowledge && (
+                    <div className="border-t border-slate-100 bg-white px-3 py-1.5 space-y-1">
+                      {knowledgeLinks.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          onClick={() => setOpen(false)}
+                          className="block rounded-md px-2 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-[#0056B3]"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
               <Link
                 key={item.href}
                 href={item.href}
@@ -314,7 +354,8 @@ export function Header() {
               >
                 {item.label}
               </Link>
-            ))}
+              )
+            )}
 
             {/* Instrument Finder Link (Mobile) */}
             <div className="pt-2 border-t border-slate-100">
@@ -438,19 +479,55 @@ export function Header() {
               </div>
             </div>
 
-            {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onMouseEnter={() => {
-                  closeMegaMenuImmediately();
-                  closeAboutMenuImmediately();
-                }}
-                className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#cce1f9]"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {mainNav.map((item) =>
+              item.href === "/knowledge-hub/" ? (
+                <div
+                  key={item.href}
+                  className="group relative"
+                  onMouseEnter={() => {
+                    closeMegaMenuImmediately();
+                    closeAboutMenuImmediately();
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-haspopup="menu"
+                    className="flex cursor-default items-center gap-1.5 rounded-t-sm px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition group-hover:bg-white group-hover:text-[#0056B3] group-focus-within:bg-white group-focus-within:text-[#0056B3]"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180 group-hover:text-[#d00000]" />
+                  </button>
+                  <div
+                    role="menu"
+                    aria-orientation="vertical"
+                    className="invisible absolute left-0 top-full z-50 w-56 -translate-y-1 rounded-b-xl border border-slate-200 bg-white py-1.5 opacity-0 shadow-xl transition-all duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                  >
+                    {knowledgeLinks.map((sub) => (
+                      <Link
+                        key={sub.href}
+                        href={sub.href}
+                        role="menuitem"
+                        className="block px-4 py-2 text-xs font-semibold text-slate-800 transition hover:bg-slate-50 hover:text-[#0056B3]"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onMouseEnter={() => {
+                    closeMegaMenuImmediately();
+                    closeAboutMenuImmediately();
+                  }}
+                  className="px-3.5 py-3 text-xs font-bold uppercase tracking-[0.08em] text-white transition hover:text-[#cce1f9]"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
         </div>
 

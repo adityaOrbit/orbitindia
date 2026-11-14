@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { KNOWLEDGE_ARTICLES } from "@/data/knowledge-hub";
 import { ArticlesSection } from "@/components/knowledge/knowledge-hub-tabs";
-import { KnowledgeContactBand, KnowledgeNav, KnowledgeSubHeader } from "@/components/knowledge/knowledge-pages";
+import { KnowledgeContactBand, KnowledgeSubHeader } from "@/components/knowledge/knowledge-pages";
 
 export const metadata: Metadata = {
   title: "Blogs — Testing Methods, Standards & Instruments | Orbit Technologies Knowledge Hub",
@@ -13,14 +13,11 @@ export const metadata: Metadata = {
 export default function KnowledgeBlogsPage() {
   return (
     <div className="bg-white">
-      <Breadcrumb items={[{ label: "Knowledge Hub", href: "/knowledge-hub/" }, { label: "Blogs" }]} />
+      <Breadcrumb items={[{ label: "Blogs" }]} />
       <KnowledgeSubHeader
         title="Blogs"
         intro="Practical guides on testing methods, standards and instruments."
-        count={KNOWLEDGE_ARTICLES.length}
-        countLabel="Blogs"
       />
-      <KnowledgeNav active="blogs" />
       <ArticlesSection articles={KNOWLEDGE_ARTICLES} />
       <KnowledgeContactBand />
     </div>

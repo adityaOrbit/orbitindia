@@ -65,7 +65,6 @@ export default async function KnowledgeArticleDetailPage({
       <JsonLd data={getKnowledgeArticleSchema(article)} />
       <Breadcrumb
         items={[
-          { label: "Knowledge Hub", href: "/knowledge-hub/" },
           { label: "Blogs", href: "/knowledge-hub/blogs/" },
           { label: article.title },
         ]}

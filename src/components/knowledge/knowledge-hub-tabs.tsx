@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Calculator, ClipboardList, Factory, FileSpreadsheet, FileText, type LucideIcon } from "lucide-react";
+import { ArrowRight, Calculator, ClipboardList, Factory, FileSpreadsheet, FileText } from "lucide-react";
 import type {
   KnowledgeArticle,
   StandardOperatingProcedure,
@@ -11,7 +11,7 @@ import type {
   InteractiveToolMeta,
 } from "@/data/knowledge-hub";
 import { HubLayout, type HubItem } from "@/components/knowledge/hub-section";
-import { Eyebrow, h2Cls, articleImage } from "@/components/knowledge/hub-ui";
+import { h2Cls, articleImage } from "@/components/knowledge/hub-ui";
 
 /** Reader-facing topics; each groups one or more article categories. */
 const TOPICS: { label: string; categories: string[] }[] = [
@@ -25,8 +25,10 @@ const topicOf = (category: string) =>
   TOPICS.find((t) => t.categories.includes(category))?.label ?? category;
 
 const sectionCls = "scroll-mt-16 py-14 sm:py-20 lg:py-[88px]";
+/** Tighter top for sections that sit straight under the page header (no section heading). */
+const sectionTopCls = "scroll-mt-16 pt-10 pb-14 sm:pt-12 sm:pb-20 lg:pb-[88px]";
 
-/** Section heading: short label as the eyebrow, the section's intro line as the heading, optional "View all" link. */
+/** Section heading: the section name as the heading and its description underneath. */
 function SectionHeading({
   label,
   heading,
@@ -43,9 +45,9 @@ function SectionHeading({
   return (
     <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-3xl">
-        <Eyebrow>{label}</Eyebrow>
-        <h2 className={`mt-3 text-[var(--ink)] ${h2Cls}`}>{heading}</h2>
-        {sub && <p className="mt-2.5 text-base leading-relaxed text-[var(--ink-3)]">{sub}</p>}
+        <h2 className={`text-[var(--ink)] ${h2Cls}`}>{label}</h2>
+        <p className="mt-2.5 text-base leading-relaxed text-[var(--ink-3)]">{heading}</p>
+        {sub && <p className="mt-1 text-base leading-relaxed text-[var(--ink-3)]">{sub}</p>}
       </div>
       {moreHref && (
         <Link href={moreHref} className="link-more min-h-[44px] shrink-0 lg:min-h-0">
@@ -106,30 +108,19 @@ const toolItems = (tools: InteractiveToolMeta[]): HubItem[] =>
 
 /* ------------------------------- sections ------------------------------- */
 
-/**
- * Blogs: wide feature card + tall card + grid, with a topic filter.
- * `preview` (hub overview) shows the latest five without the filter and links to the Blogs page.
- */
-export function ArticlesSection({ articles, preview = false }: { articles: KnowledgeArticle[]; preview?: boolean }) {
+/** Blogs: wide feature card + tall card + grid, with a topic filter. */
+export function ArticlesSection({ articles }: { articles: KnowledgeArticle[] }) {
   const [topic, setTopic] = useState<string>("All");
   const topicNames = [
     "All",
     ...TOPICS.map((t) => t.label).filter((l) => articles.some((a) => topicOf(a.category) === l)),
   ];
-  const filtered = articles.filter((a) => preview || topic === "All" || topicOf(a.category) === topic);
-  const items = articleItems(preview ? filtered.slice(0, 5) : filtered);
+  const items = articleItems(articles.filter((a) => topic === "All" || topicOf(a.category) === topic));
 
   return (
-    <section id="articles" className={`bg-white ${sectionCls}`}>
+    <section id="articles" className={`bg-white ${sectionTopCls}`}>
       <div className="container-x">
-        <SectionHeading
-          label="Blogs"
-          heading="Practical guides on testing methods, standards and instruments."
-          moreHref={preview ? "/knowledge-hub/blogs/" : undefined}
-          moreLabel="View all blogs"
-        />
-
-        {!preview && (
+        {(
           <div className="-mx-4 mb-8 overflow-x-auto px-4 sm:mx-0 sm:px-0">
             <div className="flex w-max items-center gap-x-6 border-b border-[var(--line)] sm:w-auto">
               {topicNames.map((name) => {
@@ -157,8 +148,8 @@ export function ArticlesSection({ articles, preview = false }: { articles: Knowl
         <HubLayout
           key={topic}
           items={items}
-          gridOnly={!preview && topic !== "All"}
-          gridHeading={preview ? "More blogs" : "Explore all blogs"}
+          gridOnly={topic !== "All"}
+          gridHeading="Explore all blogs"
           viewAllLabel="Show more blogs"
         />
       </div>
@@ -177,10 +168,12 @@ function ResourceSection({
   pale = false,
   moreHref,
   moreLabel,
+  showHeading = true,
 }: {
   id: string;
   title: string;
   heading: string;
+  showHeading?: boolean;
   sub?: string;
   items: HubItem[];
   viewAllLabel: string;
@@ -190,9 +183,11 @@ function ResourceSection({
 }) {
   if (!items.length) return null;
   return (
-    <section id={id} className={`${pale ? "bg-[#f3f5f8]" : "bg-white"} ${sectionCls}`}>
+    <section id={id} className={`${pale ? "bg-[#f3f5f8]" : "bg-white"} ${showHeading ? sectionCls : sectionTopCls}`}>
       <div className="container-x">
-        <SectionHeading label={title} heading={heading} sub={sub} moreHref={moreHref} moreLabel={moreLabel} />
+        {showHeading && (
+          <SectionHeading label={title} heading={heading} sub={sub} moreHref={moreHref} moreLabel={moreLabel} />
+        )}
         <HubLayout items={items} gridOnly gridHeading={title} viewAllLabel={viewAllLabel} />
       </div>
     </section>
@@ -239,15 +234,7 @@ export function UseCasesSection({ useCases, pale = false }: { useCases: Knowledg
   );
 }
 
-export function ToolsSection({
-  tools,
-  pale = false,
-  preview = false,
-}: {
-  tools: InteractiveToolMeta[];
-  pale?: boolean;
-  preview?: boolean;
-}) {
+export function ToolsSection({ tools, pale = false }: { tools: InteractiveToolMeta[]; pale?: boolean }) {
   return (
     <ResourceSection
       id="calculators"
@@ -256,71 +243,7 @@ export function ToolsSection({
       viewAllLabel="Show more tools"
       pale={pale}
       items={toolItems(tools)}
-      moreHref={preview ? "/knowledge-hub/tools/" : undefined}
-      moreLabel="Open all tools"
+      showHeading={false}
     />
-  );
-}
-
-/** Hub overview: the three resource libraries side by side, each with its count, three items and a link. */
-export function ResourcesOverview({
-  downloads,
-  sops,
-  useCases,
-}: {
-  downloads: DownloadItem[];
-  sops: StandardOperatingProcedure[];
-  useCases: KnowledgeUseCase[];
-}) {
-  const groups: { id: string; label: string; heading: string; items: HubItem[]; icon: LucideIcon }[] = [
-    { id: "downloads", label: "Downloads", heading: "Brochures, catalogues, application notes and guides.", items: downloadItems(downloads), icon: FileText },
-    { id: "sops", label: "SOPs", heading: "Step-by-step laboratory procedures for common instruments and test methods.", items: sopItems(sops), icon: ClipboardList },
-    { id: "use-cases", label: "Use Cases", heading: "How laboratories have used Orbit instruments to solve real testing challenges.", items: useCaseItems(useCases), icon: Factory },
-  ];
-
-  return (
-    <section id="resources" className={`bg-[#f3f5f8] ${sectionCls}`}>
-      <div className="container-x">
-        <SectionHeading
-          label="Resources"
-          heading="Downloads, SOPs and use cases"
-          moreHref="/knowledge-hub/resources/"
-          moreLabel="View all resources"
-        />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {groups.map((g) => (
-            <div key={g.id} className="flex min-w-0 flex-col rounded-md border border-[var(--line)] bg-white">
-              <div className="border-b border-[var(--line)] p-6">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-[family-name:var(--font-poppins)] text-lg font-semibold text-[var(--ink)]">{g.label}</span>
-                  <span className="font-[family-name:var(--font-poppins)] text-[2.25rem] font-semibold leading-none tracking-[-0.02em] text-[var(--ink)] tnum">
-                    {g.items.length}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--ink-3)]">{g.heading}</p>
-              </div>
-              <ul className="flex-1">
-                {g.items.slice(0, 3).map((it) => (
-                  <li key={it.key} className="border-b border-[var(--line)] last:border-b-0">
-                    <Link href={it.href} className="group flex min-h-[44px] items-start gap-3 px-6 py-4 hover:bg-[var(--soft)]">
-                      <g.icon className="mt-0.5 h-4 w-4 shrink-0 text-[#0056B3]" strokeWidth={1.75} aria-hidden="true" />
-                      <span className="min-w-0 text-[15px] font-medium leading-snug text-[var(--ink)] group-hover:text-[#0056B3]">
-                        {it.title}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={`/knowledge-hub/resources/#${g.id}`}
-                className="link-more min-h-[44px] border-t border-[var(--line)] px-6 py-4 lg:min-h-0"
-              >
-                View all {g.label.toLowerCase()} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
